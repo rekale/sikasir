@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Sikasir\Events;
 
 abstract class Event
 {

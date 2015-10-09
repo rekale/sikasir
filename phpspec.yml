@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: Sikasir
+        psr4_prefix: Sikasir
         src_path: app
