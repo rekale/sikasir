@@ -145,7 +145,8 @@ return [
         Sikasir\Providers\EventServiceProvider::class,
         Sikasir\Providers\RouteServiceProvider::class,
         
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+
 
     ],
 
