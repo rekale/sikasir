@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/composer.json</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/AuthController.php</file>
-            <file>file:/D:/project/kasir/config/jwt.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2014_10_12_000000_create_users_table.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/Auth/AuthController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Kernel.php</file>
-            <file>file:/D:/project/kasir/config/app.php</file>
         </group>
     </open-files>
 </project-private>
