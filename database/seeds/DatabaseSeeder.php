@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
     protected $tables = [
         'users',
         'members',
-        'operator',
+        'operators',
         'apps',
         'outlets',
     ];
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
      * @var array
      */
     protected $seeders = [
-        
+        'UserSeeder'
     ];
 
     /**
