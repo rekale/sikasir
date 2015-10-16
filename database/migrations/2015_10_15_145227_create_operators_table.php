@@ -15,6 +15,7 @@ class CreateOperatorsTable extends Migration
         Schema::create('operators', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('member_id')->unsigned()->index();
+            $table->integer('outlet_id')->unsigned()->index();
             $table->string('name');
             $table->string('phone');
             $table->text('address');
@@ -25,6 +26,11 @@ class CreateOperatorsTable extends Migration
             $table->foreign('member_id')
                   ->references('id')
                   ->on('members')
+                  ->onDelete('cascade');
+            
+             $table->foreign('outlet_id')
+                  ->references('id')
+                  ->on('outlets')
                   ->onDelete('cascade');
         });
     }

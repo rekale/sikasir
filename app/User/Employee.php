@@ -33,7 +33,7 @@ class Employee extends Model
     }
     
     /**
-     * an employee working for one boss/chief
+     * an employee working for one owner
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -41,5 +41,15 @@ class Owner extends Model
     {
         return $this->hasMany(Employee::class, 'member_id');
     }
+    
+    /**
+     * owner has many outlets
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function outlets()
+    {
+       return $this->hasMany(\Sikasir\Outlet::class, 'member_id'); 
+    }
 
 }
