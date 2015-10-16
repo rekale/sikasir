@@ -34,7 +34,7 @@ class Outlet extends Model
      */
     public function employees()
     {
-        return $this->hasMany(Employee::class, 'member_id');
+        return $this->hasMany(User\Employee::class, 'outlet_id');
     }
     
     /**

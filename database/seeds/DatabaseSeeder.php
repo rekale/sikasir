@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
      * @var array
      */
     protected $seeders = [
-        'UserSeeder'
+        'UserSeeder',
+        'OutletSeeder',
     ];
 
     /**
