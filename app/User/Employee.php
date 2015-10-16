@@ -18,7 +18,7 @@ class Employee extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'address', 'phone', 'city', 'void_access', 'icon'];
+    protected $fillable = ['name', 'address', 'phone', 'void_access', 'icon'];
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -29,17 +29,17 @@ class Employee extends Model
     
     public function user()
     {
-        return $this->morphOne('User', 'userable');
+        return $this->morphOne(User::class, 'userable');
     }
     
     /**
-     * an employee working for one owner
+     * an employee working in one outlet
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function owner()
+    public function outlet()
     {
-        return $this->belongsTo(Owner::class, 'member_id');
+        return $this->belongsTo(\Sikasir\Outlet::class, 'outlet_id');
     }
     
 }

@@ -18,7 +18,7 @@ class Owner extends Model
      *
      * @var array
      */
-    protected $fillable = ['full_name', 'business_name', 'phone', 'address', 'active'];
+    protected $fillable = ['full_name', 'business_name', 'phone', 'address', 'icon', 'active',];
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -29,17 +29,7 @@ class Owner extends Model
     
     public function user()
     {
-        return $this->morphOne('User', 'userable');
-    }
-    
-    /**
-     * owner has many employees
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function employees()
-    {
-        return $this->hasMany(Employee::class, 'member_id');
+        return $this->morphOne(User::class, 'userable');
     }
     
     /**
