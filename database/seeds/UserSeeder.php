@@ -32,7 +32,9 @@ class UserSeeder extends Seeder
                 'email' => $fake->email,
                 'password' => bcrypt('owner'),
             ]));
-            
+        }
+        
+        foreach(range(1, 30) as $i) {
             $employeeName = $fake->name;
            
             $employee = Sikasir\User\Employee::create([
@@ -48,7 +50,6 @@ class UserSeeder extends Seeder
                 'email' => $fake->email,
                 'password' => bcrypt('employee'),
             ]));
-            
         }
         
     }
