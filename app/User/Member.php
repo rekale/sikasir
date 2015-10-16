@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir;
+namespace Sikasir\User;
 
 use Illuminate\Database\Eloquent\Model;
 
