@@ -18,6 +18,7 @@ class CreateMembersTable extends Migration
             $table->string('business_name');
             $table->string('phone');
             $table->text('address');
+            $table->text('icon');
             $table->boolean('active', 0);
             $table->timestamps();
         });
