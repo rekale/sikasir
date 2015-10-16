@@ -14,7 +14,7 @@ class CreateOperatorsTable extends Migration
     {
         Schema::create('operators', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('outlet_id')->unsigned()->index();
+            $table->integer('outlet_id')->unsigned()->index()->nullable();
             $table->string('name');
             $table->string('phone');
             $table->text('address');
