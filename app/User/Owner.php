@@ -41,5 +41,15 @@ class Owner extends Model
     {
        return $this->hasMany(\Sikasir\Outlet::class, 'member_id'); 
     }
+    
+     /**
+     * owner has one app
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function app()
+    {
+       return $this->hasOne(App::class, 'member_id'); 
+    }
 
 }

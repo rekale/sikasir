@@ -26,10 +26,15 @@ class UserSeeder extends Seeder
                 'icon' => $fake->imageUrl(300, 200, 'people'),
                 'active' => $fake->boolean(),
             ]);
-           
+            
             $owner->user()->save(new User([
                 'name' => $name,
                 'email' => $fake->email,
+                'password' => bcrypt('owner'),
+            ]));
+            
+            $owner->app()->save(new \Sikasir\User\App([
+                'username' => 'owner',
                 'password' => bcrypt('owner'),
             ]));
         }
@@ -48,7 +53,7 @@ class UserSeeder extends Seeder
             $employee->user()->save(new User([
                 'name' => $employeeName,
                 'email' => $fake->email,
-                'password' => bcrypt('employee'),
+                'password' => bcrypt('12345'),
             ]));
         }
         
