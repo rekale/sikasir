@@ -3,7 +3,7 @@
 namespace Sikasir\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\User\Employee;
+use Sikasir\User\Owner;
 /**
  * Description of AppTransformer
  *
@@ -11,6 +11,16 @@ use Sikasir\User\Employee;
  */
 class OwnerTransformer extends TransformerAbstract
 {
+   
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'outlets',
+        'employees',
+    ]; 
     
     public function transform(Owner $owner)
     {
@@ -20,8 +30,22 @@ class OwnerTransformer extends TransformerAbstract
             'phone' => $owner->phone, 
             'address' => $owner->address, 
             'icon' => $owner->icon, 
-            'active' => $owner->active,
+            'active' => (boolean) $owner->active,
         ];
+    }
+    
+    public function includeOutlets(Owner $owner)
+    {
+        $outlets = $owner->outlets;
+        
+        return $this->collection($outlets, new OutletTransformer);
+    }
+    
+    public function includeEmployees(Owner $owner)
+    {
+        $employees = $owner->employees;
+        
+        return $this->collection($employees, new EmployeeTransformer);
     }
     
 }
