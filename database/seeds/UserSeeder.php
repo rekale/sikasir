@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             ]));
             
             $owner->app()->save(new \Sikasir\User\App([
-                'username' => 'owner',
+                'username' => $i === 1 ? 'owner':$name . rand(1, 10),
                 'password' => bcrypt('owner'),
             ]));
         }

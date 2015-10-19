@@ -15,7 +15,7 @@ class CreateAppsTable extends Migration
         Schema::create('apps', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('member_id')->unsigned()->index();
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             
             $table->foreign('member_id')
