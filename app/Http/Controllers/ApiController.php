@@ -11,7 +11,8 @@ class ApiController extends Controller
 {
     private $fractal;
     private $statusCode = 200;
-
+    private $include = [];
+    
     public function __construct(Manager $fractal, Request $request) 
     {
         $this->fractal = $fractal;
@@ -20,7 +21,13 @@ class ApiController extends Controller
             $this->fractal->parseIncludes( $request->input('include') );
         }
     }
+   
   
+    public function fractal()
+    {
+        return $this->fractal;
+    }
+    
     public function getStatusCode()
     {
         return $this->statusCode;
@@ -39,7 +46,7 @@ class ApiController extends Controller
         
         $rootScope = $this->fractal->createData($resource);
         
-        return $this->respondWithArray($rootScope->toArray()); 
+        return $this->respond($rootScope->toArray()); 
     }
     
     protected function respondWithCollection($collection, $callback)
@@ -48,12 +55,7 @@ class ApiController extends Controller
         
         $rootScope = $this->fractal->createData($resource);
         
-        return $this->respondWithArray($rootScope->toArray()); 
-    }
-    
-    protected function respondWithArray(array $array, array $headers = [])
-    {
-        return response()->json($array, $this->statusCode, $headers);    
+        return $this->respond($rootScope->toArray()); 
     }
     
     protected function respondNotFound($msg = 'Not Found')
