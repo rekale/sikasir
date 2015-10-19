@@ -16,7 +16,8 @@ class EmployeeTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $employee->id,
-            'name' => $employee->name,  
+            'name' => $employee->name,
+            'email' => $employee->user->email,
             'address' => $employee->address, 
             'phone'=> $employee->phone, 
             'void_access' => (boolean) $employee->void_access, 
