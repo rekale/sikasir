@@ -12,6 +12,9 @@ class Owner extends Model
      * @var string
      */
     protected $table = 'members';
+    
+    
+    protected $with = ['user'];
 
     /**
      * The attributes that are mass assignable.
@@ -40,6 +43,11 @@ class Owner extends Model
     public function outlets()
     {
        return $this->hasMany(\Sikasir\Outlet::class, 'member_id'); 
+    }
+    
+    public function employees()
+    {
+        return $this->hasManyThrough(Employee::class, \Sikasir\Outlet::class, 'member_id', 'outlet_id');
     }
     
      /**

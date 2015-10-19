@@ -12,7 +12,7 @@ class App extends Model
      * @var string
      */
     protected $table = 'apps';
-
+    
     /**
      * The attributes that are mass assignable.
      *
