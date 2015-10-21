@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->cleanMysqlDatabase();
+        $this->cleanPgsqlDatabase();
 
         foreach ($this->seeders as $seedClass)
         {
