@@ -2,6 +2,7 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    
     /**
      * The base URL to use while testing the application.
      *
@@ -21,5 +22,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+    
+    /**
+     * 
+     * 
+     */
+    public function fake()
+    {
+        return Faker\Factory::create();
     }
 }

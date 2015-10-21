@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'v1'], function()
 {
     
+    post('/auth/mobile/login', 'User\AuthController@mobileLogin');
+    post('/auth/login', 'User\AuthController@login');
     post('/signup', 'AuthController@authenticate');
     
     Route::post('/signin', function () {

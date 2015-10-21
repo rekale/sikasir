@@ -11,14 +11,16 @@ class ApiController extends Controller
 {
     private $fractal;
     private $statusCode = 200;
-    private $include = [];
+    private $request;
     
     public function __construct(Manager $fractal, Request $request) 
     {
         $this->fractal = $fractal;
         
+        $this->request = $request;
+        
         if ( $request->input('include') ) {
-            $this->fractal->parseIncludes( $request->input('include') );
+            $this->fractal->parseIncludes( $this->request->input('include') );
         }
     }
    
@@ -26,6 +28,16 @@ class ApiController extends Controller
     public function fractal()
     {
         return $this->fractal;
+    }
+    
+    /**
+     * get request class
+     * 
+     * @return Illuminate\Http\Request
+     */
+    public function request()
+    {
+        return $this->request;
     }
     
     public function getStatusCode()

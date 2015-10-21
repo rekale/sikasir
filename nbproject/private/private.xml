@@ -5,13 +5,11 @@
         <group>
             <file>file:/D:/project/kasir/config/auth.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_10_15_141826_create_outlets_table.php</file>
-            <file>file:/D:/project/kasir/app/User/Employee.php</file>
+            <file>file:/D:/project/kasir/app/Transformer/OutletTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/AuthController.php</file>
+            <file>file:/D:/project/kasir/tests/AuthApiTest.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/User/AuthController.php</file>
-            <file>file:/D:/project/kasir/app/Outlet.php</file>
-            <file>file:/D:/project/kasir/app/User/User.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_10_15_145227_create_operators_table.php</file>
-            <file>file:/D:/project/kasir/app/User/Owner.php</file>
         </group>
     </open-files>
 </project-private>
