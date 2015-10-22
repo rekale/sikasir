@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         'apps',
         'outlets',
         'employee_outlet',
+        'incomes',
     ];
 
     /**
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
     protected $seeders = [
         'UserSeeder',
         'OutletSeeder',
+        'FinanceSeeder'
     ];
 
     /**

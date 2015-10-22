@@ -34,9 +34,14 @@ class Employee extends Model
         return $this->morphOne(User::class, 'userable');
     }
     
+    /**
+     * employee can work in many outlet, *except kasir
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function outlets()
     {
         return $this->belongsToMany(\Sikasir\Outlet::class);
     }
-    
+     
 }

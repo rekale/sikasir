@@ -38,9 +38,19 @@ class Outlet extends Model
         return $this->belongsTo(User\Owner::class, 'owner_id');
     }
     
+    /**
+     * outlet have many employees
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function employees()
     {
-        return $this->belongsToMany(User\Employee::class);
+        return $this->BelongsToMany(User\Employee::class);
+    }
+    
+    public function incomes()
+    {
+        return $this->hasMany(Finances\Income::class, 'outlet_id');
     }
     
     

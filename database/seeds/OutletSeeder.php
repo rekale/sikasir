@@ -13,7 +13,7 @@ class OutletSeeder extends Seeder
     {
         
         $fake = Faker\Factory::create();
-        
+        //create an outlet for every owner
         Sikasir\User\Owner::all()->each(function($owner) use ($fake){
         
             foreach (range(1, rand(2, 5)) as $i) {
@@ -32,7 +32,7 @@ class OutletSeeder extends Seeder
             }
             
         });
-        
+        //add employees to every outlets
         Sikasir\Outlet::all()->each(function($outlet)
         {
             //attach  employees to outlet that have not outlet 
