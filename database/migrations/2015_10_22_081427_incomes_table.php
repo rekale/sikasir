@@ -13,8 +13,8 @@ class IncomesTable extends Migration
     public function up()
     {
         Schema::create('incomes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('outlet_id')->unsigned()->index();
+            $table->string('id', 36)->primary();
+            $table->string('outlet_id', 36)->index();
             $table->bigInteger('total')->unsigned();
             $table->text('note');
             $table->timestamps();

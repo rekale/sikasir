@@ -24,7 +24,7 @@ class OutletTransformer extends TransformerAbstract
     public function transform(Outlet $outlet)
     {
         return [
-            'id' => (int) $outlet->id,
+            'id' => $outlet->id,
             'name' => $outlet->name,
             'address' => $outlet->address, 
             'province' => $outlet->province, 

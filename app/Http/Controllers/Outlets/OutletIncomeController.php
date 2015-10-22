@@ -13,7 +13,7 @@ class OutletIncomeController extends ApiController
 {
     /**
      * 
-     * @param integer $id
+     * @param string $id
      */
    public function index($outletId)
    {
@@ -38,6 +38,7 @@ class OutletIncomeController extends ApiController
        }
        
        $income = new Income([
+           'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
            'total' => $this->request()->input('total'),
            'note' => $this->request()->input('note'),
        ]);

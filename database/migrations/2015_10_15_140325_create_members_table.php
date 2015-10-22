@@ -13,7 +13,7 @@ class CreateMembersTable extends Migration
     public function up()
     {
         Schema::create('owners', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id', 36)->primary();
             $table->string('full_name');
             $table->string('business_name');
             $table->string('phone');

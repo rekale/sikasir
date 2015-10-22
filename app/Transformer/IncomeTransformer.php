@@ -15,7 +15,7 @@ class IncomeTransformer extends TransformerAbstract
     public function transform(Income $income)
     {
         return [
-            'id' => (int) $income->id,
+            'id' => $income->id,
             'total' =>(int) $income->total,
             'note' => $income->note,
             'date' => (string) $income->created_at,

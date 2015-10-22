@@ -13,6 +13,8 @@ class Employee extends Model
      */
     protected $table = 'employees';
     
+    public $incrementing = false;
+    
     protected $with = ['user']; 
 
     /**
@@ -20,7 +22,7 @@ class Employee extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'address', 'phone', 'void_access', 'icon'];
+    protected $fillable = ['id', 'name', 'address', 'phone', 'void_access', 'icon'];
     
     /**
      * The attributes excluded from the model's JSON form.

@@ -15,7 +15,7 @@ class EmployeeTransformer extends TransformerAbstract
     public function transform(Employee $employee)
     {
         return [
-            'id' => (int) $employee->id,
+            'id' => $employee->id,
             'name' => $employee->name,
             'title' => $employee->title,
             'email' => $employee->user->email,

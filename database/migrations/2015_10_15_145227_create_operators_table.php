@@ -13,7 +13,7 @@ class CreateOperatorsTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id', 36)->primary();
             $table->string('name');
             $table->string('title');
             $table->string('phone');

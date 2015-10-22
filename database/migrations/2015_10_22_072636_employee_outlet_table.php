@@ -13,8 +13,8 @@ class EmployeeOutletTable extends Migration
     public function up()
     {
         Schema::create('employee_outlet', function (Blueprint $table) {
-            $table->integer('employee_id')->unsigned()->index();
-            $table->integer('outlet_id')->unsigned()->index();
+            $table->string('employee_id', 36)->index();
+             $table->string('outlet_id', 36)->index();
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
