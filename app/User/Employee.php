@@ -11,7 +11,7 @@ class Employee extends Model
      *
      * @var string
      */
-    protected $table = 'operators';
+    protected $table = 'employees';
     
     protected $with = ['user']; 
 

@@ -11,7 +11,7 @@ class Owner extends Model
      *
      * @var string
      */
-    protected $table = 'members';
+    protected $table = 'owners';
     
     
     protected $with = ['user'];
