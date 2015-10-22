@@ -34,6 +34,6 @@ class App extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(Owner::class, 'member_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 }

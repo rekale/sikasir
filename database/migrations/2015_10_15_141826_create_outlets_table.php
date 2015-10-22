@@ -14,7 +14,7 @@ class CreateOutletsTable extends Migration
     {
         Schema::create('outlets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('member_id')->unsigned()->index();
+            $table->integer('owner_id')->unsigned()->index();
             $table->text('name');
             $table->text('address');
             $table->string('province');
@@ -25,9 +25,9 @@ class CreateOutletsTable extends Migration
             $table->text('icon');
             $table->timestamps();
             
-            $table->foreign('member_id')
+            $table->foreign('owner_id')
                   ->references('id')
-                  ->on('members')
+                  ->on('owners')
                   ->onDelete('cascade');
         });
     }

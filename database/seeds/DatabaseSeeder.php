@@ -8,8 +8,8 @@ class DatabaseSeeder extends Seeder
      
     protected $tables = [
         'users',
-        'members',
-        'operators',
+        'owners',
+        'employees',
         'apps',
         'outlets',
     ];

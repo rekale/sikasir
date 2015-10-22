@@ -44,7 +44,7 @@ class Outlet extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(User\Owner::class, 'member_id');
+        return $this->belongsTo(User\Owner::class, 'owner_id');
     }
     
     

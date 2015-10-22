@@ -42,12 +42,12 @@ class Owner extends Model
      */
     public function outlets()
     {
-       return $this->hasMany(\Sikasir\Outlet::class, 'member_id'); 
+       return $this->hasMany(\Sikasir\Outlet::class, 'owner_id'); 
     }
     
     public function employees()
     {
-        return $this->hasManyThrough(Employee::class, \Sikasir\Outlet::class, 'member_id', 'outlet_id');
+        return $this->hasManyThrough(Employee::class, \Sikasir\Outlet::class, 'owner_id', 'outlet_id');
     }
     
      /**
@@ -57,7 +57,7 @@ class Owner extends Model
      */
     public function app()
     {
-       return $this->hasOne(App::class, 'member_id'); 
+       return $this->hasOne(App::class, 'owner_id'); 
     }
 
 }
