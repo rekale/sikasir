@@ -14,18 +14,14 @@ class CreateOperatorsTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('outlet_id')->unsigned()->index()->nullable();
             $table->string('name');
+            $table->string('title');
             $table->string('phone');
             $table->text('address');
             $table->boolean('void_access', 0);
             $table->text('icon');
             $table->timestamps();
             
-             $table->foreign('outlet_id')
-                  ->references('id')
-                  ->on('outlets')
-                  ->onDelete('cascade');
         });
     }
 

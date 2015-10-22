@@ -27,15 +27,6 @@ class Outlet extends Model
      */
     protected $hidden = ['created_at', 'updated_at'];
     
-    /**
-     * outlet has many employees
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function employees()
-    {
-        return $this->hasMany(User\Employee::class, 'outlet_id');
-    }
     
     /**
      * outlet belongs to one owner

@@ -34,14 +34,5 @@ class Employee extends Model
         return $this->morphOne(User::class, 'userable');
     }
     
-    /**
-     * an employee working in one outlet
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function outlet()
-    {
-        return $this->belongsTo(\Sikasir\Outlet::class, 'outlet_id');
-    }
     
 }
