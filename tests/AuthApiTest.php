@@ -6,12 +6,15 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AuthApiTest extends TestCase
 {
+    
+    use DatabaseTransactions;
+    
     /**
      * A basic functional test example.
      *
      * @return void
      */
-    public function test_app_login()
+    public function test_mobile_login()
     {
         
         $app = [
@@ -19,18 +22,18 @@ class AuthApiTest extends TestCase
             'password' => 'owner',
         ];
         
-        $this->json('POST', '/v1/auth/app/login', $app);
+        $this->json('POST', '/v1/auth/mobile/login', $app);
         
         $this->assertResponseOk();
         
     }
     
     /**
-     * A basic functional test example.
+     * test fail login for mobile
      *
      * @return void
      */
-    public function test_app_fail_login()
+    public function test_mobile_fail_login()
     {
         
         $app = [
@@ -38,9 +41,22 @@ class AuthApiTest extends TestCase
             'password' => 'noneexist',
         ];
         
-        $this->json('POST', '/v1/auth/app/login', $app);
+        $this->json('POST', '/v1/auth/mobile/login', $app);
         
         $this->assertResponseStatus(404);
         
+    }
+    
+    public function test_login()
+    {
+        
+        $input = [
+            'email' => 'pat67@ullrich.com',
+            'password' => 'owner',
+        ];
+          
+        $this->json('POST', '/v1/auth/login', $input);
+        
+        $this->assertResponseStatus(200);
     }
 }
