@@ -19,6 +19,7 @@ class OutletSeeder extends Seeder
             foreach (range(1, rand(2, 5)) as $i) {
                 
                 $owner->outlets()->save(new Sikasir\Outlet([
+                    'name' => $fake->word,
                     'address' => $fake->address, 
                     'province' => $fake->word, 
                     'city'=> $fake->city, 

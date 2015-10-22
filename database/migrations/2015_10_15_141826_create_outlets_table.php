@@ -15,6 +15,7 @@ class CreateOutletsTable extends Migration
         Schema::create('outlets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('member_id')->unsigned()->index();
+            $table->text('name');
             $table->text('address');
             $table->string('province');
             $table->string('city');

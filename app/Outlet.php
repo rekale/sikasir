@@ -18,7 +18,7 @@ class Outlet extends Model
      *
      * @var array
      */
-    protected $fillable = ['address', 'province', 'city', 'pos_code', 'phone1', 'phone2', 'icon'];
+    protected $fillable = ['name', 'address', 'province', 'city', 'pos_code', 'phone1', 'phone2', 'icon'];
     
     /**
      * The attributes excluded from the model's JSON form.
