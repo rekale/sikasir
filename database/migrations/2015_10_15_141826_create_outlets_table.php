@@ -13,8 +13,8 @@ class CreateOutletsTable extends Migration
     public function up()
     {
         Schema::create('outlets', function (Blueprint $table) {
-            $table->string('id', 36)->primary();
-            $table->string('owner_id', 36)->index();
+            $table->string('id', 32)->primary();
+            $table->string('owner_id', 32)->index();
             $table->text('name');
             $table->text('address');
             $table->string('province');

@@ -22,7 +22,7 @@ class FinanceSeeder extends Seeder
             foreach(range(1, 5) as $i) {
                 
                 $outlet->incomes()->save(new Income([
-                    'id' => Uuid::uuid4()->toString(),
+                    'id' => Uuid::uuid4()->getHex(),
                     'total' => $fake->numberBetween(1000, 1000000),
                     'note' => $fake->paragraph(),
                 ]));

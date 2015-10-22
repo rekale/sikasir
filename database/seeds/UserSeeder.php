@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         
         foreach (range(1, 5) as $i) {
             $name = $fake->name;
-            $id =  Uuid::uuid4()->toString();
+            $id =  Uuid::uuid4()->getHex();
             
             $owner = Sikasir\User\Owner::create([
                 'id' => $id,
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
         
         foreach(range(1, 30) as $i) {
             $employeeName = $fake->name;
-            $id =  Uuid::uuid4()->toString();
+            $id =  Uuid::uuid4()->getHex();
             
             $employee = Sikasir\User\Employee::create([
                 'id' => $id,
