@@ -5,6 +5,7 @@ namespace Sikasir\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\ApiController;
 use \Sikasir\Transformer\OwnerTransformer;
+use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends ApiController
 {
@@ -34,7 +35,7 @@ class AuthController extends ApiController
         
     }
     
-    public function login()
+    public function login(JWTAuth $auth)
     {
         
         $credentials = [
@@ -42,7 +43,7 @@ class AuthController extends ApiController
             'password' => $this->request()->input('password'),
         ];
         
-        if ( ! $token = \JWTAuth::attempt($credentials)) {
+        if ( ! $token = $auth->attempt($credentials)) {
             return $this->respondNotFound('email or password don\'t match our record');
         }
         
