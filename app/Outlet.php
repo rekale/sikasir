@@ -38,6 +38,11 @@ class Outlet extends Model
         return $this->belongsTo(User\Owner::class, 'owner_id');
     }
     
+    public function employees()
+    {
+        return $this->belongsToMany(User\Employee::class);
+    }
+    
     
 
     

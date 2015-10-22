@@ -44,6 +44,7 @@ class UserSeeder extends Seeder
            
             $employee = Sikasir\User\Employee::create([
                 'name' => $employeeName,
+                'title' => $fake->randomElement(['staff', 'kasir']),
                 'phone' => $fake->phoneNumber,
                 'address' => $fake->address,
                 'icon' => $fake->imageUrl(300, 200, 'people'),

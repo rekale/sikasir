@@ -36,9 +36,8 @@ class OutletSeeder extends Seeder
         Sikasir\Outlet::all()->each(function($outlet)
         {
             //attach  employees to outlet that have not outlet 
-            $outlet->employees()->saveMany(
-                    \Sikasir\User\Employee::whereOutletId(null)
-                    ->take(rand(1,2))->get()
+            $outlet->employees()->attach(
+                Sikasir\User\Employee::all()->random()
             );
             
         });

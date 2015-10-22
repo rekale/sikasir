@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
         'employees',
         'apps',
         'outlets',
+        'employee_outlet',
     ];
 
     /**

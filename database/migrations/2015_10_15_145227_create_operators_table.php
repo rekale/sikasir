@@ -32,6 +32,6 @@ class CreateOperatorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('operators');
+        Schema::drop('employees');
     }
 }

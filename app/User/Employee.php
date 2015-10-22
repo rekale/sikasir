@@ -34,5 +34,9 @@ class Employee extends Model
         return $this->morphOne(User::class, 'userable');
     }
     
+    public function outlets()
+    {
+        return $this->belongsToMany(\Sikasir\Outlet::class);
+    }
     
 }
