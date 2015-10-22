@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         'outlets',
         'employee_outlet',
         'incomes',
+        'outcomes',
     ];
 
     /**
@@ -22,7 +23,7 @@ class DatabaseSeeder extends Seeder
     protected $seeders = [
         'UserSeeder',
         'OutletSeeder',
-        'FinanceSeeder'
+        'FinanceSeeder',
     ];
 
     /**

@@ -30,6 +30,11 @@ Route::group(['prefix' => 'v1'], function()
         get('outlets/{outletId}/incomes', 'OutletIncomeController@index');
         post('outlets/{outletId}/incomes', 'OutletIncomeController@store');
         delete('outlets/{outletId}/incomes/{incomeId}', 'OutletIncomeController@destroy');
+        
+        get('outlets/{outletId}/outcomes', 'OutletOutcomeController@index');
+        post('outlets/{outletId}/outcomes', 'OutletOutcomeController@store');
+        delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutletOutcomeController@destroy');
+        
     });
     
     Route::group(['namespace' => 'Finances'], function()
