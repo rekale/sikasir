@@ -17,21 +17,29 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'v1'], function()
 {
+   
+    Route::group(['namespace' => 'User', 'prefix' => 'auth'], function()
+    {
+        post('mobile/login', 'AuthController@mobileLogin');
+        post('login', 'AuthController@login');
+        post('/signup', 'AuthController@signup');
+    });
     
-    post('/auth/mobile/login', 'User\AuthController@mobileLogin');
-    post('/auth/login', 'User\AuthController@login');
-    post('/signup', 'AuthController@authenticate');
+    Route::group(['namespace' => 'Outlets'], function()
+    {
+        get('outlets/{outletId}/incomes', 'OutletIncomeController@index');
+        post('outlets/{outletId}/incomes', 'OutletIncomeController@store');
+        delete('outlets/{outletId}/incomes/{incomeId}', 'OutletIncomeController@destroy');
+    });
     
-    Route::post('/signin', function () {
-        $credentials = \Request::only('email', 'password');
-
-        if ( ! $token = \JWTAuth::attempt($credentials)) {
-            return response()->json(false, HttpResponse::HTTP_UNAUTHORIZED);
-        }
-
-        return response()->json(compact('token'));
-     });
-     
+    Route::group(['namespace' => 'Finances'], function()
+    {
+        delete('incomes/{id}', 'IncomesController@destroy');
+        
+    });
+    
+    
+   
      Route::get('/restricted', [
    'middleware' => 'jwt.auth',
    function () {

@@ -56,4 +56,25 @@ class AuthController extends ApiController
         
     }
     
+    public function signup(JWTAuth $auth)
+    {
+        $data = $this->request()->only('email', 'password', 'name');
+        
+
+        try {
+            $user = \Sikasir\User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            ]);
+        } catch (Exception $e) {
+            
+            return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+        }
+
+        $token = $auth->fromUser($user);
+
+        return response()->json(compact('token'));
+    }
+    
 }
