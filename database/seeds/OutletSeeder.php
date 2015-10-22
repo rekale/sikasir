@@ -20,7 +20,7 @@ class OutletSeeder extends Seeder
             foreach (range(1, rand(2, 5)) as $i) {
                 
                 $owner->outlets()->save(new Sikasir\Outlet([
-                    'id' => Uuid::uuid4()->toString(),
+                    'id' => Uuid::uuid4()->getHex(),
                     'name' => $fake->word,
                     'address' => $fake->address, 
                     'province' => $fake->word, 
