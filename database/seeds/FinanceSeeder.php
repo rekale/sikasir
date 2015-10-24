@@ -19,7 +19,7 @@ class FinanceSeeder extends Seeder
         
         Outlet::all()->each(function ($outlet) use ($fake)
         {
-            foreach(range(1, 5) as $i) {
+            foreach(range(1, 20) as $i) {
                 
                 $outlet->incomes()->save(new Income([
                     'id' => Uuid::uuid4()->getHex(),
@@ -33,7 +33,7 @@ class FinanceSeeder extends Seeder
         
         Outlet::all()->each(function ($outlet) use ($fake)
         {
-            foreach(range(1, 5) as $i) {
+            foreach(range(1, 20) as $i) {
                 
                 $outlet->incomes()->save(new Outcome([
                     'id' => Uuid::uuid4()->getHex(),
