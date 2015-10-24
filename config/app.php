@@ -145,6 +145,10 @@ return [
         Sikasir\Providers\EventServiceProvider::class,
         Sikasir\Providers\RouteServiceProvider::class,
         
+        /**
+        * Third Party Service Providers...
+        */
+        DCN\RBAC\RBACServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
 

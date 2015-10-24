@@ -8,6 +8,11 @@ class DatabaseSeeder extends Seeder
      
     protected $tables = [
         'users',
+        'roles',
+        'role_user',
+        'permissions',
+        'permission_role',
+        'permission_user',
         'owners',
         'employees',
         'apps',

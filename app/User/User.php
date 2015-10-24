@@ -9,12 +9,15 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use DCN\RBAC\Traits\HasRoleAndPermission;
+use DCN\RBAC\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract
+                                    CanResetPasswordContract,
+                                    HasRoleAndPermissionContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, CanResetPassword, HasRoleAndPermission;
 
     /**
      * The database table used by the model.
@@ -43,4 +46,57 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->morphTo();
     }
+
+    public function allowed($providedPermission, Model $entity, $owner = true, $ownerColumn = 'user_id') {
+        
+    }
+
+    public function attachPermission($permission, $granted = TRUE) {
+        
+    }
+
+    public function attachRole($role, $granted = TRUE) {
+        
+    }
+
+    public function detachAllPermissions() {
+        
+    }
+
+    public function detachAllRoles() {
+        
+    }
+
+    public function detachPermission($permission) {
+        
+    }
+
+    public function detachRole($role) {
+        
+    }
+
+    public function getPermissions() {
+        
+    }
+
+    public function getRoles() {
+        
+    }
+
+    public function is($role, $all = false) {
+        
+    }
+
+    public function rolePermissions() {
+        
+    }
+
+    public function roles() {
+        
+    }
+
+    public function userPermissions() {
+        
+    }
+
 }
