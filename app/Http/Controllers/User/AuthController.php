@@ -13,7 +13,7 @@ class AuthController extends ApiController
     public function mobileLogin()
     {
         $username = $this->request()->input('username');
-        $password = $this->request()->input('password')
+        $password = $this->request()->input('password');
         
         
         $app = \Sikasir\User\App::whereUsername($username)->get();
