@@ -10,8 +10,8 @@ use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class ApiController extends Controller
 {
-    private $fractal;
-    private $statusCode = 200;
+    use \Sikasir\Traits\ApiRrespondTrait;
+    
     private $request;
     
     public function __construct(Manager $fractal, Request $request) 
@@ -39,18 +39,6 @@ class ApiController extends Controller
     public function request()
     {
         return $this->request;
-    }
-    
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
-    
-    public function setStatusCode($code)
-    {
-        $this->statusCode = $code;
-        
-        return $this;
     }
     
     protected function respondWithItem($item, $callback)
@@ -99,50 +87,5 @@ class ApiController extends Controller
         return $this->respond($rootScope->toArray()); 
     
     }
-    
-    /**
-     * resource not found
-     * 
-     * @param string $msg
-     */
-    protected function respondNotFound($msg = 'Not Found')
-    {
-        return $this->setStatusCode(404)->respondWithError($msg);
-    }
-    
-    /**
-     * resource not found
-     * 
-     * @param string $msg
-     */
-    protected function respondCreated($msg = 'created')
-    {
-        return $this->setStatusCode(201)->respondSuccess($msg);
-    }
-    
-    protected function respondSuccess($msg)
-    {
-        return $this->respond([
-            'success' => [
-                'message' => $msg,
-                'code' => $this->getStatusCode(),
-            ]
-        ]);
-    }
-    
-    protected function respondWithError($msg)
-    {
-        return $this->respond([
-            'error' => [
-                'message' => $msg,
-                'code' => $this->getStatusCode(),
-            ]
-        ]);
-    }
-    
-    protected function respond($data, $headers=[])
-    {
-        return response()->json($data, $this->getStatusCode(), $headers);
-    }
-    
+
 }
