@@ -17,13 +17,8 @@ class OutletIncomeController extends ApiController
      */
    public function index($outletId)
    {
-       $outlet = Outlet::with('incomes')->find($outletId);
        
-       if (! $outlet) {
-           return $this->respondNotFound('outlet not found');
-       }
-       
-       $incomes = $outlet->incomes()->paginate();
+       $incomes = Income::whereOutletId($outletId)->paginate();
        
        return $this->respondWithPaginated($incomes, new IncomeTransformer);
        
@@ -31,38 +26,26 @@ class OutletIncomeController extends ApiController
    
    public function store($outletId)
    {
-       $outlet = Outlet::find($outletId);
-       
-       if (! $outlet) {
-           return $this->respondNotFound('outlet not found');
-       }
-       
-       $income = new Income([
-           'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+       Income::create([
+           'id' => \Ramsey\Uuid\Uuid::uuid4()->getHex(),
+           'outlet_id' => $outletId,
            'total' => $this->request()->input('total'),
            'note' => $this->request()->input('note'),
        ]);
-       
-       $outlet->incomes()->save($income);
        
        return $this->respondCreated('new income has created');
    }
    
     public function destroy($outletId, $incomeId)
     {
-        $outlet = Outlet::find($outletId);
         
-        if(! $outlet) {
-            return $this->respondNotFound('outlet not found');
-        }
-        
-        $income = $outlet->incomes()->find($incomeId);
+        $income = Income::whereOutletId($outletId)->whereId($incomeId)->get();
         
         if(! $income) {
             return $this->respondNotFound('income not found');
         }
         
-        $income->delete();
+        Income::destroy($income[0]->id);
         
         return $this->respondSuccess('selected income has deleted');
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Income extends Model
 {
-    protected $fillable = ['id', 'total', 'note'];
+    protected $fillable = ['id', 'outlet_id', 'total', 'note'];
     
      /**
      * The attributes excluded from the model's JSON form.

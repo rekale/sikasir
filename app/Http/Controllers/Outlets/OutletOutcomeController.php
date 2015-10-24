@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\Outlet;
-use Sikasir\Transformer\IncomeTransformer;
-use Sikasir\Finances\Income;
+use Sikasir\Transformer\OutcomeTransformer;
+use Sikasir\Finances\Outcome;
 
 class OutletOutcomeController extends ApiController
 {
@@ -17,54 +17,37 @@ class OutletOutcomeController extends ApiController
      */
    public function index($outletId)
    {
-       $outlet = Outlet::with('incomes')->find($outletId);
        
-       if (! $outlet) {
-           return $this->respondNotFound('outlet not found');
-       }
+       $incomes = Outcome::whereOutletId($outletId)->paginate();
        
-       $outcomes = $outlet->incomes()->paginate();
-       
-       return $this->respondWithPaginated($outcomes, new IncomeTransformer);
+       return $this->respondWithPaginated($incomes, new OutcomeTransformer);
        
    }
    
    public function store($outletId)
    {
-       $outlet = Outlet::find($outletId);
-       
-       if (! $outlet) {
-           return $this->respondNotFound('outlet not found');
-       }
-       
-       $outcome = new Income([
-           'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+       Outcome::create([
+           'id' => \Ramsey\Uuid\Uuid::uuid4()->getHex(),
+           'outlet_id' => $outletId,
            'total' => $this->request()->input('total'),
            'note' => $this->request()->input('note'),
        ]);
        
-       $outlet->incomes()->save($outcome);
-       
-       return $this->respondCreated('new outcome has created');
+       return $this->respondCreated('new income has created');
    }
    
-    public function destroy($outletId, $outcomeId)
+    public function destroy($outletId, $incomeId)
     {
-        $outlet = Outlet::find($outletId);
         
-        if(! $outlet) {
-            return $this->respondNotFound('outlet not found');
+        $income = Outcome::whereOutletId($outletId)->whereId($incomeId)->get();
+        
+        if(! $income) {
+            return $this->respondNotFound('income not found');
         }
         
-        $outcome = $outlet->incomes()->find($outcomeId);
+        Outcome::destroy($income[0]->id);
         
-        if(! $outcome) {
-            return $this->respondNotFound('outcome not found');
-        }
-        
-        $outcome->delete();
-        
-        return $this->respondSuccess('selected outcome has deleted');
+        return $this->respondSuccess('selected income has deleted');
     }
    
 }
