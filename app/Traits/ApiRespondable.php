@@ -13,7 +13,8 @@ namespace Sikasir\Traits;
  *
  * @author rekale
  */
-trait ApiRrespondTrait {
+trait ApiRespondable 
+{
     
      private $fractal;
      private $statusCode = 200;

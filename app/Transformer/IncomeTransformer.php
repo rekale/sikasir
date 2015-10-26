@@ -11,11 +11,12 @@ use Sikasir\Finances\Income;
  */
 class IncomeTransformer extends TransformerAbstract
 {
+    use \Sikasir\Traits\IdObfuscater;
     
     public function transform(Income $income)
     {
         return [
-            'id' => $income->id,
+            'id' => $this->encode($income->id),
             'total' =>(int) $income->total,
             'note' => $income->note,
             'date' => (string) $income->created_at,

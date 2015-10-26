@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Sikasir\User\User;
-use Ramsey\Uuid\Uuid;
 
 class UserSeeder extends Seeder
 {
@@ -18,10 +17,8 @@ class UserSeeder extends Seeder
         
         foreach (range(1, 5) as $i) {
             $name = $fake->name;
-            $id =  Uuid::uuid4()->getHex();
             
             $owner = Sikasir\User\Owner::create([
-                'id' => $id,
                 'full_name' => $name,
                 'business_name' => $fake->word,
                 'phone' => $fake->phoneNumber,
@@ -31,7 +28,6 @@ class UserSeeder extends Seeder
             ]);
             
             $owner->user()->save(new User([
-                'id' => $id,
                 'name' => $name,
                 'email' => $fake->email,
                 'password' => bcrypt('owner'),
@@ -45,10 +41,7 @@ class UserSeeder extends Seeder
         
         foreach(range(1, 30) as $i) {
             $employeeName = $fake->name;
-            $id =  Uuid::uuid4()->getHex();
-            
             $employee = Sikasir\User\Employee::create([
-                'id' => $id,
                 'name' => $employeeName,
                 'title' => $fake->randomElement(['staff', 'kasir']),
                 'phone' => $fake->phoneNumber,
@@ -58,7 +51,6 @@ class UserSeeder extends Seeder
             ]);
            
             $employee->user()->save(new User([
-                'id' => $id,
                 'name' => $employeeName,
                 'email' => $fake->email,
                 'password' => bcrypt('12345'),

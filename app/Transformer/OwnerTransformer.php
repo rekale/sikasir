@@ -11,7 +11,7 @@ use Sikasir\User\Owner;
  */
 class OwnerTransformer extends TransformerAbstract
 {
-   
+   use \Sikasir\Traits\IdObfuscater;
     /**
      * List of resources possible to include
      *
@@ -25,6 +25,7 @@ class OwnerTransformer extends TransformerAbstract
     public function transform(Owner $owner)
     {
         return [
+            'id' => $this->encode($owner->id),
             'full_name' => $owner->full_name, 
             'business_name' => $owner->business_name, 
             'phone' => $owner->phone, 

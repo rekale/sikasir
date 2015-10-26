@@ -13,9 +13,9 @@ class CreateOutcomesTable extends Migration
     public function up()
     {
         Schema::create('outcomes', function (Blueprint $table) {
-            $table->string('id', 32)->primary();
-            $table->string('outlet_id', 32)->index();
-            $table->bigInteger('total')->unsigned();
+            $table->increments('id');
+            $table->integer('outlet_id')->unsigned()->index();
+            $table->integer('total')->unsigned();
             $table->text('note');
             $table->timestamps();
             

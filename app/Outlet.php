@@ -13,14 +13,12 @@ class Outlet extends Model
      */
     protected $table = 'outlets';
     
-    public $incrementing = false;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'name', 'address', 'province', 'city', 'pos_code', 'phone1', 'phone2', 'icon'];
+    protected $fillable = ['name', 'address', 'province', 'city', 'pos_code', 'phone1', 'phone2', 'icon'];
     
     /**
      * The attributes excluded from the model's JSON form.

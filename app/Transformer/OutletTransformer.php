@@ -11,7 +11,7 @@ use Sikasir\Outlet;
  */
 class OutletTransformer extends TransformerAbstract
 {
-    
+    use \Sikasir\Traits\IdObfuscater;
     /**
      * List of resources possible to include
      *
@@ -24,7 +24,7 @@ class OutletTransformer extends TransformerAbstract
     public function transform(Outlet $outlet)
     {
         return [
-            'id' => $outlet->id,
+            'id' => $this->encode($outlet->id),
             'name' => $outlet->name,
             'address' => $outlet->address, 
             'province' => $outlet->province, 

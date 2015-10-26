@@ -14,7 +14,7 @@ class CreateAppsTable extends Migration
     {
         Schema::create('apps', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('owner_id', 32)->index();
+            $table->integer('owner_id')->unsigned()->index();
             $table->string('username')->unique();
             $table->string('password');
             

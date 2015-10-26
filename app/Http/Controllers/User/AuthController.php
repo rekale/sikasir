@@ -77,4 +77,14 @@ class AuthController extends ApiController
         return response()->json(compact('token'));
     }
     
+    public function testEncode($id)
+    {
+        return $this->encode($id);
+    }
+    
+    public function testDecode($id)
+    {
+        return $this->decode($id);
+    }
+    
 }

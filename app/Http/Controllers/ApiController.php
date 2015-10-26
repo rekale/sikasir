@@ -7,10 +7,12 @@ use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
 use Illuminate\Http\Request;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use \Sikasir\Traits\ApiRespondable;
+use \Sikasir\Traits\IdObfuscater;
 
 class ApiController extends Controller
 {
-    use \Sikasir\Traits\ApiRrespondTrait;
+    use ApiRespondable, IdObfuscater;
     
     private $request;
     

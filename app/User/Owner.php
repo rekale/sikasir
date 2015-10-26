@@ -13,9 +13,6 @@ class Owner extends Model
      */
     protected $table = 'owners';
     
-    public $incrementing = false;
-    
-    
     protected $with = ['user'];
 
     /**
@@ -23,7 +20,7 @@ class Owner extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'full_name', 'business_name', 'phone', 'address', 'icon', 'active',];
+    protected $fillable = ['full_name', 'business_name', 'phone', 'address', 'icon', 'active',];
     
     /**
      * The attributes excluded from the model's JSON form.

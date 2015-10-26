@@ -11,11 +11,12 @@ use Sikasir\User\Employee;
  */
 class EmployeeTransformer extends TransformerAbstract
 {
+    use \Sikasir\Traits\IdObfuscater;
     
     public function transform(Employee $employee)
     {
         return [
-            'id' => $employee->id,
+            'id' => $this->encode($employee->id),
             'name' => $employee->name,
             'title' => $employee->title,
             'email' => $employee->user->email,
