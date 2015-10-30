@@ -3,15 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/app/Finances/Income.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/Finances/IncomesController.php</file>
-            <file>file:/D:/project/kasir/database/seeds/FinanceSeeder.php</file>
-            <file>file:/D:/project/kasir/tests/AuthApiTest.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
             <file>file:/D:/project/kasir/config/database.php</file>
             <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/User/AuthController.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/Outlets/OutletOutcomeController.php</file>
+            <file>file:/D:/project/kasir/config/app.php</file>
+            <file>file:/D:/project/kasir/vendor/barryvdh/laravel-cors/src/ServiceProvider.php</file>
+            <file>file:/D:/project/kasir/app/Http/routes.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2015_02_09_132439_create_permission_user_table.php</file>
+            <file>file:/D:/project/kasir/database/seeds/FinanceSeeder.php</file>
+            <file>file:/D:/project/kasir/app/Http/Middleware/DecodeId.php</file>
+            <file>file:/D:/project/kasir/tests/AuthApiTest.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/User/AuthController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Kernel.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/Outlets/OutletIncomeController.php</file>
         </group>
     </open-files>
 </project-private>

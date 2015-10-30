@@ -16,9 +16,10 @@ class OutletIncomeController extends ApiController
      * @param string $id
      */
    public function index($outletId)
-   {
+   {    
+       $id = $this->decode($outletId);
        
-       $incomes = Income::whereOutletId($outletId)->paginate();
+       $incomes = Income::whereOutletId($id)->paginate();
        
        return $this->respondWithPaginated($incomes, new IncomeTransformer);
        

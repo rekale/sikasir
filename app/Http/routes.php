@@ -22,39 +22,29 @@ Route::group(['prefix' => 'v1'], function()
         post('/signup', 'AuthController@signup');
     });
     
-    Route::group(['namespace' => 'Outlets'], function()
+    Route::group(['middleware' => 'jwt.auth'], function ()
     {
-        get('outlets/{outletId}/incomes', 'OutletIncomeController@index');
-        post('outlets/{outletId}/incomes', 'OutletIncomeController@store');
-        delete('outlets/{outletId}/incomes/{incomeId}', 'OutletIncomeController@destroy');
         
-        get('outlets/{outletId}/outcomes', 'OutletOutcomeController@index');
-        post('outlets/{outletId}/outcomes', 'OutletOutcomeController@store');
-        delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutletOutcomeController@destroy');
-        
-    });
-    
-    Route::group(['namespace' => 'Finances'], function()
-    {
-        delete('incomes/{id}', 'IncomesController@destroy');
-        
-    });
-    
-    
-   
-     Route::get('/restricted', [
-   'middleware' => 'jwt.auth',
-   function () {
-       $token = \JWTAuth::getToken();
-       $user = \JWTAuth::toUser($token);
+         Route::group(['namespace' => 'Outlets', 'middleware' => 'jwt.auth'], function()
+        {
+            get('outlets/{outletId}/incomes', 'OutletIncomeController@index');
+            post('outlets/{outletId}/incomes', 'OutletIncomeController@store');
+            delete('outlets/{outletId}/incomes/{incomeId}', 'OutletIncomeController@destroy');
 
-       return response()->json([
-           'data' => [
-               'email' => $user->email,
-               'registered_at' => $user->created_at->toDateTimeString()
-           ]
-       ]);
-   }
-]);
+            get('outlets/{outletId}/outcomes', 'OutletOutcomeController@index');
+            post('outlets/{outletId}/outcomes', 'OutletOutcomeController@store');
+            delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutletOutcomeController@destroy');
+
+        });
+
+        Route::group(['namespace' => 'Finances'], function()
+        {
+            delete('incomes/{id}', 'IncomesController@destroy');
+
+        });
+        
+        
+    });
+   
     
 });
