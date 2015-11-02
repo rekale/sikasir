@@ -11,43 +11,47 @@ use Sikasir\Finances\Outcome;
 
 class OutletOutcomeController extends ApiController
 {
+    protected $repo;
+    protected $req;
+    
+    public function __construct(OutletRepository $repo, Request $request) {
+        $this->repo = $repo;
+        $this->req = $request;
+    }
     /**
      * 
      * @param string $id
      */
    public function index($outletId)
-   {
+   {    
+       $outcomes = $this->repo->getOutcomes($outletId);
        
-       $incomes = Outcome::whereOutletId($outletId)->paginate();
-       
-       return $this->respondWithPaginated($incomes, new OutcomeTransformer);
+       return $this->respondWithPaginated($outcomes, new OutcomeTransformer);
        
    }
    
    public function store($outletId)
    {
-       Outcome::create([
-           'id' => \Ramsey\Uuid\Uuid::uuid4()->getHex(),
-           'outlet_id' => $outletId,
-           'total' => $this->request()->input('total'),
-           'note' => $this->request()->input('note'),
+       $saved = $this->repo->saveOutcome($outletId, [
+          'total' => $this->req->input('total'),
+          'note' => $this->req->input('note'), 
        ]);
        
-       return $this->respondCreated('new income has created');
+       return $saved ? $this->respondCreated('new outcome has created') : 
+           $this->respondCreateFailed('fail to create outcome');
    }
    
-    public function destroy($outletId, $incomeId)
+    public function destroy($outletId, $outcomeId)
     {
         
-        $income = Outcome::whereOutletId($outletId)->whereId($incomeId)->get();
+        $outcome = Outcome::whereOutletId($outletId)->whereId($outcomeId)->get();
         
-        if(! $income) {
-            return $this->respondNotFound('income not found');
+        if(! $outcome) {
+            return $this->respondNotFound('outcome not found');
         }
         
-        Outcome::destroy($income[0]->id);
+        Outcome::destroy($outcome[0]->id);
         
-        return $this->respondSuccess('selected income has deleted');
+        return $this->respondSuccess('selected outcome has deleted');
     }
-   
 }

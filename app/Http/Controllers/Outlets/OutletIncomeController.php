@@ -2,24 +2,32 @@
 
 namespace Sikasir\Http\Controllers\Outlets;
 
+use Sikasir\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\Outlet;
 use Sikasir\Transformer\IncomeTransformer;
 use Sikasir\Finances\Income;
+use Sikasir\Outlets\OutletRepository;
+use Illuminate\Http\Request;
 
-class OutletIncomeController extends ApiController
+class OutletIncomeController extends Controller
 {
+    protected $repo;
+    protected $req;
+    
+    public function __construct(OutletRepository $repo, Request $request) {
+        $this->repo = $repo;
+        $this->req = $request;
+    }
     /**
      * 
      * @param string $id
      */
    public function index($outletId)
    {    
-       $id = $this->decode($outletId);
-       
-       $incomes = Income::whereOutletId($id)->paginate();
+       $incomes = $this->repo->getIncomes($outletId);
        
        return $this->respondWithPaginated($incomes, new IncomeTransformer);
        
@@ -27,27 +35,20 @@ class OutletIncomeController extends ApiController
    
    public function store($outletId)
    {
-       Income::create([
-           'id' => \Ramsey\Uuid\Uuid::uuid4()->getHex(),
-           'outlet_id' => $outletId,
-           'total' => $this->request()->input('total'),
-           'note' => $this->request()->input('note'),
+       $saved = $this->repo->saveIncome($outletId, [
+          'total' => $this->req->input('total'),
+          'note' => $this->req->input('note'), 
        ]);
        
-       return $this->respondCreated('new income has created');
+       return $saved ? $this->respondCreated('new income has created') : 
+           $this->setStatusCode(409)->respondWithError('fail to create income');
    }
    
     public function destroy($outletId, $incomeId)
     {
         
-        $income = Income::whereOutletId($outletId)->whereId($incomeId)->get();
-        
-        if(! $income) {
-            return $this->respondNotFound('income not found');
-        }
-        
-        Income::destroy($income[0]->id);
-        
+        $this->repo->destroyIncome($outletId, $incomeId);
+                
         return $this->respondSuccess('selected income has deleted');
     }
    
