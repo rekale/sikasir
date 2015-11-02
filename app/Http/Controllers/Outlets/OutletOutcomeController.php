@@ -3,22 +3,19 @@
 namespace Sikasir\Http\Controllers\Outlets;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\Controller;
-use Sikasir\Outlet;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\Transformer\OutcomeTransformer;
-use Sikasir\Finances\Outcome;
 use League\Fractal\Manager;
 use Sikasir\Outlets\OutletRepository;
 
-class OutletOutcomeController extends Controller
+class OutletOutcomeController extends ApiController
 {
-    protected $repo;
-    protected $req;
+   protected $repo;
     
-    public function __construct(OutletRepository $repo, Request $request, Manager $fractal) {
+    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
+        parent::__construct($fractal);
+        
         $this->repo = $repo;
-        $this->req = $request;
-        $this->setFractal($fractal);
     }
     /**
      * 
@@ -32,11 +29,11 @@ class OutletOutcomeController extends Controller
        
    }
    
-   public function store($outletId)
+   public function store($outletId, Request $request)
    {
        $saved = $this->repo->saveOutcome($outletId, [
-          'total' => $this->req->input('total'),
-          'note' => $this->req->input('note'), 
+          'total' => $request->input('total'),
+          'note' => $request->input('note'), 
        ]);
        
        return $saved ? $this->respondCreated('new outcome has created') : 

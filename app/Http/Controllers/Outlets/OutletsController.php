@@ -10,5 +10,11 @@ use Sikasir\Transformer\IncomeTransformer;
 
 class OutletsController extends ApiController
 {
-  
+    protected $repo;
+    
+    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
+        parent::__construct($fractal);
+        
+        $this->repo = $repo;
+    }
 }

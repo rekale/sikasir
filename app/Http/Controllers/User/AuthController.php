@@ -3,24 +3,24 @@
 namespace Sikasir\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\Controller;
+use Sikasir\Http\Controllers\ApiController;
 use \Sikasir\Transformer\OwnerTransformer;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
-    protected $req;
-    protected $fractal;
+    protected $request;
     
-    public function __construct(Request $request, \League\Fractal\Manager $fractal) {
-        $this->req = $request;
-        $this->setFractal($fractal);
+    public function __construct(\League\Fractal\Manager $fractal, Request $request) {
+        parent::__construct($fractal);
+        
+        $this->request = $request;
     }
     
     public function mobileLogin()
     {
-        $username = $this->req->input('username');
-        $password = $this->req->input('password');
+        $username = $this->request->input('username');
+        $password = $this->request->input('password');
         
         
         $app = \Sikasir\User\App::whereUsername($username)->get();
@@ -46,8 +46,8 @@ class AuthController extends Controller
     {
         
         $credentials = [
-            'email' => $this->req->input('email'),
-            'password' => $this->req->input('password'),
+            'email' => $this->request->input('email'),
+            'password' => $this->request->input('password'),
         ];
         
         if ( ! $token = $auth->attempt($credentials)) {
@@ -65,7 +65,7 @@ class AuthController extends Controller
     
     public function signup(JWTAuth $auth)
     {
-        $data = $this->req->only('email', 'password', 'name');
+        $data = $this->request->only('email', 'password', 'name');
         
         try {
             $user = \Sikasir\User::create([
@@ -82,15 +82,5 @@ class AuthController extends Controller
 
         return response()->json(compact('token'));
     }
-    
-    public function testEncode($id)
-    {
-        return $this->encode($id);
-    }
-    
-    public function testDecode($id)
-    {
-        return $this->decode($id);
-    }
-    
+
 }

@@ -2,26 +2,22 @@
 
 namespace Sikasir\Http\Controllers\Outlets;
 
-use Sikasir\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 use Sikasir\Outlet;
 use Sikasir\Transformer\IncomeTransformer;
-use Sikasir\Finances\Income;
 use Sikasir\Outlets\OutletRepository;
 
-class OutletIncomeController extends Controller
+class OutletIncomeController extends ApiController
 {
-    protected $repo;
-    protected $req;
+   protected $repo;
     
-    public function __construct(OutletRepository $repo, Request $request, \League\Fractal\Manager $fractal) {
-        $this->repo = $repo;
-        $this->req = $request;
-        $this->setFractal($fractal);
+    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
+        parent::__construct($fractal);
         
+        $this->repo = $repo;
     }
+    
     /**
      * 
      * @param string $id
@@ -34,15 +30,15 @@ class OutletIncomeController extends Controller
        
    }
    
-   public function store($outletId)
+   public function store($outletId, Request $request)
    {
        $saved = $this->repo->saveIncome($outletId, [
-          'total' => $this->req->input('total'),
-          'note' => $this->req->input('note'), 
+          'total' => $request->input('total'),
+          'note' => $request->input('note'), 
        ]);
        
        return $saved ? $this->respondCreated('new income has created') : 
-           $this->setStatusCode(409)->respondWithError('fail to create income');
+           $this->respondCreateFailed('fail to create income');
    }
    
     public function destroy($outletId, $incomeId)

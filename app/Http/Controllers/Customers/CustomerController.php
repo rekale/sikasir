@@ -4,18 +4,12 @@ namespace Sikasir\Http\Controllers\Customers;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
-use Sikasir\Http\Controllers\Controller;
+use Sikasir\Http\Controllers\ApiController;
 
-class CustomersController extends Controller
+class CustomersController extends ApiController
 {
-    protected $repo;
-    protected $req;
-    
-    public function __construct(OutletRepository $repo, Request $request, \League\Fractal\Manager $fractal) {
-        $this->repo = $repo;
-        $this->req = $request;
-        $this->setFractal($fractal);
-        
+    public function __construct(\League\Fractal\Manager $fractal) {
+        parent::__construct($fractal);
     }
     
     /**

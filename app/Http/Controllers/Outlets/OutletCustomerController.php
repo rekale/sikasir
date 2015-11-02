@@ -2,7 +2,6 @@
 
 namespace Sikasir\Http\Controllers\Outlets;
 
-use Sikasir\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
@@ -11,17 +10,16 @@ use Sikasir\Transformer\CustomerTransformer;
 use Sikasir\Finances\Customer;
 use Sikasir\Outlets\OutletRepository;
 
-class OutletCustomerController extends Controller
+class OutletCustomerController extends ApiController
 {
     protected $repo;
-    protected $req;
-    
-    public function __construct(OutletRepository $repo, Request $request, \League\Fractal\Manager $fractal) {
-        $this->repo = $repo;
-        $this->req = $request;
-        $this->setFractal($fractal);
+  
+    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
+        parent::__construct($fractal);
         
+        $this->repo = $repo;
     }
+    
     /**
      * 
      * @param string $id
@@ -34,16 +32,16 @@ class OutletCustomerController extends Controller
        
    }
    
-   public function store($outletId)
+   public function store($outletId, Request $request)
    {
        $saved = $this->repo->saveCustomer($outletId, [
-            'name' => $this->req->input('name'),
-            'email' => $this->req->input('email'), 
-            'sex' => $this->req->input('sex'), 
-            'phone' => $this->req->input('phone'), 
-            'address' => $this->req->input('address'), 
-            'city' => $this->req->input('city'), 
-            'pos_code' => $this->req->input('pos_code'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'), 
+            'sex' => $request->input('sex'), 
+            'phone' => $request->input('phone'), 
+            'address' => $request->input('address'), 
+            'city' => $request->input('city'), 
+            'pos_code' => $request->input('pos_code'),
        ]);
        
        return $saved ? $this->respondCreated('new customer has created') : 
