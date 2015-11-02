@@ -34,6 +34,10 @@ Route::group(['prefix' => 'v1'], function()
             get('outlets/{outletId}/outcomes', 'OutletOutcomeController@index');
             post('outlets/{outletId}/outcomes', 'OutletOutcomeController@store');
             delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutletOutcomeController@destroy');
+            
+            get('outlets/{outletId}/customers', 'OutletCustomerController@index');
+            post('outlets/{outletId}/customers', 'OutletCustomerController@store');
+            delete('outlets/{outletId}/customers/{customerId}', 'OutletCustomerController@destroy');
 
         });
 

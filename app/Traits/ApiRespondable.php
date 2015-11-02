@@ -8,6 +8,9 @@
 
 namespace Sikasir\Traits;
 
+use League\Fractal\Resource\Collection;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+
 /**
  * Description of ApiRrespondTrait
  *
@@ -16,9 +19,19 @@ namespace Sikasir\Traits;
 trait ApiRespondable 
 {
     
-     private $fractal;
      private $statusCode = 200;
-    
+     private $fractal;
+     
+     public function setFractal($fractal)
+     {
+         $this->fractal = $fractal;
+     }
+     
+     public function fractal()
+     {
+         return $this->fractal;
+     }
+     
     /**
     * get current status code, default is 200
     * 
@@ -102,7 +115,7 @@ trait ApiRespondable
     {
         $resource = new Item($item, $callback);
         
-        $rootScope = $this->fractal->createData($resource);
+        $rootScope = $this->fractal()->createData($resource);
         
         return $this->respond($rootScope->toArray()); 
     }
@@ -118,7 +131,7 @@ trait ApiRespondable
     {
         $resource = new Collection($collection, $callback);
      
-        $rootScope = $this->fractal->createData($resource);
+        $rootScope = $this->fractal()->createData($resource);
         
         return $this->respond($rootScope->toArray()); 
     }
@@ -139,7 +152,7 @@ trait ApiRespondable
         
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
         
-        $rootScope = $this->fractal->createData($resource);
+        $rootScope = $this->fractal()->createData($resource);
         
         return $this->respond($rootScope->toArray()); 
     

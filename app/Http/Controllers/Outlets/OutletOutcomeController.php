@@ -3,20 +3,22 @@
 namespace Sikasir\Http\Controllers\Outlets;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Requests;
-use Sikasir\Http\Controllers\ApiController;
+use Sikasir\Http\Controllers\Controller;
 use Sikasir\Outlet;
 use Sikasir\Transformer\OutcomeTransformer;
 use Sikasir\Finances\Outcome;
+use League\Fractal\Manager;
+use Sikasir\Outlets\OutletRepository;
 
-class OutletOutcomeController extends ApiController
+class OutletOutcomeController extends Controller
 {
     protected $repo;
     protected $req;
     
-    public function __construct(OutletRepository $repo, Request $request) {
+    public function __construct(OutletRepository $repo, Request $request, Manager $fractal) {
         $this->repo = $repo;
         $this->req = $request;
+        $this->setFractal($fractal);
     }
     /**
      * 
@@ -44,14 +46,8 @@ class OutletOutcomeController extends ApiController
     public function destroy($outletId, $outcomeId)
     {
         
-        $outcome = Outcome::whereOutletId($outletId)->whereId($outcomeId)->get();
-        
-        if(! $outcome) {
-            return $this->respondNotFound('outcome not found');
-        }
-        
-        Outcome::destroy($outcome[0]->id);
-        
+        $this->repo->destroyOutcome($outletId, $outcomeId);
+                
         return $this->respondSuccess('selected outcome has deleted');
     }
 }

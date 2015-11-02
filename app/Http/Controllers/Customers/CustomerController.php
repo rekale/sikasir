@@ -8,6 +8,16 @@ use Sikasir\Http\Controllers\Controller;
 
 class CustomersController extends Controller
 {
+    protected $repo;
+    protected $req;
+    
+    public function __construct(OutletRepository $repo, Request $request, \League\Fractal\Manager $fractal) {
+        $this->repo = $repo;
+        $this->req = $request;
+        $this->setFractal($fractal);
+        
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +25,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

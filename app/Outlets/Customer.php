@@ -8,7 +8,7 @@ class Customer extends Model
 {
     protected $table = 'customers';
     
-    protected $fillable = ['name', 'email', 'title', 'sex', 'phone', 'address', 'city', 'pos_code'];
+    protected $fillable = ['name', 'email', 'sex', 'phone', 'address', 'city', 'pos_code'];
     
     
     protected $hidden = ['created_at', 'updated_at'];

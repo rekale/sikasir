@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Sikasir\Outlets\Outlet;
+use Sikasir\Outlets\Customer;
 
 class CustomerSeeder extends Seeder
 {
@@ -13,17 +15,23 @@ class CustomerSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
         
-        foreach (range(1, 10) as $i) {
-            Sikasir\Outlets\Customer::create([
-                'name' => $fake->name, 
-                'email' => $fake->email, 
-                'sex' => $fake->randomElement(['male', 'female']), 
-                'phone' => $fake->phoneNumber, 
-                'address' => $fake->address, 
-                'city' => $fake->city, 
-                'pos_code' => $fake->postcode,
-            ]);
-        }
+        Outlet::all()->each(function ($outlet) use ($fake)
+        {
+            foreach(range(1, 20) as $i) {
+                
+                $outlet->customers()->save(new Customer([
+                    'name' => $fake->name,
+                    'email' => $fake->email, 
+                    'sex' => $fake->randomElement(['male', 'female']), 
+                    'phone' => $fake->phoneNumber, 
+                    'address' => $fake->address, 
+                    'city' => $fake->city, 
+                    'pos_code' => $fake->postcode,
+                ]));
+            
+            }
+                
+        });
         
     }
 }

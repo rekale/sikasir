@@ -14,14 +14,21 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('outlet_id')->unsigned()->index();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('sex');
             $table->string('phone');
-            $table->string('address');
+            $table->text('address');
             $table->string('city');
             $table->string('pos_code');
             $table->timestamps();
+            
+            $table->foreign('outlet_id')
+                  ->references('id')
+                  ->on('outlets')
+                  ->onDelete('cascade');
+           
         });
     }
 

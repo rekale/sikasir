@@ -2,7 +2,7 @@
 
 namespace Sikasir\Outlets;
 
-use Sikasir\Intefaces\Repository;
+use Sikasir\Interfaces\Repository;
 /**
  * Description of OutletRepository
  *
@@ -10,8 +10,9 @@ use Sikasir\Intefaces\Repository;
  */
 class OutletRepository extends Repository
 {
-    protected function __construct(Outlet $outlet) {
-        $this->model = $outlet;
+    
+    public function __construct(Outlet $outlet) {
+        parent::__construct($outlet);
     }
     
     /**
@@ -25,8 +26,8 @@ class OutletRepository extends Repository
      */
     public function getIncomes($outletId, $paginated = true, $perPage = 10)
     {
-        return $paginated ? $this->find($outletId)->incomes 
-                : $this->find($outletId)->incomes()->paginate($perPage);
+        return $paginated ? $this->findWith($outletId, ['incomes'])->incomes()->paginate($perPage) : 
+            $this->find($outletId)->incomes ;
     }
     
     /**
@@ -73,8 +74,8 @@ class OutletRepository extends Repository
      */
     public function getOutcomes($outletId, $paginated = true, $perPage = 10)
     {
-        return $paginated ? $this->find($outletId)->outcomes 
-                : $this->find($outletId)->incomes()->paginate($perPage);
+           return $paginated ? $this->findWith($outletId, ['outcomes'])->outcomes()->paginate($perPage) : 
+            $this->find($outletId)->incomes ;
     }
     
     /**
@@ -108,5 +109,53 @@ class OutletRepository extends Repository
         }
         
         return $this->find($outletId)->outcomes()->destroy($data);   
+    }
+    
+    /**
+     * get customers for specific outlet
+     * 
+     * @param integer $outletId
+     * @param boolean $paginated
+     * @param integer $perPage
+     * 
+     * @return Collection | Paginator
+     */
+    public function getCustomers($outletId, $paginated = true, $perPage = 10)
+    {
+           return $paginated ? $this->findWith($outletId, ['customers'])->customers()->paginate($perPage) : 
+            $this->find($outletId)->incomes ;
+    }
+    
+    /**
+     * save oustomers for specific outlet
+     * 
+     * @param integer $outletId
+     * @param array $data
+     * @return boolean
+     */
+    public function saveCustomers($outletId, array $data)
+    {
+        return $this->find($outletId)->customers()->save($data);   
+    }
+    
+    /**
+     * delete customers for specific outlet
+     * 
+     * @param integer $outletId
+     * @param integer|array $data
+     * @return boolean
+     */
+    public function destroyCustomers($outletId, $data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $id => $value) {   
+                $data[$id] = $this->decode($value);                
+            }
+        }
+        else {
+            $data = $this->decode($data);
+        }
+        
+        return $this->find($outletId)->customers()->destroy($data);   
     }
 }

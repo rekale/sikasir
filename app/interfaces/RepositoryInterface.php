@@ -28,7 +28,7 @@ interface RepositoryInterface
     /**
      * get all resources
      * 
-     * @param array $coloumns
+     * @param array $coloumns = ['*']
      */
     public function getAll(array $coloumns = ['*']);
     

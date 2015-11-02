@@ -53,6 +53,15 @@ class Outlet extends Model
         return $this->hasMany(\Sikasir\Finances\Income::class, 'outlet_id');
     }
     
+    public function outcomes()
+    {
+        return $this->hasMany(\Sikasir\Finances\Outcome::class, 'outlet_id');
+    }
+    
+    public function customers()
+    {
+        return $this->hasMany(Customer::class, 'outlet_id');
+    }
     
 
     

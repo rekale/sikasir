@@ -10,16 +10,17 @@ use Sikasir\Outlet;
 use Sikasir\Transformer\IncomeTransformer;
 use Sikasir\Finances\Income;
 use Sikasir\Outlets\OutletRepository;
-use Illuminate\Http\Request;
 
 class OutletIncomeController extends Controller
 {
     protected $repo;
     protected $req;
     
-    public function __construct(OutletRepository $repo, Request $request) {
+    public function __construct(OutletRepository $repo, Request $request, \League\Fractal\Manager $fractal) {
         $this->repo = $repo;
         $this->req = $request;
+        $this->setFractal($fractal);
+        
     }
     /**
      * 

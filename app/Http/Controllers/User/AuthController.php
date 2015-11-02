@@ -3,17 +3,24 @@
 namespace Sikasir\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\ApiController;
+use Sikasir\Http\Controllers\Controller;
 use \Sikasir\Transformer\OwnerTransformer;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends ApiController
+class AuthController extends Controller
 {
+    protected $req;
+    protected $fractal;
+    
+    public function __construct(Request $request, \League\Fractal\Manager $fractal) {
+        $this->req = $request;
+        $this->setFractal($fractal);
+    }
     
     public function mobileLogin()
     {
-        $username = $this->request()->input('username');
-        $password = $this->request()->input('password');
+        $username = $this->req->input('username');
+        $password = $this->req->input('password');
         
         
         $app = \Sikasir\User\App::whereUsername($username)->get();
@@ -39,8 +46,8 @@ class AuthController extends ApiController
     {
         
         $credentials = [
-            'email' => $this->request()->input('email'),
-            'password' => $this->request()->input('password'),
+            'email' => $this->req->input('email'),
+            'password' => $this->req->input('password'),
         ];
         
         if ( ! $token = $auth->attempt($credentials)) {
@@ -58,9 +65,8 @@ class AuthController extends ApiController
     
     public function signup(JWTAuth $auth)
     {
-        $data = $this->request()->only('email', 'password', 'name');
+        $data = $this->req->only('email', 'password', 'name');
         
-
         try {
             $user = \Sikasir\User::create([
             'name' => $data['name'],
