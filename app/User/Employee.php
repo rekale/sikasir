@@ -20,7 +20,7 @@ class Employee extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'address', 'phone', 'void_access', 'icon'];
+    protected $fillable = ['name', 'title', 'address', 'phone', 'void_access', 'icon'];
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -41,7 +41,7 @@ class Employee extends Model
      */
     public function outlets()
     {
-        return $this->belongsToMany(\Sikasir\Outlet::class);
+        return $this->belongsToMany(\Sikasir\Outlets\Outlet::class);
     }
      
 }

@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AuthApiTest extends TestCase
+class AuthTest extends TestCase
 {
     
     use DatabaseTransactions;
@@ -56,6 +56,7 @@ class AuthApiTest extends TestCase
         $employee = Sikasir\User\Employee::create([
             'name' => $employeeName,
             'phone' => $fake->phoneNumber,
+            'title' => $fake->randomElement(['staff', 'kasir']),
             'address' => $fake->address,
             'icon' => $fake->imageUrl(300, 200, 'people'),
             'void_access' => $fake->boolean(),

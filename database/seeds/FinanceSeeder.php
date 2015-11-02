@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\Outlet;
+use Sikasir\Outlets\Outlet;
 use Sikasir\Finances\Income;
 use Sikasir\Finances\Outcome;
 

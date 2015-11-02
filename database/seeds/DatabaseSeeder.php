@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         'employee_outlet',
         'incomes',
         'outcomes',
+        'customers',
     ];
 
     /**
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         'UserSeeder',
         'OutletSeeder',
         'FinanceSeeder',
+        'CustomerSeeder',
     ];
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir;
+namespace Sikasir\Outlets;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,7 +35,7 @@ class Outlet extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(User\Owner::class, 'owner_id');
+        return $this->belongsTo(\Sikasir\User\Owner::class, 'owner_id');
     }
     
     /**
@@ -45,12 +45,12 @@ class Outlet extends Model
      */
     public function employees()
     {
-        return $this->BelongsToMany(User\Employee::class);
+        return $this->BelongsToMany(\Sikasir\User\Employee::class);
     }
     
     public function incomes()
     {
-        return $this->hasMany(Finances\Income::class, 'outlet_id');
+        return $this->hasMany(\Sikasir\Finances\Income::class, 'outlet_id');
     }
     
     

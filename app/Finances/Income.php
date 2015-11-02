@@ -17,6 +17,6 @@ class Income extends Model
     
     public function outlet()
     {
-        return $this->belongsTo(\Sikasir\Outlet::class, 'outlet_id');
+        return $this->belongsTo(\Sikasir\Outlets\Outlet::class, 'outlet_id');
     }
 }

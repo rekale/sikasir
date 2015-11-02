@@ -18,7 +18,7 @@ class OutletSeeder extends Seeder
         
             foreach (range(1, rand(2, 5)) as $i) {
                 
-                $owner->outlets()->save(new Sikasir\Outlet([
+                $owner->outlets()->save(new \Sikasir\Outlets\Outlet([
                     'name' => $fake->word,
                     'address' => $fake->address, 
                     'province' => $fake->word, 
@@ -33,7 +33,7 @@ class OutletSeeder extends Seeder
             
         });
         //add employees to every outlets
-        Sikasir\Outlet::all()->each(function($outlet)
+        Sikasir\Outlets\Outlet::all()->each(function($outlet)
         {
             //attach  employees to outlet that have not outlet 
             $outlet->employees()->attach(

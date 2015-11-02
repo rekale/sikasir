@@ -41,12 +41,12 @@ class Owner extends Model
      */
     public function outlets()
     {
-       return $this->hasMany(\Sikasir\Outlet::class, 'owner_id'); 
+       return $this->hasMany(\Sikasir\Outlets\Outlet::class, 'owner_id'); 
     }
     
     public function employees()
     {
-        return $this->hasManyThrough(Employee::class, \Sikasir\Outlet::class, 'owner_id', 'outlet_id');
+        return $this->hasManyThrough(Sikasir\User\Employee::class, \Sikasir\Outlets\Outlet::class, 'owner_id', 'outlet_id');
     }
     
      /**

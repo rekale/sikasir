@@ -3,7 +3,7 @@
 namespace Sikasir\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\Outlet;
+use Sikasir\Outlets\Outlet;
 /**
  * Description of AppTransformer
  *
