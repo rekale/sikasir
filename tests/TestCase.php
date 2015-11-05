@@ -42,9 +42,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @param Collection $collection
      * @param TransformerAbstract $transformer
      */
-    public function createPaginated($paginator, $transformer)
+    public function createPaginated($paginator, $transformer, $include = [])
     {
         $fractal = app(League\Fractal\Manager::class);
+        
+        $fractal->parseIncludes($include);
         
         $collection = $paginator->getCollection();
         

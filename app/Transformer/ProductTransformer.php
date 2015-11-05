@@ -14,13 +14,22 @@ use Sikasir\Products\Product;
 class ProductTransformer extends TransformerAbstract
 {
    use \Sikasir\Traits\IdObfuscater;
-     
+   
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'variants',
+    ]; 
     
     public function transform(Product $product)
     {
         return [
             [
                 'id' => $this->encode($product->id),
+                'category' => $product->category->name ,
                 'name' => $product->name, 
                 'description' => $product->description, 
                 'barcode' => $product->barcode, 
@@ -29,5 +38,11 @@ class ProductTransformer extends TransformerAbstract
         ];
     }
    
+    public function includeVariants(Product $product)
+    {
+        $variants = $product->variants;
+        
+        return $this->collection($variants, new VariantTransformer);
+    }
     
 }

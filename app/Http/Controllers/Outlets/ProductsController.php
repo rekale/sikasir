@@ -28,7 +28,8 @@ class ProductsController extends ApiController
        
        $products = $this->repo->getProducts($outletId);
        
-       return $this->response->withPaginated($products, new ProductTransformer);
+       return $this->response->including('variants')
+               ->withPaginated($products, new ProductTransformer);
        
    }
 
