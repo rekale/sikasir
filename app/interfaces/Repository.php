@@ -5,11 +5,11 @@ namespace Sikasir\Interfaces;
 use \Illuminate\Database\Eloquent\Model;
 use Sikasir\Interfaces\RepositoryInterface;
 
-class Repository implements RepositoryInterface
+abstract class Repository implements RepositoryInterface
 {
     use \Sikasir\Traits\IdObfuscater;
     
-    protected $model;
+    private $model;
     
     public function __construct(Model $model) {
         $this->model = $model;
@@ -17,31 +17,30 @@ class Repository implements RepositoryInterface
     
     
     /**
-     * find specific resource by id
+     * find specific resource by obfuascated id
      * 
      * @param integer $id
      * 
-     * @return \Illuminate\Database\Eloquent\Collection|static[];
+     * @return \Illuminate\Support\Collection|static;
      */
     public function find($id) 
     {
-        $data = $this->decode($id);
+        $id = $this->decode($id);
         
-        return $this->model->find($data);
+        return $this->model->findOrFail($id);
     }
     
     /**
-     * find specific resource by id with its relationship
+     * find specific resource by obfuascated id with its relationship
      * 
      * @param integer $id
      * 
-     * @return \Illuminate\Database\Eloquent\Collection|static[];
+     * @return @return \Illuminate\Support\Collection
      */
     public function findWith($id, array $relations)
     {
-        $data = $this->decode($id);
         
-        return $this->model->with($relations)->find($data);
+        return $this->find($id)->with($relations)->get();
     }
 
     /**
@@ -91,9 +90,9 @@ class Repository implements RepositoryInterface
         return $this->model->all($coloumns);
     }
     
-    public function setModel($model)
+    public function getSome($take, $skip = 0)
     {
-        $this->model = $model;
+       return $this->model->take($take)->skip($skip)->get();
     }
-
+   
 }

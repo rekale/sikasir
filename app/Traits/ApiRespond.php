@@ -8,41 +8,42 @@
 
 namespace Sikasir\Traits;
 
+use \League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use \League\Fractal\TransformerAbstract;
+use League\Fractal\Resource\Item;
 
-/**
- * Description of ApiRrespondTrait
- *
- * @author rekale
- */
-trait ApiRespondable 
+class ApiRespond 
 {
     
      private $statusCode = 200;
      private $fractal;
      
-     public function setFractal($fractal)
-     {
+     public function __construct(Manager $fractal) {
          $this->fractal = $fractal;
      }
      
-     public function fractal()
+     /**
+      * include for fractal
+      * 
+      * @param type $include
+      * @return $this
+      */
+     public function including($include)
      {
-         return $this->fractal;
+         $this->fractal->parseIncludes($include);
+         
+         return $this;
      }
      
-    /**
-    * get current status code, default is 200
-    * 
-    * @return integer
-    */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
     
-    /**
+     public function getStatusCode()
+     {
+         return $this->statusCode;
+     }
+
+     /**
     * set status code
     * 
     * @return $this
@@ -59,9 +60,9 @@ trait ApiRespondable
      * 
      * @param string $msg
      */
-    protected function respondNotFound($msg = 'Not Found')
+    public function notFound($msg = 'Not Found')
     {
-        return $this->setStatusCode(404)->respondWithError($msg);
+        return $this->setStatusCode(404)->withError($msg);
     }
     
     /**
@@ -69,9 +70,9 @@ trait ApiRespondable
      * 
      * @param string $msg
      */
-    protected function respondCreated($msg = 'created')
+    public function created($msg = 'created')
     {
-        return $this->setStatusCode(201)->respondSuccess($msg);
+        return $this->setStatusCode(201)->success($msg);
     }
     
     /**
@@ -79,13 +80,13 @@ trait ApiRespondable
      * 
      * @param string $msg
      */
-    protected function respondCreateFailed($msg = 'fail to create')
+    public function createFailed($msg = 'fail to create')
     {
-        return $this->setStatusCode(409)->respondWithError($msg);
+        return $this->setStatusCode(409)->withError($msg);
     }
     
     
-    protected function respondSuccess($msg)
+    public function success($msg)
     {
         return $this->respond([
             'success' => [
@@ -95,7 +96,7 @@ trait ApiRespondable
         ]);
     }
     
-    protected function respondWithError($msg)
+    public function withError($msg)
     {
         return $this->respond([
             'error' => [
@@ -106,18 +107,9 @@ trait ApiRespondable
     }
 
 
-    protected function respond($data, $headers=[])
+    public function respond($data, $headers=[])
     {
         return response()->json($data, $this->getStatusCode(), $headers);
-    }
-    
-    protected function respondWithItem($item, $callback)
-    {
-        $resource = new Item($item, $callback);
-        
-        $rootScope = $this->fractal()->createData($resource);
-        
-        return $this->respond($rootScope->toArray()); 
     }
     
     /**
@@ -127,11 +119,11 @@ trait ApiRespondable
      * @param \Illuminate\Support\Collection $collection
      * @param Closure $callback
      */
-    protected function respondWithCollection($collection, $callback)
+    public function withCollection($collection, $callback)
     {
         $resource = new Collection($collection, $callback);
      
-        $rootScope = $this->fractal()->createData($resource);
+        $rootScope = $this->fractal->createData($resource);
         
         return $this->respond($rootScope->toArray()); 
     }
@@ -141,9 +133,9 @@ trait ApiRespondable
      * return data from paginator to json
      * 
      * @param Paginator $paginator
-     * @param Closure $callback
+     * @param \League\Fractal\TransformerAbstract $callback
      */
-    protected function respondWithPaginated($paginator, $callback)
+    public function withPaginated($paginator, TransformerAbstract $callback)
     {
     
         $collection = $paginator->getCollection();
@@ -152,9 +144,19 @@ trait ApiRespondable
         
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
         
-        $rootScope = $this->fractal()->createData($resource);
+        $rootScope = $this->fractal->createData($resource);
         
         return $this->respond($rootScope->toArray()); 
     
     }
+    
+    public function withItem($item, $callback)
+    {
+        $resource = new Item($item, $callback);
+        
+        $rootScope = $this->fractal->createData($resource);
+        
+        return $this->respond($rootScope->toArray()); 
+    }
+    
 }

@@ -8,12 +8,12 @@ use Sikasir\Outlet;
 use Sikasir\Transformer\IncomeTransformer;
 use Sikasir\Outlets\OutletRepository;
 
-class OutletIncomeController extends ApiController
+class IncomesController extends ApiController
 {
-   protected $repo;
+    protected $repo;
     
-    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
-        parent::__construct($fractal);
+    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+        parent::__construct($respond);
         
         $this->repo = $repo;
     }
@@ -26,7 +26,7 @@ class OutletIncomeController extends ApiController
    {    
        $incomes = $this->repo->getIncomes($outletId);
        
-       return $this->respondWithPaginated($incomes, new IncomeTransformer);
+       return $this->response->withPaginated($incomes, new IncomeTransformer);
        
    }
    
@@ -37,8 +37,8 @@ class OutletIncomeController extends ApiController
           'note' => $request->input('note'), 
        ]);
        
-       return $saved ? $this->respondCreated('new income has created') : 
-           $this->respondCreateFailed('fail to create income');
+       return $saved ? $this->response->created('new income has created') : 
+           $this->response->createFailed('fail to create income');
    }
    
     public function destroy($outletId, $incomeId)
@@ -46,7 +46,7 @@ class OutletIncomeController extends ApiController
         
         $this->repo->destroyIncome($outletId, $incomeId);
                 
-        return $this->respondSuccess('selected income has deleted');
+        return $this->response->success('selected income has deleted');
     }
    
 }

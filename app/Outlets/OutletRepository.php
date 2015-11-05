@@ -26,7 +26,7 @@ class OutletRepository extends Repository
      */
     public function getIncomes($outletId, $paginated = true, $perPage = 10)
     {
-        return $paginated ? $this->findWith($outletId, ['incomes'])->incomes()->paginate($perPage) : 
+        return $paginated ? $this->find($outletId)->incomes()->paginate($perPage) : 
             $this->find($outletId)->incomes ;
     }
     
@@ -74,8 +74,8 @@ class OutletRepository extends Repository
      */
     public function getOutcomes($outletId, $paginated = true, $perPage = 10)
     {
-           return $paginated ? $this->findWith($outletId, ['outcomes'])->outcomes()->paginate($perPage) : 
-            $this->find($outletId)->incomes ;
+           return $paginated ? $this->find($outletId)->outcomes()->paginate($perPage) : 
+            $this->find($outletId)->outcomes ;
     }
     
     /**
@@ -122,7 +122,7 @@ class OutletRepository extends Repository
      */
     public function getCustomers($outletId, $paginated = true, $perPage = 10)
     {
-           return $paginated ? $this->findWith($outletId, ['customers'])->customers()->paginate($perPage) : 
+           return $paginated ? $this->find($outletId)->customers()->paginate($perPage) : 
             $this->find($outletId)->incomes ;
     }
     
@@ -146,6 +146,43 @@ class OutletRepository extends Repository
      * @return boolean
      */
     public function destroyCustomers($outletId, $data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $id => $value) {   
+                $data[$id] = $this->decode($value);                
+            }
+        }
+        else {
+            $data = $this->decode($data);
+        }
+        
+        return $this->find($outletId)->customers()->destroy($data);   
+    }
+    
+    /**
+     * get products for specific outlet
+     * 
+     * @param integer $outletId
+     * @param boolean $paginated
+     * @param integer $perPage
+     * 
+     * @return Collection | Paginator
+     */
+    public function getProducts($outletId, $paginated = true, $perPage = 10)
+    {
+           return $paginated ? $this->find($outletId)->products()->paginate($perPage) : 
+            $this->find($outletId)->products ;
+    }
+    
+    
+    /**
+     * delete customers for specific outlet
+     * 
+     * @param integer $outletId
+     * @param integer|array $data
+     * @return boolean
+     */
+    public function destroyProducts($outletId, $data)
     {
         if (is_array($data)) {
             foreach ($data as $id => $value) {   

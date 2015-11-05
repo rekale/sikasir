@@ -15,7 +15,7 @@ class IncomesController extends ApiController
     {
         $deleted = Income::destroy($id);
         
-        return $this->respondSuccess('selected income has deleted');
+        return $this->response->success('selected income has deleted');
     }
   
 }

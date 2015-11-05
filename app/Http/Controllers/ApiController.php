@@ -6,65 +6,35 @@ use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\Controller;
 use Sikasir\Traits\IdObfuscater;
-use Sikasir\Traits\ApiRespondable;
-use \League\Fractal\Manager;
+use Sikasir\Traits\ApiRespond;
 
 class ApiController extends Controller
 {
     
-    use ApiRespondable, IdObfuscater;
-   
-    protected $fractal;
+    use IdObfuscater;
     
-    public function __construct(Manager $fractal) {
-        
-        $this->fractal = $fractal;
-    }
+    /**
+     *
+     * @var Sikasir\Traits\ApiRespond
+     */
+    protected $response;
     
-   protected function respondWithItem($item, $callback)
-    {
-        $resource = new Item($item, $callback);
+    public function __construct(ApiRespond $respond) {
         
-        $rootScope = $this->fractal->createData($resource);
+        $this->response = $respond;
+    
         
-        return $this->respond($rootScope->toArray()); 
     }
     
     /**
      * 
-     * return data from collection to json
-     * 
-     * @param \Illuminate\Support\Collection $collection
-     * @param Closure $callback
+     * @return Sikasir\Traits\ApiRespond
      */
-    protected function respondWithCollection($collection, $callback)
+    protected function response()
     {
-        $resource = new Collection($collection, $callback);
-     
-        $rootScope = $this->fractal->createData($resource);
-        
-        return $this->respond($rootScope->toArray()); 
+        return $this->response;
     }
+  
     
-    /**
-     * 
-     * return data from paginator to json
-     * 
-     * @param Paginator $paginator
-     * @param Closure $callback
-     */
-    protected function respondWithPaginated($paginator, $callback)
-    {
     
-        $collection = $paginator->getCollection();
-        
-        $resource = new Collection($collection, $callback);
-        
-        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-        
-        $rootScope = $this->fractal->createData($resource);
-        
-        return $this->respond($rootScope->toArray()); 
-    
-    }
 }

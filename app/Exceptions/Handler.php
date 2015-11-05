@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Sikasir\Traits\ApiRespond;
 
 class Handler extends ExceptionHandler
 {
@@ -42,8 +43,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if (config('app.debug'))
-        {
+        
+        
+        if (config('app.debug')) {
             $whoops = new \Whoops\Run;
 
             if ($request->ajax() || $request->isJson())
@@ -59,6 +61,13 @@ class Handler extends ExceptionHandler
                 $e->getStatusCode(),
                 $e->getHeaders()
             );
+        }
+        else {
+            if ($e instanceof ModelNotFoundException) {
+                $response = app(ApiRespond::class);
+                
+                return $response->NotFound();
+            }
         }
 
 

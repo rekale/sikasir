@@ -1,4 +1,7 @@
 <?php
+use League\Fractal\Resource\Collection;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Resource\Item;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -31,5 +34,41 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function fake()
     {
         return Faker\Factory::create();
+    }
+    
+    /**
+     * create fractal's collection
+     * 
+     * @param Collection $collection
+     * @param TransformerAbstract $transformer
+     */
+    public function createPaginated($paginator, $transformer)
+    {
+        $fractal = app(League\Fractal\Manager::class);
+        
+        $collection = $paginator->getCollection();
+        
+        $resource = new Collection($collection, $transformer);
+        
+        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
+        
+        return $fractal->createData($resource);
+        
+    }
+    
+     /**
+     * create fractal's item
+     * 
+     * @param Collection $collection
+     * @param TransformerAbstract $transformer
+     */
+    public function createItem($item, $transformer)
+    {
+        $fractal = app(League\Fractal\Manager::class);
+        
+        $resource = new Item($item, $transformer);
+        
+        return $fractal->createData($resource);
+        
     }
 }

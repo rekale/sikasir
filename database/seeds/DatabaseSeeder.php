@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
         'incomes',
         'outcomes',
         'customers',
+        'product_categories',
+        'products',
+        'outlet_product',
+        'product_variants',
     ];
 
     /**
@@ -31,6 +35,7 @@ class DatabaseSeeder extends Seeder
         'OutletSeeder',
         'FinanceSeeder',
         'CustomerSeeder',
+        'ProductSeeder',
     ];
 
     /**

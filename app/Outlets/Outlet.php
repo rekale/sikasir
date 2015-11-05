@@ -63,6 +63,10 @@ class Outlet extends Model
         return $this->hasMany(Customer::class, 'outlet_id');
     }
     
+    public function products()
+    {
+        return $this->belongsToMany(\Sikasir\Products\Product::class, 'outlet_product');
+    }
 
     
 }

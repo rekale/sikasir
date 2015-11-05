@@ -58,5 +58,10 @@ class Owner extends Model
     {
        return $this->hasOne(App::class, 'owner_id'); 
     }
+    
+    public function categories()
+    {
+        return $this->hasMany(\Sikasir\Products\Category::class, 'owner_id');
+    }
 
 }

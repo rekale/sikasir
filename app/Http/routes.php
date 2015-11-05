@@ -20,24 +20,32 @@ Route::group(['prefix' => 'v1'], function()
         post('mobile/login', 'AuthController@mobileLogin');
         post('login', 'AuthController@login');
         post('/signup', 'AuthController@signup');
+        
     });
     
-    Route::group(['middleware' => 'jwt.auth'], function ()
+    Route::group([], function ()
     {
         
-         Route::group(['namespace' => 'Outlets', 'middleware' => 'jwt.auth'], function()
+        Route::group(['namespace' => 'Outlets'], function()
         {
-            get('outlets/{outletId}/incomes', 'OutletIncomeController@index');
-            post('outlets/{outletId}/incomes', 'OutletIncomeController@store');
-            delete('outlets/{outletId}/incomes/{incomeId}', 'OutletIncomeController@destroy');
-
-            get('outlets/{outletId}/outcomes', 'OutletOutcomeController@index');
-            post('outlets/{outletId}/outcomes', 'OutletOutcomeController@store');
-            delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutletOutcomeController@destroy');
+            get('outlets', 'OutletsController@index');
+            get('outlets/{outletId}', 'OutletsController@show');
             
-            get('outlets/{outletId}/customers', 'OutletCustomerController@index');
-            post('outlets/{outletId}/customers', 'OutletCustomerController@store');
-            delete('outlets/{outletId}/customers/{customerId}', 'OutletCustomerController@destroy');
+            get('outlets/{outletId}/incomes', 'IncomesController@index');
+            post('outlets/{outletId}/incomes', 'IncomesController@store');
+            delete('outlets/{outletId}/incomes/{incomeId}', 'IncomesController@destroy');
+
+            get('outlets/{outletId}/outcomes', 'OutcomesController@index');
+            post('outlets/{outletId}/outcomes', 'OutcomesController@store');
+            delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutcomesController@destroy');
+            
+            get('outlets/{outletId}/customers', 'CustomersController@index');
+            post('outlets/{outletId}/customers', 'CustomersController@store');
+            delete('outlets/{outletId}/customers/{customerId}', 'CustomersController@destroy');
+            
+            get('outlets/{outletId}/products', 'ProductsController@index');
+            post('outlets/{outletId}/products', 'ProductsController@store');
+            delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
 
         });
 
@@ -47,6 +55,11 @@ Route::group(['prefix' => 'v1'], function()
 
         });
         
+        Route::group(['namespace' => 'Products'], function()
+        {
+            
+
+        });
         
     });
    

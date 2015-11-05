@@ -8,12 +8,12 @@ use Sikasir\Transformer\OutcomeTransformer;
 use League\Fractal\Manager;
 use Sikasir\Outlets\OutletRepository;
 
-class OutletOutcomeController extends ApiController
+class OutcomesController extends ApiController
 {
    protected $repo;
     
-    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
-        parent::__construct($fractal);
+    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+        parent::__construct($respond);
         
         $this->repo = $repo;
     }
@@ -25,7 +25,7 @@ class OutletOutcomeController extends ApiController
    {    
        $outcomes = $this->repo->getOutcomes($outletId);
        
-       return $this->respondWithPaginated($outcomes, new OutcomeTransformer);
+       return $this->response->withPaginated($outcomes, new OutcomeTransformer);
        
    }
    
@@ -36,8 +36,8 @@ class OutletOutcomeController extends ApiController
           'note' => $request->input('note'), 
        ]);
        
-       return $saved ? $this->respondCreated('new outcome has created') : 
-           $this->respondCreateFailed('fail to create outcome');
+       return $saved ? $this->response->created('new outcome has created') : 
+           $this->response->createFailed('fail to create outcome');
    }
    
     public function destroy($outletId, $outcomeId)
@@ -45,6 +45,6 @@ class OutletOutcomeController extends ApiController
         
         $this->repo->destroyOutcome($outletId, $outcomeId);
                 
-        return $this->respondSuccess('selected outcome has deleted');
+        return $this->response->success('selected outcome has deleted');
     }
 }

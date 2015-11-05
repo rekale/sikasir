@@ -8,8 +8,8 @@ use Sikasir\Http\Controllers\ApiController;
 
 class CustomersController extends ApiController
 {
-    public function __construct(\League\Fractal\Manager $fractal) {
-        parent::__construct($fractal);
+    public function __construct(\Sikasir\Traits\ApiRespond $respond) {
+        parent::__construct($respond);
     }
     
     /**

@@ -10,12 +10,13 @@ use Sikasir\Transformer\CustomerTransformer;
 use Sikasir\Finances\Customer;
 use Sikasir\Outlets\OutletRepository;
 
-class OutletCustomerController extends ApiController
+class CustomersController extends ApiController
 {
+    
     protected $repo;
-  
-    public function __construct(\League\Fractal\Manager $fractal, OutletRepository $repo) {
-        parent::__construct($fractal);
+    
+    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+        parent::__construct($respond);
         
         $this->repo = $repo;
     }
@@ -28,7 +29,7 @@ class OutletCustomerController extends ApiController
    {    
        $customers = $this->repo->getCustomers($outletId);
        
-       return $this->respondWithPaginated($customers, new CustomerTransformer);
+       return $this->response->withPaginated($customers, new CustomerTransformer);
        
    }
    
@@ -45,7 +46,7 @@ class OutletCustomerController extends ApiController
        ]);
        
        return $saved ? $this->respondCreated('new customer has created') : 
-           $this->setStatusCode(409)->respondWithError('fail to create customer');
+           $this->response->setStatusCode(409)->withError('fail to create customer');
    }
    
     public function destroy($outletId, $customerId)
@@ -53,7 +54,7 @@ class OutletCustomerController extends ApiController
         
         $this->repo->destroyCustomer($outletId, $customerId);
                 
-        return $this->respondSuccess('selected customer has deleted');
+        return $this->response->success('selected customer has deleted');
     }
    
 }

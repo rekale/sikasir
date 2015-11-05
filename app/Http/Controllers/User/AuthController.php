@@ -11,8 +11,8 @@ class AuthController extends ApiController
 {
     protected $request;
     
-    public function __construct(\League\Fractal\Manager $fractal, Request $request) {
-        parent::__construct($fractal);
+    public function __construct(\Sikasir\Traits\ApiRespond $respond, Request $request) {
+        parent::__construct($respond);
         
         $this->request = $request;
     }
@@ -26,19 +26,18 @@ class AuthController extends ApiController
         $app = \Sikasir\User\App::whereUsername($username)->get();
         
         if ($app->isEmpty()) {
-            return $this->respondNotFound('user not found');
+            return $this->response->notFound('user not found');
         }
         
         if(! \Hash::check($password, $app[0]->password)) {
-            return $this->respondNotFound('password is not match');
+            return $this->response->notFound('password is not match');
         }
         
         $include = ['outlets.employees'];
-        $this->fractal()->parseIncludes($include);
         
         $owner = $app[0]->owner()->with($include)->get();
         
-        return $this->respondWithCollection($owner, new OwnerTransformer);
+        return $this->response->including($include)->withCollection($owner, new OwnerTransformer);
         
     }
     
@@ -51,10 +50,10 @@ class AuthController extends ApiController
         ];
         
         if ( ! $token = $auth->attempt($credentials)) {
-            return $this->respondNotFound('email or password don\'t match our record');
+            return $this->response->notFound('email or password don\'t match our record');
         }
         
-        return $this->respond([
+        return $this->response->respond([
             'success' => [
                 'token' => $token,
                 'code' => 200
