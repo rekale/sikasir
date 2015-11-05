@@ -22,19 +22,9 @@ class ApiController extends Controller
     public function __construct(ApiRespond $respond) {
         
         $this->response = $respond;
-    
         
     }
     
-    /**
-     * 
-     * @return Sikasir\Traits\ApiRespond
-     */
-    protected function response()
-    {
-        return $this->response;
-    }
-  
     
     
 }

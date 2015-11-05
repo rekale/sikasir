@@ -41,11 +41,11 @@ Route::group(['prefix' => 'v1'], function()
             
             get('outlets/{outletId}/customers', 'CustomersController@index');
             post('outlets/{outletId}/customers', 'CustomersController@store');
-            delete('outlets/{outletId}/customers/{customerId}', 'CustomersController@destroy');
             
             get('outlets/{outletId}/products', 'ProductsController@index');
-            post('outlets/{outletId}/products', 'ProductsController@store');
-            delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
+            
+            get('outlets/{outletId}/employees', 'EmployeesController@index');
+            
 
         });
 
