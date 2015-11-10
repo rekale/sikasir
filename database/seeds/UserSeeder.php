@@ -15,6 +15,26 @@ class UserSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
         
+         $owner = Sikasir\User\Owner::create([
+                'full_name' => 'owner',
+                'business_name' => $fake->word,
+                'phone' => $fake->phoneNumber,
+                'address' => $fake->address,
+                'icon' => $fake->imageUrl(300, 200, 'people'),
+                'active' => $fake->boolean(),
+            ]);
+            
+        $owner->user()->save(new User([
+            'name' => 'owner',
+            'email' => 'owner@sikasir.com',
+            'password' => bcrypt('owner'),
+        ]));
+
+        $owner->app()->save(new \Sikasir\User\App([
+            'username' => 'owner',
+            'password' => bcrypt('owner'),
+        ]));
+        
         foreach (range(1, 5) as $i) {
             $name = $fake->name;
             
@@ -34,7 +54,7 @@ class UserSeeder extends Seeder
             ]));
             
             $owner->app()->save(new \Sikasir\User\App([
-                'username' => $i === 1 ? 'owner':$name . rand(1, 10),
+                'username' => $name . rand(1, 10),
                 'password' => bcrypt('owner'),
             ]));
         }

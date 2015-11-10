@@ -33,7 +33,7 @@ class ProductSeeder extends Seeder
             foreach (range(1, 2) as $i) {
                 $category->products()->save(new Product([
                     'name' => $fake->word, 
-                    'description' => $fake->paragraph, 
+                    'description' => $fake->words(3, true), 
                     'barcode' => $fake->word, 
                     'show' => $fake->boolean(), 
                 ]));
