@@ -15,7 +15,7 @@
 Route::group(['prefix' => 'v1'], function()
 {
    
-    Route::group(['namespace' => 'User', 'prefix' => 'auth'], function()
+    Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function()
     {
         post('mobile/login', 'AuthController@mobileLogin');
         post('login', 'AuthController@login');

@@ -1,65 +1,85 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Auth;
+namespace Sikasir\Http\Controllers\User;
 
-use Sikasir\User;
-use Validator;
-use Sikasir\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Sikasir\Http\Controllers\ApiController;
+use \Sikasir\Transformer\OwnerTransformer;
+use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'getLogout']);
+    protected $request;
+    
+    public function __construct(\Sikasir\Traits\ApiRespond $respond, Request $request) {
+        parent::__construct($respond);
+        
+        $this->request = $request;
     }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    
+    public function mobileLogin()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+        $username = $this->request->input('username');
+        $password = $this->request->input('password');
+        
+        
+        $app = \Sikasir\User\App::whereUsername($username)->get();
+        
+        if ($app->isEmpty()) {
+            return $this->response->notFound('user not found');
+        }
+        
+        if(! \Hash::check($password, $app[0]->password)) {
+            return $this->response->notFound('password is not match');
+        }
+        
+        $include = ['outlets.employees'];
+        
+        $owner = $app[0]->owner()->with($include)->get();
+        
+        return $this->response->including($include)->withCollection($owner, new OwnerTransformer);
+        
+    }
+    
+    public function login(JWTAuth $auth)
+    {
+        
+        $credentials = [
+            'email' => $this->request->input('email'),
+            'password' => $this->request->input('password'),
+        ];
+        
+        if ( ! $token = $auth->attempt($credentials)) {
+            return $this->response->notFound('email or password don\'t match our record');
+        }
+        
+        return $this->response->respond([
+            'success' => [
+                'token' => $token,
+                'code' => 200
+            ]
         ]);
+        
     }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
+    
+    public function signup(JWTAuth $auth)
     {
-        return User::create([
+        $data = $this->request->only('email', 'password', 'name');
+        
+        try {
+            $user = \Sikasir\User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-        ]);
+            ]);
+        } catch (Exception $e) {
+            
+            return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+        }
+
+        $token = $auth->fromUser($user);
+
+        return response()->json(compact('token'));
     }
+
 }
