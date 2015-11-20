@@ -14,15 +14,15 @@
 
 Route::group(['prefix' => 'v1'], function()
 {
-   
+
     Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function()
     {
         post('mobile/login', 'AuthController@mobileLogin');
         post('login', 'AuthController@login');
         post('/signup', 'AuthController@signup');
-        
+
     });
-    
+
     Route::group(['middleware' => 'jwt.auth'], function ()
     {
         
@@ -30,7 +30,7 @@ Route::group(['prefix' => 'v1'], function()
         {
             get('outlets', 'OutletsController@index');
             get('outlets/{outletId}', 'OutletsController@show');
-            
+
             get('outlets/{outletId}/incomes', 'IncomesController@index');
             post('outlets/{outletId}/incomes', 'IncomesController@store');
             delete('outlets/{outletId}/incomes/{incomeId}', 'IncomesController@destroy');
@@ -38,14 +38,14 @@ Route::group(['prefix' => 'v1'], function()
             get('outlets/{outletId}/outcomes', 'OutcomesController@index');
             post('outlets/{outletId}/outcomes', 'OutcomesController@store');
             delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutcomesController@destroy');
-            
+
             get('outlets/{outletId}/customers', 'CustomersController@index');
             post('outlets/{outletId}/customers', 'CustomersController@store');
-            
+
             get('outlets/{outletId}/products', 'ProductsController@index');
-            
+
             get('outlets/{outletId}/employees', 'EmployeesController@index');
-            
+
 
         });
 
@@ -54,19 +54,19 @@ Route::group(['prefix' => 'v1'], function()
             delete('incomes/{id}', 'IncomesController@destroy');
 
         });
-        
+
         Route::group(['namespace' => 'Products'], function()
         {
-            
+
 
         });
-        
+
         Route::group(['namespace' => 'Users'], function()
         {
             get('users/profile', 'UsersController@profile');
         });
-        
+
     });
-   
-    
+
+
 });

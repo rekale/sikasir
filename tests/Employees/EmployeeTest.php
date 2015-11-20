@@ -3,8 +3,9 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use TestCase;
 
-class EmployeeTest extends Testca
+class EmployeeTest extends TestCase
 {
     
     use DatabaseTransactions, WithoutMiddleware;
@@ -14,9 +15,11 @@ class EmployeeTest extends Testca
      *
      * @return void
      */
-    public function test_get_all_customer()
+    public function test_get_all_employees_paginated()
     {
-        $this->visit('v1/customer');
+        $this->visit('v1/employees');
+        
+        
         
         $this->seeJson();
         

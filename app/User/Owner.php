@@ -46,7 +46,7 @@ class Owner extends Model
     
     public function employees()
     {
-        return $this->hasManyThrough(\Sikasir\User\Employee::class, \Sikasir\Outlets\Outlet::class, 'owner_id', 'outlet_id');
+        return $this->hasMany(\Sikasir\User\Employee::class);
     }
     
      /**
