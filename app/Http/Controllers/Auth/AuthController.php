@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\Http\Controllers\User;
+namespace Sikasir\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\ApiController;

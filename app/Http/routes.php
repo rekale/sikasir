@@ -23,7 +23,7 @@ Route::group(['prefix' => 'v1'], function()
         
     });
     
-    Route::group([], function ()
+    Route::group(['middleware' => 'jwt.auth'], function ()
     {
         
         Route::group(['namespace' => 'Outlets'], function()
@@ -59,6 +59,11 @@ Route::group(['prefix' => 'v1'], function()
         {
             
 
+        });
+        
+        Route::group(['namespace' => 'Users'], function()
+        {
+            get('users/profile', 'UsersController@profile');
         });
         
     });

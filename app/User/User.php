@@ -45,6 +45,17 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->morphTo();
     }
+    
+    public function isOwner()
+    {
+        return $this->userable instanceof Owner;
+    }
+    
+    public function isEmployee()
+    {
+        return $this->userable instanceof Employee;
+    }
+    
 
     public function allowed($providedPermission, Model $entity, $owner = true, $ownerColumn = 'user_id') {
         

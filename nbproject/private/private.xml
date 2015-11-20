@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Outlets/Outlet.php</file>
-            <file>file:/D:/project/kasir/app/Interfaces/Repository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
-            <file>file:/D:/project/kasir/app/Outlets/OutletRepository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/Outlets/EmployeesController.php</file>
-            <file>file:/D:/project/kasir/app/Transformer/OwnerTransformer.php</file>
-            <file>file:/D:/project/kasir/app/Transformer/VariantTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/routes.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/Users/UsersController.php</file>
         </group>
     </open-files>
 </project-private>
