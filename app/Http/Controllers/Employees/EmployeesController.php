@@ -7,13 +7,17 @@ use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\Controller;
 use Sikasir\Employees\UserRepository;
 use \Tymon\JWTAuth\JWTAuth;
+use Sikasir\Http\Controllers\ApiController;
+use Sikasir\Transformer\EmployeeTransformer;
+use Sikasir\User\OwnerRepository;
+use Sikasir\Traits\ApiRespond;
 
 class EmployeesController extends ApiController
 {
 
     protected $repo;
 
-     public function __construct(\Sikasir\Traits\ApiRespond $respond, OwnerRepository $repo) {
+     public function __construct(ApiRespond $respond, OwnerRepository $repo) {
          parent::__construct($respond);
 
          $this->repo = $repo;
@@ -26,22 +30,17 @@ class EmployeesController extends ApiController
      */
     public function index(JWTAuth $auth)
     {
+        $user = $auth->toUser();
         
-        $owner = $auth->toUser();
+        $owner = $user->isOwner() ? $user->userable : abort(401);
         
-        $employees = $owner->employees; 
+        $employees = $owner->employees()->paginate();
+        
+        return $this->response->withPaginated($employees, new EmployeeTransformer);
+        
        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -51,7 +50,7 @@ class EmployeesController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

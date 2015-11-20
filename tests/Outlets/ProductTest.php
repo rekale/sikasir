@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Sikasir\Outlets\OutletRepository;
 use Sikasir\Transformer\ProductTransformer;
 
-use Sikasir\Outlets\Outlet;
-
 class ProductTest extends TestCase
 {
     

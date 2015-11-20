@@ -3,12 +3,12 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use TestCase;
+use Sikasir\Transformer\EmployeeTransformer;
 
 class EmployeeTest extends TestCase
 {
     
-    use DatabaseTransactions, WithoutMiddleware;
+    use DatabaseTransactions;
     
     /**
      * A basic functional test example.
@@ -17,11 +17,20 @@ class EmployeeTest extends TestCase
      */
     public function test_get_all_employees_paginated()
     {
-        $this->visit('v1/employees');
         
+        $token = $this->login();
         
+        $owner = $this->getOwner();
         
-        $this->seeJson();
+        $data = $owner->employees()->paginate();
+        
+        $expected = $this->createPaginated($data, new EmployeeTransformer);
+        
+        $link = 'v1/employees?token=' . $token;
+        
+        $this->visit($link);
+        
+        $this->seeJson($expected->toArray());
         
         
     }

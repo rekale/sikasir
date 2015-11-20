@@ -2,6 +2,7 @@
 use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Item;
+use Tymon\JWTAuth\JWTAuth;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -72,5 +73,24 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         
         return $fractal->createData($resource);
         
+    }
+    
+    /**
+     * login and return token jwt
+     * 
+     * @return string
+     */
+    public function login()
+    {
+        $credentials = ['email' => 'owner@sikasir.com', 'password' => 'owner'];
+        
+        $auth = app(JWTAuth::class);
+        
+        return $auth->attempt($credentials);        
+    }
+    
+    public function getOwner()
+    {
+        return Sikasir\User\User::whereEmail('owner@sikasir.com')->firstOrFail()->userable;
     }
 }

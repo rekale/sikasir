@@ -3,11 +3,13 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Sikasir\Outlets\OutletRepository;
+use Sikasir\Transformer\CustomerTransformer;
 
-class EmployeeTest extends Testca
+class CustomerTest extends TestCase
 {
     
-    use DatabaseTransactions, WithoutMiddleware;
+    use DatabaseTransactions, WithoutMiddleware, Sikasir\Traits\IdObfuscater;
     
     /**
      * A basic functional test example.
@@ -16,11 +18,20 @@ class EmployeeTest extends Testca
      */
     public function test_get_all_customer()
     {
-        $this->visit('v1/customer');
+        $repo = app(OutletRepository::class);
         
-        $this->seeJson();
+        $id = $repo->getSome(5)->random()->id;
         
+        $outletId = $this->encode($id);
         
+        $customers = $repo->getCustomers($outletId);
+        
+        $data = $this->createPaginated($customers, new CustomerTransformer);
+        
+        $this->visit('v1/outlets/' . $outletId . '/customers');
+        
+        $this->seeJson($data->toArray());
+           
     }
     
   

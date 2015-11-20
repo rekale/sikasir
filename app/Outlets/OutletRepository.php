@@ -123,7 +123,7 @@ class OutletRepository extends Repository
     public function getCustomers($outletId, $paginated = true, $perPage = 10)
     {
            return $paginated ? $this->find($outletId)->customers()->paginate($perPage) : 
-            $this->findWith($outletId,['incomes'])->incomes ;
+            $this->findWith($outletId,['customers'])->customers ;
     }
     
     /**

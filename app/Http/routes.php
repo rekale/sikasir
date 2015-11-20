@@ -54,6 +54,14 @@ Route::group(['prefix' => 'v1'], function()
             delete('incomes/{id}', 'IncomesController@destroy');
 
         });
+        
+        Route::group(['namespace' => 'Employees'], function()
+        {
+            get('employees', 'EmployeesController@index');
+
+        });
+        
+        
 
         Route::group(['namespace' => 'Products'], function()
         {

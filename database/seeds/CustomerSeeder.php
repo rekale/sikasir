@@ -17,7 +17,7 @@ class CustomerSeeder extends Seeder
         
         Outlet::all()->each(function ($outlet) use ($fake)
         {
-            foreach(range(1, 20) as $i) {
+            foreach(range(1, 10) as $i) {
                 
                 $outlet->customers()->save(new Customer([
                     'name' => $fake->name,

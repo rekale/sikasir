@@ -8,7 +8,7 @@ use Sikasir\Transformer\EmployeeTransformer;
 
 use Sikasir\Outlets\Outlet;
 
-class ProductTest extends TestCase
+class EmployeeTest extends TestCase
 {
     
     use DatabaseTransactions, WithoutMiddleware, Sikasir\Traits\IdObfuscater;
@@ -26,9 +26,9 @@ class ProductTest extends TestCase
         
         $outletId = $this->encode($id);
         
-        $products = $repo->getEmployees($outletId);
+        $employees = $repo->getEmployees($outletId);
         
-        $data = $this->createPaginated($products, new EmployeeTransformer);
+        $data = $this->createPaginated($employees, new EmployeeTransformer);
         
         $this->visit('v1/outlets/' . $outletId . '/employees');
         
