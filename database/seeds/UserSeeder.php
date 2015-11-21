@@ -37,28 +37,29 @@ class UserSeeder extends Seeder
 
         foreach(range(1, 10) as $i) {
             $employeeName = $fake->name;
-            
+
             $owner->employees()->save(
                 new Sikasir\User\Employee([
                     'name' => $employeeName,
                     'title' => $fake->randomElement(['staff', 'kasir']),
+                    'gender' => $fake->randomElement(['pria', 'wanita']),
                     'phone' => $fake->phoneNumber,
                     'address' => $fake->address,
                     'icon' => $fake->imageUrl(300, 200, 'people'),
                     'void_access' => $fake->boolean(),
                 ])
             );
-            
+
         }
-        
+
         Sikasir\User\Employee::all()->each(function ($employee) use($fake) {
-                
+
             $employee->user()->save(new User([
                 'name' => $employee->name,
                 'email' => $fake->email,
                 'password' => bcrypt('12345'),
             ]));
-   
+
         });
 
     }

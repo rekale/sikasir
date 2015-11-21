@@ -16,18 +16,19 @@ class CreateOperatorsTable extends Migration
             $table->increments('id');
             $table->integer('owner_id')->unsigned()->index();
             $table->string('name');
+            $table->string('gender');
             $table->string('title');
             $table->string('phone');
             $table->text('address');
             $table->boolean('void_access', 0);
             $table->text('icon');
             $table->timestamps();
-            
+
             $table->foreign('owner_id')
                   ->references('id')
                   ->on('owners')
                   ->onDelete('cascade');
-            
+
         });
     }
 

@@ -12,36 +12,38 @@ class Employee extends Model
      * @var string
      */
     protected $table = 'employees';
-    
-    protected $with = ['user']; 
+
+    protected $with = ['user'];
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'title', 'address', 'phone', 'void_access', 'icon'];
-    
+    protected $fillable = [
+        'name', 'title', 'gender','address', 'phone', 'void_access', 'icon'
+    ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
     protected $hidden = ['created_at', 'updated_at'];
-    
+
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
     }
-    
+
     /**
      * employee can work in many outlet, *except kasir
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function outlets()
     {
         return $this->belongsToMany(\Sikasir\Outlets\Outlet::class);
     }
-     
+
 }
