@@ -12,7 +12,7 @@
 */
 
 
-Route::group(['prefix' => 'v1'], function()
+Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 {
 
     Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function()

@@ -1,17 +1,17 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Auth;
+namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\ApiController;
-use \Sikasir\Transformer\OwnerTransformer;
+use Sikasir\V1\Http\Controllers\ApiController;
+use \Sikasir\V1\Transformer\OwnerTransformer;
 use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends ApiController
 {
     protected $request;
     
-    public function __construct(\Sikasir\Traits\ApiRespond $respond, Request $request) {
+    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, Request $request) {
         parent::__construct($respond);
         
         $this->request = $request;
@@ -23,7 +23,7 @@ class AuthController extends ApiController
         $password = $this->request->input('password');
         
         
-        $app = \Sikasir\User\App::whereUsername($username)->get();
+        $app = \Sikasir\V1\User\App::whereUsername($username)->get();
         
         if ($app->isEmpty()) {
             return $this->response->notFound('user not found');
@@ -67,7 +67,7 @@ class AuthController extends ApiController
         $data = $this->request->only('email', 'password', 'name');
         
         try {
-            $user = \Sikasir\User::create([
+            $user = \Sikasir\V1\User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),

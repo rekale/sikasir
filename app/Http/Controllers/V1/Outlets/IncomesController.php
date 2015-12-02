@@ -1,18 +1,18 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Outlets;
+namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
-use Sikasir\Outlet;
-use Sikasir\Transformer\IncomeTransformer;
-use Sikasir\Outlets\OutletRepository;
+use Sikasir\V1\Outlet;
+use Sikasir\V1\Transformer\IncomeTransformer;
+use Sikasir\V1\Outlets\OutletRepository;
 
 class IncomesController extends ApiController
 {
     protected $repo;
     
-    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, OutletRepository $repo) {
         parent::__construct($respond);
         
         $this->repo = $repo;

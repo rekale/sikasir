@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Auth;
+namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Sikasir\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

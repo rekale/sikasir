@@ -1,16 +1,16 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Outlets;
+namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\Outlets\OutletRepository;
-use Sikasir\Transformer\OutletTransformer;
+use Sikasir\V1\Outlets\OutletRepository;
+use Sikasir\V1\Transformer\OutletTransformer;
 
 class OutletsController extends ApiController
 {
     protected $repo;
     
-    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, OutletRepository $repo) {
         parent::__construct($respond);
         
         $this->repo = $repo;

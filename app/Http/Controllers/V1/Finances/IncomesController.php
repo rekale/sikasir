@@ -1,12 +1,12 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Finances;
+namespace Sikasir\Http\Controllers\V1\Finances;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\Finances\Income;
-use Sikasir\Transformer\IncomeTransformer;
+use Sikasir\V1\Finances\Income;
+use Sikasir\V1\Transformer\IncomeTransformer;
 
 class IncomesController extends ApiController
 {

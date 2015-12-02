@@ -1,16 +1,16 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Employees;
+namespace Sikasir\Http\Controllers\V1\Employees;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\Controller;
-use Sikasir\Employees\UserRepository;
+use Sikasir\V1\Employees\UserRepository;
 use \Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\Transformer\EmployeeTransformer;
-use Sikasir\User\OwnerRepository;
-use Sikasir\Traits\ApiRespond;
+use Sikasir\V1\Transformer\EmployeeTransformer;
+use Sikasir\V1\User\OwnerRepository;
+use Sikasir\V1\Traits\ApiRespond;
 
 class EmployeesController extends ApiController
 {

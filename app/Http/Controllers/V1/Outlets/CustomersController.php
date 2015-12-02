@@ -1,21 +1,21 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Outlets;
+namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\Outlet;
-use Sikasir\Transformer\CustomerTransformer;
-use Sikasir\Finances\Customer;
-use Sikasir\Outlets\OutletRepository;
+use Sikasir\V1\Outlet;
+use Sikasir\V1\Transformer\CustomerTransformer;
+use Sikasir\V1\Finances\Customer;
+use Sikasir\V1\Outlets\OutletRepository;
 
 class CustomersController extends ApiController
 {
     
     protected $repo;
     
-    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, OutletRepository $repo) {
         parent::__construct($respond);
         
         $this->repo = $repo;

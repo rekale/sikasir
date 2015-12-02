@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Customers;
+namespace Sikasir\Http\Controllers\V1\Customers;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
@@ -8,7 +8,7 @@ use Sikasir\Http\Controllers\ApiController;
 
 class CustomersController extends ApiController
 {
-    public function __construct(\Sikasir\Traits\ApiRespond $respond) {
+    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond) {
         parent::__construct($respond);
     }
     

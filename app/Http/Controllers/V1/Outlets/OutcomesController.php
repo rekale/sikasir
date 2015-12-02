@@ -1,18 +1,18 @@
 <?php
 
-namespace Sikasir\Http\Controllers\Outlets;
+namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\Transformer\OutcomeTransformer;
+use Sikasir\V1\Transformer\OutcomeTransformer;
 use League\Fractal\Manager;
-use Sikasir\Outlets\OutletRepository;
+use Sikasir\V1\Outlets\OutletRepository;
 
 class OutcomesController extends ApiController
 {
    protected $repo;
     
-    public function __construct(\Sikasir\Traits\ApiRespond $respond, OutletRepository $repo) {
+    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, OutletRepository $repo) {
         parent::__construct($respond);
         
         $this->repo = $repo;
