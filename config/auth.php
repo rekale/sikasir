@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => Sikasir\User\User::class,
+    'model' => Sikasir\V1\User\User::class,
 
     /*
     |--------------------------------------------------------------------------
