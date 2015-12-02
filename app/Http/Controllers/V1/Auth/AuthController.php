@@ -3,7 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Illuminate\Http\Request;
-use Sikasir\V1\Http\Controllers\ApiController;
+use Sikasir\Http\Controllers\ApiController;
 use \Sikasir\V1\Transformer\OwnerTransformer;
 use Tymon\JWTAuth\JWTAuth;
 
