@@ -3,13 +3,13 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Sikasir\Outlets\OutletRepository;
-use Sikasir\Transformer\CustomerTransformer;
+use Sikasir\V1\Outlets\OutletRepository;
+use Sikasir\V1\Transformer\CustomerTransformer;
 
 class CustomerTest extends TestCase
 {
     
-    use DatabaseTransactions, WithoutMiddleware, Sikasir\Traits\IdObfuscater;
+    use DatabaseTransactions, WithoutMiddleware, Sikasir\V1\Traits\IdObfuscater;
     
     /**
      * A basic functional test example.

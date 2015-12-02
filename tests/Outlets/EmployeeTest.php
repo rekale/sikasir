@@ -3,15 +3,15 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Sikasir\Outlets\OutletRepository;
-use Sikasir\Transformer\EmployeeTransformer;
+use Sikasir\V1\Outlets\OutletRepository;
+use Sikasir\V1\Transformer\EmployeeTransformer;
 
-use Sikasir\Outlets\Outlet;
+use Sikasir\V1\Outlets\Outlet;
 
 class EmployeeTest extends TestCase
 {
     
-    use DatabaseTransactions, WithoutMiddleware, Sikasir\Traits\IdObfuscater;
+    use DatabaseTransactions, WithoutMiddleware, Sikasir\V1\Traits\IdObfuscater;
     
     /**
      * get outlet's product

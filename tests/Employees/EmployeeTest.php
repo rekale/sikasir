@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Sikasir\Transformer\EmployeeTransformer;
+use Sikasir\V1\Transformer\EmployeeTransformer;
 
 class EmployeeTest extends TestCase
 {

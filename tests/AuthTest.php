@@ -53,7 +53,7 @@ class AuthTest extends TestCase
         
         $employeeName = $fake->name;
         
-        $employee = Sikasir\User\Employee::create([
+        $employee = Sikasir\V1\User\Employee::create([
             'name' => $employeeName,
             'phone' => $fake->phoneNumber,
             'title' => $fake->randomElement(['staff', 'kasir']),
@@ -62,7 +62,7 @@ class AuthTest extends TestCase
             'void_access' => $fake->boolean(),
         ]);
 
-        $employee->user()->save(new Sikasir\User\User([
+        $employee->user()->save(new Sikasir\V1\User\User([
             'name' => $employeeName,
             'email' => $fake->email,
             'password' => bcrypt('12345'),

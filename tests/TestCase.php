@@ -91,6 +91,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     
     public function getOwner()
     {
-        return Sikasir\User\User::whereEmail('owner@sikasir.com')->firstOrFail()->userable;
+        return Sikasir\V1\User\User::whereEmail('owner@sikasir.com')->firstOrFail()->userable;
     }
 }
