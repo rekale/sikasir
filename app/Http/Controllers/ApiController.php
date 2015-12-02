@@ -5,8 +5,8 @@ namespace Sikasir\Http\Controllers;
 use Illuminate\Http\Request;
 use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\Controller;
-use Sikasir\Traits\IdObfuscater;
-use Sikasir\Traits\ApiRespond;
+use Sikasir\V1\Traits\IdObfuscater;
+use Sikasir\V1\Traits\ApiRespond;
 
 class ApiController extends Controller
 {
@@ -15,7 +15,7 @@ class ApiController extends Controller
     
     /**
      *
-     * @var Sikasir\Traits\ApiRespond
+     * @var Sikasir\V1\Traits\ApiRespond
      */
     protected $response;
     

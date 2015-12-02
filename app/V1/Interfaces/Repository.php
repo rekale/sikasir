@@ -3,11 +3,11 @@
 namespace Sikasir\V1\Interfaces;
 
 use \Illuminate\Database\Eloquent\Model;
-use Sikasir\Interfaces\RepositoryInterface;
+use Sikasir\V1\Interfaces\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
 {
-    use \Sikasir\Traits\IdObfuscater;
+    use \Sikasir\V1\Traits\IdObfuscater;
     
     private $model;
     
