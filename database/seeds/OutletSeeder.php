@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\Outlets\BusinessField;
+use Sikasir\V1\Outlets\BusinessField;
 
 class OutletSeeder extends Seeder
 {
@@ -20,11 +20,11 @@ class OutletSeeder extends Seeder
         ]);
 
         //create an outlet for every owner
-        Sikasir\User\Owner::all()->each(function($owner) use ($fake, $businessField){
+        Sikasir\V1\User\Owner::all()->each(function($owner) use ($fake, $businessField){
 
             foreach (range(1, rand(2, 5)) as $i) {
 
-                $owner->outlets()->save(new \Sikasir\Outlets\Outlet([
+                $owner->outlets()->save(new \Sikasir\V1\Outlets\Outlet([
                     'name' => $fake->word,
                     'business_field_id' => $businessField->id,
                     'address' => $fake->address,
@@ -40,11 +40,11 @@ class OutletSeeder extends Seeder
 
         });
         //add employees to every outlets
-        Sikasir\Outlets\Outlet::all()->each(function($outlet)
+        Sikasir\V1\Outlets\Outlet::all()->each(function($outlet)
         {
             //attach  employees to outlet that have not outlet
             $outlet->employees()->attach(
-                Sikasir\User\Employee::all()->random()
+                Sikasir\V1\User\Employee::all()->random()
             );
 
         });

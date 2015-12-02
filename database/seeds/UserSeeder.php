@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\User\User;
+use Sikasir\V1\User\User;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
 
-        $owner = Sikasir\User\Owner::create([
+        $owner = Sikasir\V1\User\Owner::create([
                'full_name' => 'owner',
                'business_name' => $fake->word,
                'phone' => $fake->phoneNumber,
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('owner'),
         ]));
 
-        $owner->app()->save(new \Sikasir\User\App([
+        $owner->app()->save(new \Sikasir\V1\User\App([
             'username' => 'owner',
             'password' => bcrypt('owner'),
         ]));
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             $employeeName = $fake->name;
 
             $owner->employees()->save(
-                new Sikasir\User\Employee([
+                new Sikasir\V1\User\Employee([
                     'name' => $employeeName,
                     'title' => $fake->randomElement(['staff', 'kasir']),
                     'gender' => $fake->randomElement(['pria', 'wanita']),
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
 
         }
 
-        Sikasir\User\Employee::all()->each(function ($employee) use($fake) {
+        Sikasir\V1\User\Employee::all()->each(function ($employee) use($fake) {
 
             $employee->user()->save(new User([
                 'name' => $employee->name,

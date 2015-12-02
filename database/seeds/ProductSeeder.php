@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\Products\Category;
-use Sikasir\Products\Product;
-use Sikasir\Products\Variant;
-use Sikasir\Outlets\Outlet;
-use Sikasir\User\Owner;
+use Sikasir\V1\Products\Category;
+use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\User\Owner;
 
 class ProductSeeder extends Seeder
 {

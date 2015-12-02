@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\Outlets\Outlet;
-use Sikasir\Outlets\Customer;
+use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Outlets\Customer;
 
 class CustomerSeeder extends Seeder
 {

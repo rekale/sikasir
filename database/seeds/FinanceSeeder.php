@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\Outlets\Outlet;
-use Sikasir\Finances\Income;
-use Sikasir\Finances\Outcome;
+use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Finances\Income;
+use Sikasir\V1\Finances\Outcome;
 
 class FinanceSeeder extends Seeder
 {
