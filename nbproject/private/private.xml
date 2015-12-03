@@ -3,17 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/database/seeds/OutletSeeder.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_10_15_141826_create_outlets_table.php</file>
-            <file>file:/D:/project/kasir/database/seeds/CustomerSeeder.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/Auth/AuthController.php</file>
-            <file>file:/D:/project/kasir/tests/Outlets/CustomerTest.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/Employees/EmployeesController.php</file>
-            <file>file:/D:/project/kasir/vendor/laravel/framework/src/Illuminate/Foundation/Testing/CrawlerTrait.php</file>
-            <file>file:/D:/project/kasir/app/Transformer/EmployeeTransformer.php</file>
-            <file>file:/D:/project/kasir/app/User/OwnerRepository.php</file>
+            <file>file:/D:/project/kasir/tests/Outlets/OutletTest.php</file>
+            <file>file:/D:/project/kasir/config/database.php</file>
+            <file>file:/D:/project/kasir/app/V1/User/Employee.php</file>
             <file>file:/D:/project/kasir/tests/TestCase.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
         </group>
     </open-files>
 </project-private>

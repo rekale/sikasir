@@ -22,14 +22,15 @@ class CreateOutletsTable extends Migration
             $table->increments('id');
             $table->integer('owner_id')->unsigned()->index();
             $table->unsignedInteger('business_field_id')->index();
+            $table->string('code');
             $table->text('name');
-            $table->text('address');
-            $table->string('province');
-            $table->string('city');
-            $table->string('pos_code');
-            $table->string('phone1');
-            $table->string('phone2');
-            $table->text('icon');
+            $table->text('address')->nullable();
+            $table->string('province')->nullable();
+            $table->string('city')->nullable();
+            $table->string('pos_code')->nullable();
+            $table->string('phone1')->nullable();
+            $table->string('phone2')->nullable();
+            $table->text('icon')->nullable();
             $table->timestamps();
 
             $table->foreign('owner_id')

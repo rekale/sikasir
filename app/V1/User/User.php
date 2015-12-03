@@ -14,8 +14,7 @@ use DCN\RBAC\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract,
-                                    HasRoleAndPermissionContract
+                                    CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword, HasRoleAndPermission;
 
@@ -56,57 +55,4 @@ class User extends Model implements AuthenticatableContract,
         return $this->userable instanceof Employee;
     }
     
-
-    public function allowed($providedPermission, Model $entity, $owner = true, $ownerColumn = 'user_id') {
-        
-    }
-
-    public function attachPermission($permission, $granted = TRUE) {
-        
-    }
-
-    public function attachRole($role, $granted = TRUE) {
-        
-    }
-
-    public function detachAllPermissions() {
-        
-    }
-
-    public function detachAllRoles() {
-        
-    }
-
-    public function detachPermission($permission) {
-        
-    }
-
-    public function detachRole($role) {
-        
-    }
-
-    public function getPermissions() {
-        
-    }
-
-    public function getRoles() {
-        
-    }
-
-    public function is($role, $all = false) {
-        
-    }
-
-    public function rolePermissions() {
-        
-    }
-
-    public function roles() {
-        
-    }
-
-    public function userPermissions() {
-        
-    }
-
 }

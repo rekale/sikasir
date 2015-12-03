@@ -21,7 +21,7 @@ class Outlet extends Model
      * @var array
      */
     protected $fillable = [
-        'business_field_id','name', 'address', 'province', 'city', 'pos_code',
+        'business_field_id', 'code','name', 'address', 'province', 'city', 'pos_code',
         'phone1', 'phone2', 'icon'
     ];
 

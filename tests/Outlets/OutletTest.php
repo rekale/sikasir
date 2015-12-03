@@ -10,7 +10,7 @@ use Sikasir\V1\Transformer\OutletTransformer;
 class OutletTest extends TestCase
 {
     
-    use DatabaseTransactions, WithoutMiddleware, Sikasir\V1\Traits\IdObfuscater;
+    use DatabaseTransactions, Sikasir\V1\Traits\IdObfuscater;
     
     /**
      * A basic functional test example.
@@ -24,9 +24,11 @@ class OutletTest extends TestCase
         
         $outlets = $repo->getPaginated();
         
+        $token = $this->login();
+        
         $data = $this->createPaginated($outlets, new OutletTransformer());
         
-        $this->visit('v1/outlets');
+        $this->visit('v1/outlets?token='.$token);
        
         $this->seeJson();
         
@@ -45,9 +47,22 @@ class OutletTest extends TestCase
         
         $data = $this->createItem($item, new OutletTransformer());
         
-        $this->visit('v1/outlets/' . $id);
+        $token = $this->login();
+        
+        $this->visit('v1/outlets/' . $id . '?token='.$token);
         
         $this->seeJson($data->toArray());
         
+    }
+    
+    public function test_create_an_outlet()
+    {
+        $outlet = factory(Outlet::class)->make()->toArray();
+        
+        $token = $this->login();
+        
+        $this->json('POST', 'v1/outlets?token=' . $token, $outlet);
+        
+        $this->assertResponseStatus(201);
     }
 }

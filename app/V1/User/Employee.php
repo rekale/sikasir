@@ -35,6 +35,11 @@ class Employee extends Model
     {
         return $this->morphOne(User::class, 'userable');
     }
+    
+    public function owner()
+    {
+        return $this->belongsTo(Owner::class);
+    }
 
     /**
      * employee can work in many outlet, *except kasir

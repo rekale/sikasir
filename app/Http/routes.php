@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Outlets'], function()
         {
             get('outlets', 'OutletsController@index');
+            post('outlets', 'OutletsController@store');
             get('outlets/{outletId}', 'OutletsController@show');
 
             get('outlets/{outletId}/incomes', 'IncomesController@index');

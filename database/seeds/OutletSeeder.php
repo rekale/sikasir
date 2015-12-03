@@ -26,6 +26,7 @@ class OutletSeeder extends Seeder
 
                 $owner->outlets()->save(new \Sikasir\V1\Outlets\Outlet([
                     'name' => $fake->word,
+                    'code' => $fake->numerify(),
                     'business_field_id' => $businessField->id,
                     'address' => $fake->address,
                     'province' => $fake->word,
