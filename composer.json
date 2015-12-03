@@ -14,7 +14,8 @@
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
         "filp/whoops": "^1.1",
-        "zackkitzmiller/tiny": "1.2.0"
+        "zackkitzmiller/tiny": "1.2.0",
+        "silber/bouncer": "^0.0.25"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.1"

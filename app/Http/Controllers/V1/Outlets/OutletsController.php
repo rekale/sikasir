@@ -7,7 +7,6 @@ use Sikasir\V1\Outlets\OutletRepository;
 use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\Outlets\Outlet;
 use \Sikasir\V1\Traits\ApiRespond;
 
 class OutletsController extends ApiController
@@ -34,13 +33,9 @@ class OutletsController extends ApiController
         return $this->response->withItem($outlet, new OutletTransformer);
     }
     
-    public function store(OutletRequest $request, JWTAuth $auth)
+    public function store(OutletRequest $request, JWTAuth $loggedUser)
     {
-        $user = $auth->toUser();
-        
-        $owner = $user->isOwner() ? $user->userable : $user->userable->owner;
-        
-        $owner->outlets()->save(new Outlet($request->all()));
+        $this->repo->save($request->all(), $loggedUser);
         
         return $this->response->created();
     }

@@ -148,9 +148,9 @@ return [
         /**
         * Third Party Service Providers...
         */
-        DCN\RBAC\RBACServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Silber\Bouncer\BouncerServiceProvider::class,
 
     ],
 

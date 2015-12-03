@@ -3,6 +3,8 @@
 namespace Sikasir\V1\Outlets;
 
 use Sikasir\V1\Interfaces\Repository;
+use Tymon\JWTAuth\JWTAuth;
+use Sikasir\V1\Outlets\Outlet;
 /**
  * Description of OutletRepository
  *
@@ -28,6 +30,21 @@ class OutletRepository extends Repository
     {
         return $paginated ? $this->find($outletId)->incomes()->paginate($perPage) : 
             $this->findWith($outletId, ['incomes'])->incomes ;
+    }
+    
+    /**
+     * save outlet
+     * 
+     * @param array $data
+     * @param JWTAuth $auth
+     */
+    public function save(array $data, JWTAuth $auth)
+    {
+         $user = $auth->toUser();
+        
+        $owner = $user->isOwner() ? $user->userable : $user->userable->owner;
+        
+        $owner->outlets()->save(new Outlet($data));
     }
     
     /**
