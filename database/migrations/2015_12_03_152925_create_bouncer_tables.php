@@ -39,8 +39,8 @@ class CreateBouncerTables extends Migration
 
             $table->unique(['role_id', 'user_id']);
 
-            $table->foreign('role_id')->references('id')->on($this->table(Role::class));
-            $table->foreign('user_id')->references('id')->on($this->table(User::class));
+            $table->foreign('role_id')->references('id')->on($this->table(Role::class))->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on($this->table(User::class))->onDelete('cascade');
         });
 
         Schema::create('user_abilities', function (Blueprint $table) {
@@ -49,8 +49,8 @@ class CreateBouncerTables extends Migration
 
             $table->unique(['ability_id', 'user_id']);
 
-            $table->foreign('ability_id')->references('id')->on($this->table(Ability::class));
-            $table->foreign('user_id')->references('id')->on($this->table(User::class));
+            $table->foreign('ability_id')->references('id')->on($this->table(Ability::class))->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on($this->table(User::class))->onDelete('cascade');
         });
 
         Schema::create('role_abilities', function (Blueprint $table) {
@@ -59,8 +59,8 @@ class CreateBouncerTables extends Migration
 
             $table->unique(['ability_id', 'role_id']);
 
-            $table->foreign('ability_id')->references('id')->on($this->table(Ability::class));
-            $table->foreign('role_id')->references('id')->on($this->table(Role::class));
+            $table->foreign('ability_id')->references('id')->on($this->table(Ability::class))->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on($this->table(Role::class))->onDelete('cascade');
         });
     }
 

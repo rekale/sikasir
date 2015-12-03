@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use DCN\RBAC\Models\Role;
+use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Employee;
 
 class RolesSeeder extends Seeder
 {
@@ -12,35 +13,95 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'description' => 'Admin sikasir', // optional
-            'parent_id' => NULL, // optional, set to NULL by default
-        ]);
+        foreach ($this->cashierAbilities() as $doThis) {
+            \Bouncer::allow('kasir')->to($doThis);   
+        }
+        foreach ($this->staffAbilities() as $doThis) {
+            \Bouncer::allow('staff')->to($doThis);   
+        }
+        foreach ($this->OwnerAbilities() as $doThis) {
+            \Bouncer::allow('owner')->to($doThis);   
+        }
+        foreach ($this->adminAbilities() as $doThis) {
+            \Bouncer::allow('admin')->to($doThis);   
+        }
         
-        $owner = Role::create([
-            'name' => 'Owner',
-            'slug' => 'owner',
-            'description' => 'pemilik perusahaan', // optional
-            'parent_id' => $admin->id, // optional, set to NULL by default
-        ]);
+        Owner::all()->each(function ($owner) {
+            $owner->user->assign('owner');
+            $owner->user->assign('staff');
+            $owner->user->assign('kasir');
+        });
+        Employee::all()->each(function ($employee) {
+     
+            if (rand(0, 1)) {
+                $employee->user->assign('staff');
+            }
+     
+            $employee->user->assign('kasir');
         
-        $staff = Role::create([
-            'name' => 'Staff',
-            'slug' => 'staff',
-            'description' => 'staff yang bekerja di perusahaan',
-            'parent_id' => $owner->id,
-        ]);
+            
+        });
         
-        $kasir = Role::create([
-            'name' => 'Kasir',
-            'slug' => 'kasir',
-            'description' => 'kasir',
-            'parent_id' => $staff->id,
-        ]);
-        
-        
-        
+    }
+    
+    public function cashierAbilities()
+    {
+        return [
+            'create-customer',
+            'read-customer',
+            'update-customer',
+            'delete-customer',
+            'crud-inventory',
+            'view-transaction',
+            'crud-kas',
+            'crud-orderlist',
+            'export-report',
+        ];
+    }
+    
+    public function staffAbilities()
+    {
+        return [
+            'create-product',
+            'read-product',
+            'update-product',
+            'delete-product',
+            'create-cashier',
+            'read-cashier',
+            'update-cashier',
+            'delete-cashier',
+            'void-transaction',
+            'crud-struk',
+            'read-report',
+        ];
+    }
+    
+    public function ownerAbilities()
+    {
+        return [
+            'create-outlet',
+            'read-outlet',
+            'update-outlet',
+            'delete-outlet',
+            'create-staff',
+            'read-staff',
+            'update-staff',
+            'delete-staff',
+            'create-mobileaccount',
+            'read-mobileaccount',
+            'update-mobileaccount',
+            'delete-mobileaccount',
+            'crud-billing',
+        ];
+    }
+    
+    public function adminAbilities()
+    {
+        return [
+            'create-owner',
+            'read-owner',
+            'update-owner',
+            'delete-owner',
+        ];
     }
 }

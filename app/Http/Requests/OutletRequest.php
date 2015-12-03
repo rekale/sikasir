@@ -13,7 +13,7 @@ class OutletRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->is('owner') ? true : false;
     }
 
     /**

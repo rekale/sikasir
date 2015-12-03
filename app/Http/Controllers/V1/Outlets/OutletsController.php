@@ -21,13 +21,17 @@ class OutletsController extends ApiController
     
     public function index()
     {
-       $outlets = $this->repo->getPaginated();
-       
-       return $this->response->withPaginated($outlets, new OutletTransformer);
+        $this->authorize('read-outlet');
+        
+        $outlets = $this->repo->getPaginated();
+
+        return $this->response->withPaginated($outlets, new OutletTransformer);
     }
     
     public function show($outletId)
     {
+        $this->authorize('read-outlet');
+     
         $outlet = $this->repo->find($outletId);
         
         return $this->response->withItem($outlet, new OutletTransformer);
@@ -35,6 +39,7 @@ class OutletsController extends ApiController
     
     public function store(OutletRequest $request, JWTAuth $loggedUser)
     {
+ 
         $this->repo->save($request->all(), $loggedUser);
         
         return $this->response->created();

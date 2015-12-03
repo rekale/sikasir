@@ -9,10 +9,9 @@ class DatabaseSeeder extends Seeder
     protected $tables = [
         'users',
         'roles',
-        'role_user',
-        'permissions',
-        'permission_role',
-        'permission_user',
+        'abilities',
+        'role_abilities',
+        'user_abilities',
         'owners',
         'employees',
         'apps',
@@ -32,6 +31,7 @@ class DatabaseSeeder extends Seeder
      */
     protected $seeders = [
         'UserSeeder',
+        'RolesSeeder',
         'OutletSeeder',
         'FinanceSeeder',
         'CustomerSeeder',
@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
     {
     
         $this->command->info('Truncating existing tables');
-        DB::statement('TRUNCATE TABLE ' . implode(',', $this->tables). '  RESTART IDENTITY;');
+        DB::statement('TRUNCATE TABLE ' . implode(',', $this->tables). '  RESTART IDENTITY CASCADE;');
     
     }
 }
