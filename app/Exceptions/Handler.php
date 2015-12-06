@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
                 return $response->notAuthorized();
             }
         }
-
+        
         if (config('app.debug'))
         {
             return $this->renderExceptionWithWhoops($e, $request);

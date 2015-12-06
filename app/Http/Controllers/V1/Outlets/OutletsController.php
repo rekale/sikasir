@@ -44,4 +44,22 @@ class OutletsController extends ApiController
         
         return $this->response()->created();
     }
+    
+    public function update($id, OutletRequest $request)
+    {       
+        $this->authorizing('update-outlet');
+        
+        $this->repo()->update($request->all(), $id);
+        
+        return $this->response()->updated();
+    }
+    
+    public function destroy($id)
+    {       
+        $this->authorizing('delete-outlet');
+        
+        $this->repo()->destroy($id);
+        
+        return $this->response()->deleted();
+    }
 }

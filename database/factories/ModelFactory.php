@@ -32,6 +32,7 @@ $factory->define(BusinessField::class, function (Faker\Generator $fake) {
 
 $factory->define(Outlet::class, function (Faker\Generator $fake) {
     return [
+        'owner_id' => factory(Owner::class)->create()->id,
         'business_field_id' => factory(BusinessField::class)->create()->id,
         'name' => $fake->word,
         'code' => $fake->numerify(),

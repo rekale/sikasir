@@ -57,14 +57,41 @@ class OutletTest extends TestCase
     
     public function test_create_an_outlet()
     {
-        $outlet = factory(Outlet::class)->make()->toArray();
+        $outlet = factory(Outlet::class)->make();
         
         $token = $this->login();
         
-        $this->json('POST', 'v1/outlets?token=' . $token, $outlet);
+        $this->json('POST', 'v1/outlets?token=' . $token, $outlet->toArray());
         
         $this->assertResponseStatus(201);
         
-        $this->seeInDatabase('outlets', $outlet);
+    }
+    
+    public function test_update_an_outlet()
+    {
+        $outlet = factory(Outlet::class)->create();
+        
+        $newoutlet = factory(Outlet::class)->make()->toArray();
+        
+        $token = $this->login();
+        
+        $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id) . '?token=' . $token, $newoutlet);
+        
+        $this->assertResponseStatus(204);
+        
+        $this->seeInDatabase('outlets', $newoutlet);
+    }
+    
+    public function test_delete_an_outlet()
+    {
+        $outlet = factory(Outlet::class)->create();
+        
+        $token = $this->login();
+        
+        $this->json('DELETE', 'v1/outlets/'. $this->encode($outlet->id) . '?token=' . $token);
+        
+        $this->assertResponseStatus(204);
+        
+        $this->dontSeeInDatabase('outlets', $outlet->toArray());
     }
 }

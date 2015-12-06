@@ -65,9 +65,9 @@ class ApiController extends Controller
      */
     public function authorizing($doThis)
     {
-        //if($this->auth()->toUser()->cant($doThis)) {
-          //  abort(403);
-        //}
+        if($this->auth()->toUser()->cant($doThis)) {
+            abort(403);
+        }
     }
     
     

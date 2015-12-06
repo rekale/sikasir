@@ -37,9 +37,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         
         Route::group(['namespace' => 'Outlets'], function()
         {
-            get('outlets', 'OutletsController@index');
+            
             post('outlets', 'OutletsController@store');
+            get('outlets', 'OutletsController@index');
             get('outlets/{outletId}', 'OutletsController@show');
+            put('outlets/{outletId}', 'OutletsController@update');
+            delete('outlets/{outletId}', 'OutletsController@destroy');
 
             get('outlets/{outletId}/incomes', 'IncomesController@index');
             post('outlets/{outletId}/incomes', 'IncomesController@store');
