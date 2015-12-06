@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/tests/Outlets/OutletTest.php</file>
+            <file>file:/D:/project/kasir/app/Http/routes.php</file>
+            <file>file:/D:/project/kasir/vendor/silber/bouncer/src/Database/HasRolesAndAbilities.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
             <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/app/V1/User/Employee.php</file>
-            <file>file:/D:/project/kasir/tests/TestCase.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
+            <file>file:/D:/project/kasir/tests/Owners/OwnersTest.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OwnerTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Owners/OwnersController.php</file>
         </group>
     </open-files>
 </project-private>

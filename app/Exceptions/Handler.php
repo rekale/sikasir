@@ -5,9 +5,8 @@ namespace Sikasir\Exceptions;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Sikasir\Traits\ApiRespond;
+use Sikasir\V1\Traits\ApiRespond;
 
 class Handler extends ExceptionHandler
 {
@@ -44,33 +43,39 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         
+        $response = app(ApiRespond::class);
         
-        if (config('app.debug')) {
-            $whoops = new \Whoops\Run;
-
-            if ($request->ajax() || $request->isJson())
-            {
-                $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
-            }
-            else
-            {
-                $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-            }
-
-            return response($whoops->handleException($e),
-                $e->getStatusCode(),
-                $e->getHeaders()
-            );
-        }
-        else {
-            if ($e instanceof ModelNotFoundException) {
-                $response = app(ApiRespond::class);
-                
-                return $response->NotFound();
+        if ($this->isHttpException($e))
+        {
+            if ($e->getStatusCode() === 403) {
+                return $response->notAuthorized();
             }
         }
 
-
+        if (config('app.debug'))
+        {
+            return $this->renderExceptionWithWhoops($e, $request);
+        }
+        
         return parent::render($request, $e);
+    }
+    
+     /**
+     * Render an exception using Whoops.
+     * 
+     * @param  \Exception $e
+     * @return \Illuminate\Http\Response
+     */
+    protected function renderExceptionWithWhoops(Exception $e, $request)
+    {
+        $whoops = new \Whoops\Run;
+        
+        $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+        
+        return new \Illuminate\Http\Response(
+            $whoops->handleException($e),
+            $e->getStatusCode(),
+            $e->getHeaders()
+        );
     }
 }

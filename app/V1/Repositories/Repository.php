@@ -1,9 +1,9 @@
 <?php
 
-namespace Sikasir\V1\Interfaces;
+namespace Sikasir\V1\Repositories;
 
 use \Illuminate\Database\Eloquent\Model;
-use Sikasir\V1\Interfaces\RepositoryInterface;
+use Sikasir\V1\Repositories\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
 {
@@ -61,7 +61,22 @@ abstract class Repository implements RepositoryInterface
      */
     public function save(array $data) {
         
-        return $this->model->save($data);
+        $this->model->fill($data);
+        
+        return $this->model->save();
+        
+    }
+    
+    /**
+     * save new resource
+     * 
+     * @param array $data
+     * @return boolean
+     */
+    public function update(array $data, $id) {
+        
+        return $this->model->findOrFail($this->decode($id))
+                ->update($data);
         
     }
     

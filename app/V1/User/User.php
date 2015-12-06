@@ -18,8 +18,8 @@ class User extends Model implements AuthenticatableContract,
     use Authenticatable, CanResetPassword, Authorizable, HasRolesAndAbilities;
 
     /**
-     * The database table used by the model.
-     *
+     * The database table used by the model. 
+    *
      * @var string
      */
     protected $table = 'users';
@@ -53,58 +53,6 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->userable instanceof Employee;
     }
-    
-
-    public function allowed($providedPermission, Model $entity, $owner = true, $ownerColumn = 'user_id') {
-        
-    }
-
-    public function attachPermission($permission, $granted = TRUE) {
-        
-    }
-
-    public function attachRole($role, $granted = TRUE) {
-        
-    }
-
-    public function detachAllPermissions() {
-        
-    }
-
-    public function detachAllRoles() {
-        
-    }
-
-    public function detachPermission($permission) {
-        
-    }
-
-    public function detachRole($role) {
-        
-    }
-
-    public function getPermissions() {
-        
-    }
-
-    public function getRoles() {
-        
-    }
-
-    public function is($role, $all = false) {
-        
-    }
-
-    public function rolePermissions() {
-        
-    }
-
-    public function roles() {
-        
-    }
-
-    public function userPermissions() {
-        
-    }
+   
 
 }

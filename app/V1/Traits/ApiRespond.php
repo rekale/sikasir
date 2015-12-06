@@ -66,6 +66,16 @@ class ApiRespond
     }
     
     /**
+     * user not authorized
+     * 
+     * @param string $msg
+     */
+    public function notAuthorized($msg = 'Not Authorized')
+    {
+        return $this->setStatusCode(403)->withError($msg);
+    }
+    
+    /**
      * resource successfuly created
      * 
      * @param string $msg
@@ -73,6 +83,26 @@ class ApiRespond
     public function created($msg = 'created')
     {
         return $this->setStatusCode(201)->success($msg);
+    }
+    
+    /**
+     * resource successfuly updated
+     * 
+     * @param string $msg
+     */
+    public function updated($msg = 'updated')
+    {
+        return $this->setStatusCode(204)->success($msg);
+    }
+    
+    /**
+     * resource successfuly deleted
+     * 
+     * @param string $msg
+     */
+    public function deleted($msg = 'deleted')
+    {
+        return $this->setStatusCode(204)->success($msg);
     }
     
     /**

@@ -12,6 +12,7 @@
 */
 
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\User\Owner;
 use Sikasir\V1\Outlets\BusinessField;
 
 $factory->define(Sikasir\User::class, function (Faker\Generator $faker) {
@@ -41,5 +42,16 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
         'phone1' => $fake->phoneNumber,
         'phone2' => $fake->phoneNumber,
         'icon' => $fake->imageUrl(300, 200, 'people'),
+    ];
+});
+
+$factory->define(Owner::class, function (Faker\Generator $fake) {
+    return [
+        'full_name' => $fake->name, 
+        'business_name' => $fake->company, 
+        'phone' => $fake->phoneNumber,
+        'address' => $fake->address,
+        'icon' => $fake->imageUrl(), 
+        'active' => true,
     ];
 });

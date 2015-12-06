@@ -19,12 +19,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
     {
         post('mobile/login', 'AuthController@mobileLogin');
         post('login', 'AuthController@login');
-        post('/signup', 'AuthController@signup');
+        post('/register', 'AuthController@signup');
 
     });
 
     Route::group(['middleware' => 'jwt.auth'], function ()
     {
+        
+        Route::group(['namespace' => 'Owners'], function ()
+        {
+            get('owners', 'OwnersController@index');
+            get('owners/{id}', 'OwnersController@show');
+            post('owners', 'OwnersController@store');
+            put('owners/{id}', 'OwnersController@update');
+            delete('owners/{id}', 'OwnersController@destroy');
+        });
         
         Route::group(['namespace' => 'Outlets'], function()
         {
