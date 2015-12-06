@@ -2,9 +2,11 @@
 
 namespace Sikasir\V1\Outlets;
 
-use Sikasir\V1\Interfaces\Repository;
+use Sikasir\V1\Repositories\Repository;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\User\Owner;
+
 /**
  * Description of OutletRepository
  *
@@ -36,14 +38,12 @@ class OutletRepository extends Repository
      * save outlet
      * 
      * @param array $data
-     * @param JWTAuth $auth
+     * @param Sikasir\V1\User\Owner $owner
+     * 
+     * @return void
      */
-    public function save(array $data, JWTAuth $auth)
+    public function saveForOwner(array $data, Owner $owner)
     {
-         $user = $auth->toUser();
-        
-        $owner = $user->isOwner() ? $user->userable : $user->userable->owner;
-        
         $owner->outlets()->save(new Outlet($data));
     }
     

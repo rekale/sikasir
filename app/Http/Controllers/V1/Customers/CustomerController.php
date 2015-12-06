@@ -3,13 +3,17 @@
 namespace Sikasir\Http\Controllers\V1\Customers;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Requests;
 use Sikasir\Http\Controllers\ApiController;
+use Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Outlets\OutletRepository;
+use Tymon\JWTAuth\JWTAuth;
 
 class CustomersController extends ApiController
 {
-    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond) {
-        parent::__construct($respond);
+     public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
+        
+        parent::__construct($respond, $auth, $repo);
+        
     }
     
     /**

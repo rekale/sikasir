@@ -11,37 +11,37 @@ use \Sikasir\V1\Traits\ApiRespond;
 
 class OutletsController extends ApiController
 {
-    protected $repo;
     
-    public function __construct( ApiRespond $respond, OutletRepository $repo) {
-        parent::__construct($respond);
+    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
         
-        $this->repo = $repo;
+        parent::__construct($respond, $auth, $repo);
+        
     }
     
     public function index()
     {
-        $this->authorize('read-outlet');
+        $this->authorizing('read-outlet');
         
-        $outlets = $this->repo->getPaginated();
+        $outlets = $this->repo()->getPaginated();
 
-        return $this->response->withPaginated($outlets, new OutletTransformer);
+        return $this->response()->withPaginated($outlets, new OutletTransformer);
     }
     
     public function show($outletId)
     {
-        $this->authorize('read-outlet');
+        $this->authorizing('read-outlet');
      
-        $outlet = $this->repo->find($outletId);
+        $outlet = $this->repo()->find($outletId);
         
-        return $this->response->withItem($outlet, new OutletTransformer);
+        return $this->response()->withItem($outlet, new OutletTransformer);
     }
     
-    public function store(OutletRequest $request, JWTAuth $loggedUser)
-    {
- 
-        $this->repo->save($request->all(), $loggedUser);
+    public function store(OutletRequest $request)
+    {       
+        $this->authorizing('create-outlet');
         
-        return $this->response->created();
+        $this->repo()->saveForOwner($request->all(), $this->auth()->toUser()->userable);
+        
+        return $this->response()->created();
     }
 }

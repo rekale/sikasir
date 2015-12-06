@@ -11,10 +11,6 @@ use Sikasir\Http\Controllers\ApiController;
 
 class OwnersController extends ApiController
 {
-    protected $repo;
-    protected $response;
-    protected $auth;
-
 
     public function __construct(ApiRespond $respond, OwnerRepository $repo, JWTAuth $auth) {
         

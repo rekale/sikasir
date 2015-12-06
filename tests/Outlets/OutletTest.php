@@ -64,5 +64,7 @@ class OutletTest extends TestCase
         $this->json('POST', 'v1/outlets?token=' . $token, $outlet);
         
         $this->assertResponseStatus(201);
+        
+        $this->seeInDatabase('outlets', $outlet);
     }
 }
