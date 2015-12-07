@@ -24,7 +24,7 @@ class OwnerRequest extends Request
      */
     public function rules()
     {
-        if($this->getMethod() === 'PUT') {
+        if($this->getMethod() === 'POST') {
             return [
                 'full_name' => 'required|max:255',
                 'email' => 'required|email|max:255',

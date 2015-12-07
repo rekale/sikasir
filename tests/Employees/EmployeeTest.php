@@ -18,7 +18,7 @@ class EmployeeTest extends TestCase
     public function test_get_all_employees_paginated()
     {
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $owner = $this->getOwner();
         

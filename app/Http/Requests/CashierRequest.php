@@ -23,7 +23,7 @@ class CashierRequest extends Request
      */
     public function rules()
     {
-        if($this->getMethod() === 'PUT') {
+        if($this->getMethod() === 'POST') {
             return [
                 'name' => 'required|max:255',
                 'gender' => 'required|max:255',

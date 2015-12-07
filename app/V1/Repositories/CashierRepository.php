@@ -30,9 +30,19 @@ class CashierRepository extends Repository implements BelongsToOwner, UserMorpha
      */
     public function saveForOwner(array $data, Owner $owner)
     {
-        $owner->cashiers()->save(new Cashier($data));
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+        ]);
+        
+        $user->cashier()->save(new Cashier($data));
+        
+        $cashier = $user->cashier;
+        
+        $owner->cashiers()->save($cashier);
     }
-
+  
     public function createUser($id, array $data) 
     { 
        $cashier = $this->find($id);

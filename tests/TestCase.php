@@ -80,8 +80,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * 
      * @return string
      */
-    public function login()
+    public function loginAsOwner()
     {
+        
         $credentials = ['email' => 'owner@sikasir.com', 'password' => 'owner'];
         
         $auth = app(JWTAuth::class);
@@ -90,6 +91,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         
         return ['HTTP_Authorization' => 'Bearer' . $token];
     }
+    
     
     public function getOwner()
     {

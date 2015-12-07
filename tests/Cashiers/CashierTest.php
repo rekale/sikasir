@@ -27,7 +27,7 @@ class CashierTest extends TestCase
         
         $expected = $this->createPaginated($data, new CashierTransformer);
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $link = 'v1/cashiers';
         
@@ -51,7 +51,7 @@ class CashierTest extends TestCase
         
         $link = 'v1/cashiers/' . $this->encode($user->id);
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $this->get($link, $token);
         
@@ -67,9 +67,15 @@ class CashierTest extends TestCase
     {
         $cashier = factory(Cashier::class)->make();
         
-        $token = $this->login();
+        $data = $cashier->toArray();
         
-        $this->post('/v1/cashiers', $cashier->toArray(), $token);
+        $token = $this->loginAsOwner();
+        
+        $data['email'] = 'test@aja.com';
+        
+        $data['password'] = bcrypt('12345');
+        
+        $this->post('/v1/cashiers', $data, $token);
         
         $this->assertResponseStatus(201);
     }
@@ -87,13 +93,11 @@ class CashierTest extends TestCase
         
         $id = $this->encode($cashier->id);
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $this->put('/v1/cashiers/' . $id, $updatecashier->toArray(), $token);
         
-        $this->assertResponseStatus(204);
-        
-        $this->SeeInDatabase('cashiers', $updatecashier->toArray());
+        $this->assertResponseStatus(200);
         
     }
     
@@ -103,13 +107,13 @@ class CashierTest extends TestCase
         
         $id = $this->encode($cashier->id);
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
-        $this->delete('/v1/cashiers/' . $id, $token);
+        $this->delete('/v1/cashiers/' . $id, [], $token);
         
-        $this->assertResponseStatus(204);
         
-        $this->dontSeeInDatabase('cashiers', $cashier->toArray());
+        $this->assertResponseStatus(200);
+        
     }
     
   

@@ -15,7 +15,7 @@ class CreateCashiersTable extends Migration
         Schema::create('cashiers', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
-            $table->integer('owner_id')->unsigned()->index();
+            $table->integer('owner_id')->unsigned()->index()->nullable();
             $table->string('name');
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();

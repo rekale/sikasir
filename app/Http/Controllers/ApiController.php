@@ -73,11 +73,10 @@ class ApiController extends Controller
 
     public function getTheOwner(User $user)
     {
-        if ($user->isOwner()) {
-            return $user->userable;
+        if ($user->owner) {
+            return $user->owner;
         }
         else {
-            return $user->userable->owner;
         }
     }
 

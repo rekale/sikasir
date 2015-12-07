@@ -40,7 +40,7 @@ class OutletsController extends ApiController
     {
         $this->authorizing('create-outlet');
 
-        $owner = $this->getTheOwner($this->auth()->toUser());
+        $owner = $this->auth()->toUser()->owner;
 
         $this->repo()->saveForOwner($request->all(), $owner);
 

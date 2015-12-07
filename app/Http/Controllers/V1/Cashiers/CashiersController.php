@@ -45,11 +45,6 @@ class CashiersController extends ApiController
 
         $this->repo()->saveForOwner($request->all(), $owner);
         
-        $this->repo()->createUser([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
 
         return $this->response()->created();
     }

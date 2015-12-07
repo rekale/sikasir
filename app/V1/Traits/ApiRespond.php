@@ -92,7 +92,7 @@ class ApiRespond
      */
     public function updated($msg = 'updated')
     {
-        return $this->setStatusCode(204)->success($msg);
+        return $this->setStatusCode(200)->success($msg);
     }
     
     /**
@@ -102,7 +102,7 @@ class ApiRespond
      */
     public function deleted($msg = 'deleted')
     {
-        return $this->setStatusCode(204)->success($msg);
+        return $this->setStatusCode(200)->success($msg);
     }
     
     /**

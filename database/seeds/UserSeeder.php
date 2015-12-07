@@ -18,9 +18,21 @@ class UserSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
 
-        $owner = factory(Owner::class)->create([
+        $user = User::create([
             'name' => 'owner',
+            'email' => 'owner@sikasir.com',
+            'password' => bcrypt('owner'),
+            'remember_token' => str_random(10),
         ]);
+        
+        $owner = $user->owner()->save( new Owner([
+            'name' => 'owner', 
+            'business_name' => $fake->company, 
+            'phone' => $fake->phoneNumber,
+            'address' => $fake->address,
+            'icon' => $fake->imageUrl(), 
+            'active' => true,
+        ]));
 
         $owner->app()->save(new \Sikasir\V1\User\App([
             'username' => 'owner',
@@ -29,9 +41,13 @@ class UserSeeder extends Seeder
         
         foreach(range(1, 10) as $i) {
            
-            $owner->employees()->save(factory(Employee::class)->make());
+            $owner->employees()->save(factory(Employee::class)->make([
+                'owner_id' => $owner->id,
+            ]));
             
-            $owner->cashiers()->save(factory(Cashier::class)->make());
+            $owner->cashiers()->save(factory(Cashier::class)->make([
+                'owner_id' => $owner->id,
+            ]));
 
         }
 

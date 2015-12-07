@@ -24,7 +24,7 @@ class OutletTest extends TestCase
         
         $outlets = $repo->getPaginated();
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $data = $this->createPaginated($outlets, new OutletTransformer());
         
@@ -47,7 +47,7 @@ class OutletTest extends TestCase
         
         $data = $this->createItem($item, new OutletTransformer());
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $this->get('v1/outlets/' . $id, $token);
         
@@ -59,7 +59,7 @@ class OutletTest extends TestCase
     {
         $outlet = factory(Outlet::class)->make();
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $this->json('POST', 'v1/outlets', $outlet->toArray(), $token);
         
@@ -73,11 +73,11 @@ class OutletTest extends TestCase
         
         $newoutlet = factory(Outlet::class)->make()->toArray();
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id), $newoutlet, $token);
         
-        $this->assertResponseStatus(204);
+        $this->assertResponseStatus(200);
         
         $this->seeInDatabase('outlets', $newoutlet);
     }
@@ -86,12 +86,12 @@ class OutletTest extends TestCase
     {
         $outlet = factory(Outlet::class)->create();
         
-        $token = $this->login();
+        $token = $this->loginAsOwner();
         
         
         $this->delete('v1/outlets/'. $this->encode($outlet->id), [], $token);
         
-        $this->assertResponseStatus(204);
+        $this->assertResponseStatus(200);
         
         $this->dontSeeInDatabase('outlets', $outlet->toArray());
     }

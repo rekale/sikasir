@@ -33,6 +33,23 @@ $factory->define(BusinessField::class, function (Faker\Generator $fake) {
     ];
 });
 
+$factory->define(Owner::class, function (Faker\Generator $fake) {
+    
+    $user = factory(User::class)->create([
+        'password' => bcrypt('12345'),
+    ]);
+    
+    return [
+        'user_id'=> $user->id,
+        'name' => $user->name, 
+        'business_name' => $fake->company, 
+        'phone' => $fake->phoneNumber,
+        'address' => $fake->address,
+        'icon' => $fake->imageUrl(), 
+        'active' => true,
+    ];
+});
+
 $factory->define(Outlet::class, function (Faker\Generator $fake) {
     return [
         'owner_id' => factory(Owner::class)->create()->id,
@@ -49,21 +66,12 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
     ];
 });
 
-$factory->define(Owner::class, function (Faker\Generator $fake) {
-    $user = factory(User::class)->create();
-    return [
-        'user_id'=> $user->id,
-        'name' => $user->name, 
-        'business_name' => $fake->company, 
-        'phone' => $fake->phoneNumber,
-        'address' => $fake->address,
-        'icon' => $fake->imageUrl(), 
-        'active' => true,
-    ];
-});
 
 $factory->define(Employee::class, function (Faker\Generator $fake) {
-    $user = factory(User::class)->create();
+    $user = factory(User::class)->create([
+        'password' => bcrypt('12345'),
+    ]);
+    
     return [
         'user_id'=> $user->id,
         'name' => $user->name,
@@ -78,7 +86,10 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
 });
 
 $factory->define(Cashier::class, function (Faker\Generator $fake) {
-     $user = factory(User::class)->create();
+    $user = factory(User::class)->create([
+        'password' => bcrypt('12345'),
+    ]);
+    
     return [
         'user_id'=> $user->id,
         'owner_id' => factory(Owner::class)->create()->id,
