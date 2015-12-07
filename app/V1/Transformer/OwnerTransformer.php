@@ -26,6 +26,7 @@ class OwnerTransformer extends TransformerAbstract
     {
         return [
             'id' => $this->encode($owner->id),
+            'email' => $owner->user->email,
             'full_name' => $owner->full_name, 
             'business_name' => $owner->business_name, 
             'phone' => $owner->phone, 

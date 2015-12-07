@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\Employee;
+use Sikasir\V1\User\Cashier;
 
 class RolesSeeder extends Seeder
 {
@@ -14,36 +15,34 @@ class RolesSeeder extends Seeder
     public function run()
     {
         foreach ($this->cashierAbilities() as $doThis) {
-            \Bouncer::allow('kasir')->to($doThis);   
+            \Bouncer::allow('cashier')->to($doThis);
         }
         foreach ($this->staffAbilities() as $doThis) {
-            \Bouncer::allow('staff')->to($doThis);   
+            \Bouncer::allow('staff')->to($doThis);
         }
         foreach ($this->OwnerAbilities() as $doThis) {
-            \Bouncer::allow('owner')->to($doThis);   
+            \Bouncer::allow('owner')->to($doThis);
         }
         foreach ($this->adminAbilities() as $doThis) {
-            \Bouncer::allow('admin')->to($doThis);   
+            \Bouncer::allow('admin')->to($doThis);
         }
-        
+
         Owner::all()->each(function ($owner) {
             $owner->user->assign('owner');
             $owner->user->assign('staff');
-            $owner->user->assign('kasir');
+            $owner->user->assign('cashier');
         });
+        
         Employee::all()->each(function ($employee) {
-     
-            if (rand(0, 1)) {
-                $employee->user->assign('staff');
-            }
-     
-            $employee->user->assign('kasir');
-        
-            
+            $employee->user->assign('staff');
         });
         
+        Cashier::all()->each(function ($cashier) {
+            $cashier->user->assign('cashier');
+        });
+
     }
-    
+
     public function cashierAbilities()
     {
         return [
@@ -58,7 +57,7 @@ class RolesSeeder extends Seeder
             'export-report',
         ];
     }
-    
+
     public function staffAbilities()
     {
         return [
@@ -75,7 +74,7 @@ class RolesSeeder extends Seeder
             'read-report',
         ];
     }
-    
+
     public function ownerAbilities()
     {
         return [
@@ -94,7 +93,7 @@ class RolesSeeder extends Seeder
             'crud-billing',
         ];
     }
-    
+
     public function adminAbilities()
     {
         return [

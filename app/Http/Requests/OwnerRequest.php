@@ -13,7 +13,7 @@ class OwnerRequest extends Request
      * @return bool
      */
     public function authorize(JWTAuth $auth)
-    {   
+    {
         return true;
     }
 
@@ -24,13 +24,30 @@ class OwnerRequest extends Request
      */
     public function rules()
     {
-        return [
-            'full_name' => 'required|max:255', 
-            'business_name' => 'required|max:255', 
-            'phone' => 'required|max:255',
-            'address' => 'required|max:255',
-            'icon' => 'max:255', 
-            'active' => 'required|boolean',
-        ];
+        if($this->getMethod() === 'PUT') {
+            return [
+                'full_name' => 'required|max:255',
+                'email' => 'required|email|max:255',
+                'business_name' => 'required|max:255',
+                'phone' => 'required|max:255',
+                'address' => 'required|max:255',
+                'icon' => 'max:255',
+                'active' => 'required|boolean',
+                'password' => 'required|max:255',
+            ];
+        }
+        else {
+            return [
+                'full_name' => 'max:255',
+                'business_name' => 'max:255',
+                'email' => 'email|max:255',
+                'phone' => 'max:255',
+                'address' => 'max:255',
+                'icon' => 'max:255',
+                'password' => 'max:255', 
+                'active' => 'boolean',
+            ];
+        }
+
     }
 }

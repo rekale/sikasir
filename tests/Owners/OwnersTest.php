@@ -11,7 +11,7 @@ use Sikasir\V1\Traits\IdObfuscater;
 class OwnersTest extends TestCase
 {
     
-    use DatabaseTransactions, WithoutMiddleware , IdObfuscater;
+    use DatabaseTransactions, IdObfuscater;
     
     /**
      * A basic functional test example.
@@ -27,9 +27,11 @@ class OwnersTest extends TestCase
         
         $expected = $this->createPaginated($data, new OwnerTransformer);
         
+        $token = $this->login();
+        
         $link = 'v1/owners';
         
-        $this->visit($link);
+        $this->get($link, $token);
         
         $this->seeJson($expected->toArray());
         
@@ -49,7 +51,9 @@ class OwnersTest extends TestCase
         
         $link = 'v1/owners/' . $this->encode($user->id);
         
-        $this->visit($link);
+        $token = $this->login();
+        
+        $this->get($link, $token);
         
     }
     
@@ -62,7 +66,9 @@ class OwnersTest extends TestCase
     {
         $owner = factory(Owner::class)->make();
         
-        $this->post('/v1/owners', $owner->toArray());
+        $token = $this->login();
+        
+        $this->post('/v1/owners', $owner->toArray(), $token);
         
         $this->assertResponseStatus(201);
     }
@@ -80,7 +86,9 @@ class OwnersTest extends TestCase
         
         $id = $this->encode($owner->id);
         
-        $this->put('/v1/owners/' . $id, $updateowner->toArray());
+        $token = $this->login();
+        
+        $this->put('/v1/owners/' . $id, $updateowner->toArray(), $token);
         
         $this->assertResponseStatus(204);
         
@@ -94,7 +102,9 @@ class OwnersTest extends TestCase
         
         $id = $this->encode($owner->id);
         
-        $this->delete('/v1/owners/' . $id);
+        $token = $this->login();
+        
+        $this->delete('/v1/owners/' . $id, $token);
         
         $this->assertResponseStatus(204);
         

@@ -86,7 +86,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         
         $auth = app(JWTAuth::class);
         
-        return $auth->attempt($credentials);        
+        $token  = $auth->attempt($credentials);
+        
+        return ['HTTP_Authorization' => 'Bearer' . $token];
     }
     
     public function getOwner()

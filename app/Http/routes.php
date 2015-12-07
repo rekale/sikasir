@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
     Route::group(['middleware' => 'jwt.auth'], function ()
     {
-        
+
         Route::group(['namespace' => 'Owners'], function ()
         {
             get('owners', 'OwnersController@index');
@@ -34,10 +34,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('owners/{id}', 'OwnersController@update');
             delete('owners/{id}', 'OwnersController@destroy');
         });
-        
+
+        Route::group(['namespace' => 'Cashiers'], function ()
+        {
+            get('cashiers', 'CashiersController@index');
+            get('cashiers/{id}', 'CashiersController@show');
+            post('cashiers', 'CashiersController@store');
+            put('cashiers/{id}', 'CashiersController@update');
+            delete('cashiers/{id}', 'CashiersController@destroy');
+        });
+
         Route::group(['namespace' => 'Outlets'], function()
         {
-            
+
             post('outlets', 'OutletsController@store');
             get('outlets', 'OutletsController@index');
             get('outlets/{outletId}', 'OutletsController@show');
@@ -67,14 +76,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('incomes/{id}', 'IncomesController@destroy');
 
         });
-        
+
         Route::group(['namespace' => 'Employees'], function()
         {
             get('employees', 'EmployeesController@index');
 
         });
-        
-        
+
+
 
         Route::group(['namespace' => 'Products'], function()
         {

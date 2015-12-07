@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         'user_abilities',
         'owners',
         'employees',
+        'cashiers',
         'apps',
         'outlets',
         'employee_outlet',

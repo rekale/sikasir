@@ -3,6 +3,7 @@
 namespace Sikasir\V1\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\User\Cashier;
 
 class Owner extends Model
 {
@@ -47,6 +48,11 @@ class Owner extends Model
     public function employees()
     {
         return $this->hasMany(\Sikasir\V1\User\Employee::class);
+    }
+    
+    public function cashiers()
+    {
+        return $this->hasMany(Cashier::class);
     }
     
      /**

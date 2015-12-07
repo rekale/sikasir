@@ -62,6 +62,16 @@ class Outlet extends Model
     {
         return $this->BelongsToMany(\Sikasir\V1\User\Employee::class);
     }
+    
+    /**
+     * outlet have many cashier
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function cashiers()
+    {
+        return $this->hasMany(\Sikasir\V1\User\Cashier::class);
+    }
 
     public function incomes()
     {

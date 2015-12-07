@@ -28,7 +28,7 @@ class OutletTest extends TestCase
         
         $data = $this->createPaginated($outlets, new OutletTransformer());
         
-        $this->visit('v1/outlets?token='.$token);
+        $this->get('v1/outlets', $token);
        
         $this->seeJson();
         
@@ -49,7 +49,7 @@ class OutletTest extends TestCase
         
         $token = $this->login();
         
-        $this->visit('v1/outlets/' . $id . '?token='.$token);
+        $this->get('v1/outlets/' . $id, $token);
         
         $this->seeJson($data->toArray());
         
@@ -61,7 +61,7 @@ class OutletTest extends TestCase
         
         $token = $this->login();
         
-        $this->json('POST', 'v1/outlets?token=' . $token, $outlet->toArray());
+        $this->json('POST', 'v1/outlets', $outlet->toArray(), $token);
         
         $this->assertResponseStatus(201);
         
@@ -75,7 +75,7 @@ class OutletTest extends TestCase
         
         $token = $this->login();
         
-        $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id) . '?token=' . $token, $newoutlet);
+        $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id), $newoutlet, $token);
         
         $this->assertResponseStatus(204);
         
@@ -88,7 +88,8 @@ class OutletTest extends TestCase
         
         $token = $this->login();
         
-        $this->json('DELETE', 'v1/outlets/'. $this->encode($outlet->id) . '?token=' . $token);
+        
+        $this->delete('v1/outlets/'. $this->encode($outlet->id), [], $token);
         
         $this->assertResponseStatus(204);
         

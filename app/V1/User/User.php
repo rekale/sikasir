@@ -18,12 +18,12 @@ class User extends Model implements AuthenticatableContract,
     use Authenticatable, CanResetPassword, Authorizable, HasRolesAndAbilities;
 
     /**
-     * The database table used by the model. 
+     * The database table used by the model.
     *
      * @var string
      */
     protected $table = 'users';
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -38,21 +38,21 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-    
+
     public function userable()
     {
         return $this->morphTo();
     }
-    
+
     public function isOwner()
     {
         return $this->userable instanceof Owner;
     }
-    
+
     public function isEmployee()
     {
         return $this->userable instanceof Employee;
     }
-   
+
 
 }

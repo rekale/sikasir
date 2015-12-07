@@ -13,9 +13,11 @@
 
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\User\User;
 
-$factory->define(Sikasir\User::class, function (Faker\Generator $faker) {
+$factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -54,5 +56,16 @@ $factory->define(Owner::class, function (Faker\Generator $fake) {
         'address' => $fake->address,
         'icon' => $fake->imageUrl(), 
         'active' => true,
+    ];
+});
+
+$factory->define(Cashier::class, function (Faker\Generator $fake) {
+    return [
+        'owner_id' => factory(Owner::class)->create()->id,
+        'name' => $fake->name, 
+        'gender' => $fake->randomElement(['pria', 'wanita']),
+        'phone' => $fake->phoneNumber,
+        'address' => $fake->address,
+        'icon' => $fake->imageUrl(),
     ];
 });

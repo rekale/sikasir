@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Sikasir\V1\User\User;
+use Sikasir\V1\User\Cashier;
 
 class UserSeeder extends Seeder
 {
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
             'username' => 'owner',
             'password' => bcrypt('owner'),
         ]));
-
+        
         foreach(range(1, 10) as $i) {
             $employeeName = $fake->name;
 
@@ -49,6 +50,8 @@ class UserSeeder extends Seeder
                     'void_access' => $fake->boolean(),
                 ])
             );
+            
+            $owner->cashiers()->save(factory(Cashier::class)->make());
 
         }
 
@@ -56,6 +59,16 @@ class UserSeeder extends Seeder
 
             $employee->user()->save(new User([
                 'name' => $employee->name,
+                'email' => $fake->email,
+                'password' => bcrypt('12345'),
+            ]));
+
+        });
+        
+        Cashier::all()->each(function ($cashier) use($fake) {
+
+            $cashier->user()->save(new User([
+                'name' => $cashier->name,
                 'email' => $fake->email,
                 'password' => bcrypt('12345'),
             ]));
