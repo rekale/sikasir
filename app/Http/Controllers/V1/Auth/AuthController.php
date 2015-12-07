@@ -3,16 +3,17 @@
 namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\ApiController;
+use Sikasir\Http\Controllers\Controller;
 use \Sikasir\V1\Transformer\OwnerTransformer;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends ApiController
+class AuthController extends Controller
 {
     protected $request;
+    protected $response;
     
     public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, Request $request) {
-        parent::__construct($respond);
+        $this->response = $respond;
         
         $this->request = $request;
     }
