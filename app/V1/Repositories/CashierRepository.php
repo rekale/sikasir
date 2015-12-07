@@ -11,9 +11,10 @@ use Sikasir\V1\Repositories\UserMorphable;
 /**
  * Description of OutletRepository
  *
- * @author rekale
+ * @author rekale  public function __construct(Cashier $model) {
+  
  */
-class CashierRepository extends Repository implements BelongsToOwner, UserMorphable
+class CashierRepository extends Repository implements BelongsToOwner
 {
 
     public function __construct(Cashier $model) {
@@ -41,13 +42,6 @@ class CashierRepository extends Repository implements BelongsToOwner, UserMorpha
         $cashier = $user->cashier;
         
         $owner->cashiers()->save($cashier);
-    }
-  
-    public function createUser($id, array $data) 
-    { 
-       $cashier = $this->find($id);
-        
-        $cashier->user()->save(new User($data));
     }
 
 }

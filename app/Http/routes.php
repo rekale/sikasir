@@ -43,6 +43,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('cashiers/{id}', 'CashiersController@update');
             delete('cashiers/{id}', 'CashiersController@destroy');
         });
+        
+        Route::group(['namespace' => 'Employees'], function ()
+        {
+            get('employees', 'EmployeesController@index');
+            get('employees/{id}', 'EmployeesController@show');
+            post('employees', 'EmployeesController@store');
+            put('employees/{id}', 'EmployeesController@update');
+            delete('employees/{id}', 'EmployeesController@destroy');
+        });
 
         Route::group(['namespace' => 'Outlets'], function()
         {

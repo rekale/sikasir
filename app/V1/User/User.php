@@ -49,7 +49,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne(Cashier::class);
     }
     
-    public function staff()
+    public function employee()
     {
         return $this->hasOne(Employee::class);
     }

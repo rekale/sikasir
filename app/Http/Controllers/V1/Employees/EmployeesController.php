@@ -3,98 +3,66 @@
 namespace Sikasir\Http\Controllers\V1\Employees;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Requests;
-use Sikasir\Http\Controllers\Controller;
-use Sikasir\V1\Employees\UserRepository;
 use \Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\EmployeeTransformer;
-use Sikasir\V1\User\OwnerRepository;
 use Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Repositories\EmployeeRepository;
+use Sikasir\Http\Requests\EmployeeRequest;
 
 class EmployeesController extends ApiController
 {
 
-    protected $repo;
-
-     public function __construct(ApiRespond $respond, OwnerRepository $repo) {
-         parent::__construct($respond);
-
-         $this->repo = $repo;
-     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(JWTAuth $auth)
+    public function __construct(ApiRespond $respond, JWTAuth $auth, EmployeeRepository $repo)
     {
-        $user = $auth->toUser();
-        
-        $owner = $user->isOwner() ? $user->userable : abort(401);
-        
-        $employees = $owner->employees()->paginate();
-        
-        return $this->response->withPaginated($employees, new EmployeeTransformer);
-        
-       
+        parent::__construct($respond, $auth, $repo);
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function index()
     {
-        
+        $this->authorizing('read-staff');
+
+        $paginator = $this->repo()->getPaginated();
+
+        return $this->response()->withPaginated($paginator, new EmployeeTransformer);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $this->authorizing('read-staff');
+
+        $user = $this->repo()->find($id);
+
+        return $this->response()->withItem($user, new EmployeeTransformer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function store(EmployeeRequest $request)
     {
-        //
+        $this->authorizing('create-staff');
+
+        $owner = $this->getTheOwner($this->auth()->toUser());
+
+        $this->repo()->saveForOwner($request->all(), $owner);
+        
+
+        return $this->response()->created();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update($id, EmployeeRequest $request)
     {
-        //
+        $this->authorizing('update-staff');
+
+        $this->repo()->update($request->all(), $id);
+
+        return $this->response()->updated();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
-    }
+        $this->authorizing('delete-staff');
+
+        $this->repo()->destroy($id);
+
+        return $this->response()->deleted();
+   }
 }

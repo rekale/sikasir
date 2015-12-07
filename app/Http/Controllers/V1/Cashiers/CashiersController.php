@@ -13,7 +13,8 @@ use Sikasir\Http\Requests\CashierRequest;
 class CashiersController extends ApiController
 {
 
-    public function __construct(ApiRespond $respond, JWTAuth $auth, CashierRepository $repo) {
+    public function __construct(ApiRespond $respond, JWTAuth $auth, CashierRepository $repo) 
+    {
 
         parent::__construct($respond, $auth, $repo);
 

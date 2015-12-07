@@ -10,7 +10,7 @@ use Sikasir\V1\Repositories\UserMorphable;
  *
  * @author rekale
  */
-class OwnerRepository extends Repository implements UserMorphable
+class OwnerRepository extends Repository
 {
     
     public function __construct(Owner $owner) 
