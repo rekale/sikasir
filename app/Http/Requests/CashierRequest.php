@@ -30,7 +30,8 @@ class CashierRequest extends Request
                 'email' => 'required|email|max:255',
                 'address' => 'max:255',
                 'phone'=> 'max:255',
-                'password' => 'required|max:255'
+                'password' => 'required|max:255',
+                'outlet_id' => 'required',
             ];
         }
         else {

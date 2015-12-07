@@ -21,7 +21,7 @@ class Cashier extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'gender','address', 'phone', 'icon',
+        'owner_id', 'outlet_id', 'name', 'gender','address', 'phone', 'icon',
     ];
 
     /**

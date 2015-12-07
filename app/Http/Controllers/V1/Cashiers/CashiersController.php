@@ -46,15 +46,21 @@ class CashiersController extends ApiController
 
         $this->repo()->saveForOwner($request->all(), $owner);
         
-
         return $this->response()->created();
     }
 
     public function update($id, CashierRequest $request)
     {
         $this->authorizing('update-cashier');
-
-        $this->repo()->update($request->all(), $id);
+        
+        $this->repo()->update([
+            'outlet_id' => $this->decode($request->input('outlet_id')), 
+            'name' => $request->input('name'), 
+            'gender' => $request->input('gender'),
+            'address'=> $request->input('address'), 
+            'phone' => $request->input('phone'), 
+            'icon' => $request->input('icone'),
+        ], $id);
 
         return $this->response()->updated();
     }

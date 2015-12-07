@@ -8,6 +8,8 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Repositories\UserMorphable;
+use Sikasir\V1\Outlets\Outlet;
+
 /**
  * Description of OutletRepository
  *
@@ -16,7 +18,8 @@ use Sikasir\V1\Repositories\UserMorphable;
  */
 class CashierRepository extends Repository implements BelongsToOwner
 {
-
+    use \Sikasir\V1\Traits\IdObfuscater;
+    
     public function __construct(Cashier $model) {
         parent::__construct($model);
     }
@@ -36,6 +39,8 @@ class CashierRepository extends Repository implements BelongsToOwner
             'email' => $data['email'],
             'password' => $data['password'],
         ]);
+        
+        $data['outlet_id'] = $this->decode($data['outlet_id']);
         
         $user->cashier()->save(new Cashier($data));
         

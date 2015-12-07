@@ -7,6 +7,7 @@ use Sikasir\V1\Transformer\CashierTransformer;
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Repositories\CashierRepository;
 use Sikasir\V1\Traits\IdObfuscater;
+use Sikasir\V1\Outlets\Outlet;
 
 class CashierTest extends TestCase
 {
@@ -75,6 +76,8 @@ class CashierTest extends TestCase
         
         $data['password'] = bcrypt('12345');
         
+        $data['outlet_id'] = $this->encode(Outlet::findOrFail(1)->id);
+        
         $this->post('/v1/cashiers', $data, $token);
         
         $this->assertResponseStatus(201);
@@ -95,7 +98,11 @@ class CashierTest extends TestCase
         
         $token = $this->loginAsOwner();
         
-        $this->put('/v1/cashiers/' . $id, $updatecashier->toArray(), $token);
+        $data = $updatecashier->toArray();
+        
+        $data['outlet_id'] = $this->encode(Outlet::findOrFail(1)->id);
+        
+        $this->put('/v1/cashiers/' . $id, $data, $token);
         
         $this->assertResponseStatus(200);
         

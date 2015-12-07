@@ -74,6 +74,7 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
     
     return [
         'user_id'=> $user->id,
+        'owner_id' => null,
         'name' => $user->name,
         'title' => $fake->randomElement(['staff', 'manager']),
         'gender' => $fake->randomElement(['pria', 'wanita']),
@@ -92,7 +93,8 @@ $factory->define(Cashier::class, function (Faker\Generator $fake) {
     
     return [
         'user_id'=> $user->id,
-        'owner_id' => factory(Owner::class)->create()->id,
+        'owner_id' => null,
+        'outlet_id' => null,
         'name' => $user->name, 
         'gender' => $fake->randomElement(['pria', 'wanita']),
         'phone' => $fake->phoneNumber,

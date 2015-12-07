@@ -16,6 +16,7 @@ class CreateCashiersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
             $table->integer('owner_id')->unsigned()->index()->nullable();
+            $table->integer('outlet_id')->unsigned()->index()->nullable();
             $table->string('name');
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
@@ -32,6 +33,11 @@ class CreateCashiersTable extends Migration
             $table->foreign('owner_id')
                   ->references('id')
                   ->on('owners')
+                  ->onDelete('cascade');
+            
+            $table->foreign('outlet_id')
+                  ->references('id')
+                  ->on('outlets')
                   ->onDelete('cascade');
         });
     }
