@@ -39,9 +39,19 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function userable()
+    public function owner()
     {
-        return $this->morphTo();
+        return $this->hasOne(Owner::class);
+    }
+    
+    public function cashier()
+    {
+        return $this->hasOne(Cashier::class);
+    }
+    
+    public function staff()
+    {
+        return $this->hasOne(Employee::class);
     }
 
     public function isOwner()

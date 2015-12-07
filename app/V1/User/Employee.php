@@ -33,7 +33,7 @@ class Employee extends Model
 
     public function user()
     {
-        return $this->morphOne(User::class, 'userable');
+        return $this->belongsTo(User::class);
     }
     
     public function owner()

@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\User\User;
 use Sikasir\V1\User\Cashier;
+use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Employee;
 
 class UserSeeder extends Seeder
 {
@@ -16,20 +18,9 @@ class UserSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
 
-        $owner = Sikasir\V1\User\Owner::create([
-               'full_name' => 'owner',
-               'business_name' => $fake->word,
-               'phone' => $fake->phoneNumber,
-               'address' => $fake->address,
-               'icon' => $fake->imageUrl(300, 200, 'people'),
-               'active' => true,
-           ]);
-
-        $owner->user()->save(new User([
+        $owner = factory(Owner::class)->create([
             'name' => 'owner',
-            'email' => 'owner@sikasir.com',
-            'password' => bcrypt('owner'),
-        ]));
+        ]);
 
         $owner->app()->save(new \Sikasir\V1\User\App([
             'username' => 'owner',
@@ -37,43 +28,12 @@ class UserSeeder extends Seeder
         ]));
         
         foreach(range(1, 10) as $i) {
-            $employeeName = $fake->name;
-
-            $owner->employees()->save(
-                new Sikasir\V1\User\Employee([
-                    'name' => $employeeName,
-                    'title' => $fake->randomElement(['staff', 'kasir']),
-                    'gender' => $fake->randomElement(['pria', 'wanita']),
-                    'phone' => $fake->phoneNumber,
-                    'address' => $fake->address,
-                    'icon' => $fake->imageUrl(300, 200, 'people'),
-                    'void_access' => $fake->boolean(),
-                ])
-            );
+           
+            $owner->employees()->save(factory(Employee::class)->make());
             
             $owner->cashiers()->save(factory(Cashier::class)->make());
 
         }
-
-        Sikasir\V1\User\Employee::all()->each(function ($employee) use($fake) {
-
-            $employee->user()->save(new User([
-                'name' => $employee->name,
-                'email' => $fake->email,
-                'password' => bcrypt('12345'),
-            ]));
-
-        });
-        
-        Cashier::all()->each(function ($cashier) use($fake) {
-
-            $cashier->user()->save(new User([
-                'name' => $cashier->name,
-                'email' => $fake->email,
-                'password' => bcrypt('12345'),
-            ]));
-
-        });
 
     }
 }

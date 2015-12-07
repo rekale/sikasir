@@ -16,6 +16,7 @@ use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\User\User;
+use Sikasir\V1\User\Employee;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -49,8 +50,10 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
 });
 
 $factory->define(Owner::class, function (Faker\Generator $fake) {
+    $user = factory(User::class)->create();
     return [
-        'full_name' => $fake->name, 
+        'user_id'=> $user->id,
+        'name' => $user->name, 
         'business_name' => $fake->company, 
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,
@@ -59,10 +62,27 @@ $factory->define(Owner::class, function (Faker\Generator $fake) {
     ];
 });
 
-$factory->define(Cashier::class, function (Faker\Generator $fake) {
+$factory->define(Employee::class, function (Faker\Generator $fake) {
+    $user = factory(User::class)->create();
     return [
+        'user_id'=> $user->id,
+        'name' => $user->name,
+        'title' => $fake->randomElement(['staff', 'manager']),
+        'gender' => $fake->randomElement(['pria', 'wanita']),
+        'phone' => $fake->phoneNumber,
+        'address' => $fake->address,
+        'icon' => $fake->imageUrl(300, 200, 'people'),
+        'void_access' => true,
+    ];
+    
+});
+
+$factory->define(Cashier::class, function (Faker\Generator $fake) {
+     $user = factory(User::class)->create();
+    return [
+        'user_id'=> $user->id,
         'owner_id' => factory(Owner::class)->create()->id,
-        'name' => $fake->name, 
+        'name' => $user->name, 
         'gender' => $fake->randomElement(['pria', 'wanita']),
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,

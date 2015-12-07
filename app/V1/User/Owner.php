@@ -21,7 +21,7 @@ class Owner extends Model
      *
      * @var array
      */
-    protected $fillable = ['full_name', 'business_name', 'phone', 'address', 'icon', 'active',];
+    protected $fillable = ['name', 'business_name', 'phone', 'address', 'icon', 'active',];
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -32,7 +32,7 @@ class Owner extends Model
     
     public function user()
     {
-        return $this->morphOne(User::class, 'userable');
+        return $this->belongsTo(User::class);
     }
     
     /**

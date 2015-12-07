@@ -14,6 +14,7 @@ class CreateCashiersTable extends Migration
     {
         Schema::create('cashiers', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id')->index();
             $table->integer('owner_id')->unsigned()->index();
             $table->string('name');
             $table->string('gender')->nullable();
@@ -22,6 +23,11 @@ class CreateCashiersTable extends Migration
             $table->text('icon')->nullable();
             $table->timestamps();
             
+            
+             $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
             
             $table->foreign('owner_id')
                   ->references('id')
