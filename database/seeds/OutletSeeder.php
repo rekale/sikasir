@@ -47,7 +47,7 @@ class OutletSeeder extends Seeder
             $outlet->employees()->attach(
                 Sikasir\V1\User\Employee::all()->random()
             );
-
+            
         });
     }
 }
