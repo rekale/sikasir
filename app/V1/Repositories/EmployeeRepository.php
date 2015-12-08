@@ -18,7 +18,7 @@ use Sikasir\V1\User\User;
  *
  * @author rekale
  */
-class EmployeeRepository extends Repository implements BelongsToOwner
+class EmployeeRepository extends Repository implements BelongsToOwnerRepo
 {
     public function __construct(Employee $model) 
     {

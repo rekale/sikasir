@@ -48,6 +48,11 @@ class ApiController extends Controller
     {
        return $this->auth;
     }
+    
+    public function currentUser()
+    {
+        return $this->auth->toUser();
+    }
 
     /**
      * return repository

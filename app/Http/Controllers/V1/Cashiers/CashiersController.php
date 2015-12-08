@@ -23,8 +23,10 @@ class CashiersController extends ApiController
     public function index()
     {
         $this->authorizing('read-cashier');
-
-        $paginator = $this->repo()->getPaginated();
+       
+        $paginator = $this->repo()->getPaginatedForOwner(
+            $this->currentUser()->toOwner()
+        );
 
         return $this->response()->withPaginated($paginator, new CashierTransformer);
     }
@@ -33,7 +35,7 @@ class CashiersController extends ApiController
     {
         $this->authorizing('read-cashier');
 
-        $user = $this->repo()->find($id);
+        $user = $this->repo()->findForOwner($id,  $this->currentUser()->toOwner());
 
         return $this->response()->withItem($user, new CashierTransformer);
     }
@@ -42,7 +44,7 @@ class CashiersController extends ApiController
     {
         $this->authorizing('create-cashier');
 
-        $owner = $this->getTheOwner($this->auth()->toUser());
+        $owner = $this->currentUser()->toOwner();
 
         $this->repo()->saveForOwner($request->all(), $owner);
         

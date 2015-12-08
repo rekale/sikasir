@@ -24,7 +24,7 @@ class CashierTest extends TestCase
         
         $repo = app(CashierRepository::class);
         
-        $data = $repo->getPaginated();
+        $data = $repo->getPaginatedForOwner($this->owner());
         
         $expected = $this->createPaginated($data, new CashierTransformer);
         
@@ -45,12 +45,13 @@ class CashierTest extends TestCase
      * @return void
      */
     public function test_get_one_cashier()
-    {
-        $user = factory(Cashier::class)->create();
+    {   
+     
+        $cashier = $this->owner()->cashiers[0];
         
-        $expected = $this->createItem($user, new CashierTransformer);
+        $expected = $this->createItem($cashier, new CashierTransformer);
         
-        $link = 'v1/cashiers/' . $this->encode($user->id);
+        $link = 'v1/cashiers/' . $this->encode($cashier->id);
         
         $token = $this->loginAsOwner();
         

@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Outlets;
 
 use Sikasir\V1\Repositories\Repository;
-use Sikasir\V1\Repositories\BelongsToOwner;
+use Sikasir\V1\Repositories\BelongsToOwnerRepo;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
@@ -13,7 +13,7 @@ use Sikasir\V1\User\Owner;
  *
  * @author rekale
  */
-class OutletRepository extends Repository implements BelongsToOwner
+class OutletRepository extends Repository implements BelongsToOwnerRepo
 {
 
     public function __construct(Outlet $outlet) {

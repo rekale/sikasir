@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\Repository;
-use Sikasir\V1\Repositories\BelongsToOwner; 
+use Sikasir\V1\Repositories\BelongsToOwnerRepo; 
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
@@ -16,7 +16,7 @@ use Sikasir\V1\Outlets\Outlet;
  * @author rekale  public function __construct(Cashier $model) {
   
  */
-class CashierRepository extends Repository implements BelongsToOwner
+class CashierRepository extends Repository implements BelongsToOwnerRepo
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
@@ -47,6 +47,32 @@ class CashierRepository extends Repository implements BelongsToOwner
         $cashier = $user->cashier;
         
         $owner->cashiers()->save($cashier);
+    }
+
+    public function getPaginatedForOwner(Owner $owner) 
+    {
+        return $owner->cashiers()->paginate();
+    }
+
+    public function findForOwner($id, Owner $owner) 
+    {
+        return $owner->cashiers()->findOrFail($this->decode($id));
+    }
+    
+    public function updateForOwner($id, array $data, Owner $owner) 
+    {
+        $owner->cashiers()
+                ->findOrFail($this->decode($id))
+                ->update($data);
+    }
+    
+    public function destroyForOwner($id, Owner $owner) 
+    {
+        $decodedId = $this->decode($id);
+        
+        $owner->cashiers()->findOrFail($decodedId);
+        
+        $this->destroy($id);
     }
 
 }

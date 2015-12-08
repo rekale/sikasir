@@ -92,6 +92,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         return ['HTTP_Authorization' => 'Bearer' . $token];
     }
     
+    public function owner()
+    {
+        return Sikasir\V1\User\Owner::findOrFail(1);
+    }
+    
     
     public function getOwner()
     {

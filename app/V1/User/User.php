@@ -54,15 +54,22 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne(Employee::class);
     }
 
-    public function isOwner()
+    /**
+     * change current to owner
+     * 
+     * @return Sikasir\V1\User\Owner
+     */
+    public function toOwner()
     {
-        return $this->userable instanceof Owner;
+        if ($this->is('owner')) {
+            return $this->owner;
+        }
+        else if ($this->is('staff')) {
+            $this->employee->owner;
+        }
+        else if ($this->is('cashier')) {
+            $this->cashier->owner;
+        }
     }
-
-    public function isEmployee()
-    {
-        return $this->userable instanceof Employee;
-    }
-
 
 }
