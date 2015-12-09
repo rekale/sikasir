@@ -30,14 +30,22 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password'],
+            'password' => bcrypt($data['password']),
         ]);
         
-        $user->employee()->save(new Employee($data));
+        $data['user_id'] = $user->id;
+        $data['owner_id'] = $owner->id;
         
-        $staff = $user->employee;
+        $employee = Employee::create($data);
         
-        $owner->employees()->save($staff);
+        $outletIdDecoded = [];
+        
+        foreach ($data['outlet_id'] as $outletId) {
+            $outletIdDecoded = $this->decode($outletId);
+        }
+        
+        $employee->outlets()->attach($outletIdDecoded);
+        
     }
 
     public function destroyForOwner($id, Owner $owner) 
@@ -59,9 +67,18 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
 
     public function updateForOwner($id, array $data, Owner $owner) 
     {
-        $owner->employees()
-                ->findOrFail($this->decode($id))
-                ->update($data);
+        $employee = $owner->employees()->findOrFail($this->decode($id));
+        
+        $employee->update($data);
+        
+        $outletIds  = [];
+        
+        foreach ($data['outlet_id'] as $id) {
+            $outletIds[] = $this->decode($id);
+        }
+        
+        $employee->outlets()->sync($outletIds);
+        
     }
 
 }

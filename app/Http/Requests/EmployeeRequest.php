@@ -32,6 +32,7 @@ class EmployeeRequest extends Request
                 'phone'=> 'max:255',
                 'void_access' => 'required|boolean',
                 'password' => 'required|max:255',
+                'outlet_id.0' => 'required',
             ];
         }
         else {
@@ -43,6 +44,7 @@ class EmployeeRequest extends Request
                 'phone'=> 'max:255',
                 'void_access' => 'boolean',
                 'password' => 'max:255',
+                'outlet_id.0' => 'required',
             ];
         }
     }

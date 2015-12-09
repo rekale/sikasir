@@ -35,12 +35,6 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
             $this->findWith($outletId, ['incomes'])->incomes ;
     }
 
-
-    public function saveForOwner(array $data, Owner $owner)
-    {
-        $owner->outlets()->save(new Outlet($data));
-    }
-
     /**
      * save income for specifi outlet
      *
@@ -179,5 +173,27 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
             $this->findWith($outletId, ['employees'])->employees;
     }
 
+    
+
+    public function saveForOwner(array $data, Owner $owner)
+    {
+        $owner->outlets()->save(new Outlet($data));
+    }
+    
+    public function destroyForOwner($id, Owner $owner) {
+        
+    }
+
+    public function findForOwner($id, Owner $owner) {
+        
+    }
+
+    public function getPaginatedForOwner(Owner $owner) {
+        
+    }
+
+    public function updateForOwner($id, array $data, Owner $owner) {
+        
+    }
 
 }

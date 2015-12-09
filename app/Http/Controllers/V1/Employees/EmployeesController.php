@@ -42,7 +42,7 @@ class EmployeesController extends ApiController
     {
         $this->authorizing('create-staff');
 
-        $owner = $this->getTheOwner($this->auth()->toUser());
+        $owner = $this->auth()->toUser()->toOwner();
 
         $this->repo()->saveForOwner($request->all(), $owner);
         

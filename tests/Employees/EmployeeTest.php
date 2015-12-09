@@ -67,7 +67,9 @@ class EmployeeTest extends TestCase
      */
     public function test_create_an_employee()
     {
-        $employee = factory(Employee::class)->make();
+        $employee = factory(Employee::class)->make([
+            'user_id' => null,
+        ]);
         
         $data = $employee->toArray();
         
@@ -75,11 +77,25 @@ class EmployeeTest extends TestCase
         
         $data['email'] = 'test@aja.com';
         
-        $data['password'] = bcrypt('12345');
+        $data['password'] = '12345';
+        
+        $outlets = $this->owner()->outlets;
+        
+        foreach ($outlets as $outlet) {
+            $data['outlet_id'][] = $this->encode($outlet->id);
+        }
         
         $this->post('/v1/employees', $data, $token);
         
         $this->assertResponseStatus(201);
+        
+        $this->seeInDatabase('employees', [
+            'name' => $employee->name,
+        ]);
+        $this->seeInDatabase('users', [
+            'email' => 'test@aja.com',
+        ]);
+       
     }
     
     /**
@@ -88,18 +104,34 @@ class EmployeeTest extends TestCase
      * @return void
      */
     public function test_update_an_employee()
-    {
+    {   
+        //get the current resorce
         $employee = $this->owner()->employees[0];
-        
+        //make the input update
         $updateemployee = factory(Employee::class)->make();
+        
+        $data = $updateemployee->toArray();
+        
+        // outlet
+        $data['outlet_id'][] = $this->encode($employee->outlets[0]->id);
         
         $id = $this->encode($employee->id);
         
         $token = $this->loginAsOwner();
         
-        $this->put('/v1/employees/' . $id, $updateemployee->toArray(), $token);
+        $this->put('/v1/employees/' . $id, $data, $token);
         
         $this->assertResponseStatus(200);
+        
+        $this->seeInDatabase('employees', [
+            'id' => $employee->id,
+            'name' => $updateemployee->name,
+        ]);
+        
+        $this->seeInDatabase('employee_outlet', [
+            'employee_id' => $employee->id,
+            'outlet_id' => $employee->outlets[0]->id,
+        ]);
         
     }
     
