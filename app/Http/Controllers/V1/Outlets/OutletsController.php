@@ -21,17 +21,21 @@ class OutletsController extends ApiController
     public function index()
     {
         $this->authorizing('read-outlet');
-
-        $outlets = $this->repo()->getPaginated();
+        
+        $owner = $this->auth()->toUser()->toOwner();
+        
+        $outlets = $this->repo()->getPaginatedForOwner($owner);
 
         return $this->response()->withPaginated($outlets, new OutletTransformer);
     }
 
-    public function show($outletId)
+    public function show($id)
     {
         $this->authorizing('read-outlet');
-
-        $outlet = $this->repo()->find($outletId);
+        
+        $owner = $this->auth()->toUser()->toOwner();
+        
+        $outlet = $this->repo()->findForOwner($id, $owner);
 
         return $this->response()->withItem($outlet, new OutletTransformer);
     }
@@ -40,7 +44,7 @@ class OutletsController extends ApiController
     {
         $this->authorizing('create-outlet');
 
-        $owner = $this->auth()->toUser()->owner;
+        $owner = $this->auth()->toUser()->toOwner();
 
         $this->repo()->saveForOwner($request->all(), $owner);
 
@@ -50,8 +54,10 @@ class OutletsController extends ApiController
     public function update($id, OutletRequest $request)
     {
         $this->authorizing('update-outlet');
-
-        $this->repo()->update($request->all(), $id);
+        
+        $owner = $this->auth()->toUser()->toOwner();
+        
+        $this->repo()->updateForOwner($id, $request->all(), $owner);
 
         return $this->response()->updated();
     }
@@ -60,7 +66,7 @@ class OutletsController extends ApiController
     {
         $this->authorizing('delete-outlet');
 
-        $this->repo()->destroy($id);
+        $this->repo()->destroyForOwner($id);
 
         return $this->response()->deleted();
     }

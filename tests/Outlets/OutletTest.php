@@ -22,7 +22,7 @@ class OutletTest extends TestCase
         
         $repo = new OutletRepository(new Outlet);
         
-        $outlets = $repo->getPaginated();
+        $outlets = $repo->getPaginatedForOwner($this->owner());
         
         $token = $this->loginAsOwner();
         
@@ -30,26 +30,28 @@ class OutletTest extends TestCase
         
         $this->get('v1/outlets', $token);
        
-        $this->seeJson();
+        $this->assertResponseStatus(200);
+        
+        $this->seeJson($data->toArray());
         
     }
     
     public function test_get_an_outlet()
     {
         
-        $repo = new OutletRepository(new Outlet);
-        
-        $outlet = $repo->getSome(5)->random();
+        $outlet = factory(Outlet::class)->create([
+           'owner_id' => $this->owner()->id, 
+        ]);
         
         $id = $this->encode($outlet->id);
         
-        $item = $repo->find($id);
-        
-        $data = $this->createItem($item, new OutletTransformer());
+        $data = $this->createItem($outlet, new OutletTransformer());
         
         $token = $this->loginAsOwner();
         
         $this->get('v1/outlets/' . $id, $token);
+        
+        $this->assertResponseStatus(200);
         
         $this->seeJson($data->toArray());
         
@@ -57,7 +59,9 @@ class OutletTest extends TestCase
     
     public function test_create_an_outlet()
     {
-        $outlet = factory(Outlet::class)->make();
+        $outlet = factory(Outlet::class)->make([
+            'owner_id' => null,
+        ]);
         
         $token = $this->loginAsOwner();
         
@@ -65,11 +69,20 @@ class OutletTest extends TestCase
         
         $this->assertResponseStatus(201);
         
+        $this->seeInDatabase('outlets', [
+            'business_field_id' => $outlet->business_field_id,
+            'name' => $outlet->name,
+            'code' => $outlet->code,
+            'address' => $outlet->address,
+        ]);
+        
     }
     
     public function test_update_an_outlet()
     {
-        $outlet = factory(Outlet::class)->create();
+        $outlet = factory(Outlet::class)->create([
+            'owner_id' => $this->owner()->id,
+        ]);
         
         $newoutlet = factory(Outlet::class)->make()->toArray();
         
@@ -82,17 +95,19 @@ class OutletTest extends TestCase
         $this->seeInDatabase('outlets', $newoutlet);
     }
     
-    public function test_delete_an_outlet()
+    public function delete_an_outlet()
     {
-        $outlet = factory(Outlet::class)->create();
+        $outlet = $this->owner()->outlets[0];
+        
+        $id = $this->encode($outlet->id);
         
         $token = $this->loginAsOwner();
         
+        $this->delete('/v1/outlets/' . $id, $token);
         
-        $this->delete('v1/outlets/'. $this->encode($outlet->id), [], $token);
-        
-        $this->assertResponseStatus(200);
+        $this->assertResponseOk();
         
         $this->dontSeeInDatabase('outlets', $outlet->toArray());
     }
+   
 }

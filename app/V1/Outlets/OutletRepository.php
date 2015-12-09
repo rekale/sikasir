@@ -181,19 +181,24 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     }
     
     public function destroyForOwner($id, Owner $owner) {
+        $owner->outlets()->findOrFail($this->decode(id));
         
+        $this->destroy($id);
     }
 
-    public function findForOwner($id, Owner $owner) {
-        
+    public function findForOwner($id, Owner $owner) 
+    {
+        return $owner->outlets()->findOrFail($this->decode($id));
     }
 
-    public function getPaginatedForOwner(Owner $owner) {
-        
+    public function getPaginatedForOwner(Owner $owner) 
+    {
+        return $owner->outlets()->paginate();
     }
 
-    public function updateForOwner($id, array $data, Owner $owner) {
-        
+    public function updateForOwner($id, array $data, Owner $owner) 
+    {
+        $owner->outlets()->findOrFail($this->decode($id))->update($data);
     }
 
 }

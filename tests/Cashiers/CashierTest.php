@@ -34,6 +34,8 @@ class CashierTest extends TestCase
         
         $this->get($link, $token);
         
+        $this->assertResponseOk();
+        
         $this->seeJson($expected->toArray());
         
         
