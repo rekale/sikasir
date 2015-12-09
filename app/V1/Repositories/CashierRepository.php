@@ -7,8 +7,6 @@ use Sikasir\V1\Repositories\BelongsToOwnerRepo;
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
-use Sikasir\V1\Repositories\UserMorphable;
-use Sikasir\V1\Outlets\Outlet;
 
 /**
  * Description of OutletRepository
@@ -18,7 +16,6 @@ use Sikasir\V1\Outlets\Outlet;
  */
 class CashierRepository extends Repository implements BelongsToOwnerRepo
 {
-    use \Sikasir\V1\Traits\IdObfuscater;
     
     public function __construct(Cashier $model) {
         parent::__construct($model);
@@ -40,13 +37,10 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
             'password' => $data['password'],
         ]);
         
+        $data['user_id'] = $user->id;
         $data['outlet_id'] = $this->decode($data['outlet_id']);
         
-        $user->cashier()->save(new Cashier($data));
-        
-        $cashier = $user->cashier;
-        
-        $owner->cashiers()->save($cashier);
+        $owner->cashiers()->save(new Cashier($data));
     }
 
     public function getPaginatedForOwner(Owner $owner) 
@@ -61,6 +55,8 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
     
     public function updateForOwner($id, array $data, Owner $owner) 
     {
+        $data['outlet_id'] = $this->decode($data['outlet_id']);
+        
         $owner->cashiers()
                 ->findOrFail($this->decode($id))
                 ->update($data);

@@ -12,8 +12,6 @@ use Sikasir\V1\User\User;
 class ApiController extends Controller
 {
 
-    use IdObfuscater;
-
     /**
      *
      * @var Sikasir\V1\Traits\ApiRespond
@@ -75,16 +73,5 @@ class ApiController extends Controller
             abort(403);
         }
     }
-
-    public function getTheOwner(User $user)
-    {
-        if ($user->owner) {
-            return $user->owner;
-        }
-        else {
-        }
-    }
-
-
 
 }

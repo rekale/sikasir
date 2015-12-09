@@ -67,7 +67,11 @@ class CashierTest extends TestCase
      */
     public function test_create_an_cashier()
     {
-        $cashier = factory(Cashier::class)->make();
+        
+        $cashier = factory(Cashier::class)->make([
+            'owner_id' => null,
+            'outlet_id' => $this->encode($this->owner()->outlets[0]->id),
+        ]);
         
         $data = $cashier->toArray();
         
@@ -75,9 +79,7 @@ class CashierTest extends TestCase
         
         $data['email'] = 'test@aja.com';
         
-        $data['password'] = bcrypt('12345');
-        
-        $data['outlet_id'] = $this->encode(Outlet::findOrFail(1)->id);
+        $data['password'] = '12345';
         
         $this->post('/v1/cashiers', $data, $token);
         
@@ -91,7 +93,9 @@ class CashierTest extends TestCase
      */
     public function test_update_an_cashier()
     {
-        $cashier = factory(Cashier::class)->create();
+        $cashier = factory(Cashier::class)->create([
+            'owner_id' => $this->owner()->id,
+        ]);
         
         $updatecashier = factory(Cashier::class)->make();
         

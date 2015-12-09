@@ -55,14 +55,9 @@ class CashiersController extends ApiController
     {
         $this->authorizing('update-cashier');
         
-        $this->repo()->update([
-            'outlet_id' => $this->decode($request->input('outlet_id')), 
-            'name' => $request->input('name'), 
-            'gender' => $request->input('gender'),
-            'address'=> $request->input('address'), 
-            'phone' => $request->input('phone'), 
-            'icon' => $request->input('icone'),
-        ], $id);
+        $owner = $this->currentUser()->toOwner();
+        
+        $this->repo()->updateForOwner($id, $request->all(), $owner);
 
         return $this->response()->updated();
     }

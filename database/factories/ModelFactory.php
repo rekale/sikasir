@@ -89,11 +89,12 @@ $factory->define(Cashier::class, function (Faker\Generator $fake) {
     $user = factory(User::class)->create([
         'password' => bcrypt('12345'),
     ]);
-    
+    $owner = factory(Owner::class)->create();
+    $outlet = factory(Outlet::class)->create();
     return [
         'user_id'=> $user->id,
-        'owner_id' => null,
-        'outlet_id' => null,
+        'owner_id' => $owner->id,
+        'outlet_id' => $outlet->id,
         'name' => $user->name, 
         'gender' => $fake->randomElement(['pria', 'wanita']),
         'phone' => $fake->phoneNumber,
