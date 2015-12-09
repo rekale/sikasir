@@ -74,7 +74,6 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
     
     return [
         'user_id'=> $user->id,
-        'owner_id' => null,
         'name' => $user->name,
         'title' => $fake->randomElement(['staff', 'manager']),
         'gender' => $fake->randomElement(['pria', 'wanita']),

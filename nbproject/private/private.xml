@@ -3,24 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/database/seeds/OutletSeeder.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
-            <file>file:/D:/project/kasir/database/seeds/UserSeeder.php</file>
-            <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/database/seeds/RolesSeeder.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_10_15_140325_create_members_table.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/EmployeeRequest.php</file>
-            <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Employees/EmployeesController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Cashiers/CashiersController.php</file>
-            <file>file:/D:/project/kasir/app/V1/User/Owner.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2014_10_12_000000_create_users_table.php</file>
-            <file>file:/D:/project/kasir/tests/Cashiers/CashierTest.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/BelongsToOwnerRepo.php</file>
             <file>file:/D:/project/kasir/database/factories/ModelFactory.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/EmployeeRepository.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_12_06_173414_create_cashiers_table.php</file>
+            <file>file:/D:/project/kasir/app/Exceptions/Handler.php</file>
             <file>file:/D:/project/kasir/tests/Employees/EmployeeTest.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/CashierRepository.php</file>
         </group>
     </open-files>
 </project-private>

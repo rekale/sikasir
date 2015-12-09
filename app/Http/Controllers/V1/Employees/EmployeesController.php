@@ -22,7 +22,9 @@ class EmployeesController extends ApiController
     {
         $this->authorizing('read-staff');
 
-        $paginator = $this->repo()->getPaginated();
+        $paginator = $this->repo()->getPaginatedForOwner(
+            $this->currentUser()->toOwner()
+        );
 
         return $this->response()->withPaginated($paginator, new EmployeeTransformer);
     }
@@ -31,7 +33,7 @@ class EmployeesController extends ApiController
     {
         $this->authorizing('read-staff');
 
-        $user = $this->repo()->find($id);
+        $user = $this->repo()->findFOrOwner($id, $this->currentUser()->toOwner());
 
         return $this->response()->withItem($user, new EmployeeTransformer);
     }
@@ -52,7 +54,7 @@ class EmployeesController extends ApiController
     {
         $this->authorizing('update-staff');
 
-        $this->repo()->update($request->all(), $id);
+        $this->repo()->updateForOwner($id, $request->all(), $this->currentUser()->toOwner());
 
         return $this->response()->updated();
     }
@@ -61,7 +63,7 @@ class EmployeesController extends ApiController
     {
         $this->authorizing('delete-staff');
 
-        $this->repo()->destroy($id);
+        $this->repo()->destroyForOwner($id, $this->currentUser()->toOwner());
 
         return $this->response()->deleted();
    }

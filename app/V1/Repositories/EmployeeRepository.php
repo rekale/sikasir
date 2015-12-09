@@ -40,4 +40,28 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
         $owner->employees()->save($staff);
     }
 
+    public function destroyForOwner($id, Owner $owner) 
+    {
+        $owner->employees()->findOrFail($this->decode($id));
+        
+        $this->destroy($id);
+    }
+
+    public function findForOwner($id, Owner $owner) 
+    {
+        return $owner->employees()->findOrFail($this->decode($id));
+    }
+
+    public function getPaginatedForOwner(Owner $owner)
+    {
+        return $owner->employees()->paginate();
+    }
+
+    public function updateForOwner($id, array $data, Owner $owner) 
+    {
+        $owner->employees()
+                ->findOrFail($this->decode($id))
+                ->update($data);
+    }
+
 }

@@ -70,6 +70,9 @@ class User extends Model implements AuthenticatableContract,
         else if ($this->is('cashier')) {
             $this->cashier->owner;
         }
+        else {
+            abort(403);
+        }
     }
 
 }

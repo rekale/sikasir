@@ -23,7 +23,9 @@ class EmployeeTest extends TestCase
         
         $repo = app(EmployeeRepository::class);
         
-        $data = $repo->getPaginated();
+        $owner = $this->owner();
+        
+        $data = $repo->getPaginatedForOwner($owner);
         
         $expected = $this->createPaginated($data, new EmployeeTransformer);
         
@@ -45,11 +47,11 @@ class EmployeeTest extends TestCase
      */
     public function test_get_one_employee()
     {
-        $user = factory(Employee::class)->create();
+        $employee = $this->owner()->employees[0];
         
-        $expected = $this->createItem($user, new EmployeeTransformer);
+        $expected = $this->createItem($employee, new EmployeeTransformer);
         
-        $link = 'v1/employees/' . $this->encode($user->id);
+        $link = 'v1/employees/' . $this->encode($employee->id);
         
         $token = $this->loginAsOwner();
         
@@ -87,7 +89,7 @@ class EmployeeTest extends TestCase
      */
     public function test_update_an_employee()
     {
-        $employee = factory(Employee::class)->create();
+        $employee = $this->owner()->employees[0];
         
         $updateemployee = factory(Employee::class)->make();
         
@@ -103,7 +105,7 @@ class EmployeeTest extends TestCase
     
     public function test_delete_an_employee()
     {
-        $employee = factory(Employee::class)->create();
+        $employee = $this->owner()->employees[0];
         
         $id = $this->encode($employee->id);
         
