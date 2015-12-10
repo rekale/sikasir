@@ -17,7 +17,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         $fake = Faker\Factory::create();
-
+        
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@sikasir.com',
+            'password' => bcrypt('admin'),
+            'remember_token' => str_random(10),
+        ]);
+        
         $user = User::create([
             'name' => 'owner',
             'email' => 'owner@sikasir.com',

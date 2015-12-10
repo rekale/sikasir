@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\User\Cashier;
+use Sikasir\V1\User\User;
 
 class RolesSeeder extends Seeder
 {
@@ -26,7 +27,11 @@ class RolesSeeder extends Seeder
         foreach ($this->adminAbilities() as $doThis) {
             \Bouncer::allow('admin')->to($doThis);
         }
-
+        
+        $user = User::whereName('admin')->get();
+        
+        $user[0]->assign('admin');
+        
         Owner::all()->each(function ($owner) {
             $owner->user->assign('owner');
             $owner->user->assign('staff');

@@ -3,6 +3,8 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Item;
 use Tymon\JWTAuth\JWTAuth;
+use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\User;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -76,7 +78,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
     
     /**
-     * login and return token jwt
+     * login as owner and return token jwt
      * 
      * @return string
      */
@@ -92,9 +94,33 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         return ['HTTP_Authorization' => 'Bearer' . $token];
     }
     
+    /**
+     * login as admin and return token jwt
+     * 
+     * @return string
+     */
+    public function loginAsAdmin()
+    {
+        
+        $credentials = ['email' => 'admin@sikasir.com', 'password' => 'admin'];
+        
+        $auth = app(JWTAuth::class);
+        
+        $token  = $auth->attempt($credentials);
+        
+        return ['HTTP_Authorization' => 'Bearer' . $token];
+    }
+    
     public function owner()
     {
-        return Sikasir\V1\User\Owner::findOrFail(1);
+        return Owner::findOrFail(1);
+    }
+    
+    public function admin()
+    {
+        $admin = User::whereName('admin')->get();
+        
+        return $admin[0];
     }
     
     

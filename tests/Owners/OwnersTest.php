@@ -27,7 +27,7 @@ class OwnersTest extends TestCase
         
         $expected = $this->createPaginated($data, new OwnerTransformer);
         
-        $token = $this->loginAsOwner();
+        $token = $this->loginAsAdmin();
         
         $link = 'v1/owners';
         
@@ -51,7 +51,7 @@ class OwnersTest extends TestCase
         
         $link = 'v1/owners/' . $this->encode($user->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->loginAsAdmin();
         
         $this->get($link, $token);
         
@@ -77,7 +77,7 @@ class OwnersTest extends TestCase
         $data['email'] = $user->email;
         $data['password'] = '12345';
         
-        $token = $this->loginAsOwner();
+        $token = $this->loginAsAdmin();
         
         
         $this->post('/v1/owners', $data, $token);
@@ -100,7 +100,7 @@ class OwnersTest extends TestCase
         
         $id = $this->encode($owner->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->loginAsAdmin();
         
         $this->put('/v1/owners/' . $id, $updateowner->toArray(), $token);
         
@@ -119,7 +119,7 @@ class OwnersTest extends TestCase
         
         $id = $this->encode($owner->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->loginAsAdmin();
         
         $this->delete('/v1/owners/' . $id, [], $token);
         
