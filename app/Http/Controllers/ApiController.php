@@ -31,7 +31,7 @@ class ApiController extends Controller
     /**
      * return response
      *
-     * @return Sikasir\V1\Traits\ApiRespond
+     * @return \Sikasir\V1\Traits\ApiRespond
      */
     public function response()
     {
@@ -39,15 +39,20 @@ class ApiController extends Controller
     }
 
     /**
-     * return current logged user
+     * return current auth
      *
-     * return Tymon\JWTAuth\JWTAuth
+     * return \Tymon\JWTAuth\JWTAuth
      */
     public function auth()
     {
        return $this->auth;
     }
     
+    /**
+     * return current logged user
+     *
+     * return \Sikasir\V1\User\User
+     */
     public function currentUser()
     {
         return $this->auth->toUser();
@@ -56,7 +61,7 @@ class ApiController extends Controller
     /**
      * return repository
      *
-     * @return Sikasir\V1\Repositories\RepositoryInterface
+     * @return \Sikasir\V1\Repositories\RepositoryInterface
      */
     public function repo()
     {
@@ -65,8 +70,11 @@ class ApiController extends Controller
 
     /**
      *
-     * @param type $doThis
+     * check if current user have rights to do current job
+     * 
+     * @param string $doThis
      *
+     * @return void|\Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function authorizing($doThis)
     {
