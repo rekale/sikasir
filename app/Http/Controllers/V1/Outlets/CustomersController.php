@@ -26,7 +26,9 @@ class CustomersController extends ApiController
    {    
        $customers = $this->repo()->getCustomers($outletId);
        
-       return $this->response()->withPaginated($customers, new CustomerTransformer);
+       return $this->response()
+               ->resource()
+               ->withPaginated($customers, new CustomerTransformer);
        
    }
    

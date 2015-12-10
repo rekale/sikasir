@@ -25,7 +25,9 @@ class EmployeesController extends ApiController
        
        $products = $this->repo()->getEmployees($outletId);
        
-       return $this->response()->withPaginated($products, new EmployeeTransformer);
+       return $this->response()
+               ->resource()
+               ->withPaginated($products, new EmployeeTransformer);
        
    }
 

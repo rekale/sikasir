@@ -26,7 +26,7 @@ class OutletTest extends TestCase
         
         $token = $this->loginAsOwner();
         
-        $data = $this->createPaginated($outlets, new OutletTransformer());
+        $data = $this->createPaginated($outlets, new OutletTransformer);
         
         $this->get('v1/outlets', $token);
        

@@ -9,6 +9,7 @@ use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Transformer\CashierTransformer;
 use Sikasir\Http\Requests\CashierRequest;
+use League\Fractal\Manager;
 
 class CashiersController extends ApiController
 {
@@ -28,7 +29,9 @@ class CashiersController extends ApiController
             $this->currentUser()->toOwner()
         );
 
-        return $this->response()->withPaginated($paginator, new CashierTransformer);
+        return $this->response()
+                ->resource()
+                ->withPaginated($paginator, new CashierTransformer);
     }
 
     public function show($id)
@@ -37,7 +40,9 @@ class CashiersController extends ApiController
 
         $user = $this->repo()->findForOwner($id,  $this->currentUser()->toOwner());
 
-        return $this->response()->withItem($user, new CashierTransformer);
+        return $this->response()
+                ->resource()
+                ->withItem($user, new CashierTransformer);
     }
 
     public function store(CashierRequest $request)

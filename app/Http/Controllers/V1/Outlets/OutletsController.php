@@ -8,6 +8,7 @@ use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
+use League\Fractal\Manager;
 
 class OutletsController extends ApiController
 {
@@ -26,7 +27,9 @@ class OutletsController extends ApiController
         
         $outlets = $this->repo()->getPaginatedForOwner($owner);
 
-        return $this->response()->withPaginated($outlets, new OutletTransformer);
+        return $this->response()
+                ->resource()
+                ->withPaginated($outlets, new OutletTransformer);
     }
 
     public function show($id)
@@ -37,7 +40,9 @@ class OutletsController extends ApiController
         
         $outlet = $this->repo()->findForOwner($id, $owner);
 
-        return $this->response()->withItem($outlet, new OutletTransformer);
+        return $this->response()
+                ->resource()
+                ->withItem($outlet, new OutletTransformer);
     }
 
     public function store(OutletRequest $request)

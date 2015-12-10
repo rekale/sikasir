@@ -21,8 +21,17 @@ class ApiRespond
      private $statusCode = 200;
      private $fractal;
      
-     public function __construct(Manager $fractal) {
-         $this->fractal = $fractal;
+     
+     /**
+      * response resource / data
+      * 
+      * @return $this
+      */
+     public function resource()
+     {
+         $this->fractal = new Manager;
+         
+         return $this;
      }
      
      /**
@@ -178,7 +187,6 @@ class ApiRespond
      */
     public function withPaginated($paginator, TransformerAbstract $callback)
     {
-    
         $collection = $paginator->getCollection();
         
         $resource = new Collection($collection, $callback);

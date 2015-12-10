@@ -25,7 +25,9 @@ class OutcomesController extends ApiController
    {    
        $outcomes = $this->repo->getOutcomes($outletId);
        
-       return $this->response->withPaginated($outcomes, new OutcomeTransformer);
+       return $this->response
+               ->resource()
+               ->withPaginated($outcomes, new OutcomeTransformer);
        
    }
    

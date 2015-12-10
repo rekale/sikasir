@@ -26,7 +26,9 @@ class IncomesController extends ApiController
    {    
        $incomes = $this->repo->getIncomes($outletId);
        
-       return $this->response->withPaginated($incomes, new IncomeTransformer);
+       return $this->response
+               ->resource()
+               ->withPaginated($incomes, new IncomeTransformer);
        
    }
    
