@@ -38,7 +38,9 @@ class OutletsController extends ApiController
         
         $owner = $this->auth()->toUser()->toOwner();
         
-        $outlet = $this->repo()->findForOwner($id, $owner);
+        $decodedId = $this->decode($id);
+        
+        $outlet = $this->repo()->findForOwner($decodedId, $owner);
 
         return $this->response()
                 ->resource()
@@ -62,7 +64,9 @@ class OutletsController extends ApiController
         
         $owner = $this->auth()->toUser()->toOwner();
         
-        $this->repo()->updateForOwner($id, $request->all(), $owner);
+        $decodedId = $this->decode($id);
+        
+        $this->repo()->updateForOwner($decodedId, $request->all(), $owner);
 
         return $this->response()->updated();
     }
@@ -70,8 +74,10 @@ class OutletsController extends ApiController
     public function destroy($id)
     {
         $this->authorizing('delete-outlet');
-
-        $this->repo()->destroyForOwner($id);
+        
+        $decodedId = $this->decode($id);
+        
+        $this->repo()->destroyForOwner($decodedId);
 
         return $this->response()->deleted();
     }

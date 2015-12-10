@@ -7,7 +7,6 @@ use Sikasir\V1\Repositories\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
 {
-    use \Sikasir\V1\Traits\IdObfuscater;
     
     private $model;
     
@@ -17,21 +16,19 @@ abstract class Repository implements RepositoryInterface
     
     
     /**
-     * find specific resource by obfuascated id
+     * find specific resource by id
      * 
      * @param integer $id
      * 
      * @return \Illuminate\Support\Collection|static;
      */
     public function find($id) 
-    {
-        $id = $this->decode($id);
-        
+    {   
         return $this->model->findOrFail($id);
     }
     
     /**
-     * find specific resource by obfuascated id with its relationship
+     * find specific resource by id with its relationship
      * 
      * @param integer $id
      * 
@@ -71,13 +68,14 @@ abstract class Repository implements RepositoryInterface
      * save new resource
      * 
      * @param array $data
+     * @param integer $id
+     * 
      * @return boolean
      */
-    public function update(array $data, $id) {
-        
-        return $this->model->findOrFail($this->decode($id))
-                ->update($data);
-        
+    public function update(array $data, $id) 
+    {
+        return $this->model->findOrFail($id)
+                ->update($data);    
     }
     
     
@@ -88,20 +86,13 @@ abstract class Repository implements RepositoryInterface
      * 
      * @return boolean
      */
-    public function destroy($id) {
-        if (is_array($id)) {
-            foreach ($id as $data => $value) {   
-                $id[$data] = $this->decode($value);                
-            }
-        }
-        else {
-            $id = $this->decode($id);
-        }
-        
+    public function destroy($id) 
+    {
         return $this->model->destroy($id);
     }
 
-    public function getAll(array $coloumns = array('*')) {
+    public function getAll(array $coloumns = array('*')) 
+    {
         return $this->model->all($coloumns);
     }
     

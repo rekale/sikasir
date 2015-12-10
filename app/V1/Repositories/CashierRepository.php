@@ -50,7 +50,7 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
 
     public function findForOwner($id, Owner $owner) 
     {
-        return $owner->cashiers()->findOrFail($this->decode($id));
+        return $owner->cashiers()->findOrFail($id);
     }
     
     public function updateForOwner($id, array $data, Owner $owner) 
@@ -58,15 +58,13 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
         $data['outlet_id'] = $this->decode($data['outlet_id']);
         
         $owner->cashiers()
-                ->findOrFail($this->decode($id))
+                ->findOrFail($id)
                 ->update($data);
     }
     
     public function destroyForOwner($id, Owner $owner) 
-    {
-        $decodedId = $this->decode($id);
-        
-        $owner->cashiers()->findOrFail($decodedId);
+    {   
+        $owner->cashiers()->findOrFail($id);
         
         $this->destroy($id);
     }

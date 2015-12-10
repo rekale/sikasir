@@ -26,16 +26,22 @@ class EmployeesController extends ApiController
             $this->currentUser()->toOwner()
         );
 
-        return $this->response()->withPaginated($paginator, new EmployeeTransformer);
+        return $this->response()
+                ->resource()
+                ->withPaginated($paginator, new EmployeeTransformer);
     }
 
     public function show($id)
     {
         $this->authorizing('read-staff');
+        
+        $decodedId = $this->decode($id);
+        
+        $user = $this->repo()->findFOrOwner($decodedId, $this->currentUser()->toOwner());
 
-        $user = $this->repo()->findFOrOwner($id, $this->currentUser()->toOwner());
-
-        return $this->response()->withItem($user, new EmployeeTransformer);
+        return $this->response()
+                ->resource()
+                ->withItem($user, new EmployeeTransformer);
     }
 
     public function store(EmployeeRequest $request)
@@ -43,8 +49,12 @@ class EmployeesController extends ApiController
         $this->authorizing('create-staff');
 
         $owner = $this->auth()->toUser()->toOwner();
-
-        $this->repo()->saveForOwner($request->all(), $owner);
+        
+        $dataInput = $request->all();
+        
+        $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
+        
+        $this->repo()->saveForOwner($dataInput, $owner);
         
 
         return $this->response()->created();
@@ -53,8 +63,14 @@ class EmployeesController extends ApiController
     public function update($id, EmployeeRequest $request)
     {
         $this->authorizing('update-staff');
+        
+        $decodedId = $this->decode($id);
+        
+        $dataInput = $request->all();
+        
+        $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
 
-        $this->repo()->updateForOwner($id, $request->all(), $this->currentUser()->toOwner());
+        $this->repo()->updateForOwner($decodedId, $dataInput, $this->currentUser()->toOwner());
 
         return $this->response()->updated();
     }
@@ -62,8 +78,10 @@ class EmployeesController extends ApiController
     public function destroy($id)
     {
         $this->authorizing('delete-staff');
+        
+        $decodedId = $this->decode($id);
 
-        $this->repo()->destroyForOwner($id, $this->currentUser()->toOwner());
+        $this->repo()->destroyForOwner($decodedId, $this->currentUser()->toOwner());
 
         return $this->response()->deleted();
    }

@@ -37,8 +37,10 @@ class CashiersController extends ApiController
     public function show($id)
     {
         $this->authorizing('read-cashier');
-
-        $user = $this->repo()->findForOwner($id,  $this->currentUser()->toOwner());
+        
+        $decodedId = $this->decode($id);
+        
+        $user = $this->repo()->findForOwner($decodedId,  $this->currentUser()->toOwner());
 
         return $this->response()
                 ->resource()
@@ -62,7 +64,9 @@ class CashiersController extends ApiController
         
         $owner = $this->currentUser()->toOwner();
         
-        $this->repo()->updateForOwner($id, $request->all(), $owner);
+        $decodedId = $this->decode($id);
+        
+        $this->repo()->updateForOwner($decodedId, $request->all(), $owner);
 
         return $this->response()->updated();
     }
@@ -70,8 +74,10 @@ class CashiersController extends ApiController
     public function destroy($id)
     {
         $this->authorizing('delete-cashier');
-
-        $this->repo()->destroy($id);
+        
+        $decodedId = $this->decode($id);
+        
+        $this->repo()->destroy($decodedId);
 
         return $this->response()->deleted();
    }

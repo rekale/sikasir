@@ -24,16 +24,22 @@ class OwnersController extends ApiController
 
         $paginator = $this->repo()->getPaginated();
 
-        return $this->response()->withPaginated($paginator, new OwnerTransformer);
+        return $this->response()
+                ->resource()
+                ->withPaginated($paginator, new OwnerTransformer);
     }
 
     public function show($id)
     {
         $this->authorizing('read.owner');
+        
+        $decodedId = $this->decode($id);
 
-        $user = $this->repo()->find($id);
+        $user = $this->repo()->find($decodedId);
 
-        return $this->response()->withItem($user, new OwnerTransformer);
+        return $this->response()
+                ->resource()
+                ->withItem($user, new OwnerTransformer);
     }
 
     public function store(OwnerRequest $request)
@@ -54,8 +60,10 @@ class OwnersController extends ApiController
     public function update($id, OwnerRequest $request)
     {
         $this->authorizing('update.owner');
+        
+        $decodedId = $this->decode($id);
 
-        $this->repo()->update($request->all(), $id);
+        $this->repo()->update($request->all(), $decodedId);
 
         return $this->response()->updated();
     }
@@ -63,8 +71,10 @@ class OwnersController extends ApiController
     public function destroy($id)
     {
         $this->authorizing('delete.owner');
-
-        $this->repo()->destroy($id);
+        
+        $decodedId = $this->decode($id);
+        
+        $this->repo()->destroy($decodedId);
 
         return $this->response()->deleted();
    }

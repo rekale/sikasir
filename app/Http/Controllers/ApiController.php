@@ -7,11 +7,12 @@ use Sikasir\V1\Traits\IdObfuscater;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\Repository;
-use Sikasir\V1\User\User;
 
 class ApiController extends Controller
 {
-
+    
+    use IdObfuscater;
+    
     /**
      *
      * @var Sikasir\V1\Traits\ApiRespond

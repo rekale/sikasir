@@ -38,26 +38,20 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
         
         $employee = Employee::create($data);
         
-        $outletIdDecoded = [];
-        
-        foreach ($data['outlet_id'] as $outletId) {
-            $outletIdDecoded = $this->decode($outletId);
-        }
-        
-        $employee->outlets()->attach($outletIdDecoded);
-        
+        $employee->outlets()->attach($data['outlet_id']);
+       
     }
 
     public function destroyForOwner($id, Owner $owner) 
     {
-        $owner->employees()->findOrFail($this->decode($id));
+        $owner->employees()->findOrFail($id);
         
         $this->destroy($id);
     }
 
     public function findForOwner($id, Owner $owner) 
     {
-        return $owner->employees()->findOrFail($this->decode($id));
+        return $owner->employees()->findOrFail($id);
     }
 
     public function getPaginatedForOwner(Owner $owner)
@@ -67,17 +61,11 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
 
     public function updateForOwner($id, array $data, Owner $owner) 
     {
-        $employee = $owner->employees()->findOrFail($this->decode($id));
+        $employee = $owner->employees()->findOrFail($id);
         
         $employee->update($data);
         
-        $outletIds  = [];
-        
-        foreach ($data['outlet_id'] as $id) {
-            $outletIds[] = $this->decode($id);
-        }
-        
-        $employee->outlets()->sync($outletIds);
+        $employee->outlets()->sync($data['outlet_id']);
         
     }
 
