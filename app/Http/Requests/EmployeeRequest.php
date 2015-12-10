@@ -27,7 +27,7 @@ class EmployeeRequest extends Request
             return [
                 'name' => 'required|max:255',
                 'gender' => 'required|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email|unique:users',
                 'address' => 'max:255',
                 'phone'=> 'max:255',
                 'void_access' => 'required|boolean',
