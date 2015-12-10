@@ -38,7 +38,9 @@ class AuthController extends Controller
         
         $owner = $app[0]->owner()->with($include)->get();
         
-        return $this->response->including($include)->withCollection($owner, new OwnerTransformer);
+        return $this->response->resource()
+                ->including($include)
+                ->withCollection($owner, new OwnerTransformer);
         
     }
     
