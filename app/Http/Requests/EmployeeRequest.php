@@ -26,6 +26,7 @@ class EmployeeRequest extends Request
         if($this->getMethod() === 'POST') {
             return [
                 'name' => 'required|max:255',
+                'title' => 'required|max:255',
                 'gender' => 'required|max:255',
                 'email' => 'required|email|unique:users',
                 'address' => 'max:255',
@@ -38,6 +39,7 @@ class EmployeeRequest extends Request
         else {
             return [
                 'name' => 'max:255',
+                'title' => 'max:255',
                 'gender' => 'max:255',
                 'email' => 'email|max:255',
                 'address' => 'max:255',

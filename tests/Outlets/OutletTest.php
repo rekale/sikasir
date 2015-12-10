@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Sikasir\V1\Outlets\OutletRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Transformer\OutletTransformer;
+use Sikasir\V1\Outlets\BusinessField;
 
 class OutletTest extends TestCase
 {
@@ -61,6 +62,9 @@ class OutletTest extends TestCase
     {
         $outlet = factory(Outlet::class)->make([
             'owner_id' => null,
+            'business_field_id' => $this->encode(
+                factory(BusinessField::class)->create()->id
+            ),
         ]);
         
         $token = $this->loginAsOwner();
@@ -68,9 +72,9 @@ class OutletTest extends TestCase
         $this->json('POST', 'v1/outlets', $outlet->toArray(), $token);
         
         $this->assertResponseStatus(201);
-        
+       
         $this->seeInDatabase('outlets', [
-            'business_field_id' => $outlet->business_field_id,
+            'business_field_id' => $this->decode($outlet->business_field_id),
             'name' => $outlet->name,
             'code' => $outlet->code,
             'address' => $outlet->address,
@@ -84,15 +88,25 @@ class OutletTest extends TestCase
             'owner_id' => $this->owner()->id,
         ]);
         
-        $newoutlet = factory(Outlet::class)->make()->toArray();
+        $newoutlet = factory(Outlet::class)->make([
+            'business_field_id' => $this->encode(
+                factory(BusinessField::class)->create()->id
+            ),
+        ]);
         
         $token = $this->loginAsOwner();
         
-        $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id), $newoutlet, $token);
+        $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id), $newoutlet->toArray(), $token);
         
         $this->assertResponseStatus(200);
         
-        $this->seeInDatabase('outlets', $newoutlet);
+        $this->seeInDatabase('outlets', [
+            'id' => $outlet->id,
+            'business_field_id' => $this->decode($newoutlet->business_field_id),
+            'name' => $newoutlet->name,
+            'code' => $newoutlet->code,
+            'address' => $newoutlet->address,
+        ]);
     }
     
     public function delete_an_outlet()

@@ -29,7 +29,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 
 $factory->define(BusinessField::class, function (Faker\Generator $fake) {
     return [
-        'name' => $fake->name,
+        'name' => $fake->word,
     ];
 });
 

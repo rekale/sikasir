@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\Outlets\Outlet;
 
 class OutletSeeder extends Seeder
 {
@@ -15,39 +16,35 @@ class OutletSeeder extends Seeder
 
         $fake = Faker\Factory::create();
 
-        $businessField = BusinessField::create([
-            'name' => 'Foods and Beverages',
+        $businessField[] = BusinessField::create([
+            'name' => 'F&B',
+        ]);
+        $businessField[] = BusinessField::create([
+            'name' => 'Retail',
+        ]);
+        $businessField[] = BusinessField::create([
+            'name' => 'Komoditas',
         ]);
 
         //create an outlet for every owner
         Sikasir\V1\User\Owner::all()->each(function($owner) use ($fake, $businessField){
 
-            foreach (range(1, rand(2, 5)) as $i) {
-
-                $owner->outlets()->save(new \Sikasir\V1\Outlets\Outlet([
-                    'name' => $fake->word,
-                    'code' => $fake->numerify(),
-                    'business_field_id' => $businessField->id,
-                    'address' => $fake->address,
-                    'province' => $fake->word,
-                    'city'=> $fake->city,
-                    'pos_code' => $fake->countryCode,
-                    'phone1' => $fake->phoneNumber,
-                    'phone2' => $fake->phoneNumber,
-                    'icon' => $fake->imageUrl(300, 200, 'people'),
-                ]));
-
-            }
-
+                $outlets = factory(Outlet::class, 3)->make([
+                    'business_field_id' => $fake->randomElement(
+                        [$businessField[0]->id,$businessField[1]->id,$businessField[2]->id]
+                    ),
+                ]);
+                
+                $owner->outlets()->saveMany($outlets);
+                
+                $employees = $owner->employees->lists('id');
+                
+                $owner->outlets->each(function ($outlet) use ($employees) {
+                    
+                    $outlet->employees()->attach($employees->toArray());
+                    
+                });
         });
-        //add employees to every outlets
-        Sikasir\V1\Outlets\Outlet::all()->each(function($outlet)
-        {
-            //attach  employees to outlet that have not outlet
-            $outlet->employees()->attach(
-                Sikasir\V1\User\Employee::all()->random()
-            );
-            
-        });
+        
     }
 }

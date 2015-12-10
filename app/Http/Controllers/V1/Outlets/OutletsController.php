@@ -52,8 +52,12 @@ class OutletsController extends ApiController
         $this->authorizing('create-outlet');
 
         $owner = $this->auth()->toUser()->toOwner();
-
-        $this->repo()->saveForOwner($request->all(), $owner);
+        
+        $dataInput = $request->all();
+        
+        $dataInput['business_field_id'] = $this->decode($dataInput['business_field_id']);
+        
+        $this->repo()->saveForOwner($dataInput, $owner);
 
         return $this->response()->created();
     }
@@ -66,7 +70,11 @@ class OutletsController extends ApiController
         
         $decodedId = $this->decode($id);
         
-        $this->repo()->updateForOwner($decodedId, $request->all(), $owner);
+        $dataInput = $request->all();
+        
+        $dataInput['business_field_id'] = $this->decode($dataInput['business_field_id']);
+
+        $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
 
         return $this->response()->updated();
     }

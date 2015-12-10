@@ -38,7 +38,7 @@ class CashierRequest extends Request
             return [
                 'name' => 'max:255',
                 'gender' => 'max:255',
-                'email' => 'email|max:255',
+                'email' => 'email|unique:users',
                 'address' => 'max:255',
                 'phone'=> 'max:255',
                 'password' => 'max:255'
