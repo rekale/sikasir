@@ -13,6 +13,7 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use \League\Fractal\TransformerAbstract;
 use League\Fractal\Resource\Item;
+use Illuminate\Http\JsonResponse;
 
 class ApiRespond 
 {
@@ -76,6 +77,16 @@ class ApiRespond
     }
     
     /**
+     * 
+     * @param type $msg
+     * @return type
+     */
+    public function inputNotProcessable($msg)
+    {
+        return $this->setStatusCode(422)->withError($msg);
+    }
+    
+    /**
      * resource successfuly created
      * 
      * @param string $msg
@@ -135,11 +146,11 @@ class ApiRespond
             ]
         ]);
     }
-
+    
 
     public function respond($data, $headers=[])
     {
-        return response()->json($data, $this->getStatusCode(), $headers);
+        return new JsonResponse($data, $this->getStatusCode(), $headers);
     }
     
     /**
