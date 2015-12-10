@@ -64,11 +64,23 @@ class OwnersTest extends TestCase
      */
     public function test_create_an_owner()
     {
-        $owner = factory(Owner::class)->make();
+        $user = factory(Sikasir\V1\User\User::class)->make([
+            'password' => bcrypt('12345'),
+        ]);
+        
+        $owner = factory(Owner::class)->make([
+            'user_id' => null,
+        ]);
+        
+        $data = $owner->toArray();
+        
+        $data['email'] = $user->email;
+        $data['password'] = '12345';
         
         $token = $this->loginAsOwner();
         
-        $this->post('/v1/owners', $owner->toArray(), $token);
+        
+        $this->post('/v1/owners', $data, $token);
         
         $this->assertResponseStatus(201);
     }
@@ -82,7 +94,9 @@ class OwnersTest extends TestCase
     {
         $owner = factory(Owner::class)->create();
         
-        $updateowner = factory(Owner::class)->make();
+        $updateowner = factory(Owner::class)->make([
+            'user_id' => null,
+        ]);
         
         $id = $this->encode($owner->id);
         
@@ -90,9 +104,12 @@ class OwnersTest extends TestCase
         
         $this->put('/v1/owners/' . $id, $updateowner->toArray(), $token);
         
-        $this->assertResponseStatus(204);
+        $this->assertResponseStatus(200);
         
-        $this->SeeInDatabase('owners', $updateowner->toArray());
+        $this->SeeInDatabase('owners', [
+            'id' => $owner->id,
+            'name' => $updateowner->name,
+        ]);
         
     }
     
@@ -104,9 +121,9 @@ class OwnersTest extends TestCase
         
         $token = $this->loginAsOwner();
         
-        $this->delete('/v1/owners/' . $id, $token);
+        $this->delete('/v1/owners/' . $id, [], $token);
         
-        $this->assertResponseStatus(204);
+        $this->assertResponseStatus(200);
         
         $this->dontSeeInDatabase('owners', $owner->toArray());
     }

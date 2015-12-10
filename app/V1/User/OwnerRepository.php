@@ -17,12 +17,16 @@ class OwnerRepository extends Repository
     {
         parent::__construct($owner);
     }
-
-    public function createUser($id, array $data) 
-    {
-        $owner = $this->find($id);
+    
+    public function save(array $data) {
         
-        $owner->user()->save(new User($data));
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+        
+        $user->owner()->save(new Owner($data));
     }
 
 }

@@ -22,9 +22,11 @@ class CustomersController extends ApiController
      * 
      * @param string $id
      */
-   public function index($outletId)
+   public function index($id)
    {    
-       $customers = $this->repo()->getCustomers($outletId);
+       $decodedId = $this->decode($id);
+       
+       $customers = $this->repo()->getCustomers($decodedId);
        
        return $this->response()
                ->resource()

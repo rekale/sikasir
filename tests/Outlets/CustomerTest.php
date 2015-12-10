@@ -22,13 +22,13 @@ class CustomerTest extends TestCase
         
         $id = $repo->getSome(5)->random()->id;
         
-        $outletId = $this->encode($id);
+        $encodedId = $this->encode($id);
         
-        $customers = $repo->getCustomers($outletId);
+        $customers = $repo->getCustomers($id);
         
         $data = $this->createPaginated($customers, new CustomerTransformer);
         
-        $this->visit('v1/outlets/' . $outletId . '/customers');
+        $this->visit('v1/outlets/' . $encodedId . '/customers');
         
         $this->seeJson($data->toArray());
            

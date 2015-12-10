@@ -26,7 +26,7 @@ class EmployeeTest extends TestCase
         
         $outletId = $this->encode($id);
         
-        $employees = $repo->getEmployees($outletId);
+        $employees = $repo->getEmployees($id);
         
         $data = $this->createPaginated($employees, new EmployeeTransformer);
         

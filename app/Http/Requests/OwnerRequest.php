@@ -26,7 +26,7 @@ class OwnerRequest extends Request
     {
         if($this->getMethod() === 'POST') {
             return [
-                'full_name' => 'required|max:255',
+                'name' => 'required|max:255',
                 'email' => 'required|email|max:255',
                 'business_name' => 'required|max:255',
                 'phone' => 'required|max:255',
@@ -38,7 +38,7 @@ class OwnerRequest extends Request
         }
         else {
             return [
-                'full_name' => 'max:255',
+                'name' => 'max:255',
                 'business_name' => 'max:255',
                 'email' => 'email|max:255',
                 'phone' => 'max:255',

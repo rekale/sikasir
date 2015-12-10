@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('owner'),
         ]));
         
-        foreach(range(1, 10) as $i) {
+        foreach(range(1, 5) as $i) {
            
             $owner->employees()->save(factory(Employee::class)->make([
                 'owner_id' => $owner->id,

@@ -91,7 +91,10 @@ class EmployeeTest extends TestCase
         
         $this->seeInDatabase('employees', [
             'name' => $employee->name,
+            'phone' => $employee->phone, 
         ]);
+        
+        
         $this->seeInDatabase('users', [
             'email' => 'test@aja.com',
         ]);

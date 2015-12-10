@@ -43,13 +43,17 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         
-        $response = app(ApiRespond::class);
+        $response = new ApiRespond;
         
         if ($this->isHttpException($e))
         {
             if ($e->getStatusCode() === 403) {
                 return $response->notAuthorized();
             }
+        }
+        
+        if ($e instanceof ModelNotFoundException) {
+            return $response->notFound();
         }
         
         if (config('app.debug'))

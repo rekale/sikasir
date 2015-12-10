@@ -41,7 +41,7 @@ $factory->define(Owner::class, function (Faker\Generator $fake) {
     
     return [
         'user_id'=> $user->id,
-        'name' => $user->name, 
+        'name' => $user->name,
         'business_name' => $fake->company, 
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,

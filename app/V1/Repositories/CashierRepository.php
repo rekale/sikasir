@@ -38,7 +38,6 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
         ]);
         
         $data['user_id'] = $user->id;
-        $data['outlet_id'] = $this->decode($data['outlet_id']);
         
         $owner->cashiers()->save(new Cashier($data));
     }
@@ -55,8 +54,6 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
     
     public function updateForOwner($id, array $data, Owner $owner) 
     {
-        $data['outlet_id'] = $this->decode($data['outlet_id']);
-        
         $owner->cashiers()
                 ->findOrFail($id)
                 ->update($data);

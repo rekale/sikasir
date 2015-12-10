@@ -71,6 +71,7 @@ class CashierTest extends TestCase
     {
         
         $cashier = factory(Cashier::class)->make([
+            'user_id' => null,
             'owner_id' => null,
             'outlet_id' => $this->encode($this->owner()->outlets[0]->id),
         ]);
@@ -86,6 +87,11 @@ class CashierTest extends TestCase
         $this->post('/v1/cashiers', $data, $token);
         
         $this->assertResponseStatus(201);
+        
+        $this->seeInDatabase('cashiers', [
+            'name' => $cashier->name,
+            'phone' => $cashier->phone,
+        ]);
     }
     
     /**
@@ -113,6 +119,11 @@ class CashierTest extends TestCase
         
         $this->assertResponseStatus(200);
         
+         $this->seeInDatabase('cashiers', [
+             'id' => $cashier->id,
+             'name' => $updatecashier->name,
+            'phone' => $updatecashier->phone,
+        ]);
     }
     
     public function test_delete_an_cashier()
@@ -127,6 +138,8 @@ class CashierTest extends TestCase
         
         
         $this->assertResponseStatus(200);
+        
+        $this->dontSeeInDatabase('cashiers', $cashier->toArray());
         
     }
     

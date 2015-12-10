@@ -20,10 +20,12 @@ class EmployeesController extends ApiController
      * 
      * @param string $id
      */
-   public function index($outletId)
+   public function index($id)
    {    
        
-       $products = $this->repo()->getEmployees($outletId);
+       $decodedId = $this->decode($id);
+       
+       $products = $this->repo()->getEmployees($decodedId);
        
        return $this->response()
                ->resource()

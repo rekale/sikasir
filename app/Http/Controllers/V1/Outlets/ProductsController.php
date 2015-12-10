@@ -22,10 +22,12 @@ class ProductsController extends ApiController
      * 
      * @param string $id
      */
-   public function index($outletId)
+   public function index($id)
    {    
        
-       $products = $this->repo()->getProducts($outletId);
+       $decodedId = $this->decode($id);
+       
+       $products = $this->repo()->getProducts($decodedId);
        
        return $this->response()
                ->resource()

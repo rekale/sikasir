@@ -52,8 +52,12 @@ class CashiersController extends ApiController
         $this->authorizing('create-cashier');
 
         $owner = $this->currentUser()->toOwner();
-
-        $this->repo()->saveForOwner($request->all(), $owner);
+        
+        $dataInput = $request->all();
+        
+        $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
+        
+        $this->repo()->saveForOwner($dataInput, $owner);
         
         return $this->response()->created();
     }
@@ -66,7 +70,11 @@ class CashiersController extends ApiController
         
         $decodedId = $this->decode($id);
         
-        $this->repo()->updateForOwner($decodedId, $request->all(), $owner);
+        $dataInput = $request->all();
+        
+        $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
+        
+        $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
 
         return $this->response()->updated();
     }

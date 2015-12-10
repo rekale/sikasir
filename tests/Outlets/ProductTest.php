@@ -24,7 +24,7 @@ class ProductTest extends TestCase
         
         $outletId = $this->encode($id);
         
-        $products = $repo->getProducts($outletId);
+        $products = $repo->getProducts($id);
         
         $data = $this->createPaginated($products, new ProductTransformer);
         

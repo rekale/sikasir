@@ -48,12 +48,6 @@ class OwnersController extends ApiController
 
         $this->repo()->save($request->all());
         
-        $this->repo()->createUser([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
-
         return $this->response()->created();
     }
 
