@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = 'product_categories';
+    protected $table = 'categories';
     
     /**
      * The attributes that are mass assignable.
@@ -22,7 +22,7 @@ class Category extends Model
     
     public function products()
     {
-        return $this->hasMany(Product::class, 'product_category_id');
+        return $this->hasMany(Product::class, 'category_id');
     }
     
 }

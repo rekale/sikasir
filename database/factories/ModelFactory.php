@@ -17,6 +17,9 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\User\User;
 use Sikasir\V1\User\Employee;
+use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Category;
+use Sikasir\V1\Products\Variant;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -34,14 +37,9 @@ $factory->define(BusinessField::class, function (Faker\Generator $fake) {
 });
 
 $factory->define(Owner::class, function (Faker\Generator $fake) {
-    
-    $user = factory(User::class)->create([
-        'password' => bcrypt('12345'),
-    ]);
-    
+  
     return [
-        'user_id'=> $user->id,
-        'name' => $user->name,
+        'name' => $fake->name,
         'business_name' => $fake->company, 
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,
@@ -52,8 +50,7 @@ $factory->define(Owner::class, function (Faker\Generator $fake) {
 
 $factory->define(Outlet::class, function (Faker\Generator $fake) {
     return [
-        'owner_id' => factory(Owner::class)->create()->id,
-        'business_field_id' => factory(BusinessField::class)->create()->id,
+        'owner_id' => null,
         'name' => $fake->word,
         'code' => $fake->numerify(),
         'address' => $fake->address,
@@ -68,13 +65,8 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
 
 
 $factory->define(Employee::class, function (Faker\Generator $fake) {
-    $user = factory(User::class)->create([
-        'password' => bcrypt('12345'),
-    ]);
-    
     return [
-        'user_id'=> $user->id,
-        'name' => $user->name,
+        'name' => $fake->name,
         'title' => $fake->randomElement(['staff', 'manager']),
         'gender' => $fake->randomElement(['pria', 'wanita']),
         'phone' => $fake->phoneNumber,
@@ -86,19 +78,42 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
 });
 
 $factory->define(Cashier::class, function (Faker\Generator $fake) {
-    $user = factory(User::class)->create([
-        'password' => bcrypt('12345'),
-    ]);
-    $owner = factory(Owner::class)->create();
-    $outlet = factory(Outlet::class)->create();
     return [
-        'user_id'=> $user->id,
-        'owner_id' => $owner->id,
-        'outlet_id' => $outlet->id,
-        'name' => $user->name, 
+        'name' => $fake->name, 
         'gender' => $fake->randomElement(['pria', 'wanita']),
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,
         'icon' => $fake->imageUrl(),
     ];
+});
+
+$factory->define(Category::class, function(Faker\Generator $fake) {
+    return [
+        'name' => $fake->word,
+    ];
+    
+});
+
+$factory->define(Product::class, function(Faker\Generator $fake) {
+    return [
+        'name' => $fake->word, 
+        'description' => $fake->paragraph(),
+        'barcode' => $fake->numerify(),
+        'unit' => $fake->word,
+    ];
+    
+});
+
+$factory->define(Variant::class, function(Faker\Generator $fake) {
+    
+    return [
+        'name' => $fake->word, 
+        'code' => $fake->numerify(), 
+        'price' => $fake->numberBetween(100, 100000), 
+        'track_stock' => $fake->boolean(),
+        'stock' => $fake->numberBetween(1, 100),
+        'alert' => $fake->boolean(),
+        'alert_at' => $fake->numberBetween(1, 30),
+    ];
+    
 });

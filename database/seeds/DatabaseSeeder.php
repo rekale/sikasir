@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         'incomes',
         'outcomes',
         'customers',
-        'product_categories',
+        'categories',
         'products',
+        'variants',
         'outlet_product',
-        'product_variants',
     ];
 
     /**
@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
     protected $seeders = [
         'UserSeeder',
         'RolesSeeder',
-        'OutletSeeder',
         'FinanceSeeder',
         'CustomerSeeder',
         'ProductSeeder',

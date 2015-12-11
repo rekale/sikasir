@@ -13,7 +13,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'barcode', 'show'];
+    protected $fillable = ['name', 'description', 'barcode', 'unit'];
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -29,12 +29,12 @@ class Product extends Model
     
     public function category()
     {
-        return $this->belongsTo(Category::class, 'product_category_id');
+        return $this->belongsTo(Category::class);
     }
     
     public function variants()
     {
-        return $this->hasMany(Variant::class, 'product_id');
+        return $this->hasMany(Variant::class);
     }
     
 }

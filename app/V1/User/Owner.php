@@ -4,6 +4,8 @@ namespace Sikasir\V1\User;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\User\Cashier;
+use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Category;
 
 class Owner extends Model
 {
@@ -67,7 +69,12 @@ class Owner extends Model
     
     public function categories()
     {
-        return $this->hasMany(\Sikasir\V1\Products\Category::class, 'owner_id');
+        return $this->hasMany(Category::class, 'owner_id');
+    }
+    
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, Category::class);
     }
 
 }

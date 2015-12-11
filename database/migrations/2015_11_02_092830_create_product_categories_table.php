@@ -12,9 +12,9 @@ class CreateProductCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id')->unsigned();
+            $table->integer('owner_id')->unsigned()->index();
             $table->string('name');
             $table->timestamps();
             
@@ -32,6 +32,6 @@ class CreateProductCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('product_categories');
+        Schema::drop('categories');
     }
 }

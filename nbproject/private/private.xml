@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/project/kasir/app/Http/routes.php</file>
+            <file>file:/D:/project/kasir/database/seeds/OutletSeeder.php</file>
+            <file>file:/D:/project/kasir/database/seeds/UserSeeder.php</file>
+            <file>file:/D:/project/kasir/database/factories/ModelFactory.php</file>
             <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/CashierRequest.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/OwnerRequest.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Auth/AuthController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/EmployeeRequest.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2015_11_02_092832_create_product_variants_table.php</file>
+            <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/BelongsToOutletRepo.php</file>
+            <file>file:/D:/project/kasir/database/seeds/ProductSeeder.php</file>
+            <file>file:/D:/project/kasir/app/V1/Products/Variant.php</file>
         </group>
     </open-files>
 </project-private>

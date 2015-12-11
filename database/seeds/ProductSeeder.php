@@ -18,47 +18,55 @@ class ProductSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
         //create product category
-        
-        Owner::all()->each(function ($owner) use ($fake)
+        $owners = Owner::all();
+        $owners->each(function ($owner)
         {
-            foreach (range(1, 2) as $i) {
-                $owner->categories()->save(new Category([
-                    'name' => $fake->word,
-                ]));
-            }
+            $categories = factory(Category::class, 3)->make();
+            
+            $owner->categories()->saveMany($categories);
+            
+            
         });
         
-        Category::all()->each(function ($category) use ($fake) {
-        
-            foreach (range(1, 2) as $i) {
-                $category->products()->save(new Product([
-                    'name' => $fake->word, 
-                    'description' => $fake->words(3, true), 
-                    'barcode' => $fake->word, 
-                    'show' => $fake->boolean(), 
-                ]));
-            }
+        Category::all()->each(function ($category) {
+            
+            $products = factory(Product::class, 3)->make();
+            
+            $category->products()->saveMany($products);
             
         });
         
          //create variant for each 
-        Product::all()->each(function ($product) use ($fake)
+        Product::all()->each(function ($product)
         {
-            foreach (range(1, 2) as $i) {
-                $product->variants()->save(new Variant([
-                    'name' => $fake->word, 
-                    'code' => $fake->numerify(), 
-                    'price' => $fake->numberBetween(1000, 100000), 
-                    'unit' => $fake->word,
-                ]));
-            }
+            $variants = factory(Variant::class, 3)->make();
             
-            $outlet = Outlet::all()->random();
+            $product->variants()->saveMany($variants);
             
-            $product->outlets()->attach($outlet->id);
+            
+        });
+        
+        //add product to outlet
+        $owners->each(function ($owner)
+        {
+            $outlets = $owner->outlets;
+            $products = $owner->products;
+            
+            $outlets->each(function ($outlet) use ($products)
+            {
+                foreach ($products->chunk(3) as $product) {
+                    
+                    $productIds = $product->lists('id')->toArray();
+                    
+                    $outlet->products()->attach($productIds);
+                    
+                }
+                
+            });
             
         });
         
         
+           
     }
 }

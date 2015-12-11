@@ -45,7 +45,9 @@ class OwnersTest extends TestCase
      */
     public function test_get_one_owner()
     {
-        $user = factory(Owner::class)->create();
+        $user = factory(Owner::class)->create([
+            'user_id' => factory(User)
+        ]);
         
         $expected = $this->createItem($user, new OwnerTransformer);
         

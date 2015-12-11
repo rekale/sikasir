@@ -3,6 +3,14 @@
 namespace Sikasir\V1\Outlets;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\Products\Product;
+use Sikasir\V1\User\Owner;
+use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\User\Employee;
+use Sikasir\V1\User\Cashier;
+use Sikasir\V1\Finances\Income;
+use Sikasir\V1\Finances\Outcome;
+use Sikasir\V1\Outlets\Customer;
 
 class Outlet extends Model
 {
@@ -40,7 +48,7 @@ class Outlet extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(\Sikasir\V1\User\Owner::class, 'owner_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -60,7 +68,7 @@ class Outlet extends Model
      */
     public function employees()
     {
-        return $this->BelongsToMany(\Sikasir\V1\User\Employee::class);
+        return $this->BelongsToMany(Employee::class);
     }
     
     /**
@@ -70,17 +78,17 @@ class Outlet extends Model
      */
     public function cashiers()
     {
-        return $this->hasMany(\Sikasir\V1\User\Cashier::class);
+        return $this->hasMany(Cashier::class);
     }
 
     public function incomes()
     {
-        return $this->hasMany(\Sikasir\V1\Finances\Income::class, 'outlet_id');
+        return $this->hasMany(Income::class, 'outlet_id');
     }
 
     public function outcomes()
     {
-        return $this->hasMany(\Sikasir\V1\Finances\Outcome::class, 'outlet_id');
+        return $this->hasMany(Outcome::class, 'outlet_id');
     }
 
     public function customers()
@@ -90,7 +98,7 @@ class Outlet extends Model
 
     public function products()
     {
-        return $this->belongsToMany(\Sikasir\V1\Products\Product::class, 'outlet_product');
+        return $this->belongsToMany(Product::class, 'outlet_product')->withTimestamps();
     }
 
 

@@ -79,7 +79,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
 
         });
-
+        /*
+        Route::group(['namespace' => 'Products'], function()
+        {
+            get('cashiers', 'CashiersController@index');
+            get('cashiers/{id}', 'CashiersController@show');
+            post('cashiers', 'CashiersController@store');
+            put('cashiers/{id}', 'CashiersController@update');
+            delete('cashiers/{id}', 'CashiersController@destroy');
+            
+        });
+        */
         Route::group(['namespace' => 'Finances'], function()
         {
             delete('incomes/{id}', 'IncomesController@destroy');

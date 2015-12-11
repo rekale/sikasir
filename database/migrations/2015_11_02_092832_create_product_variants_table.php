@@ -12,13 +12,16 @@ class CreateProductVariantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_variants', function (Blueprint $table) {
+        Schema::create('variants', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->index();
             $table->string('name');
             $table->string('code');
             $table->integer('price')->unsigned();
-            $table->string('unit');
+            $table->boolean('track_stock')->default(false);
+            $table->unsignedInteger('stock')->default(0);
+            $table->boolean('alert')->default(false);
+            $table->integer('alert_at')->unsigned();
             $table->timestamps();
             
             $table->foreign('product_id')
@@ -35,6 +38,6 @@ class CreateProductVariantsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('product_variants');
+        Schema::drop('variants');
     }
 }

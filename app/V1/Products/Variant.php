@@ -6,14 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variant extends Model
 {
-    protected $table = 'product_variants';
+    protected $table = 'variants';
     
       /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'code', 'price', 'unit'];
+    protected $fillable = [
+        'name', 
+        'code', 
+        'price', 
+        'track_stock',
+        'stock',
+        'alert',
+        'alert_at',
+        ];
     
     public function product()
     {
