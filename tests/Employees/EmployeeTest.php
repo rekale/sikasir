@@ -67,9 +67,7 @@ class EmployeeTest extends TestCase
      */
     public function test_create_an_employee()
     {
-        $employee = factory(Employee::class)->make([
-            'user_id' => null,
-        ]);
+        $employee = factory(Employee::class)->make();
         
         $data = $employee->toArray();
         

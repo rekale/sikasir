@@ -7,6 +7,7 @@ use Sikasir\V1\Transformer\OwnerTransformer;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\OwnerRepository;
 use Sikasir\V1\Traits\IdObfuscater;
+use Sikasir\V1\User\User;
 
 class OwnersTest extends TestCase
 {
@@ -46,7 +47,7 @@ class OwnersTest extends TestCase
     public function test_get_one_owner()
     {
         $user = factory(Owner::class)->create([
-            'user_id' => factory(User)
+            'user_id' => factory(User::class)->create()->id,
         ]);
         
         $expected = $this->createItem($user, new OwnerTransformer);
@@ -70,9 +71,7 @@ class OwnersTest extends TestCase
             'password' => bcrypt('12345'),
         ]);
         
-        $owner = factory(Owner::class)->make([
-            'user_id' => null,
-        ]);
+        $owner = factory(Owner::class)->make();
         
         $data = $owner->toArray();
         
@@ -94,11 +93,11 @@ class OwnersTest extends TestCase
      */
     public function test_update_an_owner()
     {
-        $owner = factory(Owner::class)->create();
-        
-        $updateowner = factory(Owner::class)->make([
-            'user_id' => null,
+        $owner = factory(Owner::class)->create([
+            'user_id' => factory(User::class)->create()->id,
         ]);
+        
+        $updateowner = factory(Owner::class)->make();
         
         $id = $this->encode($owner->id);
         
@@ -117,7 +116,9 @@ class OwnersTest extends TestCase
     
     public function test_delete_an_owner()
     {
-        $owner = factory(Owner::class)->create();
+        $owner = factory(Owner::class)->create([
+            'user_id' => factory(User::class)->create()->id,
+        ]);
         
         $id = $this->encode($owner->id);
         

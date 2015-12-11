@@ -8,6 +8,8 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Repositories\CashierRepository;
 use Sikasir\V1\Traits\IdObfuscater;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\User\User;
+use Sikasir\V1\Outlets\BusinessField;
 
 class CashierTest extends TestCase
 {
@@ -71,8 +73,6 @@ class CashierTest extends TestCase
     {
         
         $cashier = factory(Cashier::class)->make([
-            'user_id' => null,
-            'owner_id' => null,
             'outlet_id' => $this->encode($this->owner()->outlets[0]->id),
         ]);
         
@@ -101,10 +101,16 @@ class CashierTest extends TestCase
      */
     public function test_update_an_cashier()
     {
-        $cashier = factory(Cashier::class)->create([
+        $outlet = factory(Outlet::class)->create([
             'owner_id' => $this->owner()->id,
+            'business_field_id' => factory(BusinessField::class)->create()->id,
         ]);
         
+        $cashier = factory(Cashier::class)->create([
+            'user_id' => factory(User::class)->create()->id,
+            'owner_id' => $this->owner()->id,
+            'outlet_id' => $outlet->id,
+        ]);
         $updatecashier = factory(Cashier::class)->make();
         
         $id = $this->encode($cashier->id);
@@ -128,7 +134,16 @@ class CashierTest extends TestCase
     
     public function test_delete_an_cashier()
     {
-        $cashier = factory(Cashier::class)->create();
+        $outlet = factory(Outlet::class)->create([
+            'owner_id' => $this->owner()->id,
+            'business_field_id' => factory(BusinessField::class)->create()->id,
+        ]);
+
+        $cashier = factory(Cashier::class)->create([
+            'user_id' => factory(User::class)->create()->id,
+            'owner_id' => $this->owner()->id,
+            'outlet_id' => $outlet->id,
+        ]);
         
         $id = $this->encode($cashier->id);
         

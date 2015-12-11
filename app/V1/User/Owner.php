@@ -76,5 +76,5 @@ class Owner extends Model
     {
         return $this->hasManyThrough(Product::class, Category::class);
     }
-
+    
 }

@@ -41,7 +41,8 @@ class OutletTest extends TestCase
     {
         
         $outlet = factory(Outlet::class)->create([
-           'owner_id' => $this->owner()->id, 
+           'owner_id' => $this->owner()->id,
+            'business_field_id' => factory(BusinessField::class)->create()->id,
         ]);
         
         $id = $this->encode($outlet->id);
@@ -86,6 +87,7 @@ class OutletTest extends TestCase
     {
         $outlet = factory(Outlet::class)->create([
             'owner_id' => $this->owner()->id,
+            'business_field_id' => factory(BusinessField::class)->create()->id,
         ]);
         
         $newoutlet = factory(Outlet::class)->make([
