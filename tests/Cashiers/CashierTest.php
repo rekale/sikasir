@@ -30,7 +30,7 @@ class CashierTest extends TestCase
         
         $expected = $this->createPaginated($data, new CashierTransformer);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $link = 'v1/cashiers';
         
@@ -57,7 +57,7 @@ class CashierTest extends TestCase
         
         $link = 'v1/cashiers/' . $this->encode($cashier->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->get($link, $token);
         
@@ -78,7 +78,7 @@ class CashierTest extends TestCase
         
         $data = $cashier->toArray();
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $data['email'] = 'test@aja.com';
         
@@ -115,7 +115,7 @@ class CashierTest extends TestCase
         
         $id = $this->encode($cashier->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $data = $updatecashier->toArray();
         
@@ -147,7 +147,7 @@ class CashierTest extends TestCase
         
         $id = $this->encode($cashier->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->delete('/v1/cashiers/' . $id, [], $token);
         

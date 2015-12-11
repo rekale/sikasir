@@ -41,7 +41,7 @@ class ApiController extends Controller
     /**
      * return current auth
      *
-     * return \Tymon\JWTAuth\JWTAuth
+     * @return \Tymon\JWTAuth\JWTAuth
      */
     public function auth()
     {
@@ -51,7 +51,7 @@ class ApiController extends Controller
     /**
      * return current logged user
      *
-     * return \Sikasir\V1\User\User
+     * @return \Sikasir\V1\User\User
      */
     public function currentUser()
     {

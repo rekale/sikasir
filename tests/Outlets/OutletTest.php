@@ -25,7 +25,7 @@ class OutletTest extends TestCase
         
         $outlets = $repo->getPaginatedForOwner($this->owner());
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $data = $this->createPaginated($outlets, new OutletTransformer);
         
@@ -49,7 +49,7 @@ class OutletTest extends TestCase
         
         $data = $this->createItem($outlet, new OutletTransformer());
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->get('v1/outlets/' . $id, $token);
         
@@ -68,7 +68,7 @@ class OutletTest extends TestCase
             ),
         ]);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->json('POST', 'v1/outlets', $outlet->toArray(), $token);
         
@@ -96,7 +96,7 @@ class OutletTest extends TestCase
             ),
         ]);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->json('PUT', 'v1/outlets/'. $this->encode($outlet->id), $newoutlet->toArray(), $token);
         
@@ -117,7 +117,7 @@ class OutletTest extends TestCase
         
         $id = $this->encode($outlet->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->delete('/v1/outlets/' . $id, $token);
         

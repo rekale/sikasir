@@ -54,13 +54,11 @@ abstract class Repository implements RepositoryInterface
      * save new resource
      * 
      * @param array $data
-     * @return boolean
+     * @return static
      */
     public function save(array $data) {
         
-        $this->model->fill($data);
-        
-        return $this->model->save();
+        return $this->model->create($data);
         
     }
     

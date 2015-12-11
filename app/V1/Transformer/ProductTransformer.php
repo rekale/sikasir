@@ -27,14 +27,12 @@ class ProductTransformer extends TransformerAbstract
     public function transform(Product $product)
     {
         return [
-            [
-                'id' => $this->encode($product->id),
-                'category' => $product->category->name ,
-                'name' => $product->name, 
-                'description' => $product->description, 
-                'barcode' => $product->barcode, 
-                'show' => $product->show
-            ]
+            'id' => $this->encode($product->id),
+            'category' => $product->category->name ,
+            'name' => $product->name, 
+            'description' => $product->description, 
+            'barcode' => $product->barcode,
+            'unit' => $product->unit,
         ];
     }
    

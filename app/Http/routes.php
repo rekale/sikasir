@@ -79,17 +79,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
 
         });
-        /*
+        
         Route::group(['namespace' => 'Products'], function()
         {
-            get('cashiers', 'CashiersController@index');
-            get('cashiers/{id}', 'CashiersController@show');
-            post('cashiers', 'CashiersController@store');
-            put('cashiers/{id}', 'CashiersController@update');
-            delete('cashiers/{id}', 'CashiersController@destroy');
+            get('products', 'ProductsController@index');
+            get('products/{id}', 'ProductsController@show');
+            post('products', 'ProductsController@store');
+            put('products/{id}', 'ProductsController@update');
+            delete('products/{id}', 'ProductsController@destroy');
             
         });
-        */
+        
         Route::group(['namespace' => 'Finances'], function()
         {
             delete('incomes/{id}', 'IncomesController@destroy');
@@ -99,14 +99,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Employees'], function()
         {
             get('employees', 'EmployeesController@index');
-
-        });
-
-
-
-        Route::group(['namespace' => 'Products'], function()
-        {
-
 
         });
 

@@ -29,7 +29,7 @@ class EmployeeTest extends TestCase
         
         $expected = $this->createPaginated($data, new EmployeeTransformer);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $link = 'v1/employees';
         
@@ -53,7 +53,7 @@ class EmployeeTest extends TestCase
         
         $link = 'v1/employees/' . $this->encode($employee->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->get($link, $token);
         
@@ -71,7 +71,7 @@ class EmployeeTest extends TestCase
         
         $data = $employee->toArray();
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $data['email'] = 'test@aja.com';
         
@@ -118,7 +118,7 @@ class EmployeeTest extends TestCase
         
         $id = $this->encode($employee->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->put('/v1/employees/' . $id, $data, $token);
         
@@ -142,7 +142,7 @@ class EmployeeTest extends TestCase
         
         $id = $this->encode($employee->id);
         
-        $token = $this->loginAsOwner();
+        $token = $this->getTokenAsOwner();
         
         $this->delete('/v1/employees/' . $id, [], $token);
         

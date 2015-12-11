@@ -65,10 +65,10 @@ class User extends Model implements AuthenticatableContract,
             return $this->owner;
         }
         else if ($this->is('staff')) {
-            $this->employee->owner;
+            return $this->employee->owner;
         }
         else if ($this->is('cashier')) {
-            $this->cashier->owner;
+            return $this->cashier->owner;
         }
         else {
             abort(403);

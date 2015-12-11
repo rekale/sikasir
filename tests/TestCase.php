@@ -82,7 +82,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * 
      * @return string
      */
-    public function loginAsOwner()
+    public function getTokenAsOwner()
     {
         
         $credentials = ['email' => 'owner@sikasir.com', 'password' => 'owner'];
