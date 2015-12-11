@@ -5,7 +5,7 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\CustomerTransformer;
-use Sikasir\V1\Outlets\OutletRepository;
+use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 

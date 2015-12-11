@@ -1,10 +1,9 @@
 <?php
 
-namespace Sikasir\V1\Outlets;
+namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\Repository;
 use Sikasir\V1\Repositories\BelongsToOwnerRepo;
-use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
 

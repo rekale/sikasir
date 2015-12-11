@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\OutcomeTransformer;
 use League\Fractal\Manager;
-use Sikasir\V1\Outlets\OutletRepository;
+use Sikasir\V1\Repositories\OutletRepository;
 
 class OutcomesController extends ApiController
 {

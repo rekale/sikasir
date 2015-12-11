@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Sikasir\V1\Outlet;
 use Sikasir\V1\Transformer\IncomeTransformer;
-use Sikasir\V1\Outlets\OutletRepository;
+use Sikasir\V1\Repositories\OutletRepository;
 
 class IncomesController extends ApiController
 {
