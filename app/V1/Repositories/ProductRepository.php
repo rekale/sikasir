@@ -64,7 +64,6 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         $product->update($data);
         
         $deletedExistVariantIds = [];
-        $existedVariantIds = [];
         $newVariants = [];
         
         foreach($data['variants'] as $variant) {
@@ -86,8 +85,8 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
             
         }
         
-        Variant::destroy($deletedExistVariantIds);
-        
+        Variant::destroy($deletedExistVariantIds); 
+       
         $product->variants()->saveMany($newVariants);
         
     }

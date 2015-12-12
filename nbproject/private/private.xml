@@ -7,6 +7,8 @@
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/ProductTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/Requests/ProductRequest.php</file>
+            <file>file:/D:/project/kasir/config/database.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
             <file>file:/D:/project/kasir/app/V1/Products/Variant.php</file>

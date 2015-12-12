@@ -45,7 +45,9 @@ class UserSeeder extends Seeder
         ]));
         
         
-        $userEmployees = factory(User::class, 3)->create();
+        $userEmployees = factory(User::class, 3)->create([
+            'password' => bcrypt('12345'),
+        ]);
 
         foreach ($userEmployees as $user) {
              $owner->employees()->save(factory(Employee::class)->make([
@@ -56,7 +58,9 @@ class UserSeeder extends Seeder
         
         $this->createOutlets();
            
-        $userCashiers = factory(User::class, 3)->create();
+        $userCashiers = factory(User::class, 3)->create([
+            'password' => bcrypt('12345'),
+        ]);
         
         $outlets = $owner->outlets()->lists('id');
         
