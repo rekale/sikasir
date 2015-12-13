@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->string('barcode');
             $table->string('unit');
+            $table->text('icon');
             $table->timestamps();
             
             $table->foreign('category_id')

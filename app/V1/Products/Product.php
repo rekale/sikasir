@@ -20,6 +20,7 @@ class Product extends Model
         'description', 
         'barcode', 
         'unit',
+        'icon',
     ];
     
     /**

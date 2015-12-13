@@ -100,6 +100,7 @@ $factory->define(Product::class, function(Faker\Generator $fake) {
         'description' => $fake->paragraph(),
         'barcode' => $fake->numerify(),
         'unit' => $fake->word,
+        'icon' => $fake->imageUrl(300, 200),
     ];
     
 });

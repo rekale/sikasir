@@ -33,6 +33,7 @@ class ProductTransformer extends TransformerAbstract
             'description' => $product->description, 
             'barcode' => $product->barcode,
             'unit' => $product->unit,
+            'icon' => $product->icon,
         ];
     }
    
