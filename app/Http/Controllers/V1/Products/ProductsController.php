@@ -48,12 +48,14 @@ class ProductsController extends ApiController
     public function store(ProductRequest $request)
     {
         $this->authorizing('create-product');
-   
+        
+        $owner = $this->currentUser()->toOwner();
+        
         $dataInput = $request->all();
         
         $dataInput['category_id'] = $this->decode($dataInput['category_id']);
         
-        $this->repo()->saveWithVariants($dataInput, $dataInput['variants']);
+        $this->repo()->saveForOwner($dataInput, $owner);
 
         return $this->response()->created();
     }

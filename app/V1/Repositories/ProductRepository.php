@@ -21,20 +21,6 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
     }
 
     
-    public function saveWithVariants(array $data, array $variants)
-    {
-        $product = $this->save($data);
-        
-        $variantModels = [];
-        
-        foreach ($variants as $variant) {
-            $variantModels[] = new Variant($variant);
-        }
-        
-        $product->variants()->saveMany($variantModels);
-        
-    }
-    
     public function saveForOwner(array $data, Owner $owner)
     {
         $category = $owner->categories()
