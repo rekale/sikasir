@@ -14,12 +14,19 @@ class CreateStockTransfersTable extends Migration
     {
         Schema::create('stock_transfers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
             $table->integer('source_outlet_id')->unsigned()->index();
             $table->integer('destination_outlet_id')->unsigned()->index();
             $table->integer('stock_id')->unsigned()->index();
             $table->integer('variant_id')->unsigned()->index();
+            $table->string('note');
             $table->integer('total');
             $table->timestamps();
+            
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             
             $table->foreign('source_outlet_id')
                ->references('id')

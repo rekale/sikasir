@@ -10,6 +10,7 @@ class StockTransfer extends Model
         'source_outlet_id',
         'destination_outlet_id',
         'variant_id',
+        'note',
         'total',
     ];
 }
