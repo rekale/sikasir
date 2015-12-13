@@ -60,7 +60,7 @@ class ProductTest extends TestCase
         $this->assertResponseStatus(200);
     }
     
-     public function test_create_an_product()
+     public function test_create_product()
     {
         
         $category = factory(Category::class)->create([
@@ -95,7 +95,7 @@ class ProductTest extends TestCase
         }
     }
     
-    public function test_delete_an_cashier()
+    public function test_delete_product()
     {
         $category = factory(Category::class)->create([
             'owner_id' => $this->owner()->id,
@@ -115,6 +115,69 @@ class ProductTest extends TestCase
         $this->assertResponseStatus(200);
         
         $this->dontSeeInDatabase('products', $product->toArray());
+        
+    }
+    
+    public function test_update_product()
+    {
+        //create product dummy first
+        $category = factory(Category::class)->create([
+            'owner_id' => $this->owner()->id,
+        ]);
+
+        $product = factory(Product::class)->create([
+            'category_id' => $category->id,
+        ]);
+        
+        $variants = factory(Variant::class, 3)->make();
+        
+        $product->variants()->saveMany($variants);
+        
+        //then make new dummy to update the created product
+        
+        $updateproduct = factory(Product::class)->make([
+            'category_id' => $this->encode($category->id),
+        ]);
+        
+        $newvariants = factory(Variant::class, 3)->make();
+        
+        $data = $updateproduct->toArray();
+        
+        $data['variants'] = $newvariants->toArray();
+        
+        //preparing to send data to server
+        $id = $this->encode($product->id);
+        
+        $token = $this->getTokenAsOwner();
+        
+        $this->put('/v1/products/' . $id, $data, $token);
+        
+        
+        $this->assertResponseStatus(200);
+        
+        $this->seeInDatabase('products', [
+            'id' => $product->id,
+            'category_id' => $category->id,
+            'name' => $updateproduct->name, 
+            'description' => $updateproduct->description,
+            'barcode' => $updateproduct->barcode,
+            'unit' => $updateproduct->unit,
+        ]);
+                
+        foreach ($newvariants as $variant) {
+            
+            $this->seeInDatabase('variants', [
+                'product_id' => $product->id,
+                'name' => $variant->name, 
+                'code'=> $variant->code, 
+                'price' => $variant->price, 
+                'track_stock' => $variant->track_stock,
+                'stock' => $variant->stock,
+                'alert' => $variant->alert,
+                'alert_at' => $variant->alert_at,
+            ]);
+            
+        }
         
     }
         

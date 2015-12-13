@@ -6,6 +6,7 @@ use Sikasir\V1\Repositories\Repository;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Products\Category;
 /**
  * Description of ProductRepository
  *
@@ -36,7 +37,18 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
     
     public function saveForOwner(array $data, Owner $owner)
     {
-        return false;
+        $category = $owner->categories()
+                ->findOrFail($data['category_id']);
+        
+        $product = $category->products()->save(new Product($data));
+        
+        $variantModels = [];
+        
+        foreach ($data['variants'] as $variant) {
+            $variantModels[] = new Variant($variant);
+        }
+        
+        $product->variants()->saveMany($variantModels);
     }
     
     public function destroyForOwner($id, Owner $owner) 
@@ -59,7 +71,9 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
 
     public function updateForOwner($id, array $data, Owner $owner) 
     {
-        $product = $owner->products()->findOrFail($id);
+        $category = $owner->categories()->findOrFail($data['category_id']);
+        
+        $product = $category->products()->findOrFail($id);
         
         $product->update($data);
         

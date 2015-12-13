@@ -84,7 +84,7 @@ class ProductRequest extends Request
               $rules['variants.' .$key . '.stock'] = 'integer';
               $rules['variants.' .$key . '.alert'] = 'boolean';
               $rules['variants.' .$key . '.alert_at'] = 'integer';
-              $rules['variants.' .$key . '.delete'] = 'required|boolean';
+              $rules['variants.' .$key . '.delete'] = 'boolean';
             }
         
         return $rules;
