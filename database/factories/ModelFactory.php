@@ -11,16 +11,24 @@
 |
 */
 
-use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
-use Sikasir\V1\User\Cashier;
-use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\User\User;
 use Sikasir\V1\User\Employee;
+use Sikasir\V1\User\Cashier;
+
+use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\Outlets\Customer;
+
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Products\Variant;
-use Sikasir\V1\Outlets\Customer;
+
+use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
+use Sikasir\V1\Stocks\StockIn;
+use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\StockTransfer;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -130,4 +138,25 @@ $factory->define(Variant::class, function(Faker\Generator $fake) {
         'alert_at' => $fake->numberBetween(1, 30),
     ];
     
+});
+
+$factory->define(StockDetail::class, function(Faker\Generator $fake) {
+    return [
+        'total' => $fake->numberBetween(1, 100),
+    ];
+});
+$factory->define(StockIn::class, function(Faker\Generator $fake) {
+    return [
+        'total' => $fake->numberBetween(1, 100),
+    ];
+});
+$factory->define(StockOut::class, function(Faker\Generator $fake) {
+    return [
+        'total' => $fake->numberBetween(1, 100),
+    ];
+});
+$factory->define(StockTransfer::class, function(Faker\Generator $fake) {
+    return [
+        'total' => $fake->numberBetween(1, 100),
+    ];
 });

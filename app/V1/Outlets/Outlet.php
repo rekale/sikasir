@@ -11,6 +11,7 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
+use Sikasir\V1\Stocks\Stock;
 
 class Outlet extends Model
 {
@@ -99,6 +100,11 @@ class Outlet extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'stocks');
+    }
+    
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 
 

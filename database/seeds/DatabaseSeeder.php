@@ -25,6 +25,10 @@ class DatabaseSeeder extends Seeder
         'products',
         'variants',
         'stocks',
+        'stock_details',
+        'stock_ins',
+        'stock_outs',
+        'stock_transfers',
     ];
 
     /**
@@ -36,6 +40,7 @@ class DatabaseSeeder extends Seeder
         'FinanceSeeder',
         'CustomerSeeder',
         'ProductSeeder',
+        'StockSeeder',
     ];
 
     /**
