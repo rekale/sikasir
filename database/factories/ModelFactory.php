@@ -20,6 +20,7 @@ use Sikasir\V1\User\Employee;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Outlets\Customer;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -68,7 +69,7 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->name,
         'title' => $fake->randomElement(['staff', 'manager']),
-        'gender' => $fake->randomElement(['pria', 'wanita']),
+        'gender' => $fake->randomElement(['male', 'female']),
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,
         'icon' => $fake->imageUrl(300, 200, 'people'),
@@ -80,10 +81,22 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
 $factory->define(Cashier::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->name, 
-        'gender' => $fake->randomElement(['pria', 'wanita']),
+        'gender' => $fake->randomElement(['male', 'female']),
         'phone' => $fake->phoneNumber,
         'address' => $fake->address,
         'icon' => $fake->imageUrl(),
+    ];
+});
+
+$factory->define(Customer::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->name,
+        'email' => $fake->email, 
+        'sex' => $fake->randomElement(['male', 'female']), 
+        'phone' => $fake->phoneNumber, 
+        'address' => $fake->address, 
+        'city' => $fake->city, 
+        'pos_code' => $fake->postcode,
     ];
 });
 

@@ -17,16 +17,9 @@ class CustomerSeeder extends Seeder
         
         Outlet::all()->each(function ($outlet) use ($fake)
         {
-               
-            $outlet->customers()->save(new Customer([
-                'name' => $fake->name,
-                'email' => $fake->email, 
-                'sex' => $fake->randomElement(['male', 'female']), 
-                'phone' => $fake->phoneNumber, 
-                'address' => $fake->address, 
-                'city' => $fake->city, 
-                'pos_code' => $fake->postcode,
-            ]));
+            $customer = factory(Customer::class)->make();
+            
+            $outlet->customers()->save($customer);
 
                 
         });
