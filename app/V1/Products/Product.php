@@ -3,6 +3,7 @@
 namespace Sikasir\V1\Products;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\Outlets\Outlet;
 
 class Product extends Model
 {
@@ -30,7 +31,7 @@ class Product extends Model
     
     public function outlets()
     {
-        return $this->belongsToMany(\Sikasir\V1\Outlets\Outlet::class, 'outlet_product')->withTimestamps();
+        return $this->belongsToMany(Outlet::class, 'stocks');
     }
     
     public function category()

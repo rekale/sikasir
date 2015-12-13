@@ -12,11 +12,10 @@ class CreateOutletProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('outlet_product', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('outlet_id')->unsigned()->index();
             $table->integer('product_id')->unsigned()->index();
-            $table->timestamps();
             
              $table->foreign('outlet_id')
                   ->references('id')
@@ -36,6 +35,6 @@ class CreateOutletProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('outlet_product');
+        Schema::drop('stocks');
     }
 }

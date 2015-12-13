@@ -98,7 +98,7 @@ class Outlet extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'outlet_product')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'stocks');
     }
 
 

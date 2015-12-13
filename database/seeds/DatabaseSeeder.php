@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         'categories',
         'products',
         'variants',
-        'outlet_product',
+        'stocks',
     ];
 
     /**
