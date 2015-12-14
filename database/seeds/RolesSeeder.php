@@ -18,7 +18,7 @@ class RolesSeeder extends Seeder
         foreach ($this->cashierAbilities() as $doThis) {
             \Bouncer::allow('cashier')->to($doThis);
         }
-        foreach ($this->staffAbilities() as $doThis) {
+        foreach ($this->employeeAbilities() as $doThis) {
             \Bouncer::allow('staff')->to($doThis);
         }
         foreach ($this->OwnerAbilities() as $doThis) {
@@ -63,18 +63,35 @@ class RolesSeeder extends Seeder
         ];
     }
 
-    public function staffAbilities()
+    public function employeeAbilities()
     {
         return [
             'create-product',
             'read-product',
             'update-product',
             'delete-product',
+            
             'create-cashier',
             'read-cashier',
             'update-cashier',
             'delete-cashier',
+            
             'void-transaction',
+            
+            'read-stock',
+            
+            'create-stock-entry',
+            'read-stock-entry',
+            'delete-stock-entry',
+            
+            'create-stock-out',
+            'read-stock-out',
+            'delete-stock-out',
+            
+            'create-stock-transfer',
+            'read-stock-transfer',
+            'delete-stock-transfer',
+            
             'crud-struk',
             'read-report',
         ];

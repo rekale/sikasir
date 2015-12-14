@@ -58,26 +58,44 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
             post('outlets', 'OutletsController@store');
             get('outlets', 'OutletsController@index');
-            get('outlets/{outletId}', 'OutletsController@show');
-            put('outlets/{outletId}', 'OutletsController@update');
-            delete('outlets/{outletId}', 'OutletsController@destroy');
+            get('outlets/{id}', 'OutletsController@show');
+            put('outlets/{id}', 'OutletsController@update');
+            delete('outlets/{id}', 'OutletsController@destroy');
 
-            get('outlets/{outletId}/incomes', 'IncomesController@index');
-            post('outlets/{outletId}/incomes', 'IncomesController@store');
-            delete('outlets/{outletId}/incomes/{incomeId}', 'IncomesController@destroy');
+            get('outlets/{id}/incomes', 'IncomesController@index');
+            post('outlets/{id}/incomes', 'IncomesController@store');
+            delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroy');
 
-            get('outlets/{outletId}/outcomes', 'OutcomesController@index');
-            post('outlets/{outletId}/outcomes', 'OutcomesController@store');
-            delete('outlets/{outletId}/outcomes/{outcomeId}', 'OutcomesController@destroy');
+            get('outlets/{id}/outcomes', 'OutcomesController@index');
+            post('outlets/{id}/outcomes', 'OutcomesController@store');
+            delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroy');
 
-            get('outlets/{outletId}/customers', 'CustomersController@index');
-            post('outlets/{outletId}/customers', 'CustomersController@store');
+            get('outlets/{id}/customers', 'CustomersController@index');
+            post('outlets/{id}/customers', 'CustomersController@store');
 
-            get('outlets/{outletId}/products', 'ProductsController@index');
+            get('outlets/{id}/products', 'ProductsController@index');
 
-            get('outlets/{outletId}/employees', 'EmployeesController@index');
+            get('outlets/{id}/employees', 'EmployeesController@index');
+            
+            
+            Route::group(['namespace' => 'Stocks'], function()
+            {
+                get('outlets/{id}/stock');
+            
+                get('outlets/{id}/stock/entry');
+                post('outlets/{id}/stock/entry');
+                delete('outlets/{id}/stock/entry/{entryId}');
 
+                get('outlets/{id}/stock/out');
+                post('outlets/{id}/stock/out');
+                delete('outlets/{id}/stock/out/{entryId}');
+                
+                get('outlets/{id}/stock/transfer');
+                post('outlets/{id}/stock/transfer');
+                delete('outlets/{id}/stock/transfer/{entryId}');
 
+            });
+            
         });
         
         Route::group(['namespace' => 'Products'], function()
