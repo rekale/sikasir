@@ -46,7 +46,7 @@ class OutcomesController extends ApiController
     public function destroy($outletId, $outcomeId)
     {
         
-        $this->repo->destroyOutcome($outletId, $outcomeId);
+        $this->repo->destroyOutcome($this->decode($outletId), $this->decode($outcomeId));
                 
         return $this->response()->deleted('selected outcome has deleted');
     }

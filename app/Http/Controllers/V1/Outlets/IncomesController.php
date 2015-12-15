@@ -46,7 +46,7 @@ class IncomesController extends ApiController
     public function destroy($outletId, $incomeId)
     {
         
-        $this->repo()->destroyIncome($this->decode($outletId), $this->decode($outletId));
+        $this->repo()->destroyIncome($this->decode($outletId), $this->decode($incomeId));
                 
         return $this->response()->deleted('selected income has deleted');
     }

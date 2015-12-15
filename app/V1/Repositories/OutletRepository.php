@@ -55,15 +55,6 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      */
     public function destroyIncome($outletId, $data)
     {
-        if (is_array($data)) {
-            foreach ($data as $id => $value) {
-                $data[$id] = $this->decode($value);
-            }
-        }
-        else {
-            $data = $this->decode($data);
-        }
-
         return $this->find($outletId)->incomes()->destroy($data);
     }
 
@@ -103,15 +94,6 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      */
     public function destroyOutcome($outletId, $data)
     {
-        if (is_array($data)) {
-            foreach ($data as $id => $value) {
-                $data[$id] = $this->decode($value);
-            }
-        }
-        else {
-            $data = $this->decode($data);
-        }
-
         return $this->find($outletId)->outcomes()->destroy($data);
     }
 
