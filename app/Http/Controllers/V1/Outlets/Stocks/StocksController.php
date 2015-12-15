@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\Http\Controllers\V1\Outlets;
+namespace Sikasir\Http\Controllers\V1\Outlets\Stocks;
 
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\OutletRepository;

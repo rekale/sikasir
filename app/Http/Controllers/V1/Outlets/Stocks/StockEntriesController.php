@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\Http\Controllers\V1\Outlets;
+namespace Sikasir\Http\Controllers\V1\Outlets\Stocks;
 
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\OutletRepository;
@@ -9,7 +9,7 @@ use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 
-class StockTransferController extends ApiController
+class StockEntriesController extends ApiController
 {
 
     public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {

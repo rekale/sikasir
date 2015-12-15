@@ -80,21 +80,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             Route::group(['namespace' => 'Stocks'], function()
             {
-                /**
-                get('outlets/{id}/stock');
-            
-                get('outlets/{id}/stock/entry');
-                post('outlets/{id}/stock/entry');
-                delete('outlets/{id}/stock/entry/{entryId}');
-
-                get('outlets/{id}/stock/out');
-                post('outlets/{id}/stock/out');
-                delete('outlets/{id}/stock/out/{entryId}');
                 
-                get('outlets/{id}/stock/transfer');
-                post('outlets/{id}/stock/transfer');
-                delete('outlets/{id}/stock/transfer/{entryId}');
-                */
+                get('outlets/{id}/stock', 'StocksController@index');
+            
+                get('outlets/{id}/stock/entries', 'StocksEntriesController@index');
+                post('outlets/{id}/stock/entries', 'StocksEntriesController@store');
+                delete('outlets/{id}/stock/entries/{entryId}', 'StocksEntriesController@destroy');
+
+                get('outlets/{id}/stock/out', 'StocksOutsController@index');
+                post('outlets/{id}/stock/out', 'StocksOutsController@store');
+                delete('outlets/{id}/stock/out/{entryId}', 'StocksOutsController@destroy');
+                
+                get('outlets/{id}/stock/transfers', 'StocksTransfersController@index');
+                post('outlets/{id}/stock/transfers', 'StocksTransfersController@store');
+                delete('outlets/{id}/stock/transfers/{entryId}', 'StocksTransfersController@destroy');
+                
             });
             
         });

@@ -23,7 +23,7 @@ class ApiRespond
      
      
      /**
-      * response resource / data
+      * response resource or data
       * 
       * @return $this
       */
@@ -53,7 +53,10 @@ class ApiRespond
          return $this;
      }
      
-    
+    /**
+     * 
+     * @return integer
+     */
      public function getStatusCode()
      {
          return $this->statusCode;
@@ -85,6 +88,7 @@ class ApiRespond
      * user not authorized
      * 
      * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
      */
     public function notAuthorized($msg = 'Not Authorized')
     {
@@ -92,9 +96,10 @@ class ApiRespond
     }
     
     /**
+     * response input is not proccesable
      * 
      * @param type $msg
-     * @return type
+     * @return \Illuminate\Http\JsonResponse
      */
     public function inputNotProcessable($msg)
     {
@@ -105,6 +110,7 @@ class ApiRespond
      * resource successfuly created
      * 
      * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
      */
     public function created($msg = 'created')
     {
@@ -115,6 +121,7 @@ class ApiRespond
      * resource successfuly updated
      * 
      * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updated($msg = 'updated')
     {
@@ -125,6 +132,7 @@ class ApiRespond
      * resource successfuly deleted
      * 
      * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deleted($msg = 'deleted')
     {
@@ -135,13 +143,19 @@ class ApiRespond
      * resource failed to create
      * 
      * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
      */
     public function createFailed($msg = 'fail to create')
     {
         return $this->setStatusCode(409)->withError($msg);
     }
     
-    
+    /**
+     * return success message
+     * 
+     * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function success($msg)
     {
         return $this->respond([
@@ -152,6 +166,12 @@ class ApiRespond
         ]);
     }
     
+    /**
+     * return error message
+     * 
+     * @param string $msg
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function withError($msg)
     {
         return $this->respond([
@@ -162,7 +182,13 @@ class ApiRespond
         ]);
     }
     
-
+    /**
+     * make respond
+     * 
+     * @param string $data
+     * @param array $headers
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function respond($data, $headers=[])
     {
         return new JsonResponse($data, $this->getStatusCode(), $headers);
@@ -190,6 +216,8 @@ class ApiRespond
      * 
      * @param Paginator $paginator
      * @param \League\Fractal\TransformerAbstract $callback
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function withPaginated($paginator, TransformerAbstract $callback)
     {
@@ -205,6 +233,15 @@ class ApiRespond
     
     }
     
+    /**
+     * 
+     * return data from one collection to json
+     * 
+     * @param Static $item
+     * @param \League\Fractal\TransformerAbstract $callback
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function withItem($item, $callback)
     {
         $resource = new Item($item, $callback);
