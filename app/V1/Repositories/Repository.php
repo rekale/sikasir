@@ -88,7 +88,7 @@ abstract class Repository implements RepositoryInterface
     {
         return $this->model->destroy($id);
     }
-
+    
     public function getAll(array $coloumns = array('*')) 
     {
         return $this->model->all($coloumns);
@@ -97,6 +97,15 @@ abstract class Repository implements RepositoryInterface
     public function getSome($take, $skip = 0)
     {
        return $this->model->take($take)->skip($skip)->get();
+    }
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function model()
+    {
+        return $this->model;
     }
    
 }

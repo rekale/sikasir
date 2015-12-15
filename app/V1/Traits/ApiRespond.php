@@ -40,9 +40,15 @@ class ApiRespond
       * @param type $include
       * @return $this
       */
-     public function including($include)
+     public function including($include = null)
      {
-         $this->fractal->parseIncludes($include);
+         
+        $included = isset($include) ? $include : 
+                filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+         if (isset($included)) {
+             $this->fractal->parseIncludes($included);
+         }
          
          return $this;
      }

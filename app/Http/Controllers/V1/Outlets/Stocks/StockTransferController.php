@@ -9,7 +9,7 @@ use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 
-class OutletsController extends ApiController
+class StockTransferController extends ApiController
 {
 
     public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
@@ -25,10 +25,9 @@ class OutletsController extends ApiController
         $owner = $this->auth()->toUser()->toOwner();
         
         $outlets = $this->repo()->getPaginatedForOwner($owner);
-        
+
         return $this->response()
                 ->resource()
-                ->including()
                 ->withPaginated($outlets, new OutletTransformer);
     }
 
@@ -44,7 +43,6 @@ class OutletsController extends ApiController
 
         return $this->response()
                 ->resource()
-                ->including()
                 ->withItem($outlet, new OutletTransformer);
     }
 

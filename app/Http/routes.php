@@ -80,6 +80,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             Route::group(['namespace' => 'Stocks'], function()
             {
+                /**
                 get('outlets/{id}/stock');
             
                 get('outlets/{id}/stock/entry');
@@ -93,7 +94,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 get('outlets/{id}/stock/transfer');
                 post('outlets/{id}/stock/transfer');
                 delete('outlets/{id}/stock/transfer/{entryId}');
-
+                */
             });
             
         });

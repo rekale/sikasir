@@ -5,17 +5,18 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\OutcomeTransformer;
-use League\Fractal\Manager;
 use Sikasir\V1\Repositories\OutletRepository;
+use Tymon\JWTAuth\JWTAuth;
+use \Sikasir\V1\Traits\ApiRespond;
+
 
 class OutcomesController extends ApiController
 {
-   protected $repo;
     
-    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, OutletRepository $repo) {
-        parent::__construct($respond);
-        
-        $this->repo = $repo;
+   public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
+
+        parent::__construct($respond, $auth, $repo);
+
     }
     /**
      * 
@@ -25,7 +26,7 @@ class OutcomesController extends ApiController
    {    
        $outcomes = $this->repo->getOutcomes($outletId);
        
-       return $this->response
+       return $this->response()
                ->resource()
                ->withPaginated($outcomes, new OutcomeTransformer);
        
@@ -38,8 +39,8 @@ class OutcomesController extends ApiController
           'note' => $request->input('note'), 
        ]);
        
-       return $saved ? $this->response->created('new outcome has created') : 
-           $this->response->createFailed('fail to create outcome');
+       return $saved ? $this->response()->created('new outcome has created') : 
+           $this->response()->createFailed('fail to create outcome');
    }
    
     public function destroy($outletId, $outcomeId)
@@ -47,6 +48,6 @@ class OutcomesController extends ApiController
         
         $this->repo->destroyOutcome($outletId, $outcomeId);
                 
-        return $this->response->success('selected outcome has deleted');
+        return $this->response()->deleted('selected outcome has deleted');
     }
 }
