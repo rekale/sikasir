@@ -14,56 +14,31 @@ use Sikasir\V1\User\User;
  * @author rekale  public function __construct(Cashier $model) {
   
  */
-class CashierRepository extends Repository implements BelongsToOwnerRepo
+class StockRepository extends Repository implements BelongsToOwnerRepo
 {
     
-    public function __construct(Cashier $model) {
+    public function __construct(Stock $model) {
         parent::__construct($model);
     }
 
-    /**
-     * save cashier
-     *
-     * @param array $data
-     * @param Sikasir\V1\User\Owner $owner
-     *
-     * @return void
-     */
-    public function saveForOwner(array $data, Owner $owner)
-    {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ]);
+    public function destroyForOwner($id, Owner $owner) {
         
-        $data['user_id'] = $user->id;
-        
-        $owner->cashiers()->save(new Cashier($data));
     }
 
-    public function getPaginatedForOwner(Owner $owner) 
-    {
-        return $owner->cashiers()->paginate();
+    public function findForOwner($id, Owner $owner) {
+        
     }
 
-    public function findForOwner($id, Owner $owner) 
-    {
-        return $owner->cashiers()->findOrFail($id);
-    }
-    
-    public function updateForOwner($id, array $data, Owner $owner) 
-    {
-        $owner->cashiers()
-                ->findOrFail($id)
-                ->update($data);
-    }
-    
-    public function destroyForOwner($id, Owner $owner) 
-    {   
-        $owner->cashiers()->findOrFail($id);
+    public function getPaginatedForOwner(Owner $owner) {
         
-        $this->destroy($id);
+    }
+
+    public function saveForOwner(array $data, Owner $owner) {
+        
+    }
+
+    public function updateForOwner($id, array $data, Owner $owner) {
+        
     }
 
 }

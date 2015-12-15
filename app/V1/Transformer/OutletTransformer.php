@@ -4,6 +4,8 @@ namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Transformer\StockDetailTransformer;
+
 /**
  * Description of AppTransformer
  *
@@ -18,7 +20,8 @@ class OutletTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'employees'
+        'employees',
+        'stocks',
     ];
 
     public function transform(Outlet $outlet)
@@ -43,6 +46,13 @@ class OutletTransformer extends TransformerAbstract
         $employees = $outlet->employees;
 
         return $this->collection($employees, new EmployeeTransformer);
+    }
+    
+    public function includeStocks(Outlet $outlet)
+    {
+        $details = $outlet->stockDetails;
+        
+        return $this->collection($details, new StockDetailTransformer);
     }
 
 }

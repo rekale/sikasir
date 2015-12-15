@@ -3,25 +3,23 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\User\Cashier;
+use Sikasir\V1\Stocks\StockDetail;
+use \Sikasir\V1\Traits\IdObfuscater;
 /**
  * Description of AppTransformer
  *
  * @author rekale
  */
-class CashierTransformer extends TransformerAbstract
+class StockDetailTransformer extends TransformerAbstract
 {
-    use \Sikasir\V1\Traits\IdObfuscater;
+    use IdObfuscater;
 
-    public function transform(Cashier $cashier)
+    public function transform(StockDetail $detail)
     {
         return [
-            'id' => $this->encode($cashier->id),
-            'name' => $cashier->name,
-            'gender' => $cashier->gender,
-            'address' => $cashier->address,
-            'phone'=> $cashier->phone,
-            'icon' => $cashier->icon,
+            'id' => $this->encode($detail->id),
+            'name' => $detail->variant->name,
+            'quantity' => $detail->total,
 
         ];
     }

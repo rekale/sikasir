@@ -4,6 +4,7 @@ namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Products\Variant;
 
 class StockDetail extends Model
 {
@@ -11,6 +12,9 @@ class StockDetail extends Model
       'variant_id',
       'total',
     ];
+    
+    
+    protected $with = ['variant'];
 
 
     /**
@@ -20,5 +24,10 @@ class StockDetail extends Model
     public function stock()
     {
         return $this->belongsTo(Stock::class);
+    }
+    
+    public function variant()
+    {
+        return $this->belongsTo(Variant::class);
     }
 }

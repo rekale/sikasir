@@ -12,6 +12,7 @@ use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 
 class Outlet extends Model
 {
@@ -82,29 +83,58 @@ class Outlet extends Model
         return $this->hasMany(Cashier::class);
     }
 
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function incomes()
     {
         return $this->hasMany(Income::class, 'outlet_id');
     }
 
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function outcomes()
     {
         return $this->hasMany(Outcome::class, 'outlet_id');
     }
 
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function customers()
     {
         return $this->hasMany(Customer::class, 'outlet_id');
     }
 
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function products()
     {
         return $this->belongsToMany(Product::class, 'stocks');
     }
     
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function stockDetails()
+    {
+        return $this->hasManyThrough(StockDetail::class, Stock::class);
     }
 
 
