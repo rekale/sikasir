@@ -18,6 +18,32 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     public function __construct(Outlet $outlet) {
         parent::__construct($outlet);
     }
+    
+    public function saveForOwner(array $data, Owner $owner)
+    {
+        $owner->outlets()->save(new Outlet($data));
+    }
+    
+    public function destroyForOwner($id, Owner $owner) {
+        $owner->outlets()->findOrFail($id);
+        
+        $this->destroy($id);
+    }
+
+    public function findForOwner($id, Owner $owner) 
+    {
+        return $owner->outlets()->findOrFail($id);
+    }
+
+    public function getPaginatedForOwner(Owner $owner) 
+    {
+        return $owner->outlets()->paginate();
+    }
+
+    public function updateForOwner($id, array $data, Owner $owner) 
+    {
+        $owner->outlets()->findOrFail($id)->update($data);
+    }
 
     /**
      * get incomes for specific outlet
@@ -153,33 +179,19 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
            return $paginated ? $this->find($outletId)->employees()->paginate($perPage) :
             $this->findWith($outletId, ['employees'])->employees;
     }
-
     
-
-    public function saveForOwner(array $data, Owner $owner)
+   /**
+     * get outlet's stock
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getStocksPaginated($outletId, Owner $owner)
     {
-        $owner->outlets()->save(new Outlet($data));
+        return $this->findForOwner($outletId, $owner)
+                ->stockDetails()
+                ->paginate();
     }
-    
-    public function destroyForOwner($id, Owner $owner) {
-        $owner->outlets()->findOrFail($id);
-        
-        $this->destroy($id);
-    }
-
-    public function findForOwner($id, Owner $owner) 
-    {
-        return $owner->outlets()->findOrFail($id);
-    }
-
-    public function getPaginatedForOwner(Owner $owner) 
-    {
-        return $owner->outlets()->paginate();
-    }
-
-    public function updateForOwner($id, array $data, Owner $owner) 
-    {
-        $owner->outlets()->findOrFail($id)->update($data);
-    }
-
 }
