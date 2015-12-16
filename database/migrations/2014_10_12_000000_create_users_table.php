@@ -17,8 +17,17 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
+            $table->integer('userable_id');
+            $table->string('userable_type');
             $table->rememberToken();
             $table->timestamps();
+        });
+        
+        Schema::create('admins', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+          
         });
     }
 
@@ -30,5 +39,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::drop('users');
+        Schema::drop('admins');
     }
 }

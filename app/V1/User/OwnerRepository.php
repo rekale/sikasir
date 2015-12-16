@@ -4,7 +4,6 @@ namespace Sikasir\V1\User;
 
 use Sikasir\V1\Repositories\Repository;
 use Sikasir\V1\User\User;
-use Sikasir\V1\Repositories\UserMorphable;
 /**
  * Description of OutletRepository
  *
@@ -20,13 +19,15 @@ class OwnerRepository extends Repository
     
     public function save(array $data) {
         
-        $user = User::create([
+        $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
         
-        $user->owner()->save(new Owner($data));
+        $owner = Owner::create($data);
+        
+        $owner->user()->save($user);
     }
 
 }

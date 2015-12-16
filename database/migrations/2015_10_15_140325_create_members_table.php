@@ -14,7 +14,6 @@ class CreateMembersTable extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->index();
             $table->string('name');
             $table->string('business_name');
             $table->string('phone');
@@ -22,12 +21,7 @@ class CreateMembersTable extends Migration
             $table->text('icon')->nullable();
             $table->boolean('active', 0);
             $table->timestamps();
-            
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
-
+          
         });
     }
 

@@ -27,16 +27,17 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
 
     public function saveForOwner(array $data, Owner $owner) 
     {
-        $user = User::create([
+        $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
         
-        $data['user_id'] = $user->id;
         $data['owner_id'] = $owner->id;
         
         $employee = Employee::create($data);
+        
+        $employee->user()->save($user);
         
         $employee->outlets()->attach($data['outlet_id']);
        

@@ -101,16 +101,9 @@ class CashierTest extends TestCase
      */
     public function test_update_an_cashier()
     {
-        $outlet = factory(Outlet::class)->create([
-            'owner_id' => $this->owner()->id,
-            'business_field_id' => factory(BusinessField::class)->create()->id,
-        ]);
         
-        $cashier = factory(Cashier::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'owner_id' => $this->owner()->id,
-            'outlet_id' => $outlet->id,
-        ]);
+        $cashier = $this->createCashier();
+     
         $updatecashier = factory(Cashier::class)->make();
         
         $id = $this->encode($cashier->id);
@@ -134,16 +127,8 @@ class CashierTest extends TestCase
     
     public function test_delete_an_cashier()
     {
-        $outlet = factory(Outlet::class)->create([
-            'owner_id' => $this->owner()->id,
-            'business_field_id' => factory(BusinessField::class)->create()->id,
-        ]);
-
-        $cashier = factory(Cashier::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'owner_id' => $this->owner()->id,
-            'outlet_id' => $outlet->id,
-        ]);
+     
+        $cashier = $this->createCashier();
         
         $id = $this->encode($cashier->id);
         

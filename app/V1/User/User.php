@@ -39,19 +39,9 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function owner()
+    public function userable()
     {
-        return $this->hasOne(Owner::class);
-    }
-    
-    public function cashier()
-    {
-        return $this->hasOne(Cashier::class);
-    }
-    
-    public function employee()
-    {
-        return $this->hasOne(Employee::class);
+        return $this->morphTo();
     }
 
     /**
@@ -61,17 +51,15 @@ class User extends Model implements AuthenticatableContract,
      */
     public function toOwner()
     {
-        if ($this->is('owner')) {
-            return $this->owner;
+        if($this->userable instanceof Admin) {
+            throw new \Exception("you're admin, you're don't have owner");
         }
-        else if ($this->is('staff')) {
-            return $this->employee->owner;
-        }
-        else if ($this->is('cashier')) {
-            return $this->cashier->owner;
+        
+        if ($this->userable instanceof Owner) {
+            return $this->userable;
         }
         else {
-            abort(403);
+            return $this->userable->owner;
         }
     }
 

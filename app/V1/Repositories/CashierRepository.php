@@ -31,15 +31,18 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
      */
     public function saveForOwner(array $data, Owner $owner)
     {
-        $user = User::create([
+        $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
         ]);
         
-        $data['user_id'] = $user->id;
+        $data['owner_id'] = $owner->id;
         
-        $owner->cashiers()->save(new Cashier($data));
+        $cashier = Cashier::create($data);
+        
+        $cashier->user()->save($user);
+        
     }
 
     public function getPaginatedForOwner(Owner $owner) 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Sikasir\V1\User\User;
+use Sikasir\V1\User\Admin;
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\Employee;
@@ -19,14 +20,20 @@ class UserSeeder extends Seeder
     public function run()
     {
         
-        $admin = User::create([
+        $admin = new User([
             'name' => 'admin',
             'email' => 'admin@sikasir.com',
             'password' => bcrypt('admin'),
             'remember_token' => str_random(10),
         ]);
         
-        $user = User::create([
+        $adminuser = factory(Admin::class)->create([
+            'name' => $admin->name,
+        ]);
+        
+        $adminuser->user()->save($admin);
+        
+        $user = new User([
             'name' => 'owner',
             'email' => 'owner@sikasir.com',
             'password' => bcrypt('owner'),
@@ -34,31 +41,33 @@ class UserSeeder extends Seeder
         ]);
         
         $owner = factory(Owner::class)->create([
-            'user_id' => $user->id,
             'name' => $user->name, 
         ]);
         
-
+        $owner->user()->save($user);
+        
         $owner->app()->save(new \Sikasir\V1\User\App([
             'username' => 'owner',
             'password' => bcrypt('owner'),
         ]));
         
         
-        $userEmployees = factory(User::class, 3)->create([
+        $userEmployees = factory(User::class, 3)->make([
             'password' => bcrypt('12345'),
         ]);
 
         foreach ($userEmployees as $user) {
-             $owner->employees()->save(factory(Employee::class)->make([
-                'user_id' => $user->id, 
-                'name' => $user->name,
-            ]));
+            $employee = factory(Employee::class)->create([
+                 'owner_id' => $owner->id,
+                 'name' => $user->name,
+            ]);
+            
+            $employee->user()->save($user);
         }
         
         $this->createOutlets();
            
-        $userCashiers = factory(User::class, 3)->create([
+        $userCashiers = factory(User::class, 3)->make([
             'password' => bcrypt('12345'),
         ]);
         
@@ -66,13 +75,14 @@ class UserSeeder extends Seeder
         
         foreach ($userCashiers as $user) {
         
-            $owner->cashiers()->save(factory(Cashier::class)->make([
-                'user_id' => $user->id, 
+            $cashier = factory(Cashier::class)->create([
+                'owner_id' => $owner->id, 
                 'outlet_id' => $outlets[mt_rand(0, count($outlets)-1)],
                 'name' => $user->name,
-            ]));
-        
+            ]);
             
+            $cashier->user()->save($user);
+        
         }
         
 

@@ -5,6 +5,10 @@ use League\Fractal\Resource\Item;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
+use Sikasir\V1\User\Employee;
+use Sikasir\V1\User\Cashier;
+use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\Outlets\Outlet;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -114,6 +118,55 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function owner()
     {
         return Owner::findOrFail(1);
+    }
+    
+    public function createOwner()
+    {
+        $owner = factory(Owner::class)->create();
+        
+        $user = factory(User::class)->make([
+            'name' => $owner->name,
+        ]);
+        
+        $owner->user()->save($user);
+        
+        return $owner;
+    }
+    
+    public function createEmployee($ownerId)
+    {
+        $employee = factory(Employee::class)->create([
+            'owner_id' => $ownerId,
+        ]);
+        
+        $user = factory(User::class)->make([
+            'name' => $employee->name,
+        ]);
+        
+        $employee->user()->save($user);
+        
+        return $employee;
+    }
+    
+    public function createCashier()
+    {
+        $outlet = factory(Outlet::class)->create([
+            'owner_id' => $this->owner()->id,
+            'business_field_id' => factory(BusinessField::class)->create()->id,
+        ]);
+        
+        $cashier = factory(Cashier::class)->create([
+            'owner_id' => $this->owner()->id,
+            'outlet_id' => $outlet->id,
+        ]);
+        
+        $user = factory(User::class)->make([
+            'name' => $cashier->name,
+        ]);
+        
+        $cashier->user()->save($user);
+        
+        return $cashier;
     }
     
     public function admin()

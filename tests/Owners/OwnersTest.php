@@ -46,13 +46,12 @@ class OwnersTest extends TestCase
      */
     public function test_get_one_owner()
     {
-        $user = factory(Owner::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-        ]);
         
-        $expected = $this->createItem($user, new OwnerTransformer);
+        $owner = $this->createOwner();
         
-        $link = 'v1/owners/' . $this->encode($user->id);
+        $expected = $this->createItem($owner, new OwnerTransformer);
+        
+        $link = 'v1/owners/' . $this->encode($owner->id);
         
         $token = $this->loginAsAdmin();
         
@@ -67,11 +66,9 @@ class OwnersTest extends TestCase
      */
     public function test_create_an_owner()
     {
-        $user = factory(Sikasir\V1\User\User::class)->make([
-            'password' => bcrypt('12345'),
-        ]);
-        
+      
         $owner = factory(Owner::class)->make();
+        $user = factory(User::class)->make();
         
         $data = $owner->toArray();
         
@@ -79,7 +76,6 @@ class OwnersTest extends TestCase
         $data['password'] = '12345';
         
         $token = $this->loginAsAdmin();
-        
         
         $this->post('/v1/owners', $data, $token);
         
@@ -93,9 +89,8 @@ class OwnersTest extends TestCase
      */
     public function test_update_an_owner()
     {
-        $owner = factory(Owner::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-        ]);
+        
+        $owner = $this->createOwner();
         
         $updateowner = factory(Owner::class)->make();
         
@@ -116,9 +111,8 @@ class OwnersTest extends TestCase
     
     public function test_delete_an_owner()
     {
-        $owner = factory(Owner::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-        ]);
+        
+        $owner = $this->createOwner();
         
         $id = $this->encode($owner->id);
         

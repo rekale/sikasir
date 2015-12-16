@@ -12,7 +12,7 @@ class OwnerRequest extends Request
      *
      * @return bool
      */
-    public function authorize(JWTAuth $auth)
+    public function authorize()
     {
         return true;
     }
