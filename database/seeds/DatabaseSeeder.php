@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
         'abilities',
         'role_abilities',
         'user_abilities',
+        'admins',
         'owners',
         'employees',
         'cashiers',

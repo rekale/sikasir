@@ -13,6 +13,9 @@ use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\StockDetail;
+use Sikasir\V1\Stocks\StockEntry;
+use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\StockTransfer;
 
 class Outlet extends Model
 {
@@ -136,6 +139,32 @@ class Outlet extends Model
     {
         return $this->hasManyThrough(StockDetail::class, Stock::class);
     }
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function stockEntries()
+    {
+        return $this->hasManyThrough(StockEntry::class, Stock::class);
+    }
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function stockOuts()
+    {
+        return $this->hasManyThrough(StockOut::class, Stock::class);
+    }
 
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function stockTransfers()
+    {
+        return $this->hasManyThrough(StockTransfer::class, Stock::class);
+    }
 
 }

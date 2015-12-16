@@ -196,7 +196,7 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     }
     
     /**
-     * get outlet's stock
+     * get outlet's stock entry history
      *
      * @param integer $outletId
      * @param \Sikasir\V1\User\Owner
@@ -206,7 +206,37 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     public function getStockEntriesPaginated($outletId, Owner $owner)
     {
         return $this->findForOwner($outletId, $owner)
-                ->stockDetails() 
+                ->stockEntries() 
+                ->paginate();
+    }
+    
+    /**
+     * get outlet's stock out history
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getStockOutsPaginated($outletId, Owner $owner)
+    {
+        return $this->findForOwner($outletId, $owner)
+                ->stockOuts() 
+                ->paginate();
+    }
+    
+     /**
+     * get outlet's stock transfer history
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getStockTransfersPaginated($outletId, Owner $owner)
+    {
+        return $this->findForOwner($outletId, $owner)
+                ->stockTransfers() 
                 ->paginate();
     }
 }

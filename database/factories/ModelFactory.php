@@ -11,6 +11,7 @@
 |
 */
 
+use Sikasir\V1\User\Admin;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
 use Sikasir\V1\User\Employee;
@@ -42,6 +43,13 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 $factory->define(BusinessField::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->word,
+    ];
+});
+
+$factory->define(Admin::class, function (Faker\Generator $fake) {
+  
+    return [
+        'name' => $fake->name,
     ];
 });
 
@@ -147,16 +155,19 @@ $factory->define(StockDetail::class, function(Faker\Generator $fake) {
 });
 $factory->define(StockEntry::class, function(Faker\Generator $fake) {
     return [
+        'note' => $fake->words(5, true),
         'total' => $fake->numberBetween(1, 100),
     ];
 });
 $factory->define(StockOut::class, function(Faker\Generator $fake) {
     return [
+        'note' => $fake->words(5, true),
         'total' => $fake->numberBetween(1, 100),
     ];
 });
 $factory->define(StockTransfer::class, function(Faker\Generator $fake) {
     return [
+        'note' => $fake->words(5, true),
         'total' => $fake->numberBetween(1, 100),
     ];
 });
