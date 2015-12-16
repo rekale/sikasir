@@ -26,7 +26,7 @@ use Sikasir\V1\Products\Variant;
 
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\StockDetail;
-use Sikasir\V1\Stocks\StockIn;
+use Sikasir\V1\Stocks\StockEntry;
 use Sikasir\V1\Stocks\StockOut;
 use Sikasir\V1\Stocks\StockTransfer;
 
@@ -145,7 +145,7 @@ $factory->define(StockDetail::class, function(Faker\Generator $fake) {
         'total' => $fake->numberBetween(1, 100),
     ];
 });
-$factory->define(StockIn::class, function(Faker\Generator $fake) {
+$factory->define(StockEntry::class, function(Faker\Generator $fake) {
     return [
         'total' => $fake->numberBetween(1, 100),
     ];

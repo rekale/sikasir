@@ -194,4 +194,19 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
                 ->stockDetails()
                 ->paginate();
     }
+    
+    /**
+     * get outlet's stock
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getStockEntriesPaginated($outletId, Owner $owner)
+    {
+        return $this->findForOwner($outletId, $owner)
+                ->stockDetails() 
+                ->paginate();
+    }
 }

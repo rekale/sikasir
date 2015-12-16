@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\StockDetail;
-use Sikasir\V1\Stocks\StockIn;
+use Sikasir\V1\Stocks\StockEntry;
 use Sikasir\V1\Stocks\StockOut;
 use Sikasir\V1\Stocks\StockTransfer;
 use Sikasir\V1\Outlets\Outlet;
@@ -35,7 +35,7 @@ class StockSeeder extends Seeder
                     'variant_id' => $variant->id,
                 ]);
                 
-                factory(StockIn::class)->create([
+                factory(StockEntry::class)->create([
                     'user_id' => $employee->user->id,
                     'stock_id' => $stock->id,
                     'variant_id' => $variant->id,
