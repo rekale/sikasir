@@ -20,7 +20,7 @@ class ProductTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $defaultIncludes = [
+    protected $availableIncludes = [
         'variants',
     ]; 
     
