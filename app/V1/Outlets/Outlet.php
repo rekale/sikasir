@@ -16,6 +16,7 @@ use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Stocks\StockEntry;
 use Sikasir\V1\Stocks\StockOut;
 use Sikasir\V1\Stocks\StockTransfer;
+use Sikasir\V1\Outlets\Tax;
 
 class Outlet extends Model
 {
@@ -34,7 +35,7 @@ class Outlet extends Model
      * @var array
      */
     protected $fillable = [
-        'business_field_id', 'code','name', 'address', 'province', 'city', 'pos_code',
+        'business_field_id', 'tax_id' ,'code','name', 'address', 'province', 'city', 'pos_code',
         'phone1', 'phone2', 'icon'
     ];
 
@@ -64,6 +65,16 @@ class Outlet extends Model
     public function businessfield()
     {
         return $this->belongsTo(BusinessField::class, 'business_field_id');
+    }
+    
+    /**
+     * outlet have one kind of tax
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function tax()
+    {
+        return $this->hasOne(Tax::class);
     }
 
     /**

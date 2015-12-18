@@ -8,6 +8,7 @@ use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Outlets\Tax;
 
 class UserSeeder extends Seeder
 {
@@ -102,21 +103,26 @@ class UserSeeder extends Seeder
 
         //create an outlet for every owner
         Owner::all()->each(function($owner) use ($businessField){
-
-                $outlets = factory(Outlet::class, 3)->make([
+                
+                //create tax for each owner
+                $taxes = factory(Tax::class, 3)->create([
                     'owner_id' => $owner->id,
+                ]);
+                
+                //create outlet for each owner and add tax
+                $outlets = factory(Outlet::class, 3)->create([
+                    'owner_id' => $owner->id,
+                    'tax_id' => $taxes->random()->id,
                     'business_field_id' => $businessField[mt_rand(0, 2)],
                 ]);
                 
-                $owner->outlets()->saveMany($outlets);
-                
+                //lists created employees id
                 $employees = $owner->employees->lists('id');
-                
-                $owner->outlets->each(function ($outlet) use ($employees) {
-                    
+               
+                //add employees to every outlets
+                foreach ($outlets as $outlet) {
                     $outlet->employees()->attach($employees->toArray());
-                    
-                });
+                }
         });
     }
 }

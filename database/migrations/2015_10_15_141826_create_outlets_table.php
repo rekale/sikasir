@@ -22,6 +22,7 @@ class CreateOutletsTable extends Migration
             $table->increments('id');
             $table->integer('owner_id')->unsigned()->index();
             $table->unsignedInteger('business_field_id')->index();
+            $table->unsignedInteger('tax_id')->index()->nullable();
             $table->string('code');
             $table->text('name');
             $table->text('address')->nullable();
@@ -38,9 +39,14 @@ class CreateOutletsTable extends Migration
                   ->on('owners')
                   ->onDelete('cascade');
 
-          $table->foreign('business_field_id')
+            $table->foreign('business_field_id')
                 ->references('id')
                 ->on('business_fields')
+                ->onDelete('cascade');
+
+            $table->foreign('tax_id')
+                ->references('id')
+                ->on('taxes')
                 ->onDelete('cascade');
         });
     }

@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         'cashiers',
         'apps',
         'outlets',
+        'business_fields',
+        'taxes',
         'employee_outlet',
         'incomes',
         'outcomes',

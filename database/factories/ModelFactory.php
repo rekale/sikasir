@@ -20,6 +20,7 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Outlets\Customer;
+use Sikasir\V1\Outlets\Tax;
 
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
@@ -43,6 +44,13 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 $factory->define(BusinessField::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->word,
+    ];
+});
+
+$factory->define(Tax::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->word,
+        'amount' => $fake->numberBetween(1, 20),
     ];
 });
 
