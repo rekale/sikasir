@@ -43,7 +43,7 @@ class OutletTransformer extends TransformerAbstract
             'phone1' => $outlet->phone1,
             'phone2' => $outlet->phone2,
             'icon' => $outlet->icon,
-            'tax' => $outlet->tax,
+            'tax' => $outlet->tax->toArray(),
 
         ];
     }
