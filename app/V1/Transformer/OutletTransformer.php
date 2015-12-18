@@ -42,7 +42,8 @@ class OutletTransformer extends TransformerAbstract
             'pos_code' => $outlet->pos_code,
             'phone1' => $outlet->phone1,
             'phone2' => $outlet->phone2,
-            'icon' => $outlet->icon
+            'icon' => $outlet->icon,
+            'tax' => $outlet->tax,
 
         ];
     }

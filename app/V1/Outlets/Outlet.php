@@ -27,7 +27,7 @@ class Outlet extends Model
      */
     protected $table = 'outlets';
 
-    protected $with = ['businessfield'];
+    protected $with = ['businessfield', 'tax'];
 
     /**
      * The attributes that are mass assignable.
@@ -70,11 +70,11 @@ class Outlet extends Model
     /**
      * outlet have one kind of tax
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function tax()
     {
-        return $this->hasOne(Tax::class);
+        return $this->belongsTo(Tax::class);
     }
 
     /**

@@ -14,6 +14,14 @@ class Tax extends Model
         'amount',
     ];
     
+    protected $hidden = [
+        'id',
+        'owner_id',
+        'created_at',
+        'updated_at',
+    ];
+
+
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
