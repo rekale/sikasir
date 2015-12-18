@@ -6,6 +6,7 @@
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/StocksController.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/ProductTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Traits/ParamTransformer.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Stocks/StocksController.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>

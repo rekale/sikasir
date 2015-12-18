@@ -21,6 +21,7 @@ class CustomerTransformer extends TransformerAbstract
             'email' => $customer->email,
             'sex' => $customer->sex,
             'address' => $customer->address, 
+            'city' => $customer->city,
             'phone'=> $customer->phone,
             'pos_code' => $customer->pos_code,
             'icon' => $customer->icon
