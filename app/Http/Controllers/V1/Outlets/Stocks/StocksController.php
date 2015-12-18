@@ -24,9 +24,10 @@ class StocksController extends ApiController
         $owner = $this->auth()->toUser()->toOwner();
         
         $stocks = $this->repo()->getStocksPaginated($this->decode($outletId), $owner);
-
+        
         return $this->response()
                 ->resource()
+                ->including()
                 ->withPaginated($stocks, new StockDetailTransformer);
     }
 

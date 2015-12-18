@@ -3,25 +3,32 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\Stocks\StockDetail;
+use Sikasir\V1\Stocks\Stock;
 use \Sikasir\V1\Traits\IdObfuscater;
+
 /**
  * Description of AppTransformer
  *
  * @author rekale
  */
-class StockDetailTransformer extends TransformerAbstract
+class StockTransformer extends TransformerAbstract
 {
     use IdObfuscater;
 
-    public function transform(StockDetail $detail)
+    protected $availableIncludes = [
+        'outlet',
+        'details',
+        'entries',
+        'outs',
+    ];
+    
+    public function transform(Stock $stock)
     {
         return [
-            'id' => $this->encode($detail->id),
-            'name' => $detail->variant->name,
-            'quantity' => $detail->total,
-
+            'id' => $this->encode($stock->id),
         ];
     }
+    
+    
 
 }

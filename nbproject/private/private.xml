@@ -5,12 +5,10 @@
         <group>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/StocksController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/StockEntryTransformer.php</file>
-            <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/tests/Stocks/StockTest.php</file>
-            <file>file:/D:/project/kasir/app/V1/Stocks/StockOut.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/StockEntriesController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/ProductTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Stocks/StocksController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
         </group>
     </open-files>
 </project-private>

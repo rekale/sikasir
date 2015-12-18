@@ -22,7 +22,7 @@ class StockEntryTransformer extends TransformerAbstract
             'name' => $entry->variant->name,
             'note' => $entry->note,
             'quantity' => $entry->total,
-
+            'created_at' => $entry->created_at,
         ];
     }
     

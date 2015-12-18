@@ -46,7 +46,7 @@ class ApiRespond
         $included = isset($include) ? $include : 
                 filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
-         if (isset($included)) {
+        if (isset($included)) {
              $this->fractal->parseIncludes($included);
          }
          

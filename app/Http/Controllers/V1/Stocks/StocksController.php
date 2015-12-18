@@ -1,9 +1,9 @@
 <?php
 
-namespace Sikasir\Http\Controllers\V1\Outlets\Stocks;
+namespace Sikasir\Http\Controllers\V1\Stocks;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Repositories\OutletRepository;
+use Sikasir\V1\Repositories\StockRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Transformer\StockDetailTransformer;
@@ -11,7 +11,7 @@ use Sikasir\V1\Transformer\StockDetailTransformer;
 class StocksController extends ApiController
 {
 
-    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
+    public function __construct(ApiRespond $respond, StockRepository $repo, JWTAuth $auth) {
 
         parent::__construct($respond, $auth, $repo);
 

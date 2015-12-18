@@ -19,7 +19,9 @@ class StockDetailTransformer extends TransformerAbstract
         return [
             'id' => $this->encode($detail->id),
             'name' => $detail->variant->name,
+            'code' => $detail->variant->code,
             'quantity' => $detail->total,
+            'price' => (int) $detail->variant->price,
 
         ];
     }

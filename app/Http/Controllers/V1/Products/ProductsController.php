@@ -27,6 +27,7 @@ class ProductsController extends ApiController
 
         return $this->response()
                 ->resource()
+                ->including()
                 ->withPaginated($products, new ProductTransformer);
     }
 
