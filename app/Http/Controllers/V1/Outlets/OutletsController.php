@@ -58,6 +58,8 @@ class OutletsController extends ApiController
         
         $dataInput['business_field_id'] = $this->decode($dataInput['business_field_id']);
         
+        $dataInput['tax_id'] = $this->decode($dataInput['tax_id']);
+        
         $this->repo()->saveForOwner($dataInput, $owner);
 
         return $this->response()->created();
@@ -75,6 +77,8 @@ class OutletsController extends ApiController
         
         $dataInput['business_field_id'] = $this->decode($dataInput['business_field_id']);
 
+        $dataInput['tax_id'] = $this->decode($dataInput['tax_id']);
+        
         $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
 
         return $this->response()->updated();

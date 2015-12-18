@@ -88,6 +88,12 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
     ];
 });
 
+$factory->define(Tax::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->word,
+        'amount' => $fake->numberBetween(1, 20),
+    ];
+});
 
 $factory->define(Employee::class, function (Faker\Generator $fake) {
     return [

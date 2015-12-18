@@ -7,6 +7,7 @@ use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\Outlets\Tax;
 
 class OutletTest extends TestCase
 {
@@ -43,6 +44,9 @@ class OutletTest extends TestCase
         $outlet = factory(Outlet::class)->create([
            'owner_id' => $this->owner()->id,
             'business_field_id' => factory(BusinessField::class)->create()->id,
+            'tax_id' => factory(Tax::class)->create([
+                'owner_id' => $this->owner()->id, 
+             ])->id,
         ]);
         
         $id = $this->encode($outlet->id);
@@ -66,6 +70,11 @@ class OutletTest extends TestCase
             'business_field_id' => $this->encode(
                 factory(BusinessField::class)->create()->id
             ),
+            'tax_id' => $this->encode(
+                factory(Tax::class)->create([
+                   'owner_id' => $this->owner()->id, 
+                ])->id
+            ),
         ]);
         
         $token = $this->getTokenAsOwner();
@@ -88,11 +97,19 @@ class OutletTest extends TestCase
         $outlet = factory(Outlet::class)->create([
             'owner_id' => $this->owner()->id,
             'business_field_id' => factory(BusinessField::class)->create()->id,
+            'tax_id' => factory(Tax::class)->create([
+                'owner_id' => $this->owner()->id, 
+             ])->id,
         ]);
         
         $newoutlet = factory(Outlet::class)->make([
             'business_field_id' => $this->encode(
                 factory(BusinessField::class)->create()->id
+            ),
+            'tax_id' => $this->encode(
+                factory(Tax::class)->create([
+                   'owner_id' => $this->owner()->id, 
+                ])->id
             ),
         ]);
         
