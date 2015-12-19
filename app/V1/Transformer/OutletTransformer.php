@@ -24,8 +24,8 @@ class OutletTransformer extends TransformerAbstract
         'employees',
         'cashiers',
         'stocks',
-        'stock_entries',
-        'stock_outs',
+        'stockentries',
+        'stockouts',
         'incomes',
         'outcomes',
         'customers',
@@ -88,7 +88,7 @@ class OutletTransformer extends TransformerAbstract
         return $this->collection($collection, new StockDetailTransformer);
     }
     
-    public function includeStockEntries(Outlet $outlet, ParamBag $params = null)
+    public function includeStockentries(Outlet $outlet, ParamBag $params = null)
     {
         $query = $this->setBuilder($outlet->stockEntries());
         
@@ -101,7 +101,7 @@ class OutletTransformer extends TransformerAbstract
         return $this->collection($collection, new StockEntryTransformer);
     }
     
-    public function includeStockOuts(Outlet $outlet, ParamBag $params = null)
+    public function includeStockouts(Outlet $outlet, ParamBag $params = null)
     {
         $query = $this->setBuilder($outlet->stockOuts());
         

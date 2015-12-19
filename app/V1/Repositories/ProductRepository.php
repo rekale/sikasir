@@ -45,8 +45,10 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         
     }
 
-    public function findForOwner($id, Owner $owner) 
+    public function findForOwner($id, Owner $owner, $with = []) 
     {
+        $with = array_filter($with);
+        
         if (empty($with)) {
             return $owner->products()->findOrFail($id);
         }
@@ -56,6 +58,8 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
 
     public function getPaginatedForOwner(Owner $owner, $with = []) 
     {
+        $with = array_filter($with);
+        
         if (empty($with)) {
             return $owner->products()->paginate();
         }
