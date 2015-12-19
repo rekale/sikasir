@@ -26,6 +26,7 @@ class OwnersController extends ApiController
 
         return $this->response()
                 ->resource()
+                ->including()
                 ->withPaginated($paginator, new OwnerTransformer);
     }
 
@@ -39,6 +40,7 @@ class OwnersController extends ApiController
 
         return $this->response()
                 ->resource()
+                ->including()
                 ->withItem($user, new OwnerTransformer);
     }
 

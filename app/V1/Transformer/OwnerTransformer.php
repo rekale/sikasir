@@ -4,6 +4,9 @@ namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\User\Owner;
+use League\Fractal\ParamBag;
+use \Sikasir\V1\Traits\ParamTransformer;
+
 /**
  * Description of AppTransformer
  *
@@ -11,7 +14,7 @@ use Sikasir\V1\User\Owner;
  */
 class OwnerTransformer extends TransformerAbstract
 {
-   use \Sikasir\V1\Traits\IdObfuscater;
+   use \Sikasir\V1\Traits\IdObfuscater, ParamTransformer;
     /**
      * List of resources possible to include
      *
@@ -20,6 +23,9 @@ class OwnerTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'outlets',
         'employees',
+        'cashiers',
+        'products',
+        'taxes',
     ]; 
     
     public function transform(Owner $owner)
@@ -36,18 +42,61 @@ class OwnerTransformer extends TransformerAbstract
         ];
     }
     
-    public function includeOutlets(Owner $owner)
+    public function includeOutlets(Owner $owner, ParamBag $params = null)
     {
-        $outlets = $owner->outlets;
+        $this->filterLimitParams($params->get('limit'));
+        $this->filterOrderParams($params->get('order'));
+       
+        $collection = $owner->outlets()
+                            ->take($this->limit)
+                            ->skip($this->offset)
+                            ->orderBy($this->orderCol, $this->orderBy)
+                            ->get();
         
-        return $this->collection($outlets, new OutletTransformer);
+        return $this->collection($collection, new OutletTransformer);
     }
     
-    public function includeEmployees(Owner $owner)
+    public function includeEmployees(Owner $owner, ParamBag $params = null)
     {
-        $employees = $owner->employees;
+        $this->filterLimitParams($params->get('limit'));
+        $this->filterOrderParams($params->get('order'));
+       
+        $collection = $owner->employees()
+                            ->take($this->limit)
+                            ->skip($this->offset)
+                            ->orderBy($this->orderCol, $this->orderBy)
+                            ->get();
         
-        return $this->collection($employees, new EmployeeTransformer);
+        return $this->collection($collection, new EmployeeTransformer);
+    }
+    
+    
+    public function includeProducts(Owner $owner, ParamBag $params = null)
+    {
+        $this->filterLimitParams($params->get('limit'));
+        $this->filterOrderParams($params->get('order'));
+       
+        $collection = $owner->products()
+                            ->take($this->limit)
+                            ->skip($this->offset)
+                            ->orderBy($this->orderCol, $this->orderBy)
+                            ->get();
+        
+        return $this->collection($collection, new ProductTransformer);
+    }
+    
+    public function includeTaxes(Owner $owner, ParamBag $params)
+    {
+        $this->filterLimitParams($params->get('limit'));
+        $this->filterOrderParams($params->get('order'));
+       
+        $collection = $owner->taxes()
+                            ->take($this->limit)
+                            ->skip($this->offset)
+                            ->orderBy($this->orderCol, $this->orderBy)
+                            ->get();
+        
+        return $this->collection($collection, new TaxTransformer);
     }
     
 }
