@@ -21,8 +21,9 @@ interface BelongsToOwnerRepo
      * get paginated resource for owner
      * 
      * @param Owner $owner
+     * @param array $with
      */
-    public function getPaginatedForOwner(Owner $owner);
+    public function getPaginatedForOwner(Owner $owner, $with = []);
     
     /**
     * save the current model to owner

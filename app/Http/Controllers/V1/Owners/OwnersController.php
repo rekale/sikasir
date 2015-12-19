@@ -22,11 +22,9 @@ class OwnersController extends ApiController
     {
         $this->authorizing('read-owner');
 
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        $include = $this->getIncludeParams();
         
-        $with  = explode(',', $include);
-        
-        $paginator = $this->repo()->getPaginated($with);
+        $paginator = $this->repo()->getPaginated($include);
 
         return $this->response()
                 ->resource()

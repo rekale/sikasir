@@ -45,9 +45,9 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
         
     }
 
-    public function getPaginatedForOwner(Owner $owner) 
+    public function getPaginatedForOwner(Owner $owner, $with = []) 
     {
-        return $owner->cashiers()->paginate();
+        return $owner->cashiers()->with($with)->paginate();
     }
 
     public function findForOwner($id, Owner $owner) 

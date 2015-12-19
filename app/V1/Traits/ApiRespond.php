@@ -37,7 +37,7 @@ class ApiRespond
      /**
       * include for fractal
       * 
-      * @param string $include
+      * @param string|array $include
       * @return $this
       */
      public function including($include)

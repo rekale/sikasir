@@ -55,9 +55,9 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
         return $owner->employees()->findOrFail($id);
     }
 
-    public function getPaginatedForOwner(Owner $owner)
+    public function getPaginatedForOwner(Owner $owner, $with = [])
     {
-        return $owner->employees()->paginate();
+        return $owner->employees()->with($with)->paginate();
     }
 
     public function updateForOwner($id, array $data, Owner $owner) 

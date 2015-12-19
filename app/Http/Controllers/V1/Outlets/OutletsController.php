@@ -24,11 +24,13 @@ class OutletsController extends ApiController
         
         $owner = $this->auth()->toUser()->toOwner();
         
-        $outlets = $this->repo()->getPaginatedForOwner($owner);
+        $include = $this->getIncludeParams();
+        
+        $outlets = $this->repo()->getPaginatedForOwner($owner, $include);
         
         return $this->response()
                 ->resource()
-                ->including()
+                ->including($include)
                 ->withPaginated($outlets, new OutletTransformer);
     }
 

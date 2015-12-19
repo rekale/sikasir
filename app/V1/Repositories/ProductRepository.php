@@ -50,9 +50,9 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         return $owner->products()->findOrFail($id);
     }
 
-    public function getPaginatedForOwner(Owner $owner) 
+    public function getPaginatedForOwner(Owner $owner, $with = []) 
     {
-        return $owner->products()->paginate();
+        return $owner->products()->with($with)->paginate();
     }
 
     public function updateForOwner($id, array $data, Owner $owner) 

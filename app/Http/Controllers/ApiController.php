@@ -82,5 +82,22 @@ class ApiController extends Controller
             abort(403);
         }
     }
-
+    
+    /**
+     * get the include parameter
+     * 
+     * @return array
+     */
+    public function getIncludeParams()
+    {
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $paramsinclude  = [];
+        
+        foreach (explode(',', $include) as $data) {
+            $paramsinclude[]  = preg_replace("/:(.*)/", "", $data);
+        }
+        
+        return $paramsinclude;
+    }
 }

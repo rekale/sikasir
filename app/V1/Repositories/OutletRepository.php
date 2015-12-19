@@ -35,9 +35,9 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
         return $owner->outlets()->findOrFail($id);
     }
 
-    public function getPaginatedForOwner(Owner $owner) 
+    public function getPaginatedForOwner(Owner $owner, $with = []) 
     {
-        return $owner->outlets()->paginate();
+        return $owner->outlets()->with($with)->paginate();
     }
 
     public function updateForOwner($id, array $data, Owner $owner) 
