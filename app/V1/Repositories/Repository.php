@@ -46,8 +46,8 @@ abstract class Repository implements RepositoryInterface
      * @param integer $perPage
      * @return Paginator
      */
-    public function getPaginated($perPage = 15) {
-        return $this->model->paginate($perPage);
+    public function getPaginated($with = [], $perPage = 15) {
+        return $this->model->with($with)->paginate($perPage);
     }
 
     /**

@@ -36,8 +36,9 @@ interface RepositoryInterface
      * get all resources paginated
      * 
      * @param integer $perPage = 10
+     * @param array $with = []
      */
-    public function getPaginated($perPage = 10);
+    public function getPaginated($with = [], $perPage = 10);
     
     
 }
