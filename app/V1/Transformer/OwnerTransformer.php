@@ -44,28 +44,21 @@ class OwnerTransformer extends TransformerAbstract
     
     public function includeOutlets(Owner $owner, ParamBag $params = null)
     {
-        $this->filterLimitParams($params->get('limit'));
-        $this->filterOrderParams($params->get('order'));
-       
-        $collection = $owner->outlets()
-                            ->take($this->limit)
-                            ->skip($this->offset)
-                            ->orderBy($this->orderCol, $this->orderBy)
-                            ->get();
+        
+        $collection = $this->paramsLimit($params->get('limit'))
+                            ->paramsOrder($params->get('order'))
+                            ->setBuilder($owner->outlets())
+                            ->result();
         
         return $this->collection($collection, new OutletTransformer);
     }
     
     public function includeEmployees(Owner $owner, ParamBag $params = null)
     {
-        $this->filterLimitParams($params->get('limit'));
-        $this->filterOrderParams($params->get('order'));
-       
-        $collection = $owner->employees()
-                            ->take($this->limit)
-                            ->skip($this->offset)
-                            ->orderBy($this->orderCol, $this->orderBy)
-                            ->get();
+        $collection = $this->paramsLimit($params->get('limit'))
+                            ->paramsOrder($params->get('order'))
+                            ->setBuilder($owner->employees())
+                            ->result();
         
         return $this->collection($collection, new EmployeeTransformer);
     }
@@ -73,28 +66,20 @@ class OwnerTransformer extends TransformerAbstract
     
     public function includeProducts(Owner $owner, ParamBag $params = null)
     {
-        $this->filterLimitParams($params->get('limit'));
-        $this->filterOrderParams($params->get('order'));
-       
-        $collection = $owner->products()
-                            ->take($this->limit)
-                            ->skip($this->offset)
-                            ->orderBy($this->orderCol, $this->orderBy)
-                            ->get();
+        $collection = $this->paramsLimit($params->get('limit'))
+                            ->paramsOrder($params->get('order'))
+                            ->setBuilder($owner->products())
+                            ->result();
         
         return $this->collection($collection, new ProductTransformer);
     }
     
     public function includeTaxes(Owner $owner, ParamBag $params)
     {
-        $this->filterLimitParams($params->get('limit'));
-        $this->filterOrderParams($params->get('order'));
-       
-        $collection = $owner->taxes()
-                            ->take($this->limit)
-                            ->skip($this->offset)
-                            ->orderBy($this->orderCol, $this->orderBy)
-                            ->get();
+        $collection = $this->paramsLimit($params->get('limit'))
+                            ->paramsOrder($params->get('order'))
+                            ->setBuilder($owner->taxes())
+                            ->result();
         
         return $this->collection($collection, new TaxTransformer);
     }
