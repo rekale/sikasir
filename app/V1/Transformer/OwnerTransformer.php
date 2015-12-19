@@ -55,9 +55,12 @@ class OwnerTransformer extends TransformerAbstract
     
     public function includeEmployees(Owner $owner, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($owner->employees());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($owner->employees())
                             ->result();
         
         return $this->collection($collection, new EmployeeTransformer);
@@ -66,19 +69,25 @@ class OwnerTransformer extends TransformerAbstract
     
     public function includeProducts(Owner $owner, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($owner->products());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($owner->products())
                             ->result();
         
         return $this->collection($collection, new ProductTransformer);
     }
     
-    public function includeTaxes(Owner $owner, ParamBag $params)
+    public function includeTaxes(Owner $owner, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($owner->taxes());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($owner->taxes())
                             ->result();
         
         return $this->collection($collection, new TaxTransformer);

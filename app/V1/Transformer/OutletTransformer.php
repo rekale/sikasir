@@ -51,10 +51,12 @@ class OutletTransformer extends TransformerAbstract
 
     public function includeEmployees(Outlet $outlet, ParamBag $params = null)
     {
+        $query = $this->setBuilder($outlet->employees());
         
-        $collection = $this->paramsLimit($params->get('limit'))
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->employees())
                             ->result();
 
         return $this->collection($collection, new EmployeeTransformer);
@@ -62,10 +64,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeCashiers(Outlet $outlet, ParamBag $params = null)
     {
+        $query = $this->setBuilder($outlet->cashiers());
         
-        $collection = $this->paramsLimit($params->get('limit'))
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->cashiers())
                             ->result();
 
         return $this->collection($collection, new CashierTransformer);
@@ -73,9 +77,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeStocks(Outlet $outlet, ParamBag $params = null)
     {
-       $collection = $this->paramsLimit($params->get('limit'))
+       $query = $this->setBuilder($outlet->stocks());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->stocks())
                             ->result();
         
         return $this->collection($collection, new StockDetailTransformer);
@@ -83,9 +90,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeStockEntries(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($outlet->stockEntries());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->stockEntries())
                             ->result();
         
         return $this->collection($collection, new StockEntryTransformer);
@@ -93,9 +103,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeStockOuts(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($outlet->stockOuts());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->stockOuts())
                             ->result();
         
         return $this->collection($collection, new StockOutTransformer);
@@ -103,9 +116,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeCustomers(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($outlet->customers());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->customers())
                             ->result();
         
         return $this->collection($collection, new CustomerTransformer);
@@ -114,9 +130,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeIncomes(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($outlet->incomes());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->incomes())
                             ->result();
         
         return $this->collection($collection, new IncomeTransformer);
@@ -125,9 +144,12 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeOutcomes(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->paramsLimit($params->get('limit'))
+        $query = $this->setBuilder($outlet->outcomes());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($outlet->outcomes())
                             ->result();
         
         return $this->collection($collection, new OutcomeTransformer);

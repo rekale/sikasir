@@ -48,7 +48,7 @@ trait ParamTransformer
      * @param array $params
      * @return $this
      */
-    public function paramsOrder()
+    public function paramsOrder($params)
     {
         $this->orderCol = isset($params[0]) ? $params[0] : 'created_at';
         $this->orderBy = isset($params[1]) ? $params[1] : 'asc';
