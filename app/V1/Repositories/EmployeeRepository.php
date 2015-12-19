@@ -50,13 +50,21 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
         $this->destroy($id);
     }
 
-    public function findForOwner($id, Owner $owner) 
+    public function findForOwner($id, Owner $owner, $with = []) 
     {
-        return $owner->employees()->findOrFail($id);
+        if (empty($with)) {
+            return $owner->employees()->findOrFail($id);
+        }
+        
+        return $owner->employees()->with($with)->findOrFail($id);
     }
 
     public function getPaginatedForOwner(Owner $owner, $with = [])
     {
+        if (empty($with)) {
+            return $owner->employees()->paginate();
+        }
+        
         return $owner->employees()->with($with)->paginate();
     }
 

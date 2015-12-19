@@ -32,11 +32,19 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
 
     public function findForOwner($id, Owner $owner) 
     {
-        return $owner->outlets()->findOrFail($id);
+        if (empty($with)) {
+            return $owner->outlets()->findOrFail($id);
+        }
+        
+        return $owner->outlets()->with($with)->findOrFail($id);
     }
 
     public function getPaginatedForOwner(Owner $owner, $with = []) 
     {
+        if (empty($with)) {
+            return $owner->outlets()->paginate();
+        }
+        
         return $owner->outlets()->with($with)->paginate();
     }
 

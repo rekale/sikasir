@@ -37,7 +37,7 @@ abstract class Repository implements RepositoryInterface
     public function findWith($id, array $relations)
     {
         
-        return $this->find($id)->with($relations)->get();
+        return $this->model()->with($relations)->findOrFail($id);
     }
 
     /**
@@ -47,6 +47,11 @@ abstract class Repository implements RepositoryInterface
      * @return Paginator
      */
     public function getPaginated($with = [], $perPage = 15) {
+         
+        if (empty($with)) {
+            return $$this->model->paginate($perPage);
+        }
+        
         return $this->model->with($with)->paginate($perPage);
     }
 

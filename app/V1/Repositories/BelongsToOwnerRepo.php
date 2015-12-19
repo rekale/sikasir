@@ -12,10 +12,11 @@ interface BelongsToOwnerRepo
      * 
      * @param integer $id
      * @param Owner $owner
+     * @param array $with
      * 
      * @return \Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Model
      */
-    public function  findForOwner($id, Owner $owner);
+    public function  findForOwner($id, Owner $owner, $with = []);
     
     /**
      * get paginated resource for owner

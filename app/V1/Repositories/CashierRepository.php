@@ -47,12 +47,20 @@ class CashierRepository extends Repository implements BelongsToOwnerRepo
 
     public function getPaginatedForOwner(Owner $owner, $with = []) 
     {
+        if (empty($with)) {
+            return $owner->cashiers()->paginate();
+        }
+        
         return $owner->cashiers()->with($with)->paginate();
     }
 
-    public function findForOwner($id, Owner $owner) 
+    public function findForOwner($id, Owner $owner, $with = []) 
     {
-        return $owner->cashiers()->findOrFail($id);
+        if (empty($with)) {
+            return $owner->cashiers()->findOrFail($id);
+        }
+            
+        return $owner->cashiers()->with($with)->findOrFail($id);
     }
     
     public function updateForOwner($id, array $data, Owner $owner) 
