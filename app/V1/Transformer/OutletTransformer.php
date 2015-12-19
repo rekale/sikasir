@@ -22,6 +22,7 @@ class OutletTransformer extends TransformerAbstract
      */
     protected $availableIncludes = [
         'employees',
+        'cashiers',
         'stocks',
         'stock_entries',
         'stock_outs',
@@ -57,6 +58,17 @@ class OutletTransformer extends TransformerAbstract
                             ->result();
 
         return $this->collection($collection, new EmployeeTransformer);
+    }
+    
+    public function includeCashiers(Outlet $outlet, ParamBag $params = null)
+    {
+        
+        $collection = $this->paramsLimit($params->get('limit'))
+                            ->paramsOrder($params->get('order'))
+                            ->setBuilder($outlet->cashiers())
+                            ->result();
+
+        return $this->collection($collection, new CashierTransformer);
     }
     
     public function includeStocks(Outlet $outlet, ParamBag $params = null)
