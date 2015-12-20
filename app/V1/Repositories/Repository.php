@@ -51,7 +51,7 @@ abstract class Repository implements RepositoryInterface
         $with = array_filter($with);
         
         if (empty($with)) {
-            return $$this->model->paginate($perPage);
+            return $this->model->paginate($perPage);
         }
         
         return $this->model->with($with)->paginate($perPage);
