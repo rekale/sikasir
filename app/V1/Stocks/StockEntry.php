@@ -15,6 +15,7 @@ class StockEntry extends Model
         'variant_id',
         'note',
         'total',
+        'input_at',
     ];
     
     public function user()

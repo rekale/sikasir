@@ -22,6 +22,7 @@ class StockOutTransformer extends TransformerAbstract
             'name' => $out->variant->name,
             'note' => $out->note,
             'quantity' => $out->total,
+            'input_at' => $entry->input_at,
 
         ];
     }

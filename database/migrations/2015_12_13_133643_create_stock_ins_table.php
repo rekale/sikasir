@@ -19,6 +19,7 @@ class CreateStockInsTable extends Migration
             $table->integer('variant_id')->unsigned()->index();
             $table->string('note');
             $table->integer('total');
+            $table->date('input_at');
             $table->timestamps();
             
             $table->foreign('user_id')

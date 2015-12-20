@@ -9,10 +9,11 @@ use Sikasir\V1\Products\Variant;
 class StockOut extends Model
 {
     protected $fillable = [
-      'user_id',
-      'variant_id',
-      'note',
-      'total',  
+        'user_id',
+        'variant_id',
+        'note',
+        'total',
+        'input_at',  
     ];
     
     public function user()

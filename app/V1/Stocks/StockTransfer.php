@@ -12,5 +12,6 @@ class StockTransfer extends Model
         'variant_id',
         'note',
         'total',
+        'input_at',
     ];
 }
