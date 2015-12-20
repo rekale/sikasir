@@ -79,7 +79,6 @@ trait ParamTransformer
         if(is_null($this->query)) {
             throw new \Exception('query is not set');
         }
-        
         return $this->query->take($this->limit)
                             ->skip($this->offset)
                             ->orderBy($this->orderCol, $this->orderCol)

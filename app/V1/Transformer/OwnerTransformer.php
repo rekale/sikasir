@@ -45,9 +45,12 @@ class OwnerTransformer extends TransformerAbstract
     public function includeOutlets(Owner $owner, ParamBag $params = null)
     {
         
-        $collection = $this->paramsLimit($params->get('limit'))
+       $query = $this->setBuilder($owner->outlets());
+        
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
                             ->paramsOrder($params->get('order'))
-                            ->setBuilder($owner->outlets())
                             ->result();
         
         return $this->collection($collection, new OutletTransformer);
