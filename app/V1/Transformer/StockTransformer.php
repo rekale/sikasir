@@ -17,9 +17,7 @@ class StockTransformer extends TransformerAbstract
 
     protected $availableIncludes = [
         'outlet',
-        'details',
-        'entries',
-        'outs',
+        'stockdetails',
     ];
     
     public function transform(Stock $stock)

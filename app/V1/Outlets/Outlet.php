@@ -150,32 +150,5 @@ class Outlet extends Model
     {
         return $this->hasManyThrough(StockDetail::class, Stock::class);
     }
-    
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function stockEntries()
-    {
-        return $this->hasManyThrough(StockEntry::class, Stock::class);
-    }
-    
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function stockOuts()
-    {
-        return $this->hasManyThrough(StockOut::class, Stock::class);
-    }
-
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function stockTransfers()
-    {
-        return $this->hasManyThrough(StockTransfer::class, Stock::class);
-    }
 
 }

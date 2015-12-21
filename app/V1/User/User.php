@@ -10,6 +10,9 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Sikasir\V1\Stocks\StockEntry;
+use Sikasir\V1\Stocks\StockOut;
+
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -42,6 +45,17 @@ class User extends Model implements AuthenticatableContract,
     public function userable()
     {
         return $this->morphTo();
+    }
+    
+      
+    public function stockEntries()
+    {
+        return $this->hasMany(StockEntry::class);
+    }
+    
+    public function stockOuts()
+    {
+        return $this->hasMany(StockOut::class);
     }
 
     /**

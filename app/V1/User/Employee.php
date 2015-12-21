@@ -50,5 +50,5 @@ class Employee extends Model
     {
         return $this->belongsToMany(\Sikasir\V1\Outlets\Outlet::class);
     }
-
+  
 }

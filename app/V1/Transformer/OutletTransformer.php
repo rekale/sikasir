@@ -23,9 +23,7 @@ class OutletTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'employees',
         'cashiers',
-        'stocks',
-        'stockentries',
-        'stockouts',
+        'stockdetails',
         'incomes',
         'outcomes',
         'customers',
@@ -75,10 +73,10 @@ class OutletTransformer extends TransformerAbstract
         return $this->collection($collection, new CashierTransformer);
     }
     
-    public function includeStocks(Outlet $outlet, ParamBag $params = null)
+    public function includeStockdetails(Outlet $outlet, ParamBag $params = null)
     {
-       $query = $this->setBuilder($outlet->stocks());
-        
+       $query = $this->setBuilder($outlet->stockDetails());
+       
         $collection = is_null($params) 
                         ? $query->result()
                         : $query->paramsLimit($params->get('limit'))
@@ -86,32 +84,6 @@ class OutletTransformer extends TransformerAbstract
                             ->result();
         
         return $this->collection($collection, new StockDetailTransformer);
-    }
-    
-    public function includeStockentries(Outlet $outlet, ParamBag $params = null)
-    {
-        $query = $this->setBuilder($outlet->stockEntries());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
-                            ->paramsOrder($params->get('order'))
-                            ->result();
-        
-        return $this->collection($collection, new StockEntryTransformer);
-    }
-    
-    public function includeStockouts(Outlet $outlet, ParamBag $params = null)
-    {
-        $query = $this->setBuilder($outlet->stockOuts());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
-                            ->paramsOrder($params->get('order'))
-                            ->result();
-        
-        return $this->collection($collection, new StockOutTransformer);
     }
     
     public function includeCustomers(Outlet $outlet, ParamBag $params = null)

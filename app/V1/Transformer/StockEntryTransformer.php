@@ -19,7 +19,6 @@ class StockEntryTransformer extends TransformerAbstract
         return [
             'id' => $this->encode($entry->id),
             'user' => $entry->user->name,
-            'name' => $entry->variant->name,
             'note' => $entry->note,
             'quantity' => $entry->total,
             'input_at' => $entry->input_at,

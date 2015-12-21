@@ -83,19 +83,28 @@ class ApiController extends Controller
         }
     }
     
+    public function getIncludeParam()
+    {
+        $data = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        return is_null($data) ? []: $data;
+    }
+    
     /**
-     * get the include parameter
+     * filter the include parameter
+     * 
+     * @param string $param
      * 
      * @return array
      */
-    public function getIncludeParams()
+    public function filterIncludeParams($param)
     {
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
         $paramsinclude  = [];
         
-        foreach (explode(',', $include) as $data) {
-            $paramsinclude[]  = preg_replace("/:(.*)/", "", $data);
+        if (! is_null($param)) {
+            foreach (explode(',', $param) as $data) {
+                $paramsinclude[]  = preg_replace("/:(.*)/", "", $data);
+            }
         }
         
         return $paramsinclude;

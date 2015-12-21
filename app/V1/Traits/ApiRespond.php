@@ -42,8 +42,9 @@ class ApiRespond
       */
      public function including($include)
      {
-      
-        $this->fractal->parseIncludes($include);
+        if (!is_null($include)) {
+            $this->fractal->parseIncludes($include);
+        }
          
          return $this;
      }

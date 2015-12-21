@@ -99,25 +99,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
         });
         
-         Route::group(['namespace' => 'Stocks'], function()
-            {
-                
-                get('outlets/{id}/stocks', 'StocksController@index');
-            
-                get('outlets/{id}/stock-entries', 'StockEntriesController@index');
-                post('outlets/{id}/stock-entries', 'StockEntriesController@store');
-                delete('outlets/{id}/stock-entries/{entryId}', 'StockEntriesController@destroy');
-
-                get('outlets/{id}/stock-outs', 'StockOutsController@index');
-                post('outlets/{id}/stock-outs', 'StockOutsController@store');
-                delete('outlets/{id}/stock-outs/{entryId}', 'StockOutsController@destroy');
-                
-                get('outlets/{id}/stock-transfers', 'StockTransfersController@index');
-                post('outlets/{id}/stock-transfers', 'StockTransfersController@store');
-                delete('outlets/{id}/stock-transfers/{entryId}', 'StockTransfersController@destroy');
-                
-            });
-        
+         
         Route::group(['namespace' => 'Products'], function()
         {
             get('products', 'ProductsController@index');

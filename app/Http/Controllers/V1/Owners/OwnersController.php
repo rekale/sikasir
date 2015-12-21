@@ -22,9 +22,11 @@ class OwnersController extends ApiController
     {
         $this->authorizing('read-owner');
 
-        $include = $this->getIncludeParams();
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
-        $paginator = $this->repo()->getPaginated($include);
+        $with = $this->filterIncludeParams($include);
+        
+        $paginator = $this->repo()->getPaginated($with);
 
         return $this->response()
                 ->resource()
@@ -36,13 +38,15 @@ class OwnersController extends ApiController
     {
         $this->authorizing('read-owner');
         
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
         $decodedId = $this->decode($id);
 
         $user = $this->repo()->find($decodedId);
 
         return $this->response()
                 ->resource()
-                ->including()
+                ->including($include)
                 ->withItem($user, new OwnerTransformer);
     }
 

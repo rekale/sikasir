@@ -6,6 +6,9 @@ use Sikasir\V1\Repositories\Repository;
 use Sikasir\V1\Repositories\BelongsToOwnerRepo;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
+use Sikasir\V1\Stocks\StockEntry;
+use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\StockTransfer;
 
 /**
  * Description of OutletRepository
@@ -209,48 +212,4 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
                 ->paginate();
     }
     
-    /**
-     * get outlet's stock entry history
-     *
-     * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
-     *
-     * @return Collection | Paginator
-     */
-    public function getStockEntriesPaginated($outletId, Owner $owner)
-    {
-        return $this->findForOwner($outletId, $owner)
-                ->stockEntries() 
-                ->paginate();
-    }
-    
-    /**
-     * get outlet's stock out history
-     *
-     * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
-     *
-     * @return Collection | Paginator
-     */
-    public function getStockOutsPaginated($outletId, Owner $owner)
-    {
-        return $this->findForOwner($outletId, $owner)
-                ->stockOuts() 
-                ->paginate();
-    }
-    
-     /**
-     * get outlet's stock transfer history
-     *
-     * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
-     *
-     * @return Collection | Paginator
-     */
-    public function getStockTransfersPaginated($outletId, Owner $owner)
-    {
-        return $this->findForOwner($outletId, $owner)
-                ->stockTransfers() 
-                ->paginate();
-    }
 }

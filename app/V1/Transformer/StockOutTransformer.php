@@ -19,10 +19,9 @@ class StockOutTransformer extends TransformerAbstract
         return [
             'id' => $this->encode($out->id),
             'user' => $out->user->name,
-            'name' => $out->variant->name,
             'note' => $out->note,
             'quantity' => $out->total,
-            'input_at' => $entry->input_at,
+            'input_at' => $out->input_at,
 
         ];
     }

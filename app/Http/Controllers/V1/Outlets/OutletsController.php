@@ -24,9 +24,11 @@ class OutletsController extends ApiController
         
         $owner = $this->auth()->toUser()->toOwner();
         
-        $include = $this->getIncludeParams();
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
-        $outlets = $this->repo()->getPaginatedForOwner($owner, $include);
+        $with = $this->filterIncludeParams($include);
+        
+        $outlets = $this->repo()->getPaginatedForOwner($owner, $with);
         
         return $this->response()
                 ->resource()
@@ -40,13 +42,17 @@ class OutletsController extends ApiController
         
         $owner = $this->auth()->toUser()->toOwner();
         
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
         $decodedId = $this->decode($id);
         
-        $outlet = $this->repo()->findForOwner($decodedId, $owner);
+        $outlet = $this->repo()->findForOwner($decodedId, $owner, $with);
 
         return $this->response()
                 ->resource()
-                ->including()
+                ->including($include)
                 ->withItem($outlet, new OutletTransformer);
     }
 

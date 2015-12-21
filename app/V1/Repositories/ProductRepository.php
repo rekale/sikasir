@@ -23,8 +23,7 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
     
     public function saveForOwner(array $data, Owner $owner)
     {
-        $category = $owner->categories()
-                ->findOrFail($data['category_id']);
+        $category = $owner->categories()->findOrFail($data['category_id']);
         
         $product = $category->products()->save(new Product($data));
         
@@ -35,6 +34,8 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         }
         
         $product->variants()->saveMany($variantModels);
+        
+        
     }
     
     public function destroyForOwner($id, Owner $owner) 

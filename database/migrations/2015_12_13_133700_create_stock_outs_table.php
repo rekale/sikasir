@@ -15,8 +15,7 @@ class CreateStockOutsTable extends Migration
         Schema::create('stock_outs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('stock_id')->unsigned()->index();
-            $table->integer('variant_id')->unsigned()->index();
+            $table->integer('stock_detail_id')->unsigned()->index();
             $table->string('note');
             $table->integer('total');
             $table->date('input_at');
@@ -27,15 +26,11 @@ class CreateStockOutsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             
-            $table->foreign('stock_id')
+            $table->foreign('stock_detail_id')
                 ->references('id')
-                ->on('stocks')
+                ->on('stock_details')
                 ->onDelete('cascade');
             
-            $table->foreign('variant_id')
-                ->references('id')
-                ->on('variants')
-                ->onDelete('cascade');
         });
     }
 
