@@ -37,7 +37,7 @@ class Product extends Model
      */
     public function outlets()
     {
-        return $this->belongsToMany(Outlet::class, 'stocks');
+        return $this->belongsToMany(Outlet::class);
     }
     
     /**
@@ -64,6 +64,6 @@ class Product extends Model
      */
     public function stocks()
     {
-        return $this->hasMany(Stock::class);
+        return $this->hasManyTrough(Stock::class, Variant::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace Sikasir\V1\Products;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\Outlets\Outlet;
 
 class Variant extends Model
 {
@@ -26,5 +27,12 @@ class Variant extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+    
+    public function outlets()
+    {
+        return $this->belongsToMany(Outlet::class, 'stocks')
+                ->withTimestamps()
+                ->withPivot('total');
     }
 }

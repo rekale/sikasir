@@ -12,10 +12,7 @@ use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Stocks\Stock;
-use Sikasir\V1\Stocks\StockDetail;
-use Sikasir\V1\Stocks\StockEntry;
-use Sikasir\V1\Stocks\StockOut;
-use Sikasir\V1\Stocks\StockTransfer;
+use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 
 class Outlet extends Model
@@ -130,7 +127,7 @@ class Outlet extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'stocks');
+        return $this->belongsToMany(Product::class);
     }
     
     /**
@@ -142,13 +139,9 @@ class Outlet extends Model
         return $this->hasMany(Stock::class);
     }
     
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function stockDetails()
+    public function variants()
     {
-        return $this->hasManyThrough(StockDetail::class, Stock::class);
+        return $this->belongsToMany(Variant::class, 'stocks')
+                ->withTimestamps();
     }
-
 }

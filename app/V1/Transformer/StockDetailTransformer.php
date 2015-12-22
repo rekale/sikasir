@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\Stocks\StockDetail;
+use Sikasir\V1\Stocks\Stock;
 use \Sikasir\V1\Traits\IdObfuscater;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
@@ -22,7 +22,7 @@ class StockDetailTransformer extends TransformerAbstract
         'stockouts',
     ];
 
-    public function transform(StockDetail $detail)
+    public function transform(Stock $detail)
     {
         return [
             'id' => $this->encode($detail->id),
@@ -35,7 +35,7 @@ class StockDetailTransformer extends TransformerAbstract
         ];
     }
     
-    public function includeStockentries(StockDetail $detail, ParamBag $params = null)
+    public function includeStockentries(Stock $detail, ParamBag $params = null)
     {
         $query = $this->setBuilder($detail->stockEntries());
        
@@ -48,7 +48,7 @@ class StockDetailTransformer extends TransformerAbstract
         return $this->collection($collection, new StockEntryTransformer);
     }
     
-    public function includeStockouts(StockDetail $detail, ParamBag $params = null)
+    public function includeStockouts(Stock $detail, ParamBag $params = null)
     {
         $query = $this->setBuilder($detail->stockOuts());
        

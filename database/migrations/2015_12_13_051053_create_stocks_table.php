@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStockInsTable extends Migration
+class CreateStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,23 +12,21 @@ class CreateStockInsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stock_ins', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
-            $table->integer('stock_detail_id')->unsigned()->index();
-            $table->string('note');
-            $table->integer('total');
-            $table->date('input_at');
+            $table->integer('outlet_id')->unsigned()->index();
+            $table->integer('variant_id')->unsigned()->index();
+            $table->integer('total')->default(0);
             $table->timestamps();
             
-            $table->foreign('user_id')
+            $table->foreign('outlet_id')
                 ->references('id')
-                ->on('users')
+                ->on('variants')
                 ->onDelete('cascade');
             
-            $table->foreign('stock_detail_id')
+            $table->foreign('variant_id')
                 ->references('id')
-                ->on('stock_details')
+                ->on('variants')
                 ->onDelete('cascade');
             
         });
@@ -41,6 +39,6 @@ class CreateStockInsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stock_ins');
+        Schema::drop('stocks');
     }
 }

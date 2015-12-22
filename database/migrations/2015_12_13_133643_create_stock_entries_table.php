@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStockTransfersTable extends Migration
+class CreateStockEntriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,10 @@ class CreateStockTransfersTable extends Migration
      */
     public function up()
     {
-        Schema::create('stock_transfers', function (Blueprint $table) {
+        Schema::create('stock_entries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('source_outlet_id')->unsigned()->index();
-            $table->integer('destination_outlet_id')->unsigned()->index();
             $table->integer('stock_id')->unsigned()->index();
-            $table->integer('variant_id')->unsigned()->index();
             $table->string('note');
             $table->integer('total');
             $table->date('input_at');
@@ -29,25 +26,11 @@ class CreateStockTransfersTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             
-            $table->foreign('source_outlet_id')
-               ->references('id')
-               ->on('outlets')
-               ->onDelete('cascade');
-            
-            $table->foreign('destination_outlet_id')
-               ->references('id')
-               ->on('outlets')
-               ->onDelete('cascade');
-             
             $table->foreign('stock_id')
                 ->references('id')
                 ->on('stocks')
                 ->onDelete('cascade');
             
-            $table->foreign('variant_id')
-                ->references('id')
-                ->on('variants')
-                ->onDelete('cascade');
         });
     }
 
@@ -58,6 +41,6 @@ class CreateStockTransfersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stock_transfers');
+        Schema::drop('stock_entries');
     }
 }

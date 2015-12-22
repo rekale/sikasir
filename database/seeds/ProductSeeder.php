@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Variant;
-use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
 
 class ProductSeeder extends Seeder
@@ -46,7 +45,7 @@ class ProductSeeder extends Seeder
             
         });
         
-        //add product to outlet
+        //add product to outlet, and add stock to outlet
         $owners->each(function ($owner)
         {
             $outlets = $owner->outlets;
@@ -54,19 +53,20 @@ class ProductSeeder extends Seeder
             
             $outlets->each(function ($outlet) use ($products)
             {
-                foreach ($products->chunk(3) as $product) {
+                
+                foreach ($products as $product) {
+                
+                    $outlet->products()->attach($product->id);
                     
-                    $productIds = $product->lists('id')->toArray();
-                    
-                    $outlet->products()->attach($productIds);
-                    
+                    $variantIds = $product->variants->lists('id')->toArray();
+                    //add stock to outlet
+                    $outlet->variants()->attach($variantIds);
+                
                 }
                 
             });
             
         });
         
-        
-           
     }
 }

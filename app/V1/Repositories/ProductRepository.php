@@ -23,6 +23,7 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
     
     public function saveForOwner(array $data, Owner $owner)
     {
+        //check if this category is belong to current owner
         $category = $owner->categories()->findOrFail($data['category_id']);
         
         $product = $category->products()->save(new Product($data));
