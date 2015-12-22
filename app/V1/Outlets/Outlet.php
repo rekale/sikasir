@@ -142,6 +142,7 @@ class Outlet extends Model
     public function variants()
     {
         return $this->belongsToMany(Variant::class, 'stocks')
-                ->withTimestamps();
+                ->withTimestamps()
+                ->withPivot('total');
     }
 }

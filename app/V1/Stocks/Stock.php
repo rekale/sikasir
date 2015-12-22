@@ -16,9 +16,6 @@ class Stock extends Model
     ];
     
     
-    protected $with = ['variant.product.category', 'stockentries'];
-
-    
     public function variant()
     {
         return $this->belongsTo(Variant::class);
