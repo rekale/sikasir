@@ -21,13 +21,15 @@ class Stock extends Model
         return $this->belongsTo(Variant::class);
     }
     
-    public function stockEntries()
+    public function entries()
     {
-        return $this->hasMany(StockEntry::class);
+        return $this->belongsToMany(StockEntry::class, 'entry_stock', 'stock_id', 'entry_id')
+                ->withPivot('total');
     }
     
-    public function stockOuts()
+    public function outs()
     {
-        return $this->hasMany(StockOut::class);
+        return $this->belongsToMany(StockOut::class, 'out_stock', 'stock_id', 'out_id')
+                ->withPivot('total');
     }
 }

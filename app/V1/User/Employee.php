@@ -3,6 +3,8 @@
 namespace Sikasir\V1\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\Stocks\StockEntry;
+use Sikasir\V1\Stocks\StockOut;
 
 class Employee extends Model
 {
@@ -49,6 +51,16 @@ class Employee extends Model
     public function outlets()
     {
         return $this->belongsToMany(\Sikasir\V1\Outlets\Outlet::class);
+    }
+    
+    public function stockentries()
+    {
+        return $this->hasMany(StockEntry::class);
+    }
+    
+    public function stockouts()
+    {
+        return $this->hasMany(StockOut::class);
     }
   
 }

@@ -169,14 +169,12 @@ $factory->define(Stock::class, function(Faker\Generator $fake) {
 $factory->define(StockEntry::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
-        'total' => $fake->numberBetween(1, 100),
         'input_at' => $fake->date(),
     ];
 });
 $factory->define(StockOut::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
-        'total' => $fake->numberBetween(1, 100),
         'input_at' => $fake->date(),
     ];
 });

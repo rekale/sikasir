@@ -8,12 +8,13 @@ use Sikasir\V1\Stocks\Stock;
 
 class StockOut extends Model
 {
+    
+    protected $table = 'outs';
+    
     protected $fillable = [
         'user_id',
-        'stock_id',
-        'note',
-        'total',
-        'input_at',  
+        'note', 
+        'input_at',
     ];
     
     public function user()
@@ -21,9 +22,10 @@ class StockOut extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function stock()
+    public function stocks()
     {
-        return $this->belongsTo(Stock::class);
+        return $this->belongsToMany(Stock::class, 'out_stock', 'out_id', 'stock_id')
+                ->withPivot('total');
     }
     
 }

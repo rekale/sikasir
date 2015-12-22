@@ -6,6 +6,8 @@ use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Outlet;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
+use Sikasir\V1\Stocks\Stock;
+
 /**
  * Description of AppTransformer
  *
@@ -75,8 +77,7 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeStocks(Outlet $outlet, ParamBag $params = null)
     {
-       $stocks = \Sikasir\V1\Stocks\Stock::with('variant')
-               ->where('outlet_id', $outlet->id);
+       $stocks = Stock::with('variant')->where('outlet_id', $outlet->id);
        
        $query = $this->setBuilder($stocks);
        

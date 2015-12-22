@@ -5,6 +5,7 @@ use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\StockEntry;
 use Sikasir\V1\Stocks\StockOut;
 use Sikasir\V1\User\Employee;
+use Sikasir\V1\Outlets\Outlet;
 
 class StockSeeder extends Seeder
 {
@@ -18,23 +19,43 @@ class StockSeeder extends Seeder
         
         $employees = Employee::all();
         
-        Stock::all()->each(function($stock) use ($employees) {
-        
-            $user = $employees->random()->user;
+        //employees create stock entry and stock out
+        $employees->each(function ($employee)
+        {
+            factory(StockEntry::class, 2)->create([
+                'user_id' => $employee->user->id,
+            ]);
             
-            factory(StockEntry::class, 3)->create([
-                'user_id' => $user->id,
-                'stock_id' => $stock->id,
+            factory(StockOut::class, 2)->create([
+                'user_id' => $employee->user->id,
             ]);
-
-            factory(StockOut::class, 3)->create([
-                'user_id' => $user->id,
-                'stock_id' => $stock->id,
-            ]);
-                
             
         });
         
+        
+        //stock entry increase some variant stock's total
+        
+        StockEntry::all()->each(function($entry)
+        {
+            
+            $outlet = Outlet::all()->random();
+            
+            $stockIds = $outlet->stocks->random(5)->lists('id');
+            
+            $entry->stocks()->attach($stockIds->toArray(), ['total' => rand(1, 50)]);
+            
+        });
+        
+        StockOut::all()->each(function($out)
+        {
+            
+            $outlet = Outlet::all()->random();
+            
+            $stockIds = $outlet->stocks->lists('id');
+            
+            $out->stocks()->attach($stockIds->toArray(), ['total' => rand(1, 10)]);
+            
+        });
         
     }
 }
