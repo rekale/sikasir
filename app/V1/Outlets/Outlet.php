@@ -148,14 +148,14 @@ class Outlet extends Model
                 ->withPivot('id', 'total');
     }
     
-    public function stockEntries()
+    public function entries()
     {
-        return $this->hasManyThrough(StockEntry::class, Stock::class);
+        return $this->hasMany(StockEntry::class);
     }
     
     
-    public function stockouts()
+    public function outs()
     {
-        return $this->hasManyThrough(StockOut::class, Stock::class);
+        return $this->hasMany(StockOut::class);
     }
 }

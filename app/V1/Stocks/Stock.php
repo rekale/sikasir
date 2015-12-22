@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Stocks\StockEntry;
 use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Outlets\Outlet;
 
 class Stock extends Model
 {
@@ -19,6 +20,11 @@ class Stock extends Model
     public function variant()
     {
         return $this->belongsTo(Variant::class);
+    }
+    
+    public function outlet()
+    {
+        return $this->belongsTo(Outlet::class);
     }
     
     public function entries()

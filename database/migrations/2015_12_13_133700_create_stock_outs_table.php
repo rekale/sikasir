@@ -15,6 +15,7 @@ class CreateStockOutsTable extends Migration
         Schema::create('outs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
+            $table->integer('outlet_id')->unsigned()->index();
             $table->string('note');
             $table->date('input_at');
             $table->timestamps();
@@ -22,6 +23,11 @@ class CreateStockOutsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+            
+            $table->foreign('outlet_id')
+                ->references('id')
+                ->on('outlets')
                 ->onDelete('cascade');
             
         });

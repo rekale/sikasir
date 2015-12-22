@@ -15,6 +15,7 @@ class CreateStockEntriesTable extends Migration
         Schema::create('entries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
+            $table->integer('outlet_id')->unsigned()->index();
             $table->string('note');
             $table->date('input_at');
             $table->timestamps();
@@ -24,6 +25,10 @@ class CreateStockEntriesTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             
+            $table->foreign('outlet_id')
+                ->references('id')
+                ->on('outlets')
+                ->onDelete('cascade');
         });
         
         Schema::create('entry_stock', function (Blueprint $table) {

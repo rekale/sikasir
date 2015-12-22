@@ -12,6 +12,7 @@ class StockEntry extends Model
     
     protected $fillable = [
         'user_id',
+        'outlet_id',
         'note',
         'input_at',
     ];

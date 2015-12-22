@@ -17,45 +17,35 @@ class StockSeeder extends Seeder
     public function run()
     {
         
-        $employees = Employee::all();
+        $outlet = Outlet::all();
         
         //employees create stock entry and stock out
-        $employees->each(function ($employee)
+        $outlet->each(function ($outlet)
         {
-            factory(StockEntry::class, 2)->create([
+            $employee = Employee::all()->random();
+            
+            //create stock entry
+            $entry = factory(StockEntry::class)->create([
                 'user_id' => $employee->user->id,
+                'outlet_id' => $outlet->id,
             ]);
+            //get random stock from current outlet
+            $stockIds = $outlet->stocks->random(5)->lists('id')->toArray();
+            //add it in stock entry
+            $entry->stocks()->attach($stockIds, ['total' => rand(1, 50)]);
             
-            factory(StockOut::class, 2)->create([
+            //create stock entry
+            $out = factory(StockOut::class)->create([
                 'user_id' => $employee->user->id,
+                'outlet_id' => $outlet->id,
             ]);
+            //get random stock from current outlet
+            $stockIds = $outlet->stocks->random(5)->lists('id')->toArray();
+            //add it in stock entry
+            $out->stocks()->attach($stockIds, ['total' => rand(1, 50)]);
             
         });
         
-        
-        //stock entry increase some variant stock's total
-        
-        StockEntry::all()->each(function($entry)
-        {
-            
-            $outlet = Outlet::all()->random();
-            
-            $stockIds = $outlet->stocks->random(5)->lists('id');
-            
-            $entry->stocks()->attach($stockIds->toArray(), ['total' => rand(1, 50)]);
-            
-        });
-        
-        StockOut::all()->each(function($out)
-        {
-            
-            $outlet = Outlet::all()->random();
-            
-            $stockIds = $outlet->stocks->lists('id');
-            
-            $out->stocks()->attach($stockIds->toArray(), ['total' => rand(1, 10)]);
-            
-        });
         
     }
 }
