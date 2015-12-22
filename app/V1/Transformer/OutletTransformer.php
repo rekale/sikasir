@@ -4,7 +4,6 @@ namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\Transformer\StockDetailTransformer;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
 /**
@@ -23,7 +22,8 @@ class OutletTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'employees',
         'cashiers',
-        'stockdetails',
+        'stocks',
+        'stockentries',
         'incomes',
         'outcomes',
         'customers',
@@ -73,9 +73,12 @@ class OutletTransformer extends TransformerAbstract
         return $this->collection($collection, new CashierTransformer);
     }
     
-    public function includeStockdetails(Outlet $outlet, ParamBag $params = null)
+    public function includeStocks(Outlet $outlet, ParamBag $params = null)
     {
-       $query = $this->setBuilder($outlet->stockDetails());
+       $stocks = \Sikasir\V1\Stocks\Stock::with('variant')
+               ->where('outlet_id', $outlet->id);
+       
+       $query = $this->setBuilder($stocks);
        
         $collection = is_null($params) 
                         ? $query->result()
@@ -83,7 +86,20 @@ class OutletTransformer extends TransformerAbstract
                             ->paramsOrder($params->get('order'))
                             ->result();
         
-        return $this->collection($collection, new StockDetailTransformer);
+        return $this->collection($collection, new StockTransformer);
+    }
+    
+     public function includeStockentries(Outlet $outlet, ParamBag $params = null)
+    {
+       $query = $this->setBuilder($outlet->stockentries());
+       
+        $collection = is_null($params) 
+                        ? $query->result()
+                        : $query->paramsLimit($params->get('limit'))
+                            ->paramsOrder($params->get('order'))
+                            ->result();
+        
+        return $this->collection($collection, new StockEntryTransformer);
     }
     
     public function includeCustomers(Outlet $outlet, ParamBag $params = null)

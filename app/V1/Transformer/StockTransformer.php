@@ -15,15 +15,14 @@ class StockTransformer extends TransformerAbstract
 {
     use IdObfuscater;
 
-    protected $availableIncludes = [
-        'outlet',
-        'stockdetails',
-    ];
-    
     public function transform(Stock $stock)
     {
         return [
             'id' => $this->encode($stock->id),
+            'name' => $stock->variant->name,
+            'code' => $stock->variant->code,
+            'price' => $stock->variant->price,
+            'quantity' => $stock->total,
         ];
     }
     

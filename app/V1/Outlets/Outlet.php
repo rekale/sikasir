@@ -12,6 +12,8 @@ use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockEntry;
+use Sikasir\V1\Stocks\StockOut;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 
@@ -143,6 +145,17 @@ class Outlet extends Model
     {
         return $this->belongsToMany(Variant::class, 'stocks')
                 ->withTimestamps()
-                ->withPivot('total');
+                ->withPivot('id', 'total');
+    }
+    
+    public function stockEntries()
+    {
+        return $this->hasManyThrough(StockEntry::class, Stock::class);
+    }
+    
+    
+    public function stockouts()
+    {
+        return $this->hasManyThrough(StockOut::class, Stock::class);
     }
 }

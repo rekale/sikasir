@@ -33,6 +33,6 @@ class Variant extends Model
     {
         return $this->belongsToMany(Outlet::class, 'stocks')
                 ->withTimestamps()
-                ->withPivot('total');
+                ->withPivot('id', 'total');
     }
 }
