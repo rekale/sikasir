@@ -15,21 +15,32 @@ class VariantTransformer extends TransformerAbstract
 {
    use \Sikasir\V1\Traits\IdObfuscater;
    
+    protected $availableIncludes = [
+        'stocks',
+    ];
+   
     public function transform(Variant $variant)
     {
+        
         return [
-            [
-                'id' => $this->encode($variant->id),
-                'name' => $variant->name, 
-                'code' => $variant->code, 
-                'price' => (int) $variant->price,
-                'track_stock' => (boolean) $variant->track_stock,
-                'stock' => (int) $variant->stock,
-                'alert' => (boolean) $variant->alert,
-                'alert_at' => (int) $variant->alert_at,
-            ]
+            'id' => $this->encode($variant->id),
+            'name' => $variant->name, 
+            'code' => $variant->code, 
+            'price' => (int) $variant->price,
+            'track_stock' => (boolean) $variant->track_stock,
+            'stock' => (int) $variant->stock,
+            'alert' => (boolean) $variant->alert,
+            'alert_at' => (int) $variant->alert_at,
         ];
     }
+    
+    public function includeStocks(Variant $variant)
+    {
+        return $this->collection($variant->stocks, new StockTransformer);
+    }
+    
+    
+    
    
     
 }

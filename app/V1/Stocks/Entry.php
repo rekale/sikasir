@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Stocks\Stock;
 
-class StockEntry extends Model
+class Entry extends Model
 {
     protected $table = 'entries';
     

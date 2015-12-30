@@ -81,7 +81,7 @@ trait ParamTransformer
         }
         return $this->query->take($this->limit)
                             ->skip($this->offset)
-                            ->orderBy($this->orderCol, $this->orderCol)
+                            ->orderBy($this->orderCol, $this->orderBy)
                             ->get();
     }
     

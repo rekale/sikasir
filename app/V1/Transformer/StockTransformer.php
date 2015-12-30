@@ -17,33 +17,41 @@ class StockTransformer extends TransformerAbstract
 {
     use IdObfuscater, ParamTransformer;
     
+    protected $defaultIncludes = [
+        'variant',
+    ];
+    
      protected $availableIncludes = [
-        'stockentries',
+        'entries',
     ];
 
 
     public function transform(Stock $stock)
     {
-        return [
-            'id' => $this->encode($stock->id),
-            'name' => $stock->variant->name,
-            'code' => $stock->variant->code,
-            'price' => $stock->variant->price,
-            'quantity' => $stock->total,
+        $data = [
+            'id' => $stock->id,
+            'total' => $stock->total,
         ];
+        
+        if (isset($stock->pivot)) {
+            $data['pivot_total'] = $stock->pivot->total;
+        }
+        
+        return $data;
     }
     
-    public function includeStockentries(Stock $stock, ParamBag $params = null)
+    public function includeVariant(Stock $stock, ParamBag $params = null)
     {
-        $query = $this->setBuilder($stock->stockEntries());
+        $item = $stock->variant;
         
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        return $this->item($item, new VariantTransformer);
+    }
+    
+    public function includeEntries(Stock $stock, ParamBag $params = null)
+    {
+        $collection = $stock->entries;
         
-        return $this->collection($collection, new StockEntryTransformer);
+        return $this->collection($collection, new EntryTransformer);
     }
     
 
