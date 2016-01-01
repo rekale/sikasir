@@ -55,6 +55,9 @@ class RolesSeeder extends Seeder
             'read-customer',
             'update-customer',
             'delete-customer',
+            
+            'read-outlet',
+            
             'crud-inventory',
             'view-transaction',
             'crud-kas',
@@ -101,7 +104,6 @@ class RolesSeeder extends Seeder
     {
         return [
             'create-outlet',
-            'read-outlet',
             'update-outlet',
             'delete-outlet',
             'create-staff',
