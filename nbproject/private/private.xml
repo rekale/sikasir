@@ -3,10 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/project/kasir/app/V1/Stocks/Stock.php</file>
+            <file>file:/D:/project/kasir/app/V1/User/Employee.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/Entry.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2015_12_13_133643_create_stock_entries_table.php</file>
+            <file>file:/D:/project/kasir/app/V1/Products/Variant.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/StockTransformer.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/Http/Requests/StockInOutRequest.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/StockTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/StockOut.php</file>
+            <file>file:/D:/project/kasir/app/V1/Traits/ParamTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/EntryTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/StockOutTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/VariantTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/EntryStock.php</file>
+            <file>file:/D:/project/kasir/app/V1/Outlets/Outlet.php</file>
         </group>
     </open-files>
 </project-private>

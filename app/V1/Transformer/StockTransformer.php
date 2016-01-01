@@ -34,7 +34,7 @@ class StockTransformer extends TransformerAbstract
         ];
         
         if (isset($stock->pivot)) {
-            $data['pivot_total'] = $stock->pivot->total;
+            $data['entry_total'] = $stock->pivot->total;
         }
         
         return $data;
