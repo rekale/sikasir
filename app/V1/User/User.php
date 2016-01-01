@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Sikasir\V1\Stocks\StockEntry;
-use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\Out;
 
 
 class User extends Model implements AuthenticatableContract,
@@ -55,7 +55,7 @@ class User extends Model implements AuthenticatableContract,
     
     public function stockOuts()
     {
-        return $this->hasMany(StockOut::class);
+        return $this->hasMany(Out::class);
     }
 
     /**

@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
-use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\Outlets\Outlet;
 
@@ -35,7 +35,7 @@ class StockSeeder extends Seeder
             $entry->stocks()->attach($stockIds, ['total' => rand(1, 50)]);
             
             //create stock out
-            $out = factory(StockOut::class)->create([
+            $out = factory(Out::class)->create([
                 'user_id' => $employee->user->id,
                 'outlet_id' => $outlet->id,
             ]);

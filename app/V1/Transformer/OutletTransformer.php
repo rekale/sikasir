@@ -7,6 +7,7 @@ use Sikasir\V1\Outlets\Outlet;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
 use Sikasir\V1\Stocks\Stock;
+use \Sikasir\V1\Traits\IdObfuscater;
 
 /**
  * Description of AppTransformer
@@ -15,7 +16,7 @@ use Sikasir\V1\Stocks\Stock;
  */
 class OutletTransformer extends TransformerAbstract
 {
-    use \Sikasir\V1\Traits\IdObfuscater, ParamTransformer;
+    use IdObfuscater, ParamTransformer;
     /**
      * List of resources possible to include
      *
@@ -26,6 +27,7 @@ class OutletTransformer extends TransformerAbstract
         'cashiers',
         'stocks',
         'entries',
+        'outs',
         'incomes',
         'outcomes',
         'customers',
@@ -91,11 +93,18 @@ class OutletTransformer extends TransformerAbstract
         return $this->collection($collection, new StockTransformer);
     }
     
-     public function includeEntries(Outlet $outlet, ParamBag $params = null)
+    public function includeEntries(Outlet $outlet, ParamBag $params = null)
     {
         $collection = $outlet->entries;
         
         return $this->collection($collection, new EntryTransformer);
+    }
+    
+     public function includeOuts(Outlet $outlet, ParamBag $params = null)
+    {
+        $collection = $outlet->outs;
+        
+        return $this->collection($collection, new OutTransformer);
     }
     
     public function includeCustomers(Outlet $outlet, ParamBag $params = null)

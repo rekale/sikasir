@@ -7,7 +7,7 @@ use Sikasir\V1\Repositories\BelongsToOwnerRepo;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Stocks\StockEntry;
-use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\StockTransfer;
 
 /**

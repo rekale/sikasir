@@ -23,6 +23,7 @@ class StockTransformer extends TransformerAbstract
     
      protected $availableIncludes = [
         'entries',
+        'outs',
     ];
 
 
@@ -34,7 +35,7 @@ class StockTransformer extends TransformerAbstract
         ];
         
         if (isset($stock->pivot)) {
-            $data['entry_total'] = $stock->pivot->total;
+            $data['pivot_total'] = $stock->pivot->total;
         }
         
         return $data;
@@ -52,6 +53,13 @@ class StockTransformer extends TransformerAbstract
         $collection = $stock->entries;
         
         return $this->collection($collection, new EntryTransformer);
+    }
+    
+    public function includeOuts(Stock $stock, ParamBag $params = null)
+    {
+        $collection = $stock->outs;
+        
+        return $this->collection($collection, new OutTransformer);
     }
     
 

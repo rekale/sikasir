@@ -5,7 +5,7 @@ namespace Sikasir\V1\Stocks;
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Stocks\Entry;
-use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Outlets\Outlet;
 
 class Stock extends Model
@@ -33,9 +33,9 @@ class Stock extends Model
                 ->withPivot('total');
     }
     
-    public function stockouts()
+    public function outs()
     {
-        return $this->belongsToMany(StockOut::class, 'out_stock', 'stock_id', 'out_id')
+        return $this->belongsToMany(Out::class, 'out_stock', 'stock_id', 'out_id')
                 ->withPivot('total');
     }
 }

@@ -8,8 +8,6 @@ use Sikasir\V1\Stocks\Stock;
 
 class Entry extends Model
 {
-    protected $table = 'entries';
-    
     protected $fillable = [
         'user_id',
         'outlet_id',

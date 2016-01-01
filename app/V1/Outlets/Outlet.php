@@ -13,7 +13,7 @@ use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
-use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 
@@ -154,8 +154,8 @@ class Outlet extends Model
     }
     
     
-    public function stockouts()
+    public function outs()
     {
-        return $this->hasMany(StockOut::class);
+        return $this->hasMany(Out::class);
     }
 }

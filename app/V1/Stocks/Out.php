@@ -6,15 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Stocks\Stock;
 
-class StockOut extends Model
+class Out extends Model
 {
-    
-    protected $table = 'outs';
     
     protected $fillable = [
         'user_id',
         'outlet_id',
-        'note', 
+        'note',
         'input_at',
     ];
     
@@ -25,7 +23,7 @@ class StockOut extends Model
     
     public function stocks()
     {
-        return $this->belongsToMany(Stock::class, 'out_stock', 'out_id', 'stock_id')
+        return $this->belongsToMany(Stock::class, 'entry_stock', 'entry_id')
                 ->withPivot('total');
     }
     

@@ -4,7 +4,7 @@ namespace Sikasir\V1\User;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Stocks\StockEntry;
-use Sikasir\V1\Stocks\StockOut;
+use Sikasir\V1\Stocks\Out;
 
 class Employee extends Model
 {
@@ -60,7 +60,7 @@ class Employee extends Model
     
     public function stockouts()
     {
-        return $this->hasMany(StockOut::class);
+        return $this->hasMany(Out::class);
     }
   
 }
