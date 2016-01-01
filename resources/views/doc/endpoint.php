@@ -25,8 +25,8 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET owners?include=employees,cashiers,outlets,products, taxes </li> 
-        <li> GET owners/{id}?include=employees,cashiers,outlets,products, taxes </li>
+        <li> GET owners?include=employees, cashiers, outlets, products, taxes </li> 
+        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes </li>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
         <li> DELETE owners/{id} </li>
@@ -43,8 +43,8 @@
         <li> PUT cashiers/{id} </li>
         <li> DELETE cashiers/{id} </li>
         <br>
-        <li> GET outlets?include=employees,stocks,entries.stocks,incomes,outcomes,customers</li>
-        <li> GET outlets/{id}?include=employees,stocks,entries.stocks,incomes,outcomes,customers </li>
+        <li> GET outlets?include=employees, stocks, entries.stocks, incomes, outcomes, customers</li>
+        <li> GET outlets/{id}?include=employees, stocks, entries.stocks, incomes, outcomes, customers </li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>
