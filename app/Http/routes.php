@@ -12,6 +12,17 @@
 */
 
 
+
+Route::group(['prefix' => 'doc'], function()
+{
+    get('/endpoint', function () {
+        return view('doc.endpoint');
+    });
+    get('/format', function () {
+        return view('doc.format');
+    });
+});
+
 Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 {
 
