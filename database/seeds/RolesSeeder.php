@@ -40,6 +40,7 @@ class RolesSeeder extends Seeder
         
         Employee::all()->each(function ($employee) {
             $employee->user->assign('staff');
+            $employee->user->assign('cashier');
         });
         
         Cashier::all()->each(function ($cashier) {
