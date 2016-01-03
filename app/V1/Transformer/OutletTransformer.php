@@ -33,13 +33,17 @@ class OutletTransformer extends TransformerAbstract
         'customers',
         'variants',
     ];
+    
+    protected $defaultIncludes = [
+        'tax',
+        'business_field',
+    ];
 
     public function transform(Outlet $outlet)
     {
         return [
             'id' => $this->encode($outlet->id),
             'name' => $outlet->name,
-            'business_field' => $outlet->businessfield->name,
             'address' => $outlet->address,
             'province' => $outlet->province,
             'city' => $outlet->city,
@@ -47,11 +51,24 @@ class OutletTransformer extends TransformerAbstract
             'phone1' => $outlet->phone1,
             'phone2' => $outlet->phone2,
             'icon' => $outlet->icon,
-            'tax' => $outlet->tax->toArray(),
 
         ];
     }
-
+    
+    public function includeTax(Outlet $outlet)
+    {
+        $collection = $outlet->tax;
+        
+        return $this->item($collection, new TaxTransformer);
+    }
+    
+    public function includeBusinessField(Outlet $outlet)
+    {
+        $collection = $outlet->businessField;
+        
+        return $this->item($collection, new BusinessFieldTransformer);
+    }
+    
     public function includeEmployees(Outlet $outlet, ParamBag $params = null)
     {
         $query = $this->setBuilder($outlet->employees());

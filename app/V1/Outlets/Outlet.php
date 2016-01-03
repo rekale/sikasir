@@ -25,7 +25,7 @@ class Outlet extends Model
      * @var string
      */
     protected $table = 'outlets';
-
+    
     protected $with = ['businessfield', 'tax'];
 
     /**
@@ -61,7 +61,7 @@ class Outlet extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function businessfield()
+    public function businessField()
     {
         return $this->belongsTo(BusinessField::class, 'business_field_id');
     }

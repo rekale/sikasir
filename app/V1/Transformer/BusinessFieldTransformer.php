@@ -3,22 +3,20 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\Outlets\Tax;
+use Sikasir\V1\Outlets\BusinessField;
 /**
  * Description of AppTransformer
  *
  * @author rekale
  */
-class TaxTransformer extends TransformerAbstract
+class BusinessFieldTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
-    public function transform(Tax $tax)
+    public function transform(BusinessField $businessField)
     {
         return [
-            'name' => $tax->name,
-            'amount' => $tax->amount,
-            
+            'name' => $businessField->name,
         ];
     }
   
