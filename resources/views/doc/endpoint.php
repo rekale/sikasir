@@ -8,18 +8,15 @@
         <h1>List EndPoint yang udah di bikin</h1>
         <pre>
         note:
-	v1/owners?include=employees:limit(15|1)
-	maksud limit di sebelah employees berfungsi untuk mengambil data employees maksimal 15, dari id no 1
-	jadi kalo employees:limit(10|5) artinya ambil data employees 10 di mulai dari id no 5
-	
-	kyk gini juga bisa
-	v1/owners?include=employees:limit(15|1),cashiers(10),outlet:limit(5)
-	
-	default limit itu (15|1), jadi kalo link kyk gini
-	v1/owners?include=employees
-	sama aja kayak gini
-	v1/owners?include=employees:limit(15|1)
-        </pre>
+	v1/owners?include=employees:per_page(15):current_page(1)
+        maksud dari per_page(15) adalah data yang di ambil tiap page adalah 15 data,
+        dan maksud current_page(1) adalah halaman paging saat ini
+
+        default perPage : 15
+        default current_page: 1
+
+        
+         </pre>
         <ul>
         <li> POST auth/login </li>
         <li> POST auth/mobile/login </li>	
@@ -45,6 +42,8 @@
         <br>
         <li> GET outlets?include=employees, stocks, entries.stocks, incomes, outcomes, customers</li>
         <li> GET outlets/{id}?include=employees, stocks, entries.stocks, incomes, outcomes, customers </li>
+        <br>
+        <li> GET outlets/{id}/stocks?include=entries, outs</li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>
