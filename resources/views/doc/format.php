@@ -103,27 +103,6 @@
             ]
         }
 
-        --STOCK ENTRY--
-        {
-            date: ,
-            note: ,
-            "variants": [
-                {
-                    "id": "D",
-                    "total": 10
-                },
-                {
-                    "id": "D",
-                    "total": 10 
-                },
-
-                {
-                    "id": "D",
-                    "total": 10
-                }
-            ]
-
-        }
         </pre>
     </body>
 </html>
