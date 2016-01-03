@@ -17,6 +17,9 @@
 
         
          </pre>
+        link yg di <b>bold</b> adalah endpoint terbaru
+        link yg di <i>italic</i> adalah endpint yg di edit
+        
         <ul>
         <li> POST auth/login </li>
         <li> POST auth/mobile/login </li>	
@@ -43,7 +46,7 @@
         <li> GET outlets?include=employees, stocks, entries.stocks, incomes, outcomes, customers</li>
         <li> GET outlets/{id}?include=employees, stocks, entries.stocks, incomes, outcomes, customers </li>
         <br>
-        <li> GET outlets/{id}/stocks?include=entries, outs</li>
+        <li> <br>GET outlets/{id}/stocks?include=entries, outs</br></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>
