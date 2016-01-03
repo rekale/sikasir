@@ -19,7 +19,7 @@ trait ParamTransformer
 {
     
     private $limit = 15;
-    private $offset = 1;
+    private $offset = 0;
     private $orderCol = 'created_at';
     private $orderBy = 'asc';
     /**
@@ -29,29 +29,21 @@ trait ParamTransformer
     private $query = null;
     
     /**
-     * set the limit parameter
+     * set the paginate parameter
      * 
-     * @param array $params
-     * @return $this
+     * @param integer $perPage
+     * @param integer $currentPage
+     * @return $
      */
-    public function paramsLimit($params)
+    public function paramsPaginate($perPage, $currentPage)
     {
-        $this->limit = isset($params[0]) ? $params[0] : 15;
-        $this->offset = isset($params[1]) ? $params[1] : 1;
+        if (isset($perPage)) {
+            $this->limit = $perPage;
+        }
         
-        return $this;
-    }
-    
-    /**
-     * set the order parameter
-     * 
-     * @param array $params
-     * @return $this
-     */
-    public function paramsOrder($params)
-    {
-        $this->orderCol = isset($params[0]) ? $params[0] : 'created_at';
-        $this->orderBy = isset($params[1]) ? $params[1] : 'asc';
+        if(isset($currentPage)) {
+            $this->offset = ($this->limit * $currentPage) - $this->limit;
+        }
         
         return $this;
     }
@@ -83,6 +75,40 @@ trait ParamTransformer
                             ->skip($this->offset)
                             ->orderBy($this->orderCol, $this->orderBy)
                             ->get();
+    }
+    
+    /**
+     * 
+     * 
+     * @param Builder $query
+     * @param integer $perPage
+     * @param integer $currentPage
+     * @return $this
+     */
+    public function setData($query, $perPage = null, $currentPage = null)
+    {
+        return $this->setBuilder($query)
+                ->paramsPaginate($perPage, $currentPage);
+    }
+    
+    /**
+     * set order
+     * 
+     * @param string $orderCol
+     * @param string $orderBy
+     * @return $this
+     */
+    public function orderBy($orderCol, $orderBy)
+    {
+         if (isset($orderCol)) {
+            $this->orderCol = $orderCol;
+        }
+        
+        if(isset($orderBy)) {
+            $this->orderBy = $orderBy;
+        }
+        
+        return $this;
     }
     
    

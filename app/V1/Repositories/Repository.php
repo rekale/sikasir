@@ -10,6 +10,9 @@ abstract class Repository implements RepositoryInterface
     
     private $model;
     
+    protected static $paginate = 15;
+
+
     public function __construct(Model $model) {
         $this->model = $model;
     }
@@ -113,6 +116,17 @@ abstract class Repository implements RepositoryInterface
     public function model()
     {
         return $this->model;
+    }
+    
+    /**
+     * define default perpage paginate
+     * 
+     * @param integer $page
+     * 
+     */
+    public function perPage($page = null)
+    {
+        return is_null($page) ? 15 : $page;
     }
    
 }

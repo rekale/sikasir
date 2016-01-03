@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\OutletRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Transformer\StockDetailTransformer;
+use Sikasir\V1\Transformer\StockTransformer;
 
 class StocksController extends ApiController
 {
@@ -23,12 +23,17 @@ class StocksController extends ApiController
         
         $owner = $this->auth()->toUser()->toOwner();
         
-        $stocks = $this->repo()->getStocksPaginated($this->decode($outletId), $owner);
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
+        $stocks = $this->repo()
+                    ->getStocksPaginated($this->decode($outletId), $owner, $with);
         
         return $this->response()
                 ->resource()
-                ->including()
-                ->withPaginated($stocks, new StockDetailTransformer);
+                ->including($include)
+                ->withPaginated($stocks, new StockTransformer);
     }
 
 }

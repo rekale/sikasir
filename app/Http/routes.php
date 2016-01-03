@@ -94,9 +94,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 
                 get('outlets/{id}/stocks', 'StocksController@index');
             
-                get('outlets/{id}/stock-entries', 'StockEntriesController@index');
-                post('outlets/{id}/stock-entries', 'StockEntriesController@store');
-                delete('outlets/{id}/stock-entries/{entryId}', 'StockEntriesController@destroy');
+                get('outlets/{id}/stocks/{id}/entries', 'StockEntriesController@index');
+                post('outlets/{id}/stocks/{id}/entries', 'StockEntriesController@store');
+                delete('outlets/{id}/stocks/{id}/entries/{entryId}', 'StockEntriesController@destroy');
 
                 get('outlets/{id}/stock-outs', 'StockOutsController@index');
                 post('outlets/{id}/stock-outs', 'StockOutsController@store');

@@ -110,10 +110,14 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      *
      * @return Collection | Paginator
      */
-    public function getOutcomes($outletId, $paginated = true, $perPage = 10)
+    public function getOutcomes($outletId, $paginated = true, $perPage = null)
     {
-           return $paginated ? $this->find($outletId)->outcomes()->paginate($perPage) :
-            $this->findWith($outletId, ['outcomes'])->outcomes ;
+           return $paginated 
+                   ? $this->find($outletId)
+                        ->outcomes()
+                        ->paginate($this->perPage($perPage))
+                   : $this->findWith($outletId, ['outcomes'])
+                        ->outcomes ;
     }
 
     /**
@@ -149,10 +153,14 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      *
      * @return Collection | Paginator
      */
-    public function getCustomers($outletId, $paginated = true, $perPage = 10)
+    public function getCustomers($outletId, $paginated = true, $perPage = null)
     {
-           return $paginated ? $this->find($outletId)->customers()->paginate($perPage) :
-            $this->findWith($outletId,['customers'])->customers ;
+           return $paginated 
+                   ? $this->find($outletId)
+                        ->customers()
+                        ->paginate($this->perPage($perPage))
+                   : $this->findWith($outletId,['customers'])
+                        ->customers ;
     }
 
     /**
@@ -176,10 +184,14 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      *
      * @return Collection | Paginator
      */
-    public function getProducts($outletId, $paginated = true, $perPage = 10)
+    public function getProducts($outletId, $paginated = true, $perPage = null)
     {
-           return $paginated ? $this->find($outletId)->products()->paginate($perPage) :
-            $this->findWith($outletId, ['products'])->products ;
+           return $paginated 
+                   ? $this->find($outletId)
+                        ->products()
+                        ->paginate($this->perPage($perPage)) 
+                   : $this->findWith($outletId, ['products'])
+                        ->products ;
     }
 
     /**
@@ -193,11 +205,15 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      */
     public function getEmployees($outletId, $paginated = true, $perPage = 10)
     {
-           return $paginated ? $this->find($outletId)->employees()->paginate($perPage) :
-            $this->findWith($outletId, ['employees'])->employees;
+           return $paginated 
+                   ? $this->find($outletId)
+                        ->employees()
+                        ->paginate($perPage)
+                   : $this->findWith($outletId, ['employees'])
+                        ->employees;
     }
     
-   /**
+    /**
      * get outlet's stock
      *
      * @param integer $outletId
@@ -205,11 +221,27 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
      *
      * @return Collection | Paginator
      */
-    public function getStocksPaginated($outletId, Owner $owner)
+    public function getStocksPaginated($outletId, Owner $owner, $with =[], $perPage = null)
     {
-        return $this->findForOwner($outletId, $owner)
-                ->stockDetails()
-                ->paginate();
+        return $this->findForOwner($outletId, $owner, $with)
+                ->stocks()
+                ->paginate($this->perPage($perPage));
+    }
+    
+    /**
+     * get outlet's stock entries
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getStockEntriesPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    {
+        return $this->findForOwner($outletId, $owner, $with)
+                ->stocks()
+                ->entries()
+                ->paginate($this->perPage($perPage));
     }
     
 }

@@ -58,7 +58,7 @@ class OutletTransformer extends TransformerAbstract
         
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
 
@@ -71,7 +71,7 @@ class OutletTransformer extends TransformerAbstract
         
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
 
@@ -86,7 +86,7 @@ class OutletTransformer extends TransformerAbstract
        
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
         
@@ -113,7 +113,7 @@ class OutletTransformer extends TransformerAbstract
         
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
         
@@ -127,7 +127,7 @@ class OutletTransformer extends TransformerAbstract
         
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
         
@@ -141,7 +141,7 @@ class OutletTransformer extends TransformerAbstract
         
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
         
@@ -154,7 +154,7 @@ class OutletTransformer extends TransformerAbstract
         
         $collection = is_null($params) 
                         ? $query->result()
-                        : $query->paramsLimit($params->get('limit'))
+                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
         

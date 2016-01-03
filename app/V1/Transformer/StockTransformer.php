@@ -30,7 +30,7 @@ class StockTransformer extends TransformerAbstract
     public function transform(Stock $stock)
     {
         $data = [
-            'id' => $stock->id,
+            'id' => $this->encode($stock->id),
             'total' => $stock->total,
         ];
         
@@ -50,14 +50,18 @@ class StockTransformer extends TransformerAbstract
     
     public function includeEntries(Stock $stock, ParamBag $params = null)
     {
-        $collection = $stock->entries;
+        $collection = $this->setData(
+            $stock->entries(), $params['per_page'][0], $params['current_page'][0] 
+        )->result();
         
         return $this->collection($collection, new EntryTransformer);
     }
     
     public function includeOuts(Stock $stock, ParamBag $params = null)
     {
-        $collection = $stock->outs;
+        $collection = $this->setData(
+            $stock->outs(), $params['per_page'][0], $params['current_page'][0] 
+        )->result();
         
         return $this->collection($collection, new OutTransformer);
     }
