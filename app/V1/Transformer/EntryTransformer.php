@@ -14,7 +14,7 @@ class EntryTransformer extends TransformerAbstract
 {
     use IdObfuscater;
     
-    protected $availableIncludes = [
+    protected $defaultIncludes = [
         'stocks',
     ];
 
