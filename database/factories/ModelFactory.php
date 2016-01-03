@@ -152,6 +152,7 @@ $factory->define(Variant::class, function(Faker\Generator $fake) {
     return [
         'name' => $fake->word, 
         'code' => $fake->numerify(), 
+        'price_init' => $fake->numberBetween(100, 100000),  
         'price' => $fake->numberBetween(100, 100000), 
         'track_stock' => $fake->boolean(),
         'stock' => $fake->numberBetween(1, 100),

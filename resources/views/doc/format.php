@@ -67,11 +67,12 @@
             "barcode": "23424", 
             "unit" : "kg",
             "icon" : "http://lorempixel.com/200/100/food",
-            "outlet_id": ["L", "Z"], 
+            "outlet_ids": ["L", "Z"], 
             "variants": [
                 {
                     "name": "kampret", 
-                    "code": "34234", 
+                    "code": "34234",
+                    "price_init" : 10000,  
                     "price" : 234234, 
                     "track_stock": true,
                     "stock": 22,
@@ -81,6 +82,7 @@
                 {
                     "name": "kampret", 
                     "code": "34234", 
+                    "price_init" : 10000,
                     "price" : 234234, 
                     "track_stock": true,
                     "stock": 22,
@@ -91,6 +93,7 @@
                 {
                     "name": "kampret", 
                     "code": "34234", 
+                    "price_init" : 10000,
                     "price" : 234234, 
                     "track_stock": true,
                     "stock": 22,

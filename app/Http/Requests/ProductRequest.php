@@ -51,6 +51,7 @@ class ProductRequest extends Request
             {
               $rules['variants.' .$key . '.name'] = 'required|max:255';
               $rules['variants.' .$key . '.code'] = 'required|max:255';
+              $rules['variants.' .$key . '.price_init'] = 'required|integer';
               $rules['variants.' .$key . '.price'] = 'required|integer';
               $rules['variants.' .$key . '.track_stock'] = 'required|boolean';
               $rules['variants.' .$key . '.stock'] = 'required|integer';
@@ -80,7 +81,8 @@ class ProductRequest extends Request
             {
               $rules['variants.' .$key . '.name'] = 'max:255';
               $rules['variants.' .$key . '.code'] = 'max:255';
-              $rules['variants.' .$key . '.price'] = 'integer';
+              $rules['variants.' .$key . '.price_init'] = 'required|integer';
+              $rules['variants.' .$key . '.price'] = 'required|integer';
               $rules['variants.' .$key . '.track_stock'] = 'boolean';
               $rules['variants.' .$key . '.stock'] = 'integer';
               $rules['variants.' .$key . '.alert'] = 'boolean';

@@ -18,7 +18,8 @@ class Variant extends Model
     protected $fillable = [
         'name', 
         'code', 
-        'price', 
+        'price_init',
+        "price",
         'track_stock',
         'stock',
         'alert',

@@ -25,7 +25,8 @@ class VariantTransformer extends TransformerAbstract
         return [
             'id' => $this->encode($variant->id),
             'name' => $variant->name, 
-            'code' => $variant->code, 
+            'code' => $variant->code,
+            'price_init' => (int) $variant->price_init,
             'price' => (int) $variant->price,
             'track_stock' => (boolean) $variant->track_stock,
             'stock' => (int) $variant->stock,
