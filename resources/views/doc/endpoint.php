@@ -46,7 +46,10 @@
         <li> GET outlets?include=employees, stocks, entries.stocks, incomes, outcomes, customers</li>
         <li> GET outlets/{id}?include=employees, stocks, entries.stocks, incomes, outcomes, customers </li>
         <br>
-        <li> <br>GET outlets/{id}/stocks?include=entries, outs</br></li>
+        <li><b>GET outlets/{id}/entries?include=stocks</b></li>
+        <li><b>GET outlets/{id}/outs?include=stocks</b></li>
+        <br>
+        <li> <b>GET outlets/{id}/stocks?include=entries, outs</b></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>

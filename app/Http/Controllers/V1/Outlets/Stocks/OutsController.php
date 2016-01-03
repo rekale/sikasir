@@ -4,12 +4,12 @@ namespace Sikasir\Http\Controllers\V1\Outlets\Stocks;
 
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\OutletRepository;
-use Sikasir\V1\Transformer\StockOutTransformer;
+use Sikasir\V1\Transformer\OutTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 
-class StockOutsController extends ApiController
+class OutsController extends ApiController
 {
 
     public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
@@ -23,12 +23,17 @@ class StockOutsController extends ApiController
         $this->authorizing('read-stock-out');
         
         $owner = $this->auth()->toUser()->toOwner();
+         
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
-        $outlets = $this->repo()->getStockOutsPaginated($this->decode($outletId), $owner);
+        $with = $this->filterIncludeParams($include);
+        
+        $collection = $this->repo()->getOutsPaginated($this->decode($outletId), $owner, $with);
 
         return $this->response()
                 ->resource()
-                ->withPaginated($outlets, new StockOutTransformer);
+                ->including($include)
+                ->withPaginated($collection, new OutTransformer);
     }
 
     

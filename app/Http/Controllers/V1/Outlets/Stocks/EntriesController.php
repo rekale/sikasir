@@ -9,7 +9,7 @@ use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Transformer\EntryTransformer;
 use Sikasir\Http\Requests\StockInOutRequest;
 
-class StockEntriesController extends ApiController
+class EntriesController extends ApiController
 {
 
     public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
@@ -24,10 +24,15 @@ class StockEntriesController extends ApiController
         
         $owner = $this->currentUser()->toOwner();
         
-        $stocks = $this->repo()->getStockEntriesPaginated($this->decode($outletId), $owner);
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
+        $stocks = $this->repo()->getEntriesPaginated($this->decode($outletId), $owner, $with);
 
         return $this->response()
                 ->resource()
+                ->including($include)
                 ->withPaginated($stocks, new EntryTransformer);
     }
   
