@@ -55,6 +55,7 @@ class ProductsController extends ApiController
         $dataInput = $request->all();
         
         $dataInput['category_id'] = $this->decode($dataInput['category_id']);
+        $dataInput['outlet_ids'] = $this->decode($dataInput['outlet_ids']);
         
         $this->repo()->saveForOwner($dataInput, $owner);
 

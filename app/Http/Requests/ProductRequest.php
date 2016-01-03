@@ -41,6 +41,7 @@ class ProductRequest extends Request
             'description' => 'required|max:1000', 
             'barcode' => 'required|max:255', 
             'unit' => 'required|max:10',
+            'outlet_ids' => 'required|array',
         ];
         
         $variants = $this->input('variants');

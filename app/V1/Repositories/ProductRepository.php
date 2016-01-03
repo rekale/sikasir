@@ -23,19 +23,32 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
     
     public function saveForOwner(array $data, Owner $owner)
     {
-        //check if this category is belong to current owner
-        $category = $owner->categories()->findOrFail($data['category_id']);
-        
-        $product = $category->products()->save(new Product($data));
-        
-        $variantModels = [];
-        
-        foreach ($data['variants'] as $variant) {
-            $variantModels[] = new Variant($variant);
-        }
-        
-        $product->variants()->saveMany($variantModels);
-        
+        \DB::transaction(function() use ($data, $owner) {
+            
+            //check if this category is belong to current owner
+            $category = $owner->categories()->findOrFail($data['category_id']);
+
+            $product = $category->products()->save(new Product($data));
+
+            $variantModels = [];
+
+            foreach ($data['variants'] as $variant) {
+                $variantModels[] = new Variant($variant);
+            }
+
+            $variants = $product->variants()->saveMany($variantModels);
+            
+            //find product that related to current owner
+            $outlets = $owner->outlets()->findMany($data['outlet_ids']);
+            //save product to these outlets
+            foreach($outlets as $outlet) {
+                $outlet->products()->save($product);
+            }
+            
+            //save variant's product to outlet alias to stock
+            $outlet->variants()->saveMany($variants);
+            
+        });
         
     }
     

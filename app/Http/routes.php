@@ -93,7 +93,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             {
                 
                 get('outlets/{id}/stocks', 'StocksController@index');
-            
+                /*
                 get('outlets/{id}/stocks/{id}/entries', 'StockEntriesController@index');
                 post('outlets/{id}/stocks/{id}/entries', 'StockEntriesController@store');
                 delete('outlets/{id}/stocks/{id}/entries/{entryId}', 'StockEntriesController@destroy');
@@ -105,7 +105,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 get('outlets/{id}/stock-transfers', 'StockTransfersController@index');
                 post('outlets/{id}/stock-transfers', 'StockTransfersController@store');
                 delete('outlets/{id}/stock-transfers/{entryId}', 'StockTransfersController@destroy');
-                
+                */
             });
             
         });

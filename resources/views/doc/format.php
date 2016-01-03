@@ -66,6 +66,8 @@
             "description": "asu banget", 
             "barcode": "23424", 
             "unit" : "kg",
+            "icon" : "http://lorempixel.com/200/100/food",
+            "outlet_id": ["L", "Z"], 
             "variants": [
                 {
                     "name": "kampret", 
