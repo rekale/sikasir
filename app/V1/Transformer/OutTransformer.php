@@ -14,7 +14,7 @@ class OutTransformer extends TransformerAbstract
 {
      use IdObfuscater;
     
-    protected $defaultIncludes = [
+    protected $availableIncludes = [
         'stocks',
     ];
 
