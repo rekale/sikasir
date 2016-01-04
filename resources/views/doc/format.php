@@ -73,7 +73,8 @@
                     "name": "kampret", 
                     "code": "34234",
                     "price_init" : 10000,  
-                    "price" : 234234, 
+                    "price" : 234234,
+                    countable: true,
                     "track_stock": true,
                     "stock": 22,
                     "alert": false,
@@ -83,7 +84,8 @@
                     "name": "kampret", 
                     "code": "34234", 
                     "price_init" : 10000,
-                    "price" : 234234, 
+                    "price" : 234234,
+                    countable: true, 
                     "track_stock": true,
                     "stock": 22,
                     "alert": true,
@@ -94,11 +96,12 @@
                     "name": "kampret", 
                     "code": "34234", 
                     "price_init" : 10000,
-                    "price" : 234234, 
-                    "track_stock": true,
-                    "stock": 22,
-                    "alert": true,
-                    "alert_at": "10"
+                    "price" : 234234,
+                    countable: false, 
+                    "track_stock": false,
+                    "stock": 0,
+                    "alert": false,
+                    "alert_at": "0"
                 }
             ]
         }

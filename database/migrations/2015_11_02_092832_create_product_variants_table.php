@@ -19,6 +19,7 @@ class CreateProductVariantsTable extends Migration
             $table->string('code');
             $table->integer('price_init')->unsigned();
             $table->integer('price')->unsigned();
+            $table->boolean('countable')->default(true);
             $table->boolean('track_stock')->default(false);
             $table->unsignedInteger('stock')->default(0);
             $table->boolean('alert')->default(false);
