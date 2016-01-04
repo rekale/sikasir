@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         'outlets',
         'business_fields',
         'taxes',
+        'discounts',
         'employee_outlet',
         'incomes',
         'outcomes',
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         'entry_stock',
         'outs',
         'out_stock',
+        'orders',
     ];
 
     /**

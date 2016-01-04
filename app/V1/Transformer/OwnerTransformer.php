@@ -24,9 +24,10 @@ class OwnerTransformer extends TransformerAbstract
         'outlets',
         'employees',
         'cashiers',
-        'products',
         'taxes',
+        'discounts',
         'categories',
+        'products',
     ]; 
     
     public function transform(Owner $owner)
@@ -101,6 +102,15 @@ class OwnerTransformer extends TransformerAbstract
                         : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
                             ->paramsOrder($params->get('order'))
                             ->result();
+        
+        return $this->collection($collection, new TaxTransformer);
+    }
+    
+    public function includeDiscounts(Owner $owner, ParamBag $params = null)
+    {   
+        $collection = $this->setData(
+            $owner->discounts(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new TaxTransformer);
     }

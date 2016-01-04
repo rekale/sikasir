@@ -9,6 +9,7 @@ use Sikasir\V1\User\Employee;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\Tax;
+use Sikasir\V1\Outlets\Discount;
 
 class UserSeeder extends Seeder
 {
@@ -100,12 +101,18 @@ class UserSeeder extends Seeder
         $businessField[] = BusinessField::create([
             'name' => 'Komoditas',
         ])->id;
-
+        
+        
         //create an outlet for every owner
         Owner::all()->each(function($owner) use ($businessField){
                 
                 //create tax for each owner
                 $taxes = factory(Tax::class, 3)->create([
+                    'owner_id' => $owner->id,
+                ]);
+                
+                //create discount
+                factory(Discount::class, 3)->create([
                     'owner_id' => $owner->id,
                 ]);
                 

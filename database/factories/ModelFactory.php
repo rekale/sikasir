@@ -21,6 +21,7 @@ use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Tax;
+use Sikasir\V1\Outlets\Discount;
 
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
@@ -29,7 +30,8 @@ use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
-use Sikasir\V1\Stocks\StockTransfer;
+
+use Sikasir\Orders\Order;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -84,6 +86,20 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
         'phone1' => $fake->phoneNumber,
         'phone2' => $fake->phoneNumber,
         'icon' => $fake->imageUrl(300, 200, 'people'),
+    ];
+});
+
+$factory->define(Tax::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->word,
+        'amount' => $fake->numberBetween(1, 20),
+    ];
+});
+
+$factory->define(Discount::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->word,
+        'amount' => $fake->numberBetween(1, 20),
     ];
 });
 
@@ -175,6 +191,13 @@ $factory->define(Entry::class, function(Faker\Generator $fake) {
     ];
 });
 $factory->define(Out::class, function(Faker\Generator $fake) {
+    return [
+        'note' => $fake->words(5, true),
+        'input_at' => $fake->date(),
+    ];
+});
+
+$factory->define(Order::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
         'input_at' => $fake->date(),

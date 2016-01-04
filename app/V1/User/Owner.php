@@ -7,6 +7,7 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Tax;
+use Sikasir\V1\Outlets\Discount;
 
 class Owner extends Model
 {
@@ -56,6 +57,16 @@ class Owner extends Model
     public function taxes()
     {
        return $this->hasMany(Tax::class); 
+    }
+    
+    /**
+     * owner has many discounts
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function discounts()
+    {
+       return $this->hasMany(Discount::class); 
     }
     
     public function employees()

@@ -25,8 +25,8 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET owners?include=employees, cashiers, outlets, products, taxes, <b>categories</b> </li> 
-        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes, categories, categories.products </li>
+        <li> GET owners?include=employees, cashiers, outlets, products, taxes, <b>categories, discounts</b> </li> 
+        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes,<b>categories, discounts</b> </li>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
         <li> DELETE owners/{id} </li>

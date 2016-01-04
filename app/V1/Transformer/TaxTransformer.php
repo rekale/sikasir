@@ -13,7 +13,7 @@ class TaxTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
-    public function transform(Tax $tax)
+    public function transform($tax)
     {
         return [
             'name' => $tax->name,
