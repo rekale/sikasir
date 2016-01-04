@@ -9,6 +9,8 @@ use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends Controller
 {
+    use \Sikasir\V1\Traits\IdObfuscater;
+    
     protected $request;
     protected $response;
     
@@ -58,9 +60,12 @@ class AuthController extends Controller
         
         $loggedUserAbilities = $auth->toUser($token)->getAbilities()->lists('name');
         
+        $ownerId = $this->encode($auth->toUser()->toOwner()->id);
+        
         return $this->response->respond([
             'success' => [
                 'token' => $token,
+                'owner_id' => $ownerId,
                 'privileges' => $loggedUserAbilities,
                 'code' => 200,
             ]
