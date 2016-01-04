@@ -57,7 +57,8 @@ class RolesSeeder extends Seeder
             'update-customer',
             'delete-customer',
             
-            'read-outlet',
+            'read-specific-outlet',
+            'read-specific-owner',
             
             'crud-inventory',
             'view-transaction',

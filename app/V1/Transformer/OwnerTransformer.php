@@ -26,6 +26,7 @@ class OwnerTransformer extends TransformerAbstract
         'cashiers',
         'products',
         'taxes',
+        'categories',
     ]; 
     
     public function transform(Owner $owner)
@@ -69,6 +70,14 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new EmployeeTransformer);
     }
     
+    public function includeCategories(Owner $owner, ParamBag $params = null)
+    {
+         $collection = $this->setData(
+            $owner->categories(), $params['perPage'][0], $params['currentPage'][0]
+        )->result();
+        
+        return $this->collection($collection, new CategoryTransformer);
+    }
     
     public function includeProducts(Owner $owner, ParamBag $params = null)
     {

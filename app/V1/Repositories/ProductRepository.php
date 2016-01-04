@@ -19,7 +19,11 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
     {
         parent::__construct($product);
     }
-
+    
+    public function getCategories(Owner $owner)
+    {
+        return $owner->categories()->paginate();
+    }
     
     public function saveForOwner(array $data, Owner $owner)
     {

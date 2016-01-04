@@ -87,8 +87,10 @@ trait ParamTransformer
      */
     public function setData($query, $perPage = null, $currentPage = null)
     {
-        return $this->setBuilder($query)
-                ->paramsPaginate($perPage, $currentPage);
+        $this->setBuilder($query)
+            ->paramsPaginate($perPage, $currentPage);
+        
+        return $this;
     }
     
     /**

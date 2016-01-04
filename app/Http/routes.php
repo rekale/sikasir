@@ -110,6 +110,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('products/{id}', 'ProductsController@update');
             delete('products/{id}', 'ProductsController@destroy');
             
+            get('categories', 'CategoriesController@index');
+            
         });
         
         Route::group(['namespace' => 'Finances'], function()

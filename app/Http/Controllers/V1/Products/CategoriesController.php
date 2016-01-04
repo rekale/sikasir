@@ -6,10 +6,10 @@ use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\ProductRepository;
-use Sikasir\V1\Transformer\ProductTransformer;
+use Sikasir\V1\Transformer\CategoryTransformer;
 use Sikasir\Http\Requests\ProductRequest;
 
-class ProductsController extends ApiController
+class CategoriesController extends ApiController
 {
   public function __construct(ApiRespond $respond, ProductRepository $repo, JWTAuth $auth) {
 
@@ -25,15 +25,12 @@ class ProductsController extends ApiController
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
-        $with = $this->filterIncludeParams($include);
-        
-        $products = $this->repo()->getPaginatedForOwner($owner, $with);
-        
-        
+        $categories = $this->repo()->getCategories($owner);
+
         return $this->response()
                 ->resource()
                 ->including($include)
-                ->withPaginated($products, new ProductTransformer);
+                ->withPaginated($categories, new CategoryTransformer);
     }
 
     public function show($id)

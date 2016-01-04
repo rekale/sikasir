@@ -38,7 +38,7 @@ class OutletsController extends ApiController
 
     public function show($id)
     {
-        $this->authorizing('read-outlet');
+        $this->authorizing('read-specific-outlet');
         
         $owner = $this->auth()->toUser()->toOwner();
         
