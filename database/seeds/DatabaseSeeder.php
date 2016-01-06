@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         'out_stock',
         'orders',
         'void_orders',
+        'order_stock',
     ];
 
     /**
