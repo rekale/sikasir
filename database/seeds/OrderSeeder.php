@@ -42,7 +42,7 @@ class OrderSeeder extends Seeder
             $orderVoided = $orders->random();
             
             $orderVoided->void = true;
-            $orderVoided->void_user_id = $employees->random()->id;
+            $orderVoided->void_user_id = $employees->random()->user->id;
             $orderVoided->void_note = $fake->words(3, true);
             $orderVoided->save();
             

@@ -34,13 +34,18 @@ class OrderTransformer extends TransformerAbstract
     public function transform(Order $order)
     {
         
-        return [
+        $data = [
             'id' => $this->encode($order->id),
             'note' => $order->note,
             'total' => $order->total,
             'void' => (boolean) $order->void,
-            'void_note' => $order->void_note,
         ];
+        
+        if ($order->void) {
+            $data['void_note'] = $order->void_note;
+        }
+        
+        return $data;
         
     }
     
@@ -87,16 +92,15 @@ class OrderTransformer extends TransformerAbstract
         $user = $order->voidBy;
         
         if (isset($user) && $user->userable instanceof Owner) {
-           
             return $this->item($user->userable, new OwnerTransformer);
         }
         if (isset($user) && $user->userable instanceof Employee) {
             return $this->item($user->userable, new EmployeeTransformer);
         }
         if (isset($user) && $user->userable instanceof Cashier) {
-            
             return $this->item($user->userable, new CashierTransformer);
         }
     }
+    
     
 }

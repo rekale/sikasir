@@ -39,6 +39,28 @@ class OrdersController extends ApiController
                 ->resource()
                 ->including($include)
                 ->withPaginated($collection, new OrderTransformer);
+        
+   }
+   
+   public function voided($id)
+   {
+        $this->authorizing('read-order');
+        
+        $owner = $this->currentUser()->toOwner();
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $include = isset($include) ? $include . ',voidby' : 'voidby';
+        
+        $with = $this->filterIncludeParams($include);
+        
+        $collection = $this->repo()->getOrdersVoidPaginated($this->decode($id), $owner, $with);
+
+        return $this->response()
+                ->resource()
+                ->including($include)
+                ->withPaginated($collection, new OrderTransformer);
+        
    }
 
 }

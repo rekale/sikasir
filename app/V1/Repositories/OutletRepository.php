@@ -267,6 +267,25 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
         return $this->findForOwner($outletId, $owner, ['orders'])
                 ->orders()
                 ->with($with)
+                ->whereVoid(false)
+                ->paginate($this->perPage($perPage));
+    }
+    
+    
+    /**
+     * get outlet's orders
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getOrdersVoidPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    {
+        return $this->findForOwner($outletId, $owner, ['orders'])
+                ->orders()
+                ->with($with)
+                ->whereVoid(true)
                 ->paginate($this->perPage($perPage));
     }
     
