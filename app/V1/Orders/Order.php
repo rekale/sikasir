@@ -5,6 +5,8 @@ namespace Sikasir\V1\Orders;
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\User\User;
+use Sikasir\V1\Outlets\Customer;
+use Sikasir\V1\Outlets\Outlet;
 
 class Order extends Model
 {
@@ -17,6 +19,9 @@ class Order extends Model
         'user_id',
         'note',
         'total',
+        'void',
+        'void_user_id',
+        'void_note',
     ];
     
     /**
@@ -29,8 +34,35 @@ class Order extends Model
         return $this->belongsToMany(Stock::class)->withPivot(['total']);
     }
     
-    public function void()
+    public function voidBy()
     {
-        return $this->belongsToMany(User::class, 'void_orders')->withPivot(['note']);
+        return $this->belongsTo(User::class, 'void_user_id');
+    }
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function outlet()
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+    
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

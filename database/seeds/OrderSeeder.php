@@ -39,9 +39,12 @@ class OrderSeeder extends Seeder
             }
             
             //select random order to void by random employee
-            $orders->random()
-                ->void()
-                ->attach($employees->random()->id, ['note' => $fake->words(3, true)]);
+            $orderVoided = $orders->random();
+            
+            $orderVoided->void = true;
+            $orderVoided->void_user_id = $employees->random()->id;
+            $orderVoided->void_note = $fake->words(3, true);
+            $orderVoided->save();
             
         };
         
