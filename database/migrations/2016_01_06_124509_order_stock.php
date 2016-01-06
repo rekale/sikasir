@@ -15,7 +15,6 @@ class OrderStock extends Migration
         Schema::create('order_stock', function (Blueprint $table) {
             $table->integer('order_id')->unsigned()->index();
             $table->integer('stock_id')->unsigned()->index();
-            $table->timestamps();
             
             $table->foreign('order_id')
                 ->references('id')

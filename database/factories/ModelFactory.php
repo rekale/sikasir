@@ -31,7 +31,7 @@ use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 
-use Sikasir\Orders\Order;
+use Sikasir\V1\Orders\Order;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -201,6 +201,5 @@ $factory->define(Order::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
         'total' => $fake->numberBetween(1000, 1000000),
-        'input_at' => $fake->date(),
     ];
 });
