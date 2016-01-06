@@ -10,6 +10,7 @@ class Order extends Model
         'customer_id',
         'outlet_id',
         'user_id',
+        'note',
         'total',
     ];
 }
