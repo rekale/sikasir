@@ -34,13 +34,14 @@ class OrderSeeder extends Seeder
                             ->lists('id')
                             ->toArray();
             foreach ($orders as $order) {
-                $order->stocks()->attach($stockIds);
+                $order->stocks()
+                    ->attach($stockIds, ['total' => $fake->numberBetween(1, 10)]);
             }
             
             //select random order to void by random employee
             $orders->random()
-                    ->void()
-                    ->attach($employees->random()->id,  ['note' => $fake->words(3, true)]);
+                ->void()
+                ->attach($employees->random()->id, ['note' => $fake->words(3, true)]);
             
         };
         
