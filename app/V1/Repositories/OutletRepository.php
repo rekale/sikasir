@@ -33,27 +33,20 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
         $this->destroy($id);
     }
 
+    /**
+     * 
+     * @param integer $id
+     * @param Owner $owner
+     * @param  $with
+     * @return type
+     */
     public function findForOwner($id, Owner $owner, $with = []) 
-    {
-        $with = array_filter($with);
-        
-        if (empty($with)) {
-            return $owner->outlets()->findOrFail($id);
-        }
-        
+    { 
         return $owner->outlets()->with($with)->findOrFail($id);
     }
 
     public function getPaginatedForOwner(Owner $owner, $with = []) 
-    {
-        
-        $with = array_filter($with);
-        
-        if (empty($with)) {
-            return $owner->outlets()->paginate();
-        }
-        
-        
+    { 
         return $owner->outlets()->with($with)->paginate();
     }
 
@@ -257,6 +250,22 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     {
         return $this->findForOwner($outletId, $owner, ['outs'])
                 ->outs()
+                ->with($with)
+                ->paginate($this->perPage($perPage));
+    }
+    
+    /**
+     * get outlet's orders
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getOrdersPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    {
+        return $this->findForOwner($outletId, $owner, ['orders'])
+                ->orders()
                 ->with($with)
                 ->paginate($this->perPage($perPage));
     }

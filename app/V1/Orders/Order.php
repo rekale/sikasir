@@ -34,6 +34,10 @@ class Order extends Model
         return $this->belongsToMany(Stock::class)->withPivot(['total']);
     }
     
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function voidBy()
     {
         return $this->belongsTo(User::class, 'void_user_id');

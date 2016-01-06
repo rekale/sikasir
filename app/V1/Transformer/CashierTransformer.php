@@ -18,6 +18,7 @@ class CashierTransformer extends TransformerAbstract
         return [
             'id' => $this->encode($cashier->id),
             'name' => $cashier->name,
+            'email' => $cashier->user->email,
             'gender' => $cashier->gender,
             'address' => $cashier->address,
             'phone'=> $cashier->phone,

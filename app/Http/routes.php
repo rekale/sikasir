@@ -88,6 +88,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
             get('outlets/{id}/employees', 'EmployeesController@index');
             
+            get('outlets/{id}/orders', 'OrdersController@index');
             
             Route::group(['namespace' => 'Stocks'], function()
             {
