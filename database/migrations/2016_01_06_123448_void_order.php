@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class VoidOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -12,30 +12,21 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('void_orders', function (Blueprint $table) {
+        
+            $table->integer('order_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('customer_id')->unsigned()->index()->nullable();
-            $table->integer('outlet_id')->unsigned()->index();
             $table->string('note')->nullable();
-            $table->integer('total')->unsigned();
-            $table->timestamps();
             
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
             
-            $table->foreign('outlet_id')
+            $table->foreign('order_id')
                 ->references('id')
-                ->on('outlets')
+                ->on('orders')
                 ->onDelete('cascade');
-            
-            $table->foreign('customer_id')
-                ->references('id')
-                ->on('customers')
-                ->onDelete('cascade');
-            
         });
     }
 
@@ -46,6 +37,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('orders');
+        //
     }
 }
