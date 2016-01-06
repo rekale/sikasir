@@ -32,6 +32,7 @@ class OutletTransformer extends TransformerAbstract
         'outcomes',
         'customers',
         'variants',
+        'orders',
     ];
     
     protected $defaultIncludes = [
@@ -71,26 +72,18 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeEmployees(Outlet $outlet, ParamBag $params = null)
     {
-        $query = $this->setBuilder($outlet->employees());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        $collection = $this->setData(
+            $outlet->employees(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
 
         return $this->collection($collection, new EmployeeTransformer);
     }
     
     public function includeCashiers(Outlet $outlet, ParamBag $params = null)
     {
-        $query = $this->setBuilder($outlet->cashiers());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        $collection = $this->setData(
+            $outlet->cashiers(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
 
         return $this->collection($collection, new CashierTransformer);
     }
@@ -99,40 +92,36 @@ class OutletTransformer extends TransformerAbstract
     {
        $stocks = Stock::with('variant')->where('outlet_id', $outlet->id);
        
-       $query = $this->setBuilder($stocks);
-       
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+       $collection = $this->setData(
+            $stocks, $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new StockTransformer);
     }
     
     public function includeEntries(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $outlet->entries;
+        $collection = $this->setData(
+            $outlet->entries(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new EntryTransformer);
     }
     
      public function includeOuts(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $outlet->outs;
+        $collection = $this->setData(
+            $outlet->outs(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new OutTransformer);
     }
     
     public function includeCustomers(Outlet $outlet, ParamBag $params = null)
     {
-        $query = $this->setBuilder($outlet->customers());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        $collection = $this->setData(
+            $outlet->customers(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new CustomerTransformer);
     }
@@ -140,13 +129,9 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeIncomes(Outlet $outlet, ParamBag $params = null)
     {
-        $query = $this->setBuilder($outlet->incomes());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        $collection = $this->setData(
+            $outlet->incomes(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new IncomeTransformer);
     }
@@ -154,28 +139,29 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeOutcomes(Outlet $outlet, ParamBag $params = null)
     {
-        $query = $this->setBuilder($outlet->outcomes());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        $collection = $this->setData(
+            $outlet->outcomes(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new OutcomeTransformer);
     }
     
     public function includeVariants(Outlet $outlet, ParamBag $params = null)
     {
-        $query = $this->setBuilder($outlet->variants());
-        
-        $collection = is_null($params) 
-                        ? $query->result()
-                        : $query->paramsPaginate($params['per_page'][0], $params['current_page'][0])
-                            ->paramsOrder($params->get('order'))
-                            ->result();
+        $collection = $this->setData(
+            $outlet->variants(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
         return $this->collection($collection, new VariantTransformer);
+    }
+    
+    public function includeOrders(Outlet $outlet, ParamBag $params = null)
+    {
+        $collection = $this->setData(
+            $outlet->orders(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
+        
+        return $this->collection($collection, new OrderTransformer);
     }
 
 }

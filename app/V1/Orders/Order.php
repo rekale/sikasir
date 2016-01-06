@@ -8,6 +8,9 @@ use Sikasir\V1\User\User;
 
 class Order extends Model
 {
+    protected $with = ['stocks'];
+
+
     protected $fillable = [
         'customer_id',
         'outlet_id',

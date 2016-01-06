@@ -16,6 +16,7 @@ use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
+use Sikasir\V1\Orders\Order;
 
 class Outlet extends Model
 {
@@ -148,14 +149,33 @@ class Outlet extends Model
                 ->withPivot('id', 'total');
     }
     
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function entries()
     {
         return $this->hasMany(Entry::class);
     }
     
     
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function outs()
     {
         return $this->hasMany(Out::class);
+    }
+    
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
