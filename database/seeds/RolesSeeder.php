@@ -60,6 +60,11 @@ class RolesSeeder extends Seeder
             'read-specific-outlet',
             'read-specific-owner',
             
+            'create-order',
+            'read-order',
+            'update-order',
+            'delete-order',
+            
             'crud-inventory',
             'view-transaction',
             'crud-kas',
