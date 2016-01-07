@@ -45,28 +45,5 @@ class ProductSeeder extends Seeder
             
         });
         
-        //add product to outlet, and add stock to outlet
-        $owners->each(function ($owner)
-        {
-            $outlets = $owner->outlets;
-            $products = $owner->products;
-            
-            $outlets->each(function ($outlet) use ($products)
-            {
-                
-                foreach ($products as $product) {
-                
-                    $outlet->products()->attach($product->id);
-                    
-                    $variantIds = $product->variants->lists('id')->toArray();
-                    //add stock to outlet
-                    $outlet->variants()->attach($variantIds);
-                
-                }
-                
-            });
-            
-        });
-        
     }
 }

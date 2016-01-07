@@ -4,7 +4,7 @@ namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\User\User;
-use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 
 class Entry extends Model
 {
@@ -20,9 +20,9 @@ class Entry extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function stocks()
+    public function stockdetails()
     {
-        return $this->belongsToMany(Stock::class, 'entry_stock', 'entry_id')
+        return $this->belongsToMany(StockDetail::class, 'entry_stockdetail', 'entry_id', 'stock_detail_id')
                 ->withPivot('total');
     }
 }

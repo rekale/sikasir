@@ -11,6 +11,7 @@ use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
+use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
@@ -130,23 +131,21 @@ class Outlet extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'stocks')->withTimestamps();
+    }
+    
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
     
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function stocks()
+    public function stockdetails()
     {
-        return $this->hasMany(Stock::class);
-    }
-    
-    public function variants()
-    {
-        return $this->belongsToMany(Variant::class, 'stocks')
-                ->withTimestamps()
-                ->withPivot('id', 'total');
+        return $this->hasManyThrough(StockDetail::class, Stock::class);
     }
     
     

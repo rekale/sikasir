@@ -52,7 +52,7 @@ class OrderTransformer extends TransformerAbstract
     public function includeStocks(Order $order, ParamBag $params = null)
     {
         $collection = $this->setData(
-            $order->stocks(), $params['per_page'][0], $params['current_page'][0]
+            $order->stockdetails(), $params['per_page'][0], $params['current_page'][0]
         )->result();
         
         return $this->collection($collection, new StockTransformer);

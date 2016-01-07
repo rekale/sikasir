@@ -34,7 +34,7 @@ class OrderSeeder extends Seeder
                             ->lists('id')
                             ->toArray();
             foreach ($orders as $order) {
-                $order->stocks()
+                $order->stockdetails()
                     ->attach($stockIds, ['total' => $fake->numberBetween(1, 10)]);
             }
             

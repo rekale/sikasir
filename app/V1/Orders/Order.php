@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Orders;
 
 use Illuminate\Database\Eloquent\Model;
-use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Outlet;
@@ -29,9 +29,10 @@ class Order extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function stocks()
+    public function stockdetails()
     {
-        return $this->belongsToMany(Stock::class)->withPivot(['total']);
+        return $this->belongsToMany(StockDetail::class, 'order_stockdetail')
+                    ->withPivot(['total']);
     }
     
     

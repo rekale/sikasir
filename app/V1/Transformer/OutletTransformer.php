@@ -6,7 +6,7 @@ use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Outlet;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
-use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 use \Sikasir\V1\Traits\IdObfuscater;
 
 /**
@@ -90,7 +90,7 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeStocks(Outlet $outlet, ParamBag $params = null)
     {
-       $stocks = Stock::with('variant')->where('outlet_id', $outlet->id);
+       $stocks = StockDetail::with('variant')->where('outlet_id', $outlet->id);
        
        $collection = $this->setData(
             $stocks, $params['per_page'][0], $params['current_page'][0]

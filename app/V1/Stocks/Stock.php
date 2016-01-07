@@ -4,22 +4,33 @@ namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Products\Variant;
-use Sikasir\V1\Stocks\Entry;
-use Sikasir\V1\Stocks\Out;
+use Sikasir\V1\Products\Product;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Stocks\StockDetail;
 
 class Stock extends Model
 {
     protected $fillable = [
       'outlet_id',
-      'variant_id',
-      'total',
+      'product_id',
     ];
     
     
-    public function variant()
+    public function product()
     {
-        return $this->belongsTo(Variant::class);
+        return $this->belongsTo(Product::class);
+    }
+    
+    public function variants()
+    {
+        return $this->belongsToMany(Variant::class, 'stock_details')
+                ->withTimestamps()
+                ->withPivot(['total']);
+    }
+    
+    public function details()
+    {
+        return $this->hasMany(StockDetail::class);
     }
     
     public function outlet()
@@ -27,15 +38,5 @@ class Stock extends Model
         return $this->belongsTo(Outlet::class);
     }
     
-    public function entries()
-    {
-        return $this->belongsToMany(Entry::class, 'entry_stock', 'stock_id', 'entry_id')
-                ->withPivot('total');
-    }
     
-    public function outs()
-    {
-        return $this->belongsToMany(Out::class, 'out_stock', 'stock_id', 'out_id')
-                ->withPivot('total');
-    }
 }

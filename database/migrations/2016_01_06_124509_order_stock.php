@@ -12,9 +12,9 @@ class OrderStock extends Migration
      */
     public function up()
     {
-        Schema::create('order_stock', function (Blueprint $table) {
+        Schema::create('order_stockdetail', function (Blueprint $table) {
             $table->integer('order_id')->unsigned()->index();
-            $table->integer('stock_id')->unsigned()->index();
+            $table->integer('stock_detail_id')->unsigned()->index();
             $table->integer('total')->default(1);
             
             $table->foreign('order_id')
@@ -22,9 +22,9 @@ class OrderStock extends Migration
                 ->on('orders')
                 ->onDelete('cascade');
             
-            $table->foreign('stock_id')
+            $table->foreign('stock_detail_id')
                 ->references('id')
-                ->on('stocks')
+                ->on('stock_details')
                 ->onDelete('cascade');
         });
     }
@@ -36,6 +36,6 @@ class OrderStock extends Migration
      */
     public function down()
     {
-        Schema::drop('order_stock');
+        Schema::drop('order_stockdetail');
     }
 }

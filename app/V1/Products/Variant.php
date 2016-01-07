@@ -4,7 +4,7 @@ namespace Sikasir\V1\Products;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 
 class Variant extends Model
 {
@@ -41,6 +41,6 @@ class Variant extends Model
     
     public function stocks()
     {
-        return $this->hasMany(Stock::class);
+        return $this->hasMany(StockDetail::class);
     }
 }

@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 use \Sikasir\V1\Traits\IdObfuscater;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
@@ -18,7 +18,7 @@ class StockTransformer extends TransformerAbstract
     use IdObfuscater, ParamTransformer;
     
     protected $defaultIncludes = [
-        'variant',
+        'product',
     ];
     
      protected $availableIncludes = [
@@ -27,7 +27,7 @@ class StockTransformer extends TransformerAbstract
     ];
 
 
-    public function transform(Stock $stock)
+    public function transform(StockDetail $stock)
     {
         $data = [
             'id' => $this->encode($stock->id),
@@ -41,14 +41,14 @@ class StockTransformer extends TransformerAbstract
         return $data;
     }
     
-    public function includeVariant(Stock $stock, ParamBag $params = null)
+    public function includeVariant(StockDetail $stock, ParamBag $params = null)
     {
         $item = $stock->variant;
         
         return $this->item($item, new VariantTransformer);
     }
     
-    public function includeEntries(Stock $stock, ParamBag $params = null)
+    public function includeEntries(StockDetail $stock, ParamBag $params = null)
     {
         $collection = $this->setData(
             $stock->entries(), $params['per_page'][0], $params['current_page'][0] 
@@ -57,7 +57,7 @@ class StockTransformer extends TransformerAbstract
         return $this->collection($collection, new EntryTransformer);
     }
     
-    public function includeOuts(Stock $stock, ParamBag $params = null)
+    public function includeOuts(StockDetail $stock, ParamBag $params = null)
     {
         $collection = $this->setData(
             $stock->outs(), $params['per_page'][0], $params['current_page'][0] 

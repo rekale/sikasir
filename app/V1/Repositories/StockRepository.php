@@ -13,7 +13,7 @@ use Sikasir\V1\Repositories\Repository;
 class StockRepository extends Repository
 {
     
-    public function __construct(Stock $model) {
+    public function __construct(StockDetail $model) {
         parent::__construct($model);
     }
     

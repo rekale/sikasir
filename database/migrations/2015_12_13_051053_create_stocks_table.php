@@ -12,16 +12,16 @@ class CreateStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('stock_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('outlet_id')->unsigned()->index();
+            $table->integer('stock_id')->unsigned()->index();
             $table->integer('variant_id')->unsigned()->index();
             $table->integer('total')->default(0);
             $table->timestamps();
             
-            $table->foreign('outlet_id')
+            $table->foreign('stock_id')
                 ->references('id')
-                ->on('variants')
+                ->on('stocks')
                 ->onDelete('cascade');
             
             $table->foreign('variant_id')
@@ -39,6 +39,6 @@ class CreateStocksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stocks');
+        Schema::drop('stock_details');
     }
 }
