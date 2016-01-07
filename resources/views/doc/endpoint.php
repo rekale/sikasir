@@ -71,8 +71,8 @@
         <li> GET outlets/{id}/products </li> 
         <li> DELETE outlets/{id}/products/{id} </li> 
         <br>
-        <li> GET products </li>
-        <li> GET products/{id} </li>
+        <li> GET products?include=variants </li>
+        <li> GET products/{id}?include=variants </li>
         <li> POST products </li>
         <li> PUT products/{id} </li>
         <li> DELETE products/{id} </li>
