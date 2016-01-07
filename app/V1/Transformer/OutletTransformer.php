@@ -90,10 +90,8 @@ class OutletTransformer extends TransformerAbstract
     
     public function includeStocks(Outlet $outlet, ParamBag $params = null)
     {
-       $stocks = StockDetail::with('variant')->where('outlet_id', $outlet->id);
-       
        $collection = $this->setData(
-            $stocks, $params['per_page'][0], $params['current_page'][0]
+            $outlet->stocks(), $params['per_page'][0], $params['current_page'][0]
         )->result();
         
         return $this->collection($collection, new StockTransformer);

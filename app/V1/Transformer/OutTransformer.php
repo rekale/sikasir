@@ -5,6 +5,8 @@ namespace Sikasir\V1\Transformer;
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Stocks\Out;
 use \Sikasir\V1\Traits\IdObfuscater;
+use \Sikasir\V1\Traits\ParamTransformer;
+
 /**
  * Description of AppTransformer
  *
@@ -12,10 +14,10 @@ use \Sikasir\V1\Traits\IdObfuscater;
  */
 class OutTransformer extends TransformerAbstract
 {
-     use IdObfuscater;
+     use IdObfuscater, ParamTransformer;
     
     protected $availableIncludes = [
-        'stocks',
+        'items',
     ];
 
     public function transform(Out $out)
@@ -35,10 +37,12 @@ class OutTransformer extends TransformerAbstract
         return $data;
     }
     
-    public function includeStocks(Out $out)
+    public function includeItems(Out $out, ParamBag $params = null)
     {
-        $collection = $out->stocks;
+       $collection = $this->setData(
+            $out->items(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
         
-        return $this->collection($collection, new StockTransformer);
+        return $this->collection($collection, new ItemTransformer);
     }
 }

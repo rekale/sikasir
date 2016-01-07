@@ -37,7 +37,7 @@ class VariantTransformer extends TransformerAbstract
     
     public function includeStocks(Variant $variant)
     {
-        return $this->collection($variant->stocks, new StockTransformer);
+        return $this->collection($variant->stocks, new ItemTransformer);
     }
     
     

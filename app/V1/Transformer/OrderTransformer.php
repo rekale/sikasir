@@ -20,15 +20,13 @@ class OrderTransformer extends TransformerAbstract
 {
     use IdObfuscater, ParamTransformer;
     
-    protected $defaultIncludes = [
-        'stocks',
-    ];
     
     protected $availableIncludes = [
         'outlet',
         'user',
         'customer',
         'voidby',
+        'items',
     ];
 
     public function transform(Order $order)
@@ -49,13 +47,13 @@ class OrderTransformer extends TransformerAbstract
         
     }
     
-    public function includeStocks(Order $order, ParamBag $params = null)
+    public function includeItems(Order $order, ParamBag $params = null)
     {
         $collection = $this->setData(
-            $order->stockdetails(), $params['per_page'][0], $params['current_page'][0]
+            $order->items(), $params['per_page'][0], $params['current_page'][0]
         )->result();
         
-        return $this->collection($collection, new StockTransformer);
+        return $this->collection($collection, new ItemTransformer);
     }
     
     public function includeCustomer(Order $order)

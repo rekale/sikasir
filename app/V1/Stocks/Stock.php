@@ -10,6 +10,10 @@ use Sikasir\V1\Stocks\StockDetail;
 
 class Stock extends Model
 {
+    
+    protected $with = ['product'];
+
+
     protected $fillable = [
       'outlet_id',
       'product_id',
@@ -19,6 +23,11 @@ class Stock extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+    
+    public function items()
+    {
+        return $this->hasMany(StockDetail::class);
     }
     
     public function variants()

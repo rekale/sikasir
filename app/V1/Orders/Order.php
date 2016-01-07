@@ -10,8 +10,6 @@ use Sikasir\V1\Outlets\Outlet;
 
 class Order extends Model
 {
-    protected $with = ['stocks'];
-
 
     protected $fillable = [
         'customer_id',
@@ -29,7 +27,7 @@ class Order extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function stockdetails()
+    public function items()
     {
         return $this->belongsToMany(StockDetail::class, 'order_stockdetail')
                     ->withPivot(['total']);

@@ -20,7 +20,7 @@ class Entry extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function stockdetails()
+    public function items()
     {
         return $this->belongsToMany(StockDetail::class, 'entry_stockdetail', 'entry_id', 'stock_detail_id')
                 ->withPivot('total');

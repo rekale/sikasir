@@ -34,7 +34,7 @@ class OrdersController extends ApiController
         $with = $this->filterIncludeParams($include);
         
         $collection = $this->repo()->getOrdersPaginated($this->decode($id), $owner, $with);
-
+        
         return $this->response()
                 ->resource()
                 ->including($include)

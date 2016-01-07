@@ -43,17 +43,17 @@
         <li> PUT cashiers/{id} </li>
         <li> DELETE cashiers/{id} </li>
         <br>
-        <li> GET outlets?include=employees, stocks, entries.stocks, incomes, outcomes, customers, <b>orders</b> </li>
-        <li> GET outlets/{id}?include=employees, stocks, entries.stocks, incomes, outcomes, customers. <b>orders</b>  </li>
+        <li> GET outlets?include=employees, stocks, <b>stocks.items</b>, entries.items, incomes, outcomes, customers, <b>orders</b> </li>
+        <li> GET outlets/{id}?include=employees, stocks, <b>stocks.items</b>, entries.items, incomes, outcomes, customers. <b>orders</b>  </li>
         <br>
-        <li> <b>GET outlets/{id}?/orders?include= customer, user</b>  </li>
+        <li> <b>GET outlets/{id}?/orders?include= items, customer, user</b>  </li>
         <br>
-        <li> <b>GET outlets/{id}?/orders/void?include= customer, user</b>  </li>
+        <li> <b>GET outlets/{id}?/orders/void?include= items, customer, user</b>  </li>
         <br>
-        <li><b>GET outlets/{id}/entries?include=stocks</b></li>
-        <li><b>GET outlets/{id}/outs?include=stocks</b></li>
+        <li><b>GET outlets/{id}/entries?include=items</b></li>
+        <li><b>GET outlets/{id}/outs?include=items</b></li>
         <br>
-        <li> <b>GET outlets/{id}/stocks?include=entries, outs</b></li>
+        <li> <b>GET outlets/{id}/stocks?include=entries, outs, items</b></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>
