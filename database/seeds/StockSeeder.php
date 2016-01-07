@@ -56,7 +56,7 @@ class StockSeeder extends Seeder
                                     ->lists('id')
                                     ->toArray();
             //add it in stock entry
-            $entry->stockdetails()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+            $entry->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
             
             //create stock out
             $out = factory(Out::class)->create([
@@ -69,7 +69,7 @@ class StockSeeder extends Seeder
                                     ->lists('id')
                                     ->toArray();
             //add it in stock entry
-            $out->stockdetails()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+            $out->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
             
         });
         
