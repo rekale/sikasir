@@ -273,7 +273,7 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     
     
     /**
-     * get outlet's orders
+     * get outlet's voided orders
      *
      * @param integer $outletId
      * @param \Sikasir\V1\User\Owner
@@ -286,6 +286,40 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
                 ->orders()
                 ->with($with)
                 ->whereVoid(true)
+                ->paginate($this->perPage($perPage));
+    }
+    
+    /**
+     * get outlet's paid only orders
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getOrdersPaidPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    {
+        return $this->findForOwner($outletId, $owner, ['orders'])
+                ->orders()
+                ->with($with)
+                ->wherePaid(true)
+                ->paginate($this->perPage($perPage));
+    }
+    
+    /**
+     * get outlet's unpaid only orders
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getOrdersUnpaidPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    {
+        return $this->findForOwner($outletId, $owner, ['orders'])
+                ->orders()
+                ->with($with)
+                ->wherePaid(false)
                 ->paginate($this->perPage($perPage));
     }
     

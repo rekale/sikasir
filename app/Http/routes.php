@@ -92,6 +92,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             get('outlets/{id}/orders', 'OrdersController@index');
             get('outlets/{id}/orders/void', 'OrdersController@voided');
+            get('outlets/{id}/orders/paid', 'OrdersController@paid');
+            get('outlets/{id}/orders/unpaid', 'OrdersController@unpaid');
             
             Route::group(['namespace' => 'Stocks'], function()
             {
