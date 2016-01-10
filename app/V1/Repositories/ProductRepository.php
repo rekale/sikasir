@@ -25,6 +25,45 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         return $owner->categories()->paginate();
     }
     
+    /**
+     * create new categories
+     * 
+     * @param Owner $owner
+     * @param string $category
+     */
+    public function saveCategory(Owner $owner, $category)
+    {
+        $owner->categories()->save( 
+            new Category(['name' => $category]) 
+        );
+    }
+    
+    /**
+     * 
+     * @param Owner $owner
+     * @param integer $id
+     * @param string $name
+     */
+    public function updateCategory(Owner $owner, $id, $name)
+    {
+        $owner->categories()->findOrFail($id)->update( 
+            ['name' => $name] 
+        );
+    }
+    
+    /**
+     * delete category
+     * 
+     * @param Owner $owner
+     * @param integer $categories
+     */
+    public function destroyCategories(Owner $owner, $id)
+    {
+        $owner->categories()->findOrFail($id);
+        
+        Category::destroy($id);
+    }
+    
     public function saveForOwner(array $data, Owner $owner)
     {
         \DB::transaction(function() use ($data, $owner) {

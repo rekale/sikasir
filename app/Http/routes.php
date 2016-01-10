@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         post('mobile/login', 'AuthController@mobileLogin');
         post('login', 'AuthController@login');
         post('/register', 'AuthController@signup');
+        
+        
 
     });
 
@@ -113,7 +115,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('products/{id}', 'ProductsController@destroy');
             
             get('categories', 'CategoriesController@index');
-            
+            post('categories', 'CategoriesController@store');
+            put('categories/{id}', 'CategoriesController@update');
+            delete('categories/{id}', 'CategoriesController@destroy');
         });
         
         Route::group(['namespace' => 'Finances'], function()

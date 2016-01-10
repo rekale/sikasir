@@ -106,6 +106,10 @@
             ]
         }
 
+        --CATEGORIES--
+        {
+            "name": "baju"
+        }
         </pre>
     </body>
 </html>

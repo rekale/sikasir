@@ -76,5 +76,10 @@
         <li> POST products </li>
         <li> PUT products/{id} </li>
         <li> DELETE products/{id} </li>
+        <br>
+        <li> GET categories?include=products, products.variants </li>
+        <li> PUT categories </li>
+        <li> POST categories </li>
+        <li> DELETE categories/{id} </li>
     </body>
 </html>

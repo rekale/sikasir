@@ -7,7 +7,7 @@ use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\ProductRepository;
 use Sikasir\V1\Transformer\CategoryTransformer;
-use Sikasir\Http\Requests\ProductRequest;
+use Illuminate\Http\Request;
 
 class CategoriesController extends ApiController
 {
@@ -33,59 +33,26 @@ class CategoriesController extends ApiController
                 ->withPaginated($categories, new CategoryTransformer);
     }
 
-    public function show($id)
-    {
-        $this->authorizing('read-product');
-        
-        $owner = $this->currentUser()->toOwner();
-        
-        $decodedId = $this->decode($id);
-        
-        $product = $this->repo()->findForOwner($decodedId, $owner);
-
-        return $this->response()
-                ->resource()
-                ->withItem($product, new ProductTransformer);
-    }
-
-    public function store(ProductRequest $request)
+    
+    public function store(Request $request)
     {
         $this->authorizing('create-product');
         
         $owner = $this->currentUser()->toOwner();
         
-        $dataInput = $request->all();
-        
-        $dataInput['category_id'] = $this->decode($dataInput['category_id']);
-        $dataInput['outlet_ids'] = $this->decode($dataInput['outlet_ids']);
-        
-        $this->repo()->saveForOwner($dataInput, $owner);
+        $this->repo()->saveCategory($owner, $request->input('name'));
 
         return $this->response()->created();
     }
-
-    public function update($id, ProductRequest $request)
+    
+    public function update($id, Request $request)
     {
         $this->authorizing('update-product');
-        
+
         $owner = $this->currentUser()->toOwner();
         
-        $decodedId = $this->decode($id);
+        $this->repo()->updateCategory($owner, $this->decode($id), $request->input('name'));
         
-        $dataInput = $request->all();
-        
-        $dataInput['category_id'] = $this->decode($dataInput['category_id']);
-        
-        foreach ($dataInput['variants'] as &$variant) {
-            
-            if ( isset($variant['id']) ) {
-                $variant['id'] = $this->decode($variant['id']);
-            }
-            
-        }
-        
-        $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
-
         return $this->response()->updated();
     }
 
@@ -97,7 +64,7 @@ class CategoriesController extends ApiController
         
         $owner = $this->currentUser()->toOwner();
         
-        $this->repo()->destroyForOwner($decodedId, $owner);
+        $this->repo()->destroyCategories($owner, $decodedId);
 
         return $this->response()->deleted();
     }

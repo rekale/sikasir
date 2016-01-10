@@ -6,8 +6,10 @@
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/StocksController.php</file>
             <file>file:/D:/project/kasir/app/V1/Stocks/Out.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/ProductTransformer.php</file>
             <file>file:/D:/project/kasir/config/database.php</file>
             <file>file:/D:/project/kasir/app/V1/Stocks/Stock.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
             <file>file:/D:/project/kasir/database/seeds/OrderSeeder.php</file>
             <file>file:/D:/project/kasir/app/V1/Stocks/Entry.php</file>
@@ -19,6 +21,7 @@
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/V1/Orders/Order.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/OrderTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
             <file>file:/D:/project/kasir/database/seeds/StockSeeder.php</file>
             <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/EntryTransformer.php</file>
