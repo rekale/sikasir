@@ -25,8 +25,8 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET owners?include=employees, cashiers, outlets, products, taxes, categories, <b>discounts</b> </li> 
-        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes, categories, <b>discounts</b> </li>
+        <li> GET owners?include=employees, cashiers, outlets, products, taxes, categories, discounts </li> 
+        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes, categories, discounts </li>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
         <li> DELETE owners/{id} </li>
@@ -43,12 +43,12 @@
         <li> PUT cashiers/{id} </li>
         <li> DELETE cashiers/{id} </li>
         <br>
-        <li> GET outlets?include=employees, stocks, <b>stocks.items</b>, entries.items, incomes, outcomes, customers, <b>orders</b> </li>
-        <li> GET outlets/{id}?include=employees, stocks, <b>stocks.items</b>, entries.items, incomes, outcomes, customers. <b>orders</b>  </li>
+        <li> GET outlets?include=employees, stocks, stocks.items, entries.items, incomes, outcomes, customers, orders </li>
+        <li> GET outlets/{id}?include=employees, stocks, stocks.items, entries.items, incomes, outcomes, customers.orders  </li>
         <br>
-        <li> <b>GET outlets/{id}?/orders?include= items, customer, user</b>  </li>
+        <li> GET outlets/{id}?/orders?include= items, customer, user </li>
         <br>
-        <li> <b>GET outlets/{id}?/orders/void?include= items, customer, user</b>  </li>
+        <li> GET outlets/{id}?/orders/void?include= items, customer, user  </li>
         <br>
         <li><b>GET outlets/{id}/entries?include=items</b></li>
         <li><b>GET outlets/{id}/outs?include=items</b></li>
@@ -77,9 +77,9 @@
         <li> PUT products/{id} </li>
         <li> DELETE products/{id} </li>
         <br>
-        <li> GET categories?include=products, products.variants </li>
-        <li> PUT categories </li>
-        <li> POST categories </li>
-        <li> DELETE categories/{id} </li>
+        <li> <b>GET categories?include=products, products.variants </b></li>
+        <li> <b>PUT categories</b> </li>
+        <li> <b>POST categories</b> </li>
+        <li> <b>DELETE categories/{id}</b> </li>
     </body>
 </html>

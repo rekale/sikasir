@@ -37,6 +37,7 @@ class OrderTransformer extends TransformerAbstract
             'note' => $order->note,
             'total' => $order->total,
             'void' => (boolean) $order->void,
+            'paid' => (boolean) $order->paid,
         ];
         
         if ($order->void) {

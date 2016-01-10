@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('void')->default(false);
             $table->integer('void_user_id')->unsigned()->nullable();
             $table->string('void_note')->nullable();
+            $table->boolean('paid')->default(true);
             $table->timestamps();
             
             $table->foreign('user_id')

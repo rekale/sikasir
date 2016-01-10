@@ -20,6 +20,7 @@ class Order extends Model
         'void',
         'void_user_id',
         'void_note',
+        'paid',
     ];
     
     /**
