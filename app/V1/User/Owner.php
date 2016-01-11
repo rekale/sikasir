@@ -8,6 +8,8 @@ use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
+use Sikasir\V1\Orders\Order;
+use Sikasir\V1\Outlets\Outlet;
 
 class Owner extends Model
 {
@@ -46,7 +48,7 @@ class Owner extends Model
      */
     public function outlets()
     {
-       return $this->hasMany(\Sikasir\V1\Outlets\Outlet::class, 'owner_id'); 
+       return $this->hasMany(Outlet::class, 'owner_id'); 
     }
     
     /**
@@ -97,6 +99,11 @@ class Owner extends Model
     public function products()
     {
         return $this->hasManyThrough(Product::class, Category::class);
+    }
+    
+    public function orders()
+    {
+        return $this->hasManyThrough(Order::class, Outlet::class);
     }
     
 }

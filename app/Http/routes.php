@@ -91,6 +91,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/employees', 'EmployeesController@index');
             
             get('outlets/{id}/orders', 'OrdersController@index');
+            post('outlets/{id}/orders', 'OrdersController@store');
+ 
             get('outlets/{id}/orders/void', 'OrdersController@voided');
             get('outlets/{id}/orders/paid', 'OrdersController@paid');
             get('outlets/{id}/orders/unpaid', 'OrdersController@unpaid');

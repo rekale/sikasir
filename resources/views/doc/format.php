@@ -110,6 +110,27 @@
         {
             "name": "baju"
         }
+
+
+        --ORDERS--
+        POST|PUT v1/outlets/{id}/orders
+        {
+            "customer_id": "Z",
+            "operator_id": "T", //required
+            "note": "lalala yeyeye",
+            "total": 1000, //required, kalo ngutang valuenya isi 0 aja
+            "paid": true, //field untuk menandakan ngutang atau enggak, kalo ini gak ada defaultnya true
+            "items": [
+                {
+                    "id" : "Z",
+                    "quantity": 3
+                },
+                {
+                    "id" : "L",
+                    "quantity": 1
+                }
+            ]
+        }
         </pre>
     </body>
 </html>

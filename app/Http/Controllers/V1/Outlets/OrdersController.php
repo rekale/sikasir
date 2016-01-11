@@ -5,8 +5,10 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\OrderTransformer;
 use Sikasir\V1\Repositories\OutletRepository;
+use Sikasir\V1\Repositories\OrderRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
+use Sikasir\Http\Requests\OrderRequest;
 
 class OrdersController extends ApiController
 {
@@ -103,6 +105,33 @@ class OrdersController extends ApiController
                  ->including($include)
                  ->withPaginated($collection, new OrderTransformer);
 
+    }
+    
+    public function store($id, OrderRequest $request)
+    {
+        $this->authorizing('create-order');
+
+        $owner = $this->auth()->toUser()->toOwner();
+        
+        $dataInput = $request->all();
+        
+        if ( isset($dataInput['customer_id']) ) {
+            $dataInput['customer_id'] = $this->decode($dataInput['customer_id']);
+        }
+        
+        $dataInput['outlet_id'] = $this->decode($id);
+        
+        $dataInput['operator_id'] = $this->decode($dataInput['operator_id']);
+        
+        foreach ($dataInput['items'] as &$item) {
+            $item['id'] = $this->decode($item['id']);
+        }
+        
+        $repo = app(OrderRepository::class);
+        
+        $repo->save($dataInput);
+
+        return $this->response()->created();
     }
 
 }
