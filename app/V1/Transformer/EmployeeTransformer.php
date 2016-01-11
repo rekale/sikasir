@@ -16,7 +16,7 @@ class EmployeeTransformer extends TransformerAbstract
     public function transform(Employee $employee)
     {
         return [
-            'id' => $this->encode($employee->id),
+            'id' => $this->encode($employee->user->id),
             'name' => $employee->name,
             'gender' => $employee->gender,
             'title' => $employee->title,

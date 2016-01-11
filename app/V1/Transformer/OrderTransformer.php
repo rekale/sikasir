@@ -27,6 +27,8 @@ class OrderTransformer extends TransformerAbstract
         'customer',
         'voidby',
         'items',
+        'tax',
+        'discount',
     ];
 
     public function transform(Order $order)
@@ -69,6 +71,20 @@ class OrderTransformer extends TransformerAbstract
         $item = $order->outlet;
         
         return $this->item($item, new OutletTransformer);
+    }
+    
+    public function includeTax(Order $order)
+    {
+        $item = $order->tax;
+        
+        return $this->item($item, new TaxTransformer);
+    }
+    
+    public function includeDiscount(Order $order)
+    {
+        $item = $order->discount;
+        
+        return ! is_null($item) ? $this->item($item, new TaxTransformer) : null;
     }
     
     public function includeUser(Order $order)

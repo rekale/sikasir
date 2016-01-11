@@ -117,6 +117,8 @@
         {
             "customer_id": "Z",
             "operator_id": "T", //required
+            "discount_id": "D",
+            "tax_id" : "Z", //required
             "note": "lalala yeyeye",
             "total": 1000, //required, kalo ngutang valuenya isi 0 aja
             "paid": true, //field untuk menandakan ngutang atau enggak, kalo ini gak ada defaultnya true

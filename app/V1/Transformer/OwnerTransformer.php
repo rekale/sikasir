@@ -33,7 +33,7 @@ class OwnerTransformer extends TransformerAbstract
     public function transform(Owner $owner)
     {
         return [
-            'id' => $this->encode($owner->id),
+            'id' => $this->encode($owner->user->id),
             'email' => $owner->user->email,
             'name' => $owner->name, 
             'business_name' => $owner->business_name, 

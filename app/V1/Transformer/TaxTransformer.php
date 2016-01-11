@@ -16,6 +16,7 @@ class TaxTransformer extends TransformerAbstract
     public function transform($tax)
     {
         return [
+            'id' => $this->encode($tax->id),
             'name' => $tax->name,
             'amount' => $tax->amount,
             

@@ -15,8 +15,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('customer_id')->unsigned()->index()->nullable();
             $table->integer('outlet_id')->unsigned()->index();
+            $table->integer('tax_id')->unsigned()->index();
+            $table->integer('customer_id')->unsigned()->index()->nullable();
+            $table->integer('discount_id')->unsigned()->index()->nullable();
             $table->string('note')->nullable();
             $table->integer('total')->unsigned();
             $table->boolean('void')->default(false);
@@ -43,6 +45,16 @@ class CreateOrdersTable extends Migration
             $table->foreign('customer_id')
                 ->references('id')
                 ->on('customers')
+                ->onDelete('cascade');
+            
+            $table->foreign('discount_id')
+                ->references('id')
+                ->on('discounts')
+                ->onDelete('cascade');
+            
+            $table->foreign('tax_id')
+                ->references('id')
+                ->on('taxes')
                 ->onDelete('cascade');
             
         });

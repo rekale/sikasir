@@ -7,6 +7,8 @@ use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Outlets\Tax;
+use Sikasir\V1\Outlets\Discount;
 
 class Order extends Model
 {
@@ -15,6 +17,8 @@ class Order extends Model
         'customer_id',
         'outlet_id',
         'user_id',
+        'discount_id',
+        'tax_id',
         'note',
         'total',
         'void',
@@ -66,4 +70,23 @@ class Order extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+     
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class);
+    }
+    
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function discount()
+    {
+        return $this->belongsTo(Discount::class);
+    }
+    
 }

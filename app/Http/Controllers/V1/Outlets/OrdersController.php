@@ -119,9 +119,15 @@ class OrdersController extends ApiController
             $dataInput['customer_id'] = $this->decode($dataInput['customer_id']);
         }
         
+        if ( isset($dataInput['discount_id']) ) {
+            $dataInput['discount_id'] = $this->decode($dataInput['discount_id']);
+        }
+        
         $dataInput['outlet_id'] = $this->decode($id);
         
         $dataInput['operator_id'] = $this->decode($dataInput['operator_id']);
+        
+        $dataInput['tax_id'] = $this->decode($dataInput['tax_id']);
         
         foreach ($dataInput['items'] as &$item) {
             $item['id'] = $this->decode($item['id']);

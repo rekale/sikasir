@@ -21,10 +21,12 @@ class OrderRepository extends Repository
     public function save(array $data) {
         
         \DB::transaction(function () use ($data) {
-        
+            
             $order = parent::save([
-                'customer_id' => $data['customer_id'],
+                'customer_id' => isset($data['customer_id']) ? $data['customer_id'] : null,
                 'outlet_id' => $data['outlet_id'],
+                'tax_id' => $data['tax_id'],
+                'discount_id' => isset($data['discount_id']) ? $data['discount_id'] : null,
                 'user_id' => $data['operator_id'],
                 'note' => $data['note'],
                 'total' => $data['total'],

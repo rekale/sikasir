@@ -20,12 +20,16 @@ class OrderSeeder extends Seeder
             
             $customers = $outlet->customers;
             $employees = $outlet->employees;
+            $tax = $outlet->tax;
+            $discounts = $outlet->owner->discounts;
             
             //create order
             $orders = factory(Order::class, 3)->create([
                 'outlet_id' => $outlet->id,
                 'customer_id' => $customers->random()->id,
                 'user_id' => $employees->random()->user->id,
+                'tax_id' => $tax->id,
+                'discount_id' => $discounts->random()->id,
             ]);
             
             //attach items in order
