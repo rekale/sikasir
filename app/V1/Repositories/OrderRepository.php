@@ -24,9 +24,10 @@ class OrderRepository extends Repository
             
             $order = parent::save([
                 'customer_id' => isset($data['customer_id']) ? $data['customer_id'] : null,
+                'discount_id' => isset($data['discount_id']) ? $data['discount_id'] : null,
+                'payment_id' => $data['payment_id'],
                 'outlet_id' => $data['outlet_id'],
                 'tax_id' => $data['tax_id'],
-                'discount_id' => isset($data['discount_id']) ? $data['discount_id'] : null,
                 'user_id' => $data['operator_id'],
                 'note' => $data['note'],
                 'total' => $data['total'],

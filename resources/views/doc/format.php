@@ -117,6 +117,7 @@
         {
             "customer_id": "Z",
             "operator_id": "T", //required
+            "payment_id": "D", //required
             "discount_id": "D",
             "tax_id" : "Z", //required
             "note": "lalala yeyeye",
