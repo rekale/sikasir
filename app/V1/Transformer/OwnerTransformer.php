@@ -26,6 +26,7 @@ class OwnerTransformer extends TransformerAbstract
         'cashiers',
         'taxes',
         'discounts',
+        'payments',
         'categories',
         'products',
     ]; 
@@ -113,6 +114,15 @@ class OwnerTransformer extends TransformerAbstract
         )->result();
         
         return $this->collection($collection, new TaxTransformer);
+    }
+    
+    public function includePayments(Owner $owner, ParamBag $params = null)
+    {   
+        $collection = $this->setData(
+            $owner->payments(), $params['per_page'][0], $params['current_page'][0]
+        )->result();
+        
+        return $this->collection($collection, new PaymentTransformer);
     }
     
 }
