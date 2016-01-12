@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Products\Product;
+use Sikasir\V1\Stocks\Opname;
 
 class StockSeeder extends Seeder
 {
@@ -38,23 +38,22 @@ class StockSeeder extends Seeder
                                 ->lists('id')
                                 ->toArray();
                
-                //crate its stock_details
+                //create its stock_details
                 $stock->variants()->attach($variantIds);
 
             }
             
             $employee = Employee::all()->random();
-            
+            $stockdetails = $outlet->stockdetails;
             //create stock entry
             $entry = factory(Entry::class)->create([
                 'user_id' => $employee->user->id,
                 'outlet_id' => $outlet->id,
             ]);
             //get random stockdetails from current outlet
-            $stockDetailIds = $outlet->stockdetails
-                                    ->random(3)
-                                    ->lists('id')
-                                    ->toArray();
+            $stockDetailIds = $stockdetails->random(3)
+                                        ->lists('id')
+                                        ->toArray();
             //add it in stock entry
             $entry->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
             
@@ -64,12 +63,23 @@ class StockSeeder extends Seeder
                 'outlet_id' => $outlet->id,
             ]);
             //get random stock from current outlet
-            $stockDetailIds = $outlet->stockdetails
-                                    ->random(5)
-                                    ->lists('id')
-                                    ->toArray();
-            //add it in stock entry
+            $stockDetailIds = $stockdetails->random(5)
+                                        ->lists('id')
+                                        ->toArray();
+            //add it in stock out
             $out->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+            
+            //create stock opname
+            $opname = factory(Opname::class)->create([
+                'user_id' => $employee->user->id,
+                'outlet_id' => $outlet->id,
+            ]);
+            //get random stock from current outlet
+            $stockDetailIds = $stockdetails->random(5)
+                                        ->lists('id')
+                                        ->toArray();
+            //add it in stock opname
+            $opname->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
             
         });
         

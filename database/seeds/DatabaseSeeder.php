@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
         'entry_stockdetail',
         'outs',
         'out_stockdetail',
+        'opnames',
+        'opname_stockdetail',
         'orders',
         'order_stockdetail',
         'suppliers',

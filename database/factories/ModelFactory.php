@@ -30,6 +30,7 @@ use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
+use Sikasir\V1\Stocks\Opname;
 
 use Sikasir\V1\Orders\Order;
 
@@ -213,6 +214,13 @@ $factory->define(Out::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
         'input_at' => $fake->date(),
+    ];
+});
+$factory->define(Opname::class, function(Faker\Generator $fake) {
+    return [
+        'note' => $fake->words(5, true),
+        'input_at' => $fake->date(),
+        'status' => $fake->boolean(),
     ];
 });
 
