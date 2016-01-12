@@ -7,6 +7,7 @@ use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Stocks\Opname;
 
 class StockDetail extends Model
 {
@@ -31,13 +32,19 @@ class StockDetail extends Model
     
     public function entries()
     {
-        return $this->belongsToMany(Entry::class, 'entry_stock', 'stock_id', 'entry_id')
+        return $this->belongsToMany(Entry::class, 'entry_stockdetail', 'stock_id', 'entry_id')
                 ->withPivot('total');
     }
     
     public function outs()
     {
-        return $this->belongsToMany(Out::class, 'out_stock', 'stock_id', 'out_id')
+        return $this->belongsToMany(Out::class, 'out_stockdetail', 'stock_id', 'out_id')
+                ->withPivot('total');
+    }
+    
+    public function opnames()
+    {
+        return $this->belongsToMany(Opname::class, 'opname_stockdetail', 'stock_id', 'opname_id')
                 ->withPivot('total');
     }
 }

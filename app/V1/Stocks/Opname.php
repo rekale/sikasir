@@ -3,6 +3,7 @@
 namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\User\User;
 
 class Opname extends Model
 {

@@ -24,6 +24,7 @@ class ItemTransformer extends TransformerAbstract
      protected $availableIncludes = [
         'entries',
         'outs',
+        'opnames',
     ];
 
 
@@ -64,6 +65,15 @@ class ItemTransformer extends TransformerAbstract
         )->result();
         
         return $this->collection($collection, new OutTransformer);
+    }
+    
+    public function includeOpnames(StockDetail $stock, ParamBag $params = null)
+    {
+        $collection = $this->setData(
+            $stock->opnames(), $params['per_page'][0], $params['current_page'][0] 
+        )->result();
+        
+        return $this->collection($collection, new OpnameTransformer);
     }
     
 

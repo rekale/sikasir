@@ -43,8 +43,8 @@
         <li> PUT cashiers/{id} </li>
         <li> DELETE cashiers/{id} </li>
         <br>
-        <li> GET outlets?include=employees, stocks, stocks.items, entries.items, incomes, outcomes, customers, orders </li>
-        <li> GET outlets/{id}?include=employees, stocks, stocks.items, entries.items, incomes, outcomes, customers.orders  </li>
+        <li> GET outlets?include=employees, stocks, stocks.items, entries.items, outs, outs.items,<b>opnames, opnames.items,</b> incomes,outcomes, customers, orders </li>
+        <li> GET outlets/{id}?include=employees, stocks, stocks.items, entries.items,  out, out.items, <b>opnames, opnames.items,</b>  incomes, outcomes, customers.orders  </li>
         <br>
         <li> GET outlets/{id}/orders?include= items, customer, user, <b>discount, tax</b> </li>
         <li> GET outlets/{id}/orders/void?include= items, customer, user, <b>discount, tax</b>  </li>
@@ -53,8 +53,9 @@
         <br>
         <li><b>GET outlets/{id}/entries?include=items</b></li>
         <li><b>GET outlets/{id}/outs?include=items</b></li>
+        <li><b>GET outlets/{id}/opnames?include=items</b></li>
         <br>
-        <li> <b>GET outlets/{id}/stocks?include=entries, outs, items</b></li>
+        <li> <b>GET outlets/{id}/stocks?include=items</b></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>

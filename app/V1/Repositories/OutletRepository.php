@@ -237,7 +237,6 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
                 ->with($with)
                 ->paginate($this->perPage($perPage));
     }
-    
     /**
      * get outlet's stock outs
      *
@@ -250,6 +249,22 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
     {
         return $this->findForOwner($outletId, $owner, ['outs'])
                 ->outs()
+                ->with($with)
+                ->paginate($this->perPage($perPage));
+    }
+    
+    /**
+     * get outlet's stock opnames
+     *
+     * @param integer $outletId
+     * @param \Sikasir\V1\User\Owner
+     *
+     * @return Collection | Paginator
+     */
+    public function getOpnamesPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    {
+        return $this->findForOwner($outletId, $owner, ['opnames'])
+                ->opnames()
                 ->with($with)
                 ->paginate($this->perPage($perPage));
     }

@@ -102,6 +102,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 
                 get('outlets/{id}/entries', 'EntriesController@index');
                 get('outlets/{id}/outs', 'OutsController@index');
+                get('outlets/{id}/opnames', 'OpnamesController@index');
                 
                 get('outlets/{id}/stocks', 'StocksController@index');
                

@@ -15,6 +15,7 @@ use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
+use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Orders\Order;
@@ -166,6 +167,15 @@ class Outlet extends Model
     public function outs()
     {
         return $this->hasMany(Out::class);
+    }
+    
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function opnames()
+    {
+        return $this->hasMany(Opname::class);
     }
     
     
