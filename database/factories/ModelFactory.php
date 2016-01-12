@@ -33,6 +33,8 @@ use Sikasir\V1\Stocks\Out;
 
 use Sikasir\V1\Orders\Order;
 
+use Sikasir\V1\Suppliers\Supplier;
+
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
@@ -143,6 +145,15 @@ $factory->define(Customer::class, function (Faker\Generator $fake) {
         'city' => $fake->city, 
         'pos_code' => $fake->postcode,
     ];
+});
+
+$factory->define(Supplier::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->name,
+        'email' => $fake->email, 
+        'phone' => $fake->phoneNumber, 
+        'address' => $fake->address, 
+     ];
 });
 
 $factory->define(Category::class, function(Faker\Generator $fake) {

@@ -10,6 +10,7 @@ use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Suppliers\Supplier;
 
 class Owner extends Model
 {
@@ -71,11 +72,19 @@ class Owner extends Model
        return $this->hasMany(Discount::class); 
     }
     
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function employees()
     {
         return $this->hasMany(\Sikasir\V1\User\Employee::class);
     }
     
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function cashiers()
     {
         return $this->hasMany(Cashier::class);
@@ -84,26 +93,46 @@ class Owner extends Model
      /**
      * owner has one app
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function app()
     {
        return $this->hasOne(App::class, 'owner_id'); 
     }
     
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function categories()
     {
         return $this->hasMany(Category::class, 'owner_id');
     }
     
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyTrough
+     */
     public function products()
     {
         return $this->hasManyThrough(Product::class, Category::class);
     }
     
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyTrough
+     */
     public function orders()
     {
         return $this->hasManyThrough(Order::class, Outlet::class);
     }
     
+     /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function suppliers()
+    {
+       return $this->hasOne(Supplier::class); 
+    }
 }

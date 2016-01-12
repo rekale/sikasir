@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         'out_stockdetail',
         'orders',
         'order_stockdetail',
+        'suppliers',
     ];
 
     /**
@@ -49,6 +50,7 @@ class DatabaseSeeder extends Seeder
         'ProductSeeder',
         'StockSeeder',
         'OrderSeeder',
+        'SupplierSeeder',
     ];
 
     /**
