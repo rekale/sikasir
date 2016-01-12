@@ -66,6 +66,7 @@ class AuthController extends Controller
             'success' => [
                 'token' => $token,
                 'owner_id' => $ownerId,
+                'expire_at' => config('jwt.ttl'),
                 'privileges' => $loggedUserAbilities,
                 'code' => 200,
             ]
