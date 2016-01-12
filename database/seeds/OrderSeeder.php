@@ -22,12 +22,14 @@ class OrderSeeder extends Seeder
             $employees = $outlet->employees;
             $tax = $outlet->tax;
             $discounts = $outlet->owner->discounts;
+            $payments = $outlet->owner->payments;
             
             //create order
             $orders = factory(Order::class, 3)->create([
                 'outlet_id' => $outlet->id,
                 'customer_id' => $customers->random()->id,
                 'user_id' => $employees->random()->user->id,
+                'payment_id' => $payments->random()->id,
                 'tax_id' => $tax->id,
                 'discount_id' => $discounts->random()->id,
             ]);

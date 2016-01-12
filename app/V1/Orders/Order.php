@@ -17,6 +17,7 @@ class Order extends Model
         'customer_id',
         'outlet_id',
         'user_id',
+        'payment_id',
         'discount_id',
         'tax_id',
         'note',

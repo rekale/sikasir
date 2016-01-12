@@ -24,6 +24,19 @@ class CreateDiscountsTable extends Migration
                   ->on('owners')
                   ->onDelete('cascade');
         });
+        
+        Schema::create('payments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('owner_id')->index();
+            $table->string('name');
+            $table->string('description');
+            $table->timestamps();
+            
+            $table->foreign('owner_id')
+                  ->references('id')
+                  ->on('owners')
+                  ->onDelete('cascade');
+        });
     }
 
     /**
@@ -34,5 +47,6 @@ class CreateDiscountsTable extends Migration
     public function down()
     {
         Schema::drop('discounts');
+        Schema::drop('payments');
     }
 }

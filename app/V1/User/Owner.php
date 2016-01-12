@@ -11,6 +11,7 @@ use Sikasir\V1\Outlets\Discount;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Suppliers\Supplier;
+use Sikasir\V1\Transactions\Payment;
 
 class Owner extends Model
 {
@@ -70,6 +71,16 @@ class Owner extends Model
     public function discounts()
     {
        return $this->hasMany(Discount::class); 
+    }
+    
+    /**
+     * owner has many payments
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+       return $this->hasMany(Payment::class); 
     }
     
      /**

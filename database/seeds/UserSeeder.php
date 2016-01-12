@@ -10,6 +10,7 @@ use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
+use Sikasir\V1\Transactions\Payment;
 
 class UserSeeder extends Seeder
 {
@@ -114,6 +115,18 @@ class UserSeeder extends Seeder
                 //create discount
                 factory(Discount::class, 3)->create([
                     'owner_id' => $owner->id,
+                ]);
+                
+                //create payment
+                factory(Payment::class)->create([
+                    'owner_id' => $owner->id,
+                    'name' => 'Tunai',
+                ]);
+                
+                //create payment
+                factory(Payment::class)->create([
+                    'owner_id' => $owner->id,
+                    'name' => 'Kredit',
                 ]);
                 
                 //create outlet for each owner and add tax

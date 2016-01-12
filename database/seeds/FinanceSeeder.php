@@ -33,7 +33,7 @@ class FinanceSeeder extends Seeder
         {
             foreach(range(1, 20) as $i) {
                 
-                $outlet->incomes()->save(new Outcome([
+                $outlet->outcomes()->save(new Outcome([
                     'total' => $fake->numberBetween(1000, 1000000),
                     'note' => $fake->paragraph(),
                 ]));

@@ -17,7 +17,7 @@ class SupplierSeeder extends Seeder
         
             $suppliers = factory(Supplier::class, 3)->make();
             
-            $owner->suppliers->saveMany($suppliers);
+            $owner->suppliers()->saveMany($suppliers);
             
         });
     }

@@ -34,6 +34,7 @@ use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Orders\Order;
 
 use Sikasir\V1\Suppliers\Supplier;
+use Sikasir\V1\Transactions\Payment;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -102,6 +103,13 @@ $factory->define(Discount::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->word,
         'amount' => $fake->numberBetween(1, 20),
+    ];
+});
+
+$factory->define(Payment::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->word,
+        'description' => $fake->words(3, true),
     ];
 });
 

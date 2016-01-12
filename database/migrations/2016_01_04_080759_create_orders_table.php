@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('outlet_id')->unsigned()->index();
             $table->integer('tax_id')->unsigned()->index();
+            $table->integer('payment_id')->unsigned()->index();
             $table->integer('customer_id')->unsigned()->index()->nullable();
             $table->integer('discount_id')->unsigned()->index()->nullable();
             $table->string('note')->nullable();
