@@ -24,6 +24,8 @@ class Product extends Model
         'icon',
     ];
     
+    protected $with = ['category'];
+    
     /**
      * The attributes excluded from the model's JSON form.
      *
