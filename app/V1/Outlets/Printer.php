@@ -16,4 +16,14 @@ class Printer extends Model
         'footer_note',
         'size',
     ];
+    
+    public function getSizeAttribute($value)
+    {
+        if ($value === 1) {
+            return 'A4';
+        }
+        if ($value === 2) {
+            return 'Receipt Paper Roll';
+        }
+    }
 }

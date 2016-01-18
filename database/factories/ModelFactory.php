@@ -239,7 +239,7 @@ $factory->define(Printer::class, function(Faker\Generator $fake) {
         'code' => $fake->numerify(),
         'name' => $fake->word,
         'logo' => $fake->imageUrl(300, 200),
-        'adddress' => $fake->address,
+        'address' => $fake->address,
         'info' => $fake->words(5, true),
         'footer_note' => $fake->words(5, true),
         'size' => $fake->randomElement([1 , 2]),

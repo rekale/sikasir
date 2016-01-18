@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\V1\Printers\Printer;
+use Sikasir\V1\Outlets\Printer;
 use Sikasir\V1\Outlets\Outlet;
 
 class PrinterSeeder extends Seeder
@@ -15,7 +15,7 @@ class PrinterSeeder extends Seeder
     {
         Outlet::all()->each(function ($outlet) {
             
-            $printers = factory(Printer::class, 3)->make([
+            $printers = factory(Printer::class, 3)->create([
                 'outlet_id' => $outlet->id,
             ]);
             

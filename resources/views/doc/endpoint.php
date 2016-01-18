@@ -17,7 +17,7 @@
 
         
          </pre>
-        link yg di <b>bold</b> adalah endpoint terbaru
+        link yg di bold adalah endpoint terbaru
         link yg di <i>italic</i> adalah endpint yg di edit
         
         <ul>
@@ -25,8 +25,8 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET owners?include=employees, cashiers, outlets, products, taxes, categories, discounts, <b>payments</b> </li> 
-        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes, categories, discounts <b>payments</b> </li>
+        <li> GET owners?include=employees, cashiers, outlets, products, taxes, categories, discounts, payments, <b>printers</b> </li> 
+        <li> GET owners/{id}?include=employees ,cashiers,outlets, products, taxes, categories, discounts payments, <b>printers</b> </li>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
         <li> DELETE owners/{id} </li>
@@ -43,19 +43,19 @@
         <li> PUT cashiers/{id} </li>
         <li> DELETE cashiers/{id} </li>
         <br>
-        <li> GET outlets?include=employees, stocks, stocks.items, entries.items, outs, outs.items,<b>opnames, opnames.items,</b> incomes,outcomes, customers, orders </li>
-        <li> GET outlets/{id}?include=employees, stocks, stocks.items, entries.items,  out, out.items, <b>opnames, opnames.items,</b>  incomes, outcomes, customers.orders  </li>
+        <li> GET outlets?include=employees, stocks, stocks.items, entries.items, outs, outs.items,opnames, opnames.items, incomes,outcomes, customers, orders </li>
+        <li> GET outlets/{id}?include=employees, stocks, stocks.items, entries.items,  out, out.items, opnames, opnames.items,  incomes, outcomes, customers.orders  </li>
         <br>
-        <li> GET outlets/{id}/orders?include= items, customer, user, <b>discount, tax</b> </li>
-        <li> GET outlets/{id}/orders/void?include= items, customer, user, <b>discount, tax</b>  </li>
-        <li> <b>GET outlets/{id}/orders/paid?include= items, customer, user, discount, tax  </b></li>
-        <li> <b>GET outlets/{id}/orders/unpaid?include= items, customer, user, discount, tax  </b></li>
+        <li> GET outlets/{id}/orders?include= items, customer, user, discount, tax </li>
+        <li> GET outlets/{id}/orders/void?include= items, customer, user, discount, tax  </li>
+        <li> GET outlets/{id}/orders/paid?include= items, customer, user, discount, tax  </li>
+        <li> GET outlets/{id}/orders/unpaid?include= items, customer, user, discount, tax  </li>
         <br>
-        <li><b>GET outlets/{id}/entries?include=items</b></li>
-        <li><b>GET outlets/{id}/outs?include=items</b></li>
-        <li><b>GET outlets/{id}/opnames?include=items</b></li>
+        <li>GET outlets/{id}/entries?include=items</li>
+        <li>GET outlets/{id}/outs?include=items</li>
+        <li>GET outlets/{id}/opnames?include=items</li>
         <br>
-        <li> <b>GET outlets/{id}/stocks?include=items</b></li>
+        <li> GET outlets/{id}/stocks?include=items</li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>
@@ -79,9 +79,9 @@
         <li> PUT products/{id} </li>
         <li> DELETE products/{id} </li>
         <br>
-        <li> <b>GET categories?include=products, products.variants </b></li>
-        <li> <b>PUT categories</b> </li>
-        <li> <b>POST categories</b> </li>
-        <li> <b>DELETE categories/{id}</b> </li>
+        <li> GET categories?include=products, products.variants </li>
+        <li> PUT categories </li>
+        <li> POST categories </li>
+        <li> DELETE categories/{id} </li>
     </body>
 </html>
