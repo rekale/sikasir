@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\V1\Printers;
+namespace Sikasir\V1\Outlets;
 
 use Illuminate\Database\Eloquent\Model;
 

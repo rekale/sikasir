@@ -19,7 +19,7 @@ use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Orders\Order;
-use Sikasir\V1\Printers\Printer;
+use Sikasir\V1\Outlets\Printer;
 
 class Outlet extends Model
 {

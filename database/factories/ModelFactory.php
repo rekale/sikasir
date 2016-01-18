@@ -22,6 +22,7 @@ use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
+use Sikasir\V1\Outlets\Printer;
 
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
@@ -37,7 +38,6 @@ use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Suppliers\Supplier;
 use Sikasir\V1\Transactions\Payment;
 
-use Sikasir\V1\Printers\Printer;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
