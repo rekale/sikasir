@@ -37,6 +37,8 @@ use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Suppliers\Supplier;
 use Sikasir\V1\Transactions\Payment;
 
+use Sikasir\V1\Printers\Printer;
+
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
@@ -229,5 +231,17 @@ $factory->define(Order::class, function(Faker\Generator $fake) {
         'note' => $fake->words(5, true),
         'total' => $fake->numberBetween(1000, 1000000),
         'paid' => $fake->boolean(),
+    ];
+});
+
+$factory->define(Printer::class, function(Faker\Generator $fake) {
+    return [
+        'code' => $fake->numerify(),
+        'name' => $fake->word,
+        'logo' => $fake->imageUrl(300, 200),
+        'adddress' => $fake->address,
+        'info' => $fake->words(5, true),
+        'footer_note' => $fake->words(5, true),
+        'size' => $fake->randomElement([1 , 2]),
     ];
 });

@@ -19,6 +19,7 @@ use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Orders\Order;
+use Sikasir\V1\Printers\Printer;
 
 class Outlet extends Model
 {
@@ -186,5 +187,14 @@ class Outlet extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function printers()
+    {
+        return $this->hasMany(Printer::class);
     }
 }

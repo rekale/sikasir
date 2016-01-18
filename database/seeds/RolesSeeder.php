@@ -38,9 +38,9 @@ class RolesSeeder extends Seeder
             $owner->user->assign('cashier');
             
             $owner->user->allow($this->doProductAbilities());
-            $owner->user->allow($this->doOrderAbilities());
-            $owner->user->allow($this->doReportAbilities());
-            $owner->user->allow($this->doBillingAbilities());
+            $owner->user->allow($this->doOrderAbilties());
+            $owner->user->allow($this->doReportAbilties());
+            $owner->user->allow($this->doBillingAbilties());
         });
         
         Employee::all()->each(function ($employee) {
@@ -48,9 +48,9 @@ class RolesSeeder extends Seeder
             $employee->user->assign('cashier');
             
             $employee->user->allow($this->doProductAbilities());
-            $employee->user->allow($this->doOrderAbilities());
-            $employee->user->allow($this->doReportAbilities());
-            $employee->user->allow($this->doBillingAbilities());
+            $employee->user->allow($this->doOrderAbilties());
+            $employee->user->allow($this->doReportAbilties());
+            $employee->user->allow($this->doBillingAbilties());
         });
         
         Cashier::all()->each(function ($cashier) {

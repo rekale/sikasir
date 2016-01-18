@@ -46,7 +46,7 @@ class EmployeesController extends ApiController
 
     public function store(EmployeeRequest $request)
     {
-        //$this->authorizing('create-staff');
+        $this->authorizing('create-staff');
 
         $owner = $this->auth()->toUser()->toOwner();
         
