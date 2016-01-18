@@ -33,7 +33,7 @@ trait ParamTransformer
      * 
      * @param integer $perPage
      * @param integer $currentPage
-     * @return $
+     * @return $this
      */
     public function paramsPaginate($perPage, $currentPage)
     {

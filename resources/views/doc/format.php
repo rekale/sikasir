@@ -25,11 +25,12 @@
             "title": "manager", //required untuk post
             "gender": "wanita", //required untuk post
             "email": "email@aku.com", //required untuk post dan harus unik
-            "password": "12345", //required untuk post
+            "password": "12345", //required untuk post,
             "phone":"201.200.3668x8049", //required untuk post
             "outlet_id": [ "D", "L"], //required untuk post dan put, minimal harus ada 1 value di array
-            "address":"45277 Haley Summit Apt. 223\nSouth Elisa, MI 55720-5644", //required untuk post
-            "void_access" : true //required untuk post
+            "address":"45277 Haley Summit Apt. 223 South Elisa, MI 55720-5644", //required untuk post
+            "void_access" : true, //required untuk post
+            "privileges": [1, 2, 3, 4], // 1: produk 2:daftar transaksi dan daftar void 3: laporan 4:billing
         }
 
         --CASHIER--
