@@ -122,12 +122,6 @@ abstract class Repository implements RepositoryInterface
      */
     public function getPaginated($with = [], $perPage = 15) {
         
-        $with = array_filter($with);
-        
-        if (empty($with)) {
-            return $this->model->paginate($perPage);
-        }
-        
         return $this->model->with($with)->paginate($perPage);
     }
 

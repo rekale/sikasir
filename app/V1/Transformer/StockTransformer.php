@@ -49,9 +49,7 @@ class StockTransformer extends TransformerAbstract
     
     public function includeItems(Stock $stock, ParamBag $params = null)
     {
-        $collection = $this->setData(
-            $stock->items(), $params['per_page'][0], $params['current_page'][0] 
-        )->result();
+        $collection = $stock->items;
         
         return $this->collection($collection, new ItemTransformer);
     }

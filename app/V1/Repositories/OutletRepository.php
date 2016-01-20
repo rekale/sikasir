@@ -180,12 +180,17 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getStocksPaginated($outletId, Owner $owner, $with =[], $perPage = null)
+    public function getStocksPaginated($outletId, $ownerId, $with =[], $perPage = null)
     {
-        return $this->findForOwner($outletId, $owner, ['stocks'])
-                ->stocks()
+        return \Sikasir\V1\Stocks\Stock::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = stocks.outlet_id');
+                })
                 ->with($with)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**
