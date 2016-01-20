@@ -39,7 +39,7 @@ class Outlet extends Model
      */
     protected $fillable = [
         'business_field_id', 'tax_id' ,'code','name', 'address', 'province', 'city', 'pos_code',
-        'phone1', 'phone2', 'icon'
+        'phone1', 'phone2', 'icon', 'owner_id',
     ];
 
     /**

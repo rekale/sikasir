@@ -3,15 +3,30 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/project/kasir/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Access/Authorizable.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/StocksController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
+            <file>file:/D:/project/kasir/database/seeds/PrinterSeeder.php</file>
+            <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Owners/OwnersController.php</file>
+            <file>file:/D:/project/kasir/app/V1/User/Employee.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Outlets/Printer.php</file>
+            <file>file:/D:/project/kasir/config/app.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/StockTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Products/Variant.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OrdersController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Employees/EmployeesController.php</file>
-            <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/EmployeeRepository.php</file>
-            <file>file:/D:/project/kasir/resources/views/doc/format.php</file>
-            <file>file:/D:/project/kasir/database/seeds/RolesSeeder.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/ItemTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Providers/AppServiceProvider.php</file>
+            <file>file:/D:/project/kasir/database/factories/ModelFactory.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/PrinterTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/User/User.php</file>
             <file>file:/D:/project/kasir/app/V1/Traits/ParamTransformer.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Auth/AuthController.php</file>
+            <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
+            <file>file:/D:/project/kasir/app/V1/Products/Product.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Outlets/Outlet.php</file>
         </group>
     </open-files>
 </project-private>

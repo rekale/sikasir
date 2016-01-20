@@ -26,7 +26,7 @@ class User extends Model implements AuthenticatableContract,
      * @var string
      */
     protected $table = 'users';
-
+    
 
     /**
      * The attributes that are mass assignable.
@@ -63,17 +63,17 @@ class User extends Model implements AuthenticatableContract,
      * 
      * @return Sikasir\V1\User\Owner
      */
-    public function toOwner()
+    public function getOwnerId()
     {
         if($this->userable instanceof Admin) {
             throw new \Exception("you're admin, you're don't have owner");
         }
         
         if ($this->userable instanceof Owner) {
-            return $this->userable;
+            return $this->userable->id;
         }
         else {
-            return $this->userable->owner;
+            return $this->userable->owner_id;
         }
     }
 

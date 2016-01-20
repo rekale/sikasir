@@ -7,6 +7,7 @@ use Sikasir\V1\Traits\IdObfuscater;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\User\User;
 
 class ApiController extends Controller
 {
@@ -81,9 +82,9 @@ class ApiController extends Controller
      *
      * @return void|\Symfony\Component\HttpKernel\Exception\HttpException
      */
-    public function authorizing($doThis)
+    public function authorizing(User $user, $doThis)
     {
-        if($this->currentUser()->cant($doThis)) {
+        if($user->cant($doThis)) {
             abort(403);
         }
     }

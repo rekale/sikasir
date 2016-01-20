@@ -18,16 +18,16 @@ use Sikasir\V1\User\User;
  *
  * @author rekale
  */
-class EmployeeRepository extends Repository implements BelongsToOwnerRepo
+class EmployeeRepository extends Repository
 {
     public function __construct(Employee $model) 
     {
         parent::__construct($model);
     }
 
-    public function saveForOwner(array $data, Owner $owner) 
+    public function saveForOwner(array $data, $ownerId) 
     {
-        \DB::transaction(function () use ($data, $owner) {
+        \DB::transaction(function () use ($data, $ownerId) {
             
             $user = new User([
                 'name' => $data['name'],
@@ -35,7 +35,7 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
                 'password' => bcrypt($data['password']),
             ]);
 
-            $data['owner_id'] = $owner->id;
+            $data['owner_id'] = $ownerId;
 
             $employee = Employee::create($data);
 
@@ -49,34 +49,7 @@ class EmployeeRepository extends Repository implements BelongsToOwnerRepo
         });
                
     }
-
-    public function destroyForOwner($id, Owner $owner) 
-    {
-        $owner->employees()->findOrFail($id);
-        
-        $this->destroy($id);
-    }
-
-    public function findForOwner($id, Owner $owner, $with = []) 
-    {
-        return $owner->employees()->with($with)->findOrFail($id);
-    }
-
-    public function getPaginatedForOwner(Owner $owner, $with = [])
-    {        
-        return $owner->employees()->with($with)->paginate();
-    }
-
-    public function updateForOwner($id, array $data, Owner $owner) 
-    {
-        $employee = $owner->employees()->findOrFail($id);
-        
-        $employee->update($data);
-        
-        $employee->outlets()->sync($data['outlet_id']);
-        
-    }
-    
+   
     private function addPrivileges(User $user, $privileges)
     {
         if (in_array( 1, $privileges)) {

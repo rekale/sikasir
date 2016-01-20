@@ -8,11 +8,8 @@ use Sikasir\V1\Repositories\RepositoryInterface;
 abstract class Repository implements RepositoryInterface
 {
     
-    private $model;
-    
-    protected static $paginate = 15;
-
-
+    protected $model;
+   
     public function __construct(Model $model) {
         $this->model = $model;
     }
@@ -28,6 +25,80 @@ abstract class Repository implements RepositoryInterface
     public function find($id) 
     {   
         return $this->model->findOrFail($id);
+    }
+    
+    /**
+     * 
+     * @param integer $id
+     * @param integer $ownerId
+     * @param integer $with
+     * @return type
+     */
+    public function findForOwner($id, $ownerId, $with = [])
+    {
+        return $this->model
+                ->with($with)
+                ->where('owner_id', '=', $ownerId)
+                ->findOrFail($id);
+    }
+    
+     /**
+      * 
+      * @param integer $ownerId
+      * @param array $with
+      * @param integer $perPage
+      * @return Paginator
+      */
+     public function getPaginatedForOwner($ownerId, $with = [], $perPage = 15)
+     {
+         return $this->model
+                    ->with($with)
+                    ->where('owner_id', '=', $ownerId)
+                    ->paginate($perPage);
+     }
+    
+    /**
+    * save the current model to owner
+    *
+    * @param array $data
+    * @param integer $ownerId
+    *
+    * @return static
+    */
+    public function saveForOwner(array $data, $ownerId)
+    {
+        $data['owner_id'] = $ownerId;
+        
+        return $this->model->create($data);
+    }
+    
+    /**
+    * update the current model to owner
+    *
+    * @param integer $id
+    * @param array $data
+    * @param integer $ownerId
+    *
+    * @return void
+    */
+    public function updateForOwner($id, array $data, $ownerId)
+    {
+        return $this->findForOwner($id, $ownerId)
+                    ->update($data);
+    }
+    
+    /**
+     * delete specific resource that owner belong
+     * 
+     * @param integer $id
+     * @param integer $ownerId
+     * 
+     * return boolean
+     */
+    public function destroyForOwner($id, $ownerId)
+    {
+        return $this->findForOwner($id, $ownerId)
+                ->delete();
     }
     
     /**
@@ -109,24 +180,5 @@ abstract class Repository implements RepositoryInterface
        return $this->model->take($take)->skip($skip)->get();
     }
     
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function model()
-    {
-        return $this->model;
-    }
-    
-    /**
-     * define default perpage paginate
-     * 
-     * @param integer $page
-     * 
-     */
-    public function perPage($page = null)
-    {
-        return is_null($page) ? 15 : $page;
-    }
    
 }

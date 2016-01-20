@@ -19,9 +19,11 @@ class ProductsController extends ApiController
 
     public function index()
     {
-        $this->authorizing('read-product');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'read-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -38,9 +40,11 @@ class ProductsController extends ApiController
 
     public function show($id)
     {
-        $this->authorizing('read-product');
+         $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'read-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -58,9 +62,11 @@ class ProductsController extends ApiController
 
     public function store(ProductRequest $request)
     {
-        $this->authorizing('create-product');
+         $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'create-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $dataInput = $request->all();
         
@@ -74,9 +80,11 @@ class ProductsController extends ApiController
 
     public function update($id, ProductRequest $request)
     {
-        $this->authorizing('update-product');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'update-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
         
@@ -99,11 +107,13 @@ class ProductsController extends ApiController
 
     public function destroy($id)
     {
-        $this->authorizing('delete-product');
+         $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'delete-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
-        
-        $owner = $this->currentUser()->toOwner();
         
         $this->repo()->destroyForOwner($decodedId, $owner);
 

@@ -12,6 +12,14 @@
 */
 
 
+get('/tes', function(){
+    \DB::listen(function($sql, $bindings, $time) {
+        var_dump($sql);
+        var_dump($time);
+    });
+        
+    return Sikasir\V1\Outlets\Outlet::with('printers')->with('employees')->findOrFail(1);
+});
 
 Route::group(['prefix' => 'doc'], function()
 {

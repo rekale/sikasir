@@ -23,10 +23,12 @@ class CashiersController extends ApiController
 
     public function index()
     {
-        $this->authorizing('read-cashier');
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-cashier');
        
         $paginator = $this->repo()->getPaginatedForOwner(
-            $this->currentUser()->toOwner()
+           $currentUser->getOwnerId()
         );
 
         return $this->response()
@@ -36,11 +38,15 @@ class CashiersController extends ApiController
 
     public function show($id)
     {
-        $this->authorizing('read-cashier');
+         $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-cashier');
+       
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
         
-        $user = $this->repo()->findForOwner($decodedId,  $this->currentUser()->toOwner());
+        $user = $this->repo()->findForOwner($decodedId, $owner);
 
         return $this->response()
                 ->resource()
@@ -49,9 +55,11 @@ class CashiersController extends ApiController
 
     public function store(CashierRequest $request)
     {
-        $this->authorizing('create-cashier');
-
-        $owner = $this->currentUser()->toOwner();
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'create-cashier');
+       
+        $owner = $currentUser->getOwnerId();
         
         $dataInput = $request->all();
         
@@ -64,9 +72,11 @@ class CashiersController extends ApiController
 
     public function update($id, CashierRequest $request)
     {
-        $this->authorizing('update-cashier');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'update-cashier');
+       
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
         
@@ -81,7 +91,9 @@ class CashiersController extends ApiController
 
     public function destroy($id)
     {
-        $this->authorizing('delete-cashier');
+         $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'delete-cashier');
         
         $decodedId = $this->decode($id);
         

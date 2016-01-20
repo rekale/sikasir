@@ -20,9 +20,11 @@ class EntriesController extends ApiController
 
     public function index($outletId)
     {
-        $this->authorizing('read-stock-entry');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'read-stock-entry');
+        
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         

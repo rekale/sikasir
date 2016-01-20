@@ -29,7 +29,7 @@ class OrdersController extends ApiController
        
        $this->authorizing('read-order');
         
-        $owner = $this->currentUser()->toOwner();
+        $owner = $this->currentUser()->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -48,7 +48,7 @@ class OrdersController extends ApiController
    {
         $this->authorizing('read-order');
         
-        $owner = $this->currentUser()->toOwner();
+        $owner = $this->currentUser()->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -69,7 +69,7 @@ class OrdersController extends ApiController
     {
          $this->authorizing('read-order');
 
-         $owner = $this->currentUser()->toOwner();
+         $owner = $this->currentUser()->getOwnerId();
 
          $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -90,7 +90,7 @@ class OrdersController extends ApiController
     {
          $this->authorizing('read-order');
 
-         $owner = $this->currentUser()->toOwner();
+         $owner = $this->currentUser()->getOwnerId();
 
          $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -111,7 +111,7 @@ class OrdersController extends ApiController
     {
         $this->authorizing('create-order');
 
-        $owner = $this->auth()->toUser()->toOwner();
+        $owner = $this->auth()->toUser()->getOwnerId();
         
         $dataInput = $request->all();
         

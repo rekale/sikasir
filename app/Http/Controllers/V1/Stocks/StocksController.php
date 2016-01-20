@@ -19,9 +19,11 @@ class StocksController extends ApiController
 
      public function index($outletId)
     {
-        $this->authorizing('read-stock');
+         $currentUser =  $this->currentUser();
         
-        $owner = $this->auth()->toUser()->toOwner();
+        $this->authorizing($currentUser, 'read-stock');
+       
+        $owner = $currentUser->getOwnerId();
         
         $stocks = $this->repo()->getStocksPaginated($this->decode($outletId), $owner);
 

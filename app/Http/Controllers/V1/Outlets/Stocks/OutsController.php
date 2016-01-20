@@ -20,9 +20,11 @@ class OutsController extends ApiController
 
     public function index($outletId)
     {
-        $this->authorizing('read-stock-out');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->auth()->toUser()->toOwner();
+        $this->authorizing($currentUser, 'read-stock-entry');
+       
+        $owner = $currentUser->getOwnerId();
          
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         

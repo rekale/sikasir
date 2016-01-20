@@ -60,7 +60,7 @@ class AuthController extends Controller
         
         $loggedUserAbilities = $auth->toUser($token)->getAbilities()->lists('name');
         
-        $ownerId = $this->encode($auth->toUser()->toOwner()->id);
+        $ownerId = $this->encode($auth->toUser()->getOwnerId()->id);
         
         return $this->response->respond([
             'success' => [

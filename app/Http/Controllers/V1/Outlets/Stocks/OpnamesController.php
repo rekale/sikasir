@@ -19,9 +19,12 @@ class OpnamesController extends ApiController
 
     public function index($outletId)
     {
-        $this->authorizing('read-stock-entry');
         
-        $owner = $this->currentUser()->toOwner();
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-stock-entry');
+       
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         

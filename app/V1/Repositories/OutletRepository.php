@@ -3,7 +3,6 @@
 namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\Repository;
-use Sikasir\V1\Repositories\BelongsToOwnerRepo;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Stocks\StockEntry;
@@ -15,46 +14,13 @@ use Sikasir\V1\Stocks\StockTransfer;
  *
  * @author rekale
  */
-class OutletRepository extends Repository implements BelongsToOwnerRepo
+class OutletRepository extends Repository
 {
 
     public function __construct(Outlet $outlet) {
         parent::__construct($outlet);
     }
-    
-    public function saveForOwner(array $data, Owner $owner)
-    {
-        $owner->outlets()->save(new Outlet($data));
-    }
-    
-    public function destroyForOwner($id, Owner $owner) {
-        $owner->outlets()->findOrFail($id);
-        
-        $this->destroy($id);
-    }
-
-    /**
-     * 
-     * @param integer $id
-     * @param Owner $owner
-     * @param  $with
-     * @return type
-     */
-    public function findForOwner($id, Owner $owner, $with = []) 
-    { 
-        return $owner->outlets()->with($with)->findOrFail($id);
-    }
-
-    public function getPaginatedForOwner(Owner $owner, $with = []) 
-    { 
-        return $owner->outlets()->with($with)->paginate();
-    }
-
-    public function updateForOwner($id, array $data, Owner $owner) 
-    {
-        $owner->outlets()->findOrFail($id)->update($data);
-    }
-
+   
     /**
      * get incomes for specific outlet
      *
@@ -337,5 +303,6 @@ class OutletRepository extends Repository implements BelongsToOwnerRepo
                 ->wherePaid(false)
                 ->paginate($this->perPage($perPage));
     }
-    
+
+
 }

@@ -20,9 +20,11 @@ class OutletsController extends ApiController
 
     public function index()
     {
-        $this->authorizing('read-outlet');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->auth()->toUser()->toOwner();
+        $this->authorizing($currentUser, 'read-outlet');
+        
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -38,9 +40,11 @@ class OutletsController extends ApiController
 
     public function show($id)
     {
-        $this->authorizing('read-specific-outlet');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->auth()->toUser()->toOwner();
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -58,9 +62,11 @@ class OutletsController extends ApiController
 
     public function store(OutletRequest $request)
     {
-        $this->authorizing('create-outlet');
-
-        $owner = $this->auth()->toUser()->toOwner();
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'create-outlet');
+        
+        $owner = $currentUser->getOwnerId();
         
         $dataInput = $request->all();
         
@@ -75,9 +81,11 @@ class OutletsController extends ApiController
 
     public function update($id, OutletRequest $request)
     {
-        $this->authorizing('update-outlet');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->auth()->toUser()->toOwner();
+        $this->authorizing($currentUser, 'update-outlet');
+        
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
         
@@ -94,11 +102,15 @@ class OutletsController extends ApiController
 
     public function destroy($id)
     {
-        $this->authorizing('delete-outlet');
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'delete-outlet');
+        
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
         
-        $this->repo()->destroyForOwner($decodedId);
+        $this->repo()->destroyForOwner($decodedId, $owner);
 
         return $this->response()->deleted();
     }

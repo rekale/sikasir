@@ -3,7 +3,6 @@
 namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\Repository;
-use Sikasir\V1\Repositories\BelongsToOwnerRepo; 
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
@@ -14,71 +13,31 @@ use Sikasir\V1\User\User;
  * @author rekale  public function __construct(Cashier $model) {
   
  */
-class CashierRepository extends Repository implements BelongsToOwnerRepo
+class CashierRepository extends Repository
 {
     
     public function __construct(Cashier $model) {
         parent::__construct($model);
     }
 
-    /**
-     * save cashier
-     *
-     * @param array $data
-     * @param Sikasir\V1\User\Owner $owner
-     *
-     * @return void
-     */
-    public function saveForOwner(array $data, Owner $owner)
+    public function saveForOwner(array $data, $ownerId)
     {
-        $user = new User([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ]);
+        \DB::transaction(function ($data, $ownerId){
         
-        $data['owner_id'] = $owner->id;
-        
-        $cashier = Cashier::create($data);
-        
-        $cashier->user()->save($user);
-        
-    }
+            $user = new User([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+            ]);
 
-    public function getPaginatedForOwner(Owner $owner, $with = []) 
-    {
-        $with = array_filter($with);
-        
-        if (empty($with)) {
-            return $owner->cashiers()->paginate();
-        }
-        
-        return $owner->cashiers()->with($with)->paginate();
-    }
+            $data['owner_id'] = $ownerId;
 
-    public function findForOwner($id, Owner $owner, $with = []) 
-    {
-        $with = array_filter($with);
-        
-        if (empty($with)) {
-            return $owner->cashiers()->findOrFail($id);
-        }
-            
-        return $owner->cashiers()->with($with)->findOrFail($id);
-    }
-    
-    public function updateForOwner($id, array $data, Owner $owner) 
-    {
-        $owner->cashiers()
-                ->findOrFail($id)
-                ->update($data);
-    }
-    
-    public function destroyForOwner($id, Owner $owner) 
-    {   
-        $owner->cashiers()->findOrFail($id);
-        
-        $this->destroy($id);
+            $cashier = Cashier::create($data);
+
+            $cashier->user()->save($user);
+       
+        });
+         
     }
 
 }

@@ -100,14 +100,18 @@ class RolesSeeder extends Seeder
             'create-outlet',
             'update-outlet',
             'delete-outlet',
+            'read-outlet',
+            
             'create-staff',
             'read-staff',
             'update-staff',
             'delete-staff',
+            
             'create-mobileaccount',
             'read-mobileaccount',
             'update-mobileaccount',
             'delete-mobileaccount',
+            
             'crud-billing',
         ];
     }

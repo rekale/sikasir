@@ -19,9 +19,11 @@ class CategoriesController extends ApiController
 
     public function index()
     {
-        $this->authorizing('read-product');
+         $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'read-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -36,9 +38,11 @@ class CategoriesController extends ApiController
     
     public function store(Request $request)
     {
-        $this->authorizing('create-product');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->toOwner();
+        $this->authorizing($currentUser, 'create-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $this->repo()->saveCategory($owner, $request->input('name'));
 
@@ -47,9 +51,11 @@ class CategoriesController extends ApiController
     
     public function update($id, Request $request)
     {
-        $this->authorizing('update-product');
-
-        $owner = $this->currentUser()->toOwner();
+         $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'update-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $this->repo()->updateCategory($owner, $this->decode($id), $request->input('name'));
         
@@ -58,11 +64,13 @@ class CategoriesController extends ApiController
 
     public function destroy($id)
     {
-        $this->authorizing('delete-product');
+         $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'delete-product');
+       
+        $owner = $currentUser->getOwnerId();
         
         $decodedId = $this->decode($id);
-        
-        $owner = $this->currentUser()->toOwner();
         
         $this->repo()->destroyCategories($owner, $decodedId);
 

@@ -7,13 +7,15 @@ use Sikasir\V1\Products\Product;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Products\Category;
+use Sikasir\V1\Outlets\Outlet;
+
 /**
  * Description of ProductRepository
  *
  * @author rekale 
  *
  */
-class ProductRepository extends Repository implements BelongsToOwnerRepo
+class ProductRepository extends Repository
 {
     public function __construct(Product $product) 
     {
@@ -64,12 +66,25 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         Category::destroy($id);
     }
     
-    public function saveForOwner(array $data, Owner $owner)
+    public function getPaginatedForOwner($ownerId, $with = array(), $perPage = 15) {
+        
+        return Product::whereExists(function ($query) use($ownerId) {
+                $query->select(\DB::raw(1))
+                      ->from('categories')
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('categories.id = products.category_id');
+                })
+                ->paginate($perPage);
+        
+    }
+    
+    public function saveForOwner(array $data, $ownerId)
     {
-        \DB::transaction(function() use ($data, $owner) {
+        \DB::transaction(function() use ($data, $ownerId) {
             
             //check if this category is belong to current owner
-            $category = $owner->categories()->findOrFail($data['category_id']);
+            $category = Category::where('owner_id' , '=', $ownerId)
+                                ->findOrFail($data['category_id']);
 
             $product = $category->products()->save(new Product($data));
 
@@ -82,7 +97,9 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
             $variants = $product->variants()->saveMany($variantModels);
             
             //find product that related to current owner
-            $outlets = $owner->outlets()->findMany($data['outlet_ids']);
+            $outlets = Outlet::where('owner_id', '=', $ownerId)
+                            ->findMany($data['outlet_ids']);
+            
             //save product to these outlets
             foreach($outlets as $outlet) {
                 $outlet->products()->save($product);
@@ -95,27 +112,10 @@ class ProductRepository extends Repository implements BelongsToOwnerRepo
         
     }
     
-    public function destroyForOwner($id, Owner $owner) 
+    public function updateForOwner($id, array $data, $ownerId) 
     {
-        $owner->products()
-                ->findOrFail($id)
-                ->delete();
-        
-    }
-
-    public function findForOwner($id, Owner $owner, $with = []) 
-    {
-        return $owner->products()->with($with)->findOrFail($id);
-    }
-
-    public function getPaginatedForOwner(Owner $owner, $with = []) 
-    {
-        return $owner->products()->with($with)->paginate();
-    }
-
-    public function updateForOwner($id, array $data, Owner $owner) 
-    {
-        $category = $owner->categories()->findOrFail($data['category_id']);
+        $category = Category::where('owner_id', '=', $ownerId)
+                            ->findOrFail($data['category_id']);
         
         $product = $category->products()->findOrFail($id);
         
