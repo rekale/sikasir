@@ -22,9 +22,9 @@ class ProductRepository extends Repository
         parent::__construct($product);
     }
     
-    public function getCategories(Owner $owner)
+    public function getCategories($ownerId)
     {
-        return $owner->categories()->paginate();
+        return Category::where('owner_id', '=', $ownerId)->paginate();
     }
     
     /**
@@ -33,11 +33,12 @@ class ProductRepository extends Repository
      * @param Owner $owner
      * @param string $category
      */
-    public function saveCategory(Owner $owner, $category)
+    public function saveCategory($ownerId, $category)
     {
-        $owner->categories()->save( 
-            new Category(['name' => $category]) 
-        );
+        Category::create([
+            'owner_id' => $ownerId,
+            'name' => $category,
+        ]);
     }
     
     /**
@@ -114,38 +115,43 @@ class ProductRepository extends Repository
     
     public function updateForOwner($id, array $data, $ownerId) 
     {
-        $category = Category::where('owner_id', '=', $ownerId)
-                            ->findOrFail($data['category_id']);
+        \DB::transaction(function() use ($id, $data, $ownerId){
         
-        $product = $category->products()->findOrFail($id);
-        
-        $product->update($data);
-        
-        $deletedExistVariantIds = [];
-        $newVariants = [];
-        
-        foreach($data['variants'] as $variant) {
-            
-            if ( isset($variant['id']) ) {
-                
-                if ($variant['delete']) {
-                    $deletedExistVariantIds[] = $variant['id'];
+            $category = Category::where('owner_id', '=', $ownerId)
+                                ->findOrFail($data['category_id']);
+
+            $product = $category->products()->findOrFail($id);
+
+            $product->update($data);
+
+            $deletedExistVariantIds = [];
+            $newVariants = [];
+
+            foreach($data['variants'] as $variant) {
+
+                if ( isset($variant['id']) ) {
+
+                    if ($variant['delete']) {
+                        $deletedExistVariantIds[] = $variant['id'];
+                    }
+                    else {
+                        $product->findOrFail($variant['id'])
+                            ->update($variant);
+                    }
+
                 }
                 else {
-                    $product->findOrFail($variant['id'])
-                        ->update($variant);
+                    $newVariants[] = new Variant($variant);
                 }
-                
+
             }
-            else {
-                $newVariants[] = new Variant($variant);
-            }
-            
-        }
+
+            Variant::destroy($deletedExistVariantIds); 
+
+            $product->variants()->saveMany($newVariants);
         
-        Variant::destroy($deletedExistVariantIds); 
-       
-        $product->variants()->saveMany($newVariants);
+            
+        });
         
     }
 

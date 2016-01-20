@@ -13,7 +13,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['owner_id','name'];
     
     public function owner()
     {
