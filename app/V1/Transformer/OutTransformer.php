@@ -39,9 +39,7 @@ class OutTransformer extends TransformerAbstract
     
     public function includeItems(Out $out, ParamBag $params = null)
     {
-       $collection = $this->setData(
-            $out->items(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
+       $collection = $out->items;
         
         return $this->collection($collection, new ItemTransformer);
     }

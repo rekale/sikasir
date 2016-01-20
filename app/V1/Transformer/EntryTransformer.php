@@ -6,6 +6,7 @@ use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Stocks\Entry;
 use \Sikasir\V1\Traits\IdObfuscater;
 use \Sikasir\V1\Traits\ParamTransformer;
+use League\Fractal\ParamBag;
 /**
  * Description of AppTransformer
  *
@@ -38,11 +39,9 @@ class EntryTransformer extends TransformerAbstract
     
     public function includeItems(Entry $entry, ParamBag $params = null)
     {
-       $collection = $this->setData(
-            $entry->items(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
+       $collection = $entry->items;
         
-        return $this->collection($collection, new ItemTransformer);
+       return $this->collection($collection, new ItemTransformer);
     }
     
 }

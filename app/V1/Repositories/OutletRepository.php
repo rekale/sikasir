@@ -5,9 +5,9 @@ namespace Sikasir\V1\Repositories;
 use Sikasir\V1\Repositories\Repository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
-use Sikasir\V1\Stocks\StockEntry;
+use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
-use Sikasir\V1\Stocks\StockTransfer;
+use Sikasir\V1\Stocks\Stock;
 
 /**
  * Description of OutletRepository
@@ -180,9 +180,9 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getStocksPaginated($outletId, $ownerId, $with =[], $perPage = null)
+    public function getStocksPaginated($outletId, $ownerId, $with =[], $perPage = 15)
     {
-        return \Sikasir\V1\Stocks\Stock::whereExists(function ($query) use($ownerId, $outletId) {
+        return Stock::whereExists(function ($query) use($ownerId, $outletId) {
                 $query->select(\DB::raw(1))
                       ->from('outlets')
                       ->where('id', '=', $outletId)
@@ -201,12 +201,17 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getEntriesPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getEntriesPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner, ['entries'])
-                ->entries()
+         return Entry::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = entries.outlet_id');
+                })
                 ->with($with)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     /**
      * get outlet's stock outs
@@ -216,12 +221,17 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getOutsPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getOutsPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner, ['outs'])
-                ->outs()
+       return Out::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = outs.outlet_id');
+                })
                 ->with($with)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**

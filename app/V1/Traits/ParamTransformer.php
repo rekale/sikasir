@@ -39,6 +39,7 @@ trait ParamTransformer
     {
         if (isset($perPage)) {
             $this->limit = $perPage;
+            
         }
         
         if(isset($currentPage)) {
