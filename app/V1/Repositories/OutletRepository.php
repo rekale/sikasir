@@ -242,10 +242,15 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getOpnamesPaginated($outletId, Owner $owner, $with =[],$perPage = 15)
+    public function getOpnamesPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner)
-                ->opnames()
+        return \Sikasir\V1\Stocks\Opname::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = opnames.outlet_id');
+                })
                 ->with($with)
                 ->paginate($perPage);
     }

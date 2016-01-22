@@ -39,9 +39,7 @@ class OpnameTransformer extends TransformerAbstract
     
     public function includeItems(Opname $opname, ParamBag $params = null)
     {
-       $collection = $this->setData(
-            $opname->items(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
+       $collection = $opname->items;
         
         return $this->collection($collection, new ItemTransformer);
     }
