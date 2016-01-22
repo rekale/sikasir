@@ -26,15 +26,10 @@ class OutletTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'employees',
         'cashiers',
-        'stocks',
-        'entries',
-        'outs',
-        'opnames',
         'incomes',
         'outcomes',
         'customers',
         'variants',
-        'orders',
         'printers',
     ];
     
