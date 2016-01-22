@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         'admins',
         'owners',
         'employees',
-        'cashiers',
         'apps',
         'outlets',
         'business_fields',

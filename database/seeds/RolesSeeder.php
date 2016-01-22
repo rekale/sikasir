@@ -15,11 +15,8 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->cashierAbilities() as $doThis) {
-            \Bouncer::allow('cashier')->to($doThis);
-        }
         foreach ($this->employeeAbilities() as $doThis) {
-            \Bouncer::allow('staff')->to($doThis);
+            \Bouncer::allow('employee')->to($doThis);
         }
         foreach ($this->OwnerAbilities() as $doThis) {
             \Bouncer::allow('owner')->to($doThis);
@@ -35,7 +32,6 @@ class RolesSeeder extends Seeder
         Owner::all()->each(function ($owner) {
             $owner->user->assign('owner');
             $owner->user->assign('staff');
-            $owner->user->assign('cashier');
             
             $owner->user->allow($this->doProductAbilities());
             $owner->user->allow($this->doOrderAbilties());
@@ -45,7 +41,6 @@ class RolesSeeder extends Seeder
         
         Employee::all()->each(function ($employee) {
             $employee->user->assign('staff');
-            $employee->user->assign('cashier');
             
             $employee->user->allow($this->doProductAbilities());
             $employee->user->allow($this->doOrderAbilties());
@@ -53,13 +48,9 @@ class RolesSeeder extends Seeder
             $employee->user->allow($this->doBillingAbilties());
         });
         
-        Cashier::all()->each(function ($cashier) {
-            $cashier->user->assign('cashier');
-        });
-
     }
 
-    public function cashierAbilities()
+    public function employeeAbilities()
     {
         return [
             'create-customer',
@@ -67,7 +58,6 @@ class RolesSeeder extends Seeder
             'update-customer',
             'delete-customer',
             
-            'read-specific-outlet',
             'read-specific-owner',
             
             'create-order',
@@ -79,12 +69,6 @@ class RolesSeeder extends Seeder
             'crud-kas',
             'crud-orderlist',
             'export-report',
-        ];
-    }
-
-    public function employeeAbilities()
-    {
-        return [
             
             'create-cashier',
             'read-cashier',

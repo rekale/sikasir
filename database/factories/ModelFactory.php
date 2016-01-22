@@ -15,7 +15,6 @@ use Sikasir\V1\User\Admin;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
 use Sikasir\V1\User\Employee;
-use Sikasir\V1\User\Cashier;
 
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\BusinessField;
@@ -134,16 +133,6 @@ $factory->define(Employee::class, function (Faker\Generator $fake) {
         'void_access' => true,
     ];
     
-});
-
-$factory->define(Cashier::class, function (Faker\Generator $fake) {
-    return [
-        'name' => $fake->name, 
-        'gender' => $fake->randomElement(['male', 'female']),
-        'phone' => $fake->phoneNumber,
-        'address' => $fake->address,
-        'icon' => $fake->imageUrl(),
-    ];
 });
 
 $factory->define(Customer::class, function (Faker\Generator $fake) {

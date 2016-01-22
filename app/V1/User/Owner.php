@@ -3,7 +3,6 @@
 namespace Sikasir\V1\User;
 
 use Illuminate\Database\Eloquent\Model;
-use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Tax;
@@ -90,15 +89,6 @@ class Owner extends Model
     public function employees()
     {
         return $this->hasMany(\Sikasir\V1\User\Employee::class);
-    }
-    
-     /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cashiers()
-    {
-        return $this->hasMany(Cashier::class);
     }
     
      /**

@@ -37,12 +37,6 @@
         <li> PUT employees/{id} </li>
         <li> DELETE employees/{id} </li>
         <br>
-        <li> GET cashiers </li>
-        <li> GET cashiers/{id} </li>
-        <li> POST cashiers </li>
-        <li> PUT cashiers/{id} </li>
-        <li> DELETE cashiers/{id} </li>
-        <br>
         <li> GET outlets?include=employees, incomes,outcomes, customers, <b>variants, printers</b></li>
         <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, <b>variants, printers</b>  </li>
         <br>

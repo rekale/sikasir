@@ -69,26 +69,7 @@ class UserSeeder extends Seeder
         }
         
         $this->createOutlets();
-           
-        $userCashiers = factory(User::class, 3)->make([
-            'password' => bcrypt('12345'),
-        ]);
         
-        $outlets = $owner->outlets()->lists('id');
-        
-        foreach ($userCashiers as $user) {
-        
-            $cashier = factory(Cashier::class)->create([
-                'owner_id' => $owner->id, 
-                'outlet_id' => $outlets[mt_rand(0, count($outlets)-1)],
-                'name' => $user->name,
-            ]);
-            
-            $cashier->user()->save($user);
-        
-        }
-        
-
     }
     
     public function createOutlets()
