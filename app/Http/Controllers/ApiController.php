@@ -107,6 +107,7 @@ class ApiController extends Controller
      */
     public function filterIncludeParams($param)
     {
+        /*
         $paramsinclude  = [];
         
         if (! is_null($param)) {
@@ -114,7 +115,9 @@ class ApiController extends Controller
                 $paramsinclude[]  = preg_replace("/:(.*)/", "", $data);
             }
         }
+         * 
+         */
         
-        return $paramsinclude;
+        return isset($param) ? $param : [];
     }
 }

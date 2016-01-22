@@ -30,7 +30,6 @@ class StockTransformer extends TransformerAbstract
     {
         $data = [
             'id' => $this->encode($stock->id),
-            'total' => $stock->total,
         ];
         
         if (isset($stock->pivot)) {

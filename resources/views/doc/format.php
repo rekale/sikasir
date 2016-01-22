@@ -33,18 +33,6 @@
             "privileges": [1, 2, 3, 4], // 1: produk 2:daftar transaksi dan daftar void 3: laporan 4:billing
         }
 
-        --CASHIER--
-        {
-            "name" : "rekale", //required untuk post
-            "gender": "pria", //required untuk post
-            "email" : "rekale@asu1.com", //required untuk post dan harus unik
-            "password": "12345", //required untuk post
-            "outlet_id": "D", //required untuk post
-            "business_name" :"tukang bakso", //required untuk post
-            "phone" :"087808738790", //required untuk post
-            "address" :"dimana aja lah" //required untuk post
-        }
-
         --OUTLET--
 
         {
@@ -123,7 +111,7 @@
             "tax_id" : "Z", //required
             "note": "lalala yeyeye",
             "total": 1000, //required, kalo ngutang valuenya isi 0 aja
-            "paid": true, //field untuk menandakan ngutang atau enggak, kalo ini gak ada defaultnya true
+            "paid": true, //field untuk menandakan ngutang atau enggak. kalo ini gak di isi defaultnya true
             "items": [
                 {
                     "id" : "Z",
