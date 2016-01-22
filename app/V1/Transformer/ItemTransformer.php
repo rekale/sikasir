@@ -25,6 +25,7 @@ class ItemTransformer extends TransformerAbstract
         'entries',
         'outs',
         'opnames',
+        'stock',
     ];
 
 
@@ -40,6 +41,13 @@ class ItemTransformer extends TransformerAbstract
         }
         
         return $data;
+    }
+    
+     public function includeStock(StockDetail $item, ParamBag $params = null)
+    {
+        $collection = $item->stock;
+        
+        return $this->item($collection, new StockTransformer);
     }
     
     public function includeVariant(StockDetail $stock, ParamBag $params = null)

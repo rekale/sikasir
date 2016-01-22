@@ -30,6 +30,11 @@ class StockDetail extends Model
         return $this->belongsTo(Outlet::class);
     }
     
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class);
+    }
+    
     public function entries()
     {
         return $this->belongsToMany(Entry::class, 'entry_stockdetail', 'stock_id', 'entry_id')

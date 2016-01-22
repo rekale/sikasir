@@ -27,10 +27,12 @@ class OrdersController extends ApiController
    public function index($id)
    {    
        
-       $this->authorizing('read-order');
+        $currentUser =  $this->currentUser();
         
-        $owner = $this->currentUser()->getOwnerId();
-        
+        $this->authorizing($currentUser, 'read-order');
+       
+        $owner = $currentUser->getOwnerId();
+       
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
         $with = $this->filterIncludeParams($include);
@@ -46,9 +48,12 @@ class OrdersController extends ApiController
    
    public function voided($id)
    {
-        $this->authorizing('read-order');
         
-        $owner = $this->currentUser()->getOwnerId();
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-order');
+       
+        $owner = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -67,13 +72,16 @@ class OrdersController extends ApiController
    
     public function paid($id)
     {
-         $this->authorizing('read-order');
+         
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-order');
+       
+        $owner = $currentUser->getOwnerId();
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
-         $owner = $this->currentUser()->getOwnerId();
-
-         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-         $include = isset($include) ? $include . ',voidby' : 'voidby';
+        $include = isset($include) ? $include . ',voidby' : 'voidby';
 
          $with = $this->filterIncludeParams($include);
 

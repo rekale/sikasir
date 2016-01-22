@@ -52,9 +52,7 @@ class OrderTransformer extends TransformerAbstract
     
     public function includeItems(Order $order, ParamBag $params = null)
     {
-        $collection = $this->setData(
-            $order->items(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
+        $collection = $order->items;
         
         return $this->collection($collection, new ItemTransformer);
     }

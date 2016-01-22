@@ -69,12 +69,12 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getOutcomes($outletId, $paginated = true, $perPage = null)
+    public function getOutcomes($outletId, $paginated = true, $perPage = 15)
     {
            return $paginated 
                    ? $this->find($outletId)
                         ->outcomes()
-                        ->paginate($this->perPage($perPage))
+                        ->paginate($perPage)
                    : $this->findWith($outletId, ['outcomes'])
                         ->outcomes ;
     }
@@ -112,12 +112,12 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getCustomers($outletId, $paginated = true, $perPage = null)
+    public function getCustomers($outletId, $paginated = true, $perPage = 15)
     {
            return $paginated 
                    ? $this->find($outletId)
                         ->customers()
-                        ->paginate($this->perPage($perPage))
+                        ->paginate($perPage)
                    : $this->findWith($outletId,['customers'])
                         ->customers ;
     }
@@ -143,12 +143,12 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getProducts($outletId, $paginated = true, $perPage = null)
+    public function getProducts($outletId, $paginated = true, $perPage = 15)
     {
            return $paginated 
                    ? $this->find($outletId)
                         ->products()
-                        ->paginate($this->perPage($perPage)) 
+                        ->paginate($perPage) 
                    : $this->findWith($outletId, ['products'])
                         ->products ;
     }
@@ -242,29 +242,34 @@ class OutletRepository extends Repository
      *
      * @return Collection | Paginator
      */
-    public function getOpnamesPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getOpnamesPaginated($outletId, Owner $owner, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner, ['opnames'])
+        return $this->findForOwner($outletId, $owner)
                 ->opnames()
                 ->with($with)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**
      * get outlet's orders
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer $ownerId
      *
      * @return Collection | Paginator
      */
-    public function getOrdersPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getOrdersPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-       return $this->findForOwner($outletId, $owner, ['orders'])
-                ->orders()
+       return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('void', '=', false)
                 ->with($with)
-                ->whereVoid(false)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     
@@ -272,51 +277,66 @@ class OutletRepository extends Repository
      * get outlet's voided orders
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer $ownerId
      *
      * @return Collection | Paginator
      */
-    public function getOrdersVoidPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getOrdersVoidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner, ['orders'])
-                ->orders()
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('void', '=', true)
                 ->with($with)
-                ->whereVoid(true)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**
      * get outlet's paid only orders
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer $ownerId
      *
      * @return Collection | Paginator
      */
-    public function getOrdersPaidPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getOrdersPaidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner, ['orders'])
-                ->orders()
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('paid', '=', true)
                 ->with($with)
-                ->wherePaid(true)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**
      * get outlet's unpaid only orders
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer ownerId
      *
      * @return Collection | Paginator
      */
-    public function getOrdersUnpaidPaginated($outletId, Owner $owner, $with =[],$perPage = null)
+    public function getOrdersUnpaidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($outletId, $owner, ['orders'])
-                ->orders()
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('paid', '=', false)
                 ->with($with)
-                ->wherePaid(false)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
 
 
