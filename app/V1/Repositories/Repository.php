@@ -111,7 +111,7 @@ abstract class Repository implements RepositoryInterface
     public function findWith($id, array $relations)
     {
         
-        return $this->model()->with($relations)->findOrFail($id);
+        return $this->model->with($relations)->findOrFail($id);
     }
 
     /**

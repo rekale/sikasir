@@ -46,7 +46,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
     Route::group(['middleware' => 'jwt.auth'], function ()
     {
-
+        
+        Route::group(['namespace' => 'Tenants'], function ()
+        {
+            get('/', 'TenantController@index');
+        });
+        
         Route::group(['namespace' => 'Owners'], function ()
         {
             get('owners', 'OwnersController@index');

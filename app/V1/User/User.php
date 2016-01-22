@@ -59,7 +59,7 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * change current to owner
+     * get current user's owner id
      * 
      * @return Sikasir\V1\User\Owner
      */
@@ -76,5 +76,5 @@ class User extends Model implements AuthenticatableContract,
             return $this->userable->owner_id;
         }
     }
-
+    
 }

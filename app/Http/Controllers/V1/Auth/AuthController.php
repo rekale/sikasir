@@ -60,12 +60,9 @@ class AuthController extends Controller
         
         $loggedUserAbilities = $auth->toUser($token)->getAbilities()->lists('name');
         
-        $ownerId = $this->encode($auth->toUser()->getOwnerId()->id);
-        
         return $this->response->respond([
             'success' => [
                 'token' => $token,
-                'owner_id' => $ownerId,
                 'expire_at' => config('jwt.ttl'),
                 'privileges' => $loggedUserAbilities,
                 'code' => 200,
