@@ -24,8 +24,8 @@ class EmployeeTransformer extends TransformerAbstract
             'address' => $employee->address,
             'phone'=> $employee->phone,
             'void_access' => (boolean) $employee->void_access,
-            'icon' => $employee->icon
-
+            'icon' => $employee->icon,
+            'key_id' => $employee->user->password, 
         ];
     }
 
