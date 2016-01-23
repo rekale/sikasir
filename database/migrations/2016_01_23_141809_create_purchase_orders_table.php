@@ -14,7 +14,41 @@ class CreatePurchaseOrdersTable extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('supplier_id')->unsigned()->index();
+            $table->integer('outlet_id')->unsigned()->index();
+            $table->string('note');
+            $table->string('po_number');
+            $table->date('input_at');
             $table->timestamps();
+            
+            $table->foreign('supplier_id')
+                ->references('id')
+                ->on('suppliers')
+                ->onDelete('cascade');
+            
+            $table->foreign('outlet_id')
+                ->references('id')
+                ->on('outlets')
+                ->onDelete('cascade');
+        });
+        
+        
+        Schema::create('purchase_order_stock_detail', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('purchase_order_id')->unsigned()->index();
+            $table->integer('stock_detail_id')->unsigned()->index();
+            $table->integer('total');
+            
+            $table->foreign('purchase_order_id')
+                ->references('id')
+                ->on('purchase_orders')
+                ->onDelete('cascade');
+            
+            $table->foreign('stock_detail_id')
+                ->references('id')
+                ->on('stock_details')
+                ->onDelete('cascade');
+            
         });
     }
 
@@ -25,6 +59,7 @@ class CreatePurchaseOrdersTable extends Migration
      */
     public function down()
     {
+        Schema::drop('purchase_order_stock_detail');
         Schema::drop('purchase_orders');
     }
 }

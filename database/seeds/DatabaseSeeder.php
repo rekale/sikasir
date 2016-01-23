@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
         'out_stockdetail',
         'opnames',
         'opname_stockdetail',
+        'purchase_orders',
+        'purchase_order_stock_detail',
         'orders',
         'order_stockdetail',
         'suppliers',
@@ -49,10 +51,10 @@ class DatabaseSeeder extends Seeder
         'RolesSeeder',
         'FinanceSeeder',
         'CustomerSeeder',
+        'SupplierSeeder',
         'ProductSeeder',
         'StockSeeder',
         'OrderSeeder',
-        'SupplierSeeder',
         'PrinterSeeder',
     ];
 
