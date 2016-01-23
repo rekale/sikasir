@@ -2,7 +2,7 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
@@ -13,7 +13,7 @@ use Sikasir\V1\User\User;
  * @author rekale  public function __construct(Cashier $model) {
   
  */
-class CashierRepository extends Repository
+class CashierRepository extends EloquentRepository
 {
     
     public function __construct(Cashier $model) {

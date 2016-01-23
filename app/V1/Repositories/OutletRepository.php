@@ -2,7 +2,7 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Stocks\Entry;
@@ -14,7 +14,7 @@ use Sikasir\V1\Stocks\Stock;
  *
  * @author rekale
  */
-class OutletRepository extends Repository
+class OutletRepository extends EloquentRepository
 {
 
     public function __construct(Outlet $outlet) {

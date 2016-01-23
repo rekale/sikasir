@@ -31,21 +31,12 @@ class RolesSeeder extends Seeder
         
         Owner::all()->each(function ($owner) {
             $owner->user->assign('owner');
-            $owner->user->assign('staff');
+            $owner->user->assign('employee');
             
-            $owner->user->allow($this->doProductAbilities());
-            $owner->user->allow($this->doOrderAbilties());
-            $owner->user->allow($this->doReportAbilties());
-            $owner->user->allow($this->doBillingAbilties());
         });
         
         Employee::all()->each(function ($employee) {
-            $employee->user->assign('staff');
-            
-            $employee->user->allow($this->doProductAbilities());
-            $employee->user->allow($this->doOrderAbilties());
-            $employee->user->allow($this->doReportAbilties());
-            $employee->user->allow($this->doBillingAbilties());
+            $employee->user->assign('employee');
         });
         
     }
@@ -58,22 +49,33 @@ class RolesSeeder extends Seeder
             'update-customer',
             'delete-customer',
             
-            'read-specific-owner',
-            
-            'create-order',
-            'update-order',
-            'delete-order',
-            
-            'crud-inventory',
-            'view-transaction',
-            'crud-kas',
-            'crud-orderlist',
-            'export-report',
+            'create-supplier',
+            'read-supplier',
+            'update-supplier',
+            'delete-supplier',
             
             'create-cashier',
             'read-cashier',
             'update-cashier',
             'delete-cashier',
+            
+            'create-product',
+            'read-product',
+            'update-product',
+            'delete-product',
+            
+            'read-stock',
+            'create-stock',
+            'delete-stock',
+            
+            'create-stock-entry',
+            'read-stock-entry',
+            'delete-stock-entry',
+            
+            'create-order',
+            'void-order',
+            'update-order',
+            'delete-order',
             
         ];
     }
@@ -110,47 +112,4 @@ class RolesSeeder extends Seeder
         ];
     }
     
-    public function doProductAbilities()
-    {
-        return [
-            'create-product',
-            'read-product',
-            'update-product',
-            'delete-product',
-            
-            'read-stock',
-            'create-stock',
-            'delete-stock',
-            
-            'create-stock-entry',
-            'read-stock-entry',
-            'delete-stock-entry',
-            
-        ];
-    }
-    
-    public function doOrderAbilties()
-    {
-        return [
-            'read-order',
-            'void-transaction',
-        ];
-    }
-    
-    public function doReportAbilties()
-    {
-        return [
-            'read-report',
-        ];
-    }
-    
-    public function doBillingAbilties()
-    {
-        return [
-            'read-billing',
-            'create-billing',
-            'update-billing',
-            'delete-billing',
-        ];
-    }
 }

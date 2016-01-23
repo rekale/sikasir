@@ -2,7 +2,7 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 
 /**
  * Description of OutletRepository
@@ -10,7 +10,7 @@ use Sikasir\V1\Repositories\Repository;
  * @author rekale  public function __construct(Cashier $model) {
   
  */
-class StockRepository extends Repository
+class StockRepository extends EloquentRepository
 {
     
     public function __construct(StockDetail $model) {

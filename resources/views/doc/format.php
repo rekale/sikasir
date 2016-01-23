@@ -123,6 +123,14 @@
                 }
             ]
         }
+
+        --SUPPLIER--
+        {
+            "name": "sukajaya",
+            "email": "sukajaya@gmail.com",
+            "phone": "12345688",
+            "address": "dimana mana"
+        }
         </pre>
     </body>
 </html>

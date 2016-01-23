@@ -37,6 +37,14 @@
         <li> PUT employees/{id} </li>
         <li> DELETE employees/{id} </li>
         <br>
+        <b>
+        <li> GET suppliers </li>
+        <li> GET suppliers/{id} </li>
+        <li> POST suppliers </li>
+        <li> PUT suppliers/{id} </li>
+        <li> DELETE suppliers/{id} </li>
+        </b>
+        <br>
         <li> GET outlets?include=employees, incomes,outcomes, customers, <b>variants, printers</b></li>
         <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, <b>variants, printers</b>  </li>
         <br>

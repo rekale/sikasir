@@ -2,14 +2,14 @@
 
 namespace Sikasir\V1\User;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\User;
 /**
  * Description of OutletRepository
  *
  * @author rekale
  */
-class OwnerRepository extends Repository
+class OwnerRepository extends EloquentRepository
 {
     
     public function __construct(Owner $owner) 

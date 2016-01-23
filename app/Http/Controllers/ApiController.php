@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\Controller;
 use Sikasir\V1\Traits\IdObfuscater;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\RepositoryInterface;
 use Sikasir\V1\User\User;
 
 class ApiController extends Controller
@@ -22,7 +22,7 @@ class ApiController extends Controller
     private $auth;
     private $repo;
 
-    public function __construct(ApiRespond $respond, JWTAuth $auth, Repository $repo)
+    public function __construct(ApiRespond $respond, JWTAuth $auth, RepositoryInterface $repo)
     {
         $this->response = $respond;
         $this->auth = $auth;

@@ -2,7 +2,7 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Orders\Order;
 /**
@@ -11,7 +11,7 @@ use Sikasir\V1\Orders\Order;
  * @author rekale 
  *
  */
-class OrderRepository extends Repository
+class OrderRepository extends EloquentRepository
 {
     public function __construct(Order $order) 
     {

@@ -8,7 +8,7 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
@@ -18,7 +18,7 @@ use Sikasir\V1\User\User;
  *
  * @author rekale
  */
-class EmployeeRepository extends Repository
+class EmployeeRepository extends EloquentRepository
 {
     public function __construct(Employee $model) 
     {

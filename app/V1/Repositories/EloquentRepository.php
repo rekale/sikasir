@@ -5,7 +5,7 @@ namespace Sikasir\V1\Repositories;
 use \Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Repositories\RepositoryInterface;
 
-abstract class Repository implements RepositoryInterface
+abstract class EloquentRepository implements RepositoryInterface
 {
     
     protected $model;

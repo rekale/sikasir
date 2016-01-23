@@ -31,6 +31,9 @@ Route::group(['prefix' => 'doc'], function()
     });
 });
 
+get('refresh', function(){
+})->middleware('jwt.refresh');
+
 Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 {
 
@@ -60,16 +63,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('owners/{id}', 'OwnersController@update');
             delete('owners/{id}', 'OwnersController@destroy');
         });
-
-        Route::group(['namespace' => 'Cashiers'], function ()
-        {
-            get('cashiers', 'CashiersController@index');
-            get('cashiers/{id}', 'CashiersController@show');
-            post('cashiers', 'CashiersController@store');
-            put('cashiers/{id}', 'CashiersController@update');
-            delete('cashiers/{id}', 'CashiersController@destroy');
-        });
-        
+  
         Route::group(['namespace' => 'Employees'], function ()
         {
             get('employees', 'EmployeesController@index');
@@ -77,6 +71,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('employees', 'EmployeesController@store');
             put('employees/{id}', 'EmployeesController@update');
             delete('employees/{id}', 'EmployeesController@destroy');
+        });
+        
+        Route::group(['namespace' => 'Suppliers'], function ()
+        {
+            get('suppliers', 'SuppliersController@index');
+            get('suppliers/{id}', 'SuppliersController@show');
+            post('suppliers', 'SuppliersController@store');
+            put('suppliers/{id}', 'SuppliersController@update');
+            delete('suppliers/{id}', 'SuppliersController@destroy');
         });
 
         Route::group(['namespace' => 'Outlets'], function()

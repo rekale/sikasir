@@ -2,7 +2,7 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Sikasir\V1\Repositories\Repository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Products\Variant;
@@ -15,7 +15,7 @@ use Sikasir\V1\Outlets\Outlet;
  * @author rekale 
  *
  */
-class ProductRepository extends Repository
+class ProductRepository extends EloquentRepository
 {
     public function __construct(Product $product) 
     {
