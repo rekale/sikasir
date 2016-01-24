@@ -17,6 +17,7 @@ class OpnameTransformer extends TransformerAbstract
     
     protected $availableIncludes = [
         'items',
+        'operator'
     ];
 
     public function transform(Opname $opname)
@@ -24,7 +25,6 @@ class OpnameTransformer extends TransformerAbstract
         
         $data = [
             'id' => $this->encode($opname->id),
-            'user' => $opname->user->name,
             'note' => $opname->note,
             'status' => (boolean) $opname->status,
             'input_at' => $opname->input_at,
@@ -42,6 +42,13 @@ class OpnameTransformer extends TransformerAbstract
        $collection = $opname->items;
         
         return $this->collection($collection, new ItemTransformer);
+    }
+    
+    public function includeOperator(Opname $opname, ParamBag $params = null)
+    {
+       $item = $opname->operator;
+        
+        return $this->item($item, new UserTransformer);
     }
     
 }

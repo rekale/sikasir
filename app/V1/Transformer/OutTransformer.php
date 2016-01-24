@@ -18,6 +18,7 @@ class OutTransformer extends TransformerAbstract
     
     protected $availableIncludes = [
         'items',
+        'operator',
     ];
 
     public function transform(Out $out)
@@ -25,7 +26,6 @@ class OutTransformer extends TransformerAbstract
         
         $data = [
             'id' => $this->encode($out->id),
-            'user' => $out->user->name,
             'note' => $out->note,
             'input_at' => $out->input_at,
         ];
@@ -42,5 +42,12 @@ class OutTransformer extends TransformerAbstract
        $collection = $out->items;
         
         return $this->collection($collection, new ItemTransformer);
+    }
+    
+    public function includeOperator(Out $out, ParamBag $params = null)
+    {
+       $item = $out->operator;
+        
+        return $this->item($item, new UserTransformer);
     }
 }

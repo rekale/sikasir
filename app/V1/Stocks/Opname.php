@@ -15,9 +15,9 @@ class Opname extends Model
         'status',
     ];
     
-    public function user()
+    public function operator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     
     public function items()

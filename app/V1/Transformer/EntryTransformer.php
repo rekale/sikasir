@@ -18,6 +18,7 @@ class EntryTransformer extends TransformerAbstract
     
     protected $availableIncludes = [
         'items',
+        'operator',
     ];
 
     public function transform(Entry $entry)
@@ -25,7 +26,6 @@ class EntryTransformer extends TransformerAbstract
         
         $data = [
             'id' => $this->encode($entry->id),
-            'user' => $entry->user->name,
             'note' => $entry->note,
             'input_at' => $entry->input_at,
         ];
@@ -42,6 +42,13 @@ class EntryTransformer extends TransformerAbstract
        $collection = $entry->items;
         
        return $this->collection($collection, new ItemTransformer);
+    }
+    
+    public function includeOperator(Entry $entry, ParamBag $params = null)
+    {
+       $item = $entry->operator;
+        
+        return $this->item($item, new UserTransformer);
     }
     
 }
