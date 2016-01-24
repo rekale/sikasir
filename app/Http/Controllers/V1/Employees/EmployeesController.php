@@ -54,7 +54,7 @@ class EmployeesController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'create-staff');
+        //$this->authorizing($currentUser, 'create-staff');
        
         $owner = $currentUser->getOwnerId();
         

@@ -4,7 +4,6 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\OrderTransformer;
-use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Repositories\OrderRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
@@ -14,7 +13,7 @@ class OrdersController extends ApiController
 {
    protected $repo;
     
-    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
+    public function __construct(ApiRespond $respond, OrderRepository $repo, JWTAuth $auth) {
 
         parent::__construct($respond, $auth, $repo);
 
@@ -24,20 +23,20 @@ class OrdersController extends ApiController
      * 
      * @param string $id
      */
-   public function index($id)
+   public function index($outletId)
    {    
        
         $currentUser =  $this->currentUser();
         
         $this->authorizing($currentUser, 'read-order');
        
-        $owner = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getOwnerId();
        
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
         $with = $this->filterIncludeParams($include);
         
-        $collection = $this->repo()->getOrdersPaginated($this->decode($id), $owner, $with);
+        $collection = $this->repo()->getUnvoidPaginated($this->decode($outletId), $ownerId, $with);
         
         return $this->response()
                 ->resource()
@@ -46,14 +45,14 @@ class OrdersController extends ApiController
         
    }
    
-   public function voided($id)
+   public function voided($outletId)
    {
         
         $currentUser =  $this->currentUser();
         
         $this->authorizing($currentUser, 'read-order');
        
-        $owner = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -61,7 +60,7 @@ class OrdersController extends ApiController
         
         $with = $this->filterIncludeParams($include);
         
-        $collection = $this->repo()->getOrdersVoidPaginated($this->decode($id), $owner, $with);
+        $collection = $this->repo()->getVoidPaginated($this->decode($outletId), $ownerId, $with);
 
         return $this->response()
                 ->resource()
@@ -70,14 +69,14 @@ class OrdersController extends ApiController
         
    }
    
-    public function paid($id)
+    public function paid($outletId)
     {
          
         $currentUser =  $this->currentUser();
         
         $this->authorizing($currentUser, 'read-order');
        
-        $owner = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -85,7 +84,7 @@ class OrdersController extends ApiController
 
          $with = $this->filterIncludeParams($include);
 
-         $collection = $this->repo()->getOrdersPaidPaginated($this->decode($id), $owner, $with);
+         $collection = $this->repo()->getPaidPaginated($this->decode($outletId), $ownerId, $with);
 
          return $this->response()
                  ->resource()
@@ -94,11 +93,11 @@ class OrdersController extends ApiController
 
     }
     
-    public function unpaid($id)
+    public function unpaid($outletId)
     {
          $this->authorizing('read-order');
 
-         $owner = $this->currentUser()->getOwnerId();
+         $ownerId = $this->currentUser()->getOwnerId();
 
          $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -106,7 +105,7 @@ class OrdersController extends ApiController
 
          $with = $this->filterIncludeParams($include);
 
-         $collection = $this->repo()->getOrdersUnpaidPaginated($this->decode($id), $owner, $with);
+         $collection = $this->repo()->getUnpaidPaginated($this->decode($outletId), $ownerId, $with);
 
          return $this->response()
                  ->resource()
@@ -115,11 +114,11 @@ class OrdersController extends ApiController
 
     }
     
-    public function store($id, OrderRequest $request)
+    public function store($outletId, OrderRequest $request)
     {
         $this->authorizing('create-order');
 
-        $owner = $this->auth()->toUser()->getOwnerId();
+        $ownerId = $this->auth()->toUser()->getOwnerId();
         
         $dataInput = $request->all();
         
@@ -131,7 +130,7 @@ class OrdersController extends ApiController
             $dataInput['discount_id'] = $this->decode($dataInput['discount_id']);
         }
         
-        $dataInput['outlet_id'] = $this->decode($id);
+        $dataInput['outlet_id'] = $this->decode($outletId);
         
         $dataInput['operator_id'] = $this->decode($dataInput['operator_id']);
         
@@ -143,9 +142,8 @@ class OrdersController extends ApiController
             $item['id'] = $this->decode($item['id']);
         }
         
-        $repo = app(OrderRepository::class);
         
-        $repo->save($dataInput);
+        $this->repo()->save($dataInput);
 
         return $this->response()->created();
     }

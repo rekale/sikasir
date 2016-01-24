@@ -1,6 +1,6 @@
 <?php
 
-namespace Sikasir\V1\Repositories;
+namespace Sikasir\V1\Repositories\Interfaces;
 
 interface RepositoryInterface 
 {

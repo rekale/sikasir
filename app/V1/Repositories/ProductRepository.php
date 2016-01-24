@@ -8,6 +8,7 @@ use Sikasir\V1\User\Owner;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
 
 /**
  * Description of ProductRepository
@@ -15,8 +16,10 @@ use Sikasir\V1\Outlets\Outlet;
  * @author rekale 
  *
  */
-class ProductRepository extends EloquentRepository
+class ProductRepository extends EloquentRepository implements OwnerableRepo
 {
+    use Traits\EloquentOwnerable;
+    
     public function __construct(Product $product) 
     {
         parent::__construct($product);

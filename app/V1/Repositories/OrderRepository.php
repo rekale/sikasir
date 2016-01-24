@@ -5,6 +5,8 @@ namespace Sikasir\V1\Repositories;
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\Owner;
 use Sikasir\V1\Orders\Order;
+use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
+
 /**
  * Description of ProductRepository
  *
@@ -13,6 +15,7 @@ use Sikasir\V1\Orders\Order;
  */
 class OrderRepository extends EloquentRepository
 {
+    
     public function __construct(Order $order) 
     {
         parent::__construct($order);
@@ -42,53 +45,93 @@ class OrderRepository extends EloquentRepository
         });
         
     }
+   /**
+     * get outlet's voided orders
+     *
+     * @param integer $outletId
+     * @param integer $ownerId
+     *
+     * @return Collection | Paginator
+     */
+    public function getUnvoidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
+    {
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('void', '=', false)
+                ->with($with)
+                ->paginate($perPage);
+    }
+    
     
     /**
      * get outlet's voided orders
      *
-     * @param integer $orderId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer $outletId
+     * @param integer $ownerId
      *
      * @return Collection | Paginator
      */
-    public function getVoidPaginated($orderId,Owner $owner, $with =[],$perPage = null)
+    public function getVoidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($orderId, $owner)
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('void', '=', true)
                 ->with($with)
-                ->whereVoid(true)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**
      * get outlet's paid only orders
      *
-     * @param integer $orderId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer $outletId
+     * @param integer $ownerId
      *
      * @return Collection | Paginator
      */
-    public function getPaidPaginated($orderId, Owner $owner, $with =[],$perPage = null)
+    public function getPaidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($orderId, $owner)
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('paid', '=', true)
                 ->with($with)
-                ->wherePaid(true)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
     /**
      * get outlet's unpaid only orders
      *
-     * @param integer $orderId
-     * @param \Sikasir\V1\User\Owner
+     * @param integer $outletId
+     * @param integer ownerId
      *
      * @return Collection | Paginator
      */
-    public function getUnpaidPaginated($orderId, Owner $owner, $with =[],$perPage = null)
+    public function getUnpaidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
     {
-        return $this->findForOwner($orderId, $owner)
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+                $query->select(\DB::raw(1))
+                      ->from('outlets')
+                      ->where('id', '=', $outletId)
+                      ->where('owner_id', '=', $ownerId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+                })
+                ->where('paid', '=', false)
                 ->with($with)
-                ->wherePaid(false)
-                ->paginate($this->perPage($perPage));
+                ->paginate($perPage);
     }
     
 

@@ -3,22 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/StocksController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
-            <file>file:/D:/project/kasir/database/seeds/UserSeeder.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/EntriesController.php</file>
-            <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/resources/views/doc/format.php</file>
-            <file>file:/D:/project/kasir/database/seeds/RolesSeeder.php</file>
-            <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
-            <file>file:/D:/project/kasir/app/V1/User/Employee.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/StockTransformer.php</file>
-            <file>file:/D:/project/kasir/app/V1/User/Owner.php</file>
+            <file>file:/D:/project/kasir/app/Http/routes.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2016_01_23_141809_create_purchase_orders_table.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2016_01_12_144327_create_opnames_table.php</file>
             <file>file:/D:/project/kasir/database/factories/ModelFactory.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Tenants/TenantController.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2016_01_06_124509_order_stock.php</file>
-            <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/EntriesController.php</file>
+            <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/D:/project/kasir/database/seeds/StockSeeder.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/PurchaseOrder.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/Entry.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2015_12_13_051053_create_stocks_table.php</file>
         </group>
     </open-files>
 </project-private>

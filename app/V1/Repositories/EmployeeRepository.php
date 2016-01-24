@@ -10,16 +10,18 @@ namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\Employee;
-use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
+use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
 
 /**
  * Description of EmployeeRepository
  *
  * @author rekale
  */
-class EmployeeRepository extends EloquentRepository
+class EmployeeRepository extends EloquentRepository implements OwnerableRepo
 {
+    use Traits\EloquentOwnerable;
+    
     public function __construct(Employee $model) 
     {
         parent::__construct($model);
@@ -59,10 +61,10 @@ class EmployeeRepository extends EloquentRepository
             $user->allow($this->doOrderAbilties());
         }
         if (in_array( 3, $privileges)) {
-            $user->allow($this->doReportAbilities());
+            $user->allow($this->doReportAbilties());
         }
         if (in_array( 4, $privileges)) {
-            $user->allow($this->doBillingAbilities());
+            $user->allow($this->doBillingAbilties());
         }
     }
     

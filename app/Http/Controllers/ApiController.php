@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\Controller;
 use Sikasir\V1\Traits\IdObfuscater;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\Repositories\RepositoryInterface;
+use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 use Sikasir\V1\User\User;
 
 class ApiController extends Controller
@@ -107,17 +107,14 @@ class ApiController extends Controller
      */
     public function filterIncludeParams($param)
     {
-        /*
         $paramsinclude  = [];
         
         if (! is_null($param)) {
             foreach (explode(',', $param) as $data) {
-                $paramsinclude[]  = preg_replace("/:(.*)/", "", $data);
+                $paramsinclude[]  = $data;
             }
         }
-         * 
-         */
         
-        return isset($param) ? $param : [];
+        return $paramsinclude;
     }
 }

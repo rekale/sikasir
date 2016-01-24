@@ -10,7 +10,7 @@ use Sikasir\V1\Repositories\EloquentRepository;
  * @author rekale  public function __construct(Cashier $model) {
   
  */
-class StockRepository extends EloquentRepository
+class ItemRepository extends EloquentRepository
 {
     
     public function __construct(StockDetail $model) {

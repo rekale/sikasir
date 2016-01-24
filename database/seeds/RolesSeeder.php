@@ -44,6 +44,8 @@ class RolesSeeder extends Seeder
     public function employeeAbilities()
     {
         return [
+            'read-specific-outlet',
+            
             'create-customer',
             'read-customer',
             'update-customer',
@@ -73,6 +75,7 @@ class RolesSeeder extends Seeder
             'delete-stock-entry',
             
             'create-order',
+            'read-order',
             'void-order',
             'update-order',
             'delete-order',
