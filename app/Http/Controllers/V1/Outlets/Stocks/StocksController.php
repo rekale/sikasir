@@ -11,13 +11,12 @@ use Sikasir\V1\Transformer\StockTransformer;
 class StocksController extends ApiController
 {
 
-    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
-
+    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) 
+    {
         parent::__construct($respond, $auth, $repo);
-
     }
 
-     public function index($outletId)
+    public function index($outletId)
     {
         $currentUser =  $this->currentUser();
         
