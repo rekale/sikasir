@@ -76,21 +76,20 @@ class EmployeeRepository extends EloquentRepository implements OwnerableRepo
             'update-product',
             'delete-product',
             
-            'read-stock',
-            'create-stock',
-            'delete-stock',
-            
-            'create-stock-entry',
-            'read-stock-entry',
-            'delete-stock-entry',
-            
+            'create-inventory',
+            'read-inventory',
+            'update-inventory',
+            'delete-inventory',
         ];
     }
     
     public function doOrderAbilties()
     {
         return [
+            'create-order',
             'read-order',
+            'void-order',
+            'update-order',
         ];
     }
     
