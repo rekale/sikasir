@@ -25,7 +25,7 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <b><li> GET /?include=employees ,cashiers, outlets, products, taxes, categories, discounts, payments, printers</li></b>
+        <li> GET /?include=employees ,cashiers, outlets, products, taxes, categories, discounts, payments, printers</li>
         <br>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
@@ -48,10 +48,10 @@
         <li> GET outlets?include=employees, incomes,outcomes, customers, variants, printers</li>
         <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, variants, printers  </li>
         <br>
-        <li> GET outlets/{id}/orders?include= items, items.stock, customer, user, discount, tax </li>
-        <li> GET outlets/{id}/orders/void?include= items, items.stock, customer, user, discount, tax  </li>
-        <li> GET outlets/{id}/orders/paid?include= items, items.stock, customer, user, discount, tax  </li>
-        <li> GET outlets/{id}/orders/unpaid?include= items, items.stock, customer, user, discount, tax  </li>
+        <li> GET outlets/{id}/orders?include= items, items.stock, customer, <b>operator</b>, discount, tax </li>
+        <li> GET outlets/{id}/orders/void?include= items, items.stock, customer, <b>operator</b>, discount, tax  </li>
+        <li> GET outlets/{id}/orders/paid?include= items, items.stock, customer, <b>operator</b>, discount, tax  </li>
+        <li> GET outlets/{id}/orders/unpaid?include= items, items.stock, customer, <b>operator</b>, discount, tax  </li>
         <br>
         <li>GET outlets/{id}/entries?include=<b>operator,</b> items, items.stock</li>
         <li>GET outlets/{id}/outs?include=<b>operator,</b> items, items.stock</li>
