@@ -22,7 +22,7 @@ class OutsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-stock-entry');
+        $this->authorizing($currentUser, 'read-inventory');
        
         $owner = $currentUser->getOwnerId();
          

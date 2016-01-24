@@ -21,7 +21,7 @@ class StocksController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-stock');
+        $this->authorizing($currentUser, 'read-inventory');
        
         $owner = $currentUser->getOwnerId();
         

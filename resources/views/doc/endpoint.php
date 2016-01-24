@@ -45,18 +45,18 @@
         <li> DELETE suppliers/{id} </li>
         </b>
         <br>
-        <li> GET outlets?include=employees, incomes,outcomes, customers, <b>variants, printers</b></li>
-        <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, <b>variants, printers</b>  </li>
+        <li> GET outlets?include=employees, incomes,outcomes, customers, variants, printers</li>
+        <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, variants, printers  </li>
         <br>
         <li> GET outlets/{id}/orders?include= items, items.stock, customer, user, discount, tax </li>
         <li> GET outlets/{id}/orders/void?include= items, items.stock, customer, user, discount, tax  </li>
         <li> GET outlets/{id}/orders/paid?include= items, items.stock, customer, user, discount, tax  </li>
         <li> GET outlets/{id}/orders/unpaid?include= items, items.stock, customer, user, discount, tax  </li>
         <br>
-        <li>GET outlets/{id}/entries?include=operator, items, items.stock</li>
-        <li>GET outlets/{id}/outs?include=operator, items, items.stock</li>
-        <li>GET outlets/{id}/opnames?include=operator, items, items.stock</li>
-        <li>GET outlets/{id}/purchases?include=supplier, items, items.stock</li>
+        <li>GET outlets/{id}/entries?include=<b>operator,</b> items, items.stock</li>
+        <li>GET outlets/{id}/outs?include=<b>operator,</b> items, items.stock</li>
+        <li>GET outlets/{id}/opnames?include=<b>operator,</b> items, items.stock</li>
+        <li>GET outlets/{id}/purchases?include=<b>supplier,</b> items, items.stock</li>
         <br>
         <li> GET outlets/{id}/stocks?include=items</li>
         <br>
