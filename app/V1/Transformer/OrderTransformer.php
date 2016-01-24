@@ -23,7 +23,7 @@ class OrderTransformer extends TransformerAbstract
     
     protected $availableIncludes = [
         'outlet',
-        'user',
+        'operator',
         'customer',
         'voidby',
         'items',
@@ -85,9 +85,9 @@ class OrderTransformer extends TransformerAbstract
         return ! is_null($item) ? $this->item($item, new TaxTransformer) : null;
     }
     
-    public function includeUser(Order $order)
+    public function includeOperator(Order $order)
     {
-        $user = $order->user;
+        $user = $order->operator;
         
         if ($user->userable instanceof Owner) {
             return $this->item($user->userable, new OwnerTransformer);
