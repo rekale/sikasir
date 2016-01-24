@@ -44,7 +44,7 @@ class ProductsController extends ApiController
         
         $this->authorizing($currentUser, 'read-product');
        
-        $owner = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getOwnerId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -52,7 +52,7 @@ class ProductsController extends ApiController
         
         $decodedId = $this->decode($id);
         
-        $product = $this->repo()->findForOwner($decodedId, $owner, $with);
+        $product = $this->repo()->findForOwner($decodedId, $ownerId, $with);
 
         return $this->response()
                 ->resource()

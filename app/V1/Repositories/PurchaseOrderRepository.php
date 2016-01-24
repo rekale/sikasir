@@ -5,7 +5,6 @@ namespace Sikasir\V1\Repositories;
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Stocks\PurchaseOrder;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
-use Sikasir\V1\Traits\EloquentOutletable;
 /**
  * Description of OutletRepository
  *
@@ -14,7 +13,7 @@ use Sikasir\V1\Traits\EloquentOutletable;
  */
 class PurchaseOrderRepository extends EloquentRepository implements OwnerThroughableRepo
 {
-    use EloquentOwnerThroughable;
+    use Traits\EloquentOwnerThroughable;
     
     public function __construct(PurchaseOrder $model) 
     {

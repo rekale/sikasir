@@ -7,24 +7,24 @@ interface OwnerThroughableRepo
     /**
      * 
      * @param integer $id
+     * @param string $throughTableName
      * @param integer $ownerId
      * @param integer $throughId
-     * @param string $throughTableName
      * @param integer $with
      * @return type
      */
-    public function findForOwnerThrough($id, $ownerId, $throughId, $throughTableName , $with = []);
+    public function findForOwnerThrough($id, $throughTableName, $ownerId, $throughId, $with = []);
     
      /**
       * 
-      * @param integer $ownerId
-     * @param integer $throughId
       * @param string $throughTableName
+      * @param integer $ownerId
+      * @param integer $throughId
       * @param array $with
       * @param integer $perPage
       * @return Paginator
       */
-     public function getPaginatedForOwnerThrough($ownerId, $throughId, $throughTableName , $with = [], $perPage = 15);
+     public function getPaginatedForOwnerThrough($throughTableName, $ownerId, $throughId, $with = [], $perPage = 15);
     
     /**
     * save the current model to owner

@@ -19,13 +19,13 @@ trait EloquentOwnerThroughable
     /**
      * 
      * @param integer $id
+     * @param string $throughTableName
      * @param integer $ownerId
      * @param integer $throughId
-     * @param string $throughTableName
      * @param integer $with
      * @return type
      */
-    public function findForOwnerThrough($id, $ownerId, $throughId, $throughTableName , $with = [])
+    public function findForOwnerThrough($id,  $throughTableName ,$ownerId, $throughId, $with = [])
     {
         
     }
@@ -79,18 +79,18 @@ trait EloquentOwnerThroughable
     
      /**
       * 
+      * @param string $throughTableName
       * @param integer $ownerId
       * @param integer $throughId
-      * @param string $throughTableName
       * @param array $with
       * @param integer $perPage
       * 
       * @return Paginator
       */
-     public function getPaginatedForOwnerThrough($ownerId, $throughId, $throughTableName, $with = [], $perPage = 15)
+     public function getPaginatedForOwnerThrough($throughTableName, $ownerId, $throughId, $with = [], $perPage = 15)
      {
          return $this->model->whereExists(
-                            function ($query) use($ownerId, $throughId, $throughTableName) {
+                            function ($query) use($throughTableName, $ownerId, $throughId) {
                                 
                                 $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
                                 

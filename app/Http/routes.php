@@ -12,15 +12,6 @@
 */
 
 
-get('/tes', function(){
-    \DB::listen(function($sql, $bindings, $time) {
-        var_dump($sql);
-        var_dump($time);
-    });
-        
-    return Sikasir\V1\Outlets\Outlet::with('printers')->with('employees')->findOrFail(1);
-});
-
 Route::group(['prefix' => 'doc'], function()
 {
     get('/endpoint', function () {
@@ -119,6 +110,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 get('outlets/{id}/entries', 'EntriesController@index');
                 get('outlets/{id}/outs', 'OutsController@index');
                 get('outlets/{id}/opnames', 'OpnamesController@index');
+                get('outlets/{id}/purchases', 'PurchasesController@index');
                 
                 get('outlets/{id}/stocks', 'StocksController@index');
                

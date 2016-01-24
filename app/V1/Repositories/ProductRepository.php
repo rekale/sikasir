@@ -46,28 +46,30 @@ class ProductRepository extends EloquentRepository implements OwnerableRepo
     
     /**
      * 
-     * @param Owner $owner
+     * @param integer $ownerId
      * @param integer $id
      * @param string $name
      */
-    public function updateCategory(Owner $owner, $id, $name)
+    public function updateCategory($ownerId, $id, $name)
     {
-        $owner->categories()->findOrFail($id)->update( 
-            ['name' => $name] 
-        );
+        Category::where('owner_id', '=', $ownerId)
+                ->findOrFail($id)
+                ->update( 
+                    ['name' => $name] 
+                );
     }
     
     /**
      * delete category
      * 
-     * @param Owner $owner
+     * @param integer $ownerId
      * @param integer $categories
      */
-    public function destroyCategories(Owner $owner, $id)
+    public function destroyCategories($ownerId, $id)
     {
-        $owner->categories()->findOrFail($id);
-        
-        Category::destroy($id);
+        Category::where('owner_id', '=', $ownerId)
+                ->findOrFail($id)   
+                ->delete();
     }
     
     public function getPaginatedForOwner($ownerId, $with = array(), $perPage = 15) {

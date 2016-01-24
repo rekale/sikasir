@@ -3,17 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2016_01_23_141809_create_purchase_orders_table.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2016_01_12_144327_create_opnames_table.php</file>
-            <file>file:/D:/project/kasir/database/factories/ModelFactory.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/EntriesController.php</file>
-            <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
-            <file>file:/D:/project/kasir/database/seeds/StockSeeder.php</file>
-            <file>file:/D:/project/kasir/app/V1/Stocks/PurchaseOrder.php</file>
-            <file>file:/D:/project/kasir/app/V1/Stocks/Entry.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_12_13_051053_create_stocks_table.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OrdersController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/OrderRepository.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/Interfaces/RepositoryInterface.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/Interfaces/OwnerableRepo.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/CategoriesController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/EloquentRepository.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
         </group>
     </open-files>
 </project-private>

@@ -53,9 +53,10 @@
         <li> GET outlets/{id}/orders/paid?include= items, items.stock, customer, user, discount, tax  </li>
         <li> GET outlets/{id}/orders/unpaid?include= items, items.stock, customer, user, discount, tax  </li>
         <br>
-        <li>GET outlets/{id}/entries?include=items, items.stock</li>
-        <li>GET outlets/{id}/outs?include=items, items.stock</li>
-        <li>GET outlets/{id}/opnames?include=items, items.stock</li>
+        <li>GET outlets/{id}/entries?include=operator, items, items.stock</li>
+        <li>GET outlets/{id}/outs?include=operator, items, items.stock</li>
+        <li>GET outlets/{id}/opnames?include=operator, items, items.stock</li>
+        <li>GET outlets/{id}/purchases?include=supplier, items, items.stock</li>
         <br>
         <li> GET outlets/{id}/stocks?include=items</li>
         <br>

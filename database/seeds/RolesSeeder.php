@@ -66,13 +66,10 @@ class RolesSeeder extends Seeder
             'update-product',
             'delete-product',
             
-            'read-stock',
-            'create-stock',
-            'delete-stock',
-            
-            'create-stock-entry',
-            'read-stock-entry',
-            'delete-stock-entry',
+            'read-inventory',
+            'create-inventory',
+            'update-inventory',
+            'delete-inventory',
             
             'create-order',
             'read-order',
