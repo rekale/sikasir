@@ -27,11 +27,13 @@ class ApiController extends Controller
         $this->response = $respond;
         $this->auth = $auth;
         $this->repo = $repo;
-        
+        /*
         \DB::listen(function($sql, $bindings, $time) {
             var_dump($sql);
             var_dump($time);
         });
+         * 
+         */
     }
 
     /**

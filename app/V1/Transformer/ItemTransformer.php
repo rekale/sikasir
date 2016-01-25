@@ -31,11 +31,13 @@ class ItemTransformer extends TransformerAbstract
     {
         $data = [
             'id' => $this->encode($stock->id),
-            'total' => $stock->total,
+            'outlet_stock' => $stock->total,
         ];
         
         if (isset($stock->pivot)) {
-            $data['pivot_total'] = $stock->pivot->total;
+            $foreign = explode('_', $stock->pivot->getForeignKey());
+            $key = $foreign[0] . '_total';
+            $data[$key] = $stock->pivot->total;
         }
         
         return $data;

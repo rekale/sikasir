@@ -30,7 +30,7 @@ class VariantTransformer extends TransformerAbstract
             'price_init' => (int) $variant->price_init,
             'price' => (int) $variant->price,
             'track_stock' => (boolean) $variant->track_stock,
-            'stock' => (int) $variant->stock,
+            'warehouse_stock' => (int) $variant->stock,
             'alert' => (boolean) $variant->alert,
             'alert_at' => (int) $variant->alert_at,
         ];

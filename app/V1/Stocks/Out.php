@@ -23,7 +23,7 @@ class Out extends Model
     
     public function items()
     {
-        return $this->belongsToMany(StockDetail::class, 'entry_stockdetail', 'entry_id', 'stock_detail_id')
+        return $this->belongsToMany(StockDetail::class, 'out_stockdetail', 'out_id', 'stock_detail_id')
                 ->withPivot('total');
     }
     
