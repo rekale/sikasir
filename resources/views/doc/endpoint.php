@@ -48,17 +48,17 @@
         <li> GET outlets?include=employees, incomes,outcomes, customers, variants, printers</li>
         <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, variants, printers  </li>
         <br>
-        <li> GET outlets/{id}/orders?include=<b>operator, items, items.variant, items.variant.product </b> customer, discount, tax </li>
-        <li> GET outlets/{id}/orders/void?include=<b>operator, items, items.variant, items.variant.product </b> customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/paid?include= <b>operator, items, items.variant, items.variant.product </b> customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/unpaid?include= <b>operator, items, items.variant, items.variant.product </b> customer, discount, tax </li>
+        <li> GET outlets/{id}/orders?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax </li>
+        <li> GET outlets/{id}/orders/void?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax  </li>
+        <li> GET outlets/{id}/orders/paid?include= <b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax  </li>
+        <li> GET outlets/{id}/orders/unpaid?include= <b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax </li>
         <br>
-        <li>GET outlets/{id}/entries?include=<b>operator, items, items.variant, items.variant.product </b></li>
-        <li>GET outlets/{id}/outs?include=<b>operator, items, items.variant, items.variant.product </b></li>
-        <li>GET outlets/{id}/opnames?include=<b>operator, items, items.variant, items.variant.product </b></li>
-        <li>GET outlets/{id}/purchases?include=<b>supplier, items, items.variant, items.variant.product </b></li>
+        <li>GET outlets/{id}/entries?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b></li>
+        <li>GET outlets/{id}/outs?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b></li>
+        <li>GET outlets/{id}/opnames?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b></li>
+        <li>GET outlets/{id}/purchases?include=<b>supplier, items, items.variant, items.variant.product,  items.variant.product.category</b></li>
         <br>
-        <li> GET outlets/{id}/stocks?include=<b>product, items, items.variant, items.variant.product</b></li>
+        <li> GET outlets/{id}/stocks?include=<b>product.category, items, items.variant</b></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>
@@ -76,8 +76,8 @@
         <li> GET outlets/{id}/products </li> 
         <li> DELETE outlets/{id}/products/{id} </li> 
         <br>
-        <li> GET products?include=variants </li>
-        <li> GET products/{id}?include=variants </li>
+        <li> GET products?include=variants,<b> category</b> </li>
+        <li> GET products/{id}?include=variants,<b> category</b> </li>
         <li> POST products </li>
         <li> PUT products/{id} </li>
         <li> DELETE products/{id} </li>
