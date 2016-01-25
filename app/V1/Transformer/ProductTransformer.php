@@ -22,13 +22,13 @@ class ProductTransformer extends TransformerAbstract
      */
     protected $availableIncludes = [
         'variants',
+        'category',
     ]; 
     
     public function transform(Product $product)
     {
         return [
             'id' => $this->encode($product->id),
-            'category' => $product->category->name ,
             'name' => $product->name, 
             'description' => $product->description, 
             'barcode' => $product->barcode,
@@ -42,6 +42,13 @@ class ProductTransformer extends TransformerAbstract
         $variants = $product->variants;
         
         return $this->collection($variants, new VariantTransformer);
+    }
+    
+    public function includeCategory(Product $product)
+    {
+        $item = $product->category;
+        
+        return $this->item($item, new CategoryTransformer);
     }
     
 }

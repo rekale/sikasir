@@ -48,17 +48,17 @@
         <li> GET outlets?include=employees, incomes,outcomes, customers, variants, printers</li>
         <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, variants, printers  </li>
         <br>
-        <li> GET outlets/{id}/orders?include= items, items.stock, customer, <b>operator</b>, discount, tax </li>
-        <li> GET outlets/{id}/orders/void?include= items, items.stock, customer, <b>operator</b>, discount, tax  </li>
-        <li> GET outlets/{id}/orders/paid?include= items, items.stock, customer, <b>operator</b>, discount, tax  </li>
-        <li> GET outlets/{id}/orders/unpaid?include= items, items.stock, customer, <b>operator</b>, discount, tax  </li>
+        <li> GET outlets/{id}/orders?include=<b>operator, items, items.variant, items.variant.product </b> customer, discount, tax </li>
+        <li> GET outlets/{id}/orders/void?include=<b>operator, items, items.variant, items.variant.product </b> customer, discount, tax  </li>
+        <li> GET outlets/{id}/orders/paid?include= <b>operator, items, items.variant, items.variant.product </b> customer, discount, tax  </li>
+        <li> GET outlets/{id}/orders/unpaid?include= <b>operator, items, items.variant, items.variant.product </b> customer, discount, tax </li>
         <br>
-        <li>GET outlets/{id}/entries?include=<b>operator,</b> items, items.stock</li>
-        <li>GET outlets/{id}/outs?include=<b>operator,</b> items, items.stock</li>
-        <li>GET outlets/{id}/opnames?include=<b>operator,</b> items, items.stock</li>
-        <li>GET outlets/{id}/purchases?include=<b>supplier,</b> items, items.stock</li>
+        <li>GET outlets/{id}/entries?include=<b>operator, items, items.variant, items.variant.product </b></li>
+        <li>GET outlets/{id}/outs?include=<b>operator, items, items.variant, items.variant.product </b></li>
+        <li>GET outlets/{id}/opnames?include=<b>operator, items, items.variant, items.variant.product </b></li>
+        <li>GET outlets/{id}/purchases?include=<b>supplier, items, items.variant, items.variant.product </b></li>
         <br>
-        <li> GET outlets/{id}/stocks?include=items</li>
+        <li> GET outlets/{id}/stocks?include=<b>product, items, items.variant, items.variant.product</b></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>

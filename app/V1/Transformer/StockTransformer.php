@@ -18,11 +18,12 @@ class StockTransformer extends TransformerAbstract
     use IdObfuscater, ParamTransformer;
     
     protected $defaultIncludes = [
-        'product',
+        
     ];
     
      protected $availableIncludes = [
-        'items',
+        'product',
+        'items', 
     ];
 
 

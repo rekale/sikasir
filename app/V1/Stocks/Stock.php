@@ -11,9 +11,6 @@ use Sikasir\V1\Stocks\StockDetail;
 class Stock extends Model
 {
     
-    protected $with = ['product'];
-
-
     protected $fillable = [
       'outlet_id',
       'product_id',
