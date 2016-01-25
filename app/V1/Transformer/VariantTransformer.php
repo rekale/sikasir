@@ -17,6 +17,7 @@ class VariantTransformer extends TransformerAbstract
    
     protected $availableIncludes = [
         'stocks',
+        'product',
     ];
    
     public function transform(Variant $variant)
@@ -38,6 +39,11 @@ class VariantTransformer extends TransformerAbstract
     public function includeStocks(Variant $variant)
     {
         return $this->collection($variant->stocks, new ItemTransformer);
+    }
+    
+    public function includeProduct(Variant $variant)
+    {
+        return $this->item($variant->product, new ProductTransformer);
     }
     
     

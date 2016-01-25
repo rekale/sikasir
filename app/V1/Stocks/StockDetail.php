@@ -10,9 +10,7 @@ use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Stocks\Opname;
 
 class StockDetail extends Model
-{
-    protected $with = ['variant'];
-    
+{   
     protected $fillable = [
       'stock_id',
       'variant_id',

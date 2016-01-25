@@ -3,15 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OrdersController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/OrderRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Interfaces/RepositoryInterface.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Interfaces/OwnerableRepo.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/CategoriesController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/EloquentRepository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/Out.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/ProductTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/EntriesController.php</file>
+            <file>file:/D:/project/kasir/config/database.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/OpnamesController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/Stock.php</file>
+            <file>file:/D:/project/kasir/database/seeds/RolesSeeder.php</file>
+            <file>file:/D:/project/kasir/app/V1/Stocks/Entry.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OutTransformer.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/Stocks/OutsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Orders/Order.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OrderTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/EmployeeRepository.php</file>
+            <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/EntryTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Products/Product.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OpnameTransformer.php</file>
         </group>
     </open-files>
 </project-private>

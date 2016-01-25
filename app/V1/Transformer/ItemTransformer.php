@@ -17,15 +17,13 @@ class ItemTransformer extends TransformerAbstract
 {
     use IdObfuscater, ParamTransformer;
     
-    protected $defaultIncludes = [
-        'variant',
-    ];
     
      protected $availableIncludes = [
         'entries',
         'outs',
         'opnames',
         'stock',
+        'variant',
     ];
 
 
