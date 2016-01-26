@@ -9,6 +9,8 @@ use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
+use Sikasir\V1\Stocks\Stock;
+use Sikasir\V1\Stocks\StockDetail;
 
 /**
  * Description of ProductRepository
@@ -94,22 +96,35 @@ class ProductRepository extends EloquentRepository implements OwnerableRepo
 
             $product = $category->products()->save(new Product($data));
 
-            $variantModels = [];
-
-            foreach ($data['variants'] as $variant) {
-                $variantModels[] = new Variant($variant);
-            }
-
-            $variants = $product->variants()->saveMany($variantModels);
-            
-            //find product that related to current owner
+             //find product that related to current owner
             $outlets = Outlet::where('owner_id', '=', $ownerId)
                             ->findMany($data['outlet_ids']);
             
-            //save product to these outlets
+            $stockOutlets = [];
+             //save product to these outlets
             foreach($outlets as $outlet) {
-                $outlet->products()->save($product);
+                $stockOutlets[] = Stock::create([
+                    'outlet_id' => $outlet->id,
+                    'product_id' => $product->id,
+                ]);
             }
+
+            foreach ($data['variants'] as $variant) {
+                
+                $dataVariant = new Variant($variant);
+                
+                $savedVariant = $product->variants()->save($dataVariant);
+                
+                foreach($stockOutlets as $stock) {
+                    StockDetail::create([
+                        'stock_id' => $stock->id,
+                        'variant_id' => $savedVariant->id,
+                    ]);
+                }
+            }
+            
+           
+           
             
             //save variant's product to outlet alias to stock
             $outlet->variants()->saveMany($variants);

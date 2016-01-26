@@ -226,6 +226,7 @@ $factory->define(PurchaseOrder::class, function(Faker\Generator $fake) {
 $factory->define(Order::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
+        'no_order' => $fake->numerify(),
         'total' => $fake->numberBetween(1000, 1000000),
         'paid' => $fake->boolean(),
     ];

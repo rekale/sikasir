@@ -36,6 +36,7 @@ class OrderTransformer extends TransformerAbstract
         
         $data = [
             'id' => $this->encode($order->id),
+            'no_order' => $order->no_order,
             'note' => $order->note,
             'total' => $order->total,
             'void' => (boolean) $order->void,
