@@ -109,6 +109,9 @@ class ApiController extends Controller
     {
         $paramsinclude  = [];
         
+        //remove the whitespace
+        $param = str_replace(' ', '', $param);
+        
         if (! is_null($param)) {
             foreach (explode(',', $param) as $data) {
                 $paramsinclude[]  = $data;
