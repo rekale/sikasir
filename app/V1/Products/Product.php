@@ -17,11 +17,20 @@ class Product extends Model
      */
     protected $fillable = [
         'category_id',
+        'outlet_id',
+        'product_id',
         'name', 
         'description', 
         'barcode', 
         'unit',
         'icon',
+        'price_init',
+        'price',
+        'countable',
+        'track_stock',
+        'stock',
+        'alert',
+        'alert_at',
     ];
     
     /**
@@ -40,6 +49,16 @@ class Product extends Model
         return $this->belongsToMany(Outlet::class);
     }
     
+    public function scopeisVariant($query)
+    {
+        return $query->whereNotNull('product_id');
+    }
+    
+    public function scopeisNotVariant($query)
+    {
+        return $query->whereNull('product_id');
+    }
+    
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -49,21 +68,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
     
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function variants()
     {
-        return $this->hasMany(Variant::class);
-    }
-    
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function stocks()
-    {
-        return $this->hasManyTrough(StockDetail::class, Variant::class);
+        return $this->hasMany(Product::class, 'product_id');
     }
 }

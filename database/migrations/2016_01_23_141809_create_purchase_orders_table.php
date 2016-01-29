@@ -33,10 +33,10 @@ class CreatePurchaseOrdersTable extends Migration
         });
         
         
-        Schema::create('purchase_order_stock_detail', function (Blueprint $table) {
+        Schema::create('product_purchase_order', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('purchase_order_id')->unsigned()->index();
-            $table->integer('stock_detail_id')->unsigned()->index();
+            $table->integer('product_id')->unsigned()->index();
             $table->integer('total');
             
             $table->foreign('purchase_order_id')
@@ -44,9 +44,9 @@ class CreatePurchaseOrdersTable extends Migration
                 ->on('purchase_orders')
                 ->onDelete('cascade');
             
-            $table->foreign('stock_detail_id')
+            $table->foreign('product_id')
                 ->references('id')
-                ->on('stock_details')
+                ->on('products')
                 ->onDelete('cascade');
             
         });

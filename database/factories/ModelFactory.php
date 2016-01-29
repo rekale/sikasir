@@ -25,9 +25,7 @@ use Sikasir\V1\Outlets\Printer;
 
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Category;
-use Sikasir\V1\Products\Variant;
 
-use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\Opname;
@@ -170,16 +168,6 @@ $factory->define(Product::class, function(Faker\Generator $fake) {
         'description' => $fake->paragraph(),
         'barcode' => $fake->numerify(),
         'unit' => $fake->word,
-        'icon' => $fake->imageUrl(300, 200),
-    ];
-    
-});
-
-$factory->define(Variant::class, function(Faker\Generator $fake) {
-    
-    return [
-        'name' => $fake->word, 
-        'code' => $fake->numerify(), 
         'price_init' => $fake->numberBetween(100, 100000),  
         'price' => $fake->numberBetween(100, 100000), 
         'countable' => $fake->boolean(), 
@@ -187,15 +175,11 @@ $factory->define(Variant::class, function(Faker\Generator $fake) {
         'stock' => $fake->numberBetween(1, 100),
         'alert' => $fake->boolean(),
         'alert_at' => $fake->numberBetween(1, 30),
+        'icon' => $fake->imageUrl(300, 200),
     ];
     
 });
 
-$factory->define(StockDetail::class, function(Faker\Generator $fake) {
-    return [
-        'total' => $fake->numberBetween(1, 100),
-    ];
-});
 $factory->define(Entry::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),

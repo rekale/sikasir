@@ -32,10 +32,10 @@ class CreateOpnamesTable extends Migration
                 ->onDelete('cascade');
         });
         
-        Schema::create('opname_stockdetail', function (Blueprint $table) {
+        Schema::create('opname_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('opname_id')->unsigned()->index();
-            $table->integer('stock_detail_id')->unsigned()->index();
+            $table->integer('product_id')->unsigned()->index();
             $table->integer('total');
             
             $table->foreign('opname_id')
@@ -43,9 +43,9 @@ class CreateOpnamesTable extends Migration
                 ->on('opnames')
                 ->onDelete('cascade');
             
-            $table->foreign('stock_detail_id')
+            $table->foreign('product_id')
                 ->references('id')
-                ->on('stock_details')
+                ->on('products')
                 ->onDelete('cascade');
             
         });
@@ -58,7 +58,7 @@ class CreateOpnamesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('opname_stockdetail');
+        Schema::drop('opname_product');
         Schema::drop('opnames');
     }
 }

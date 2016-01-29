@@ -9,6 +9,7 @@ use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
+use Sikasir\V1\Products\Product;
 
 class Order extends Model
 {
@@ -33,10 +34,9 @@ class Order extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function items()
+    public function products()
     {
-        return $this->belongsToMany(StockDetail::class, 'order_stockdetail')
-                    ->withPivot(['total']);
+        return $this->belongsToMany(Product::class)->withPivot(['total']);
     }
     
     

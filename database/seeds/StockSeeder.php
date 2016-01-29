@@ -10,6 +10,9 @@ use Sikasir\V1\Products\Product;
 use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Stocks\PurchaseOrder;
 use Sikasir\V1\Suppliers\Supplier;
+use Sikasir\V1\User\User;
+
+use Illuminate\Support\Collection;
 
 class StockSeeder extends Seeder
 {
@@ -21,92 +24,88 @@ class StockSeeder extends Seeder
     public function run()
     {
         
-        $outlets = Outlet::all();
+        $outlets = Outlet::with(['products.variants'])->get();
         
         //employees create stock entry, stock out, opname and purchase order
         
-        $outlets->each(function ($outlet)
+        $outlets->each(function (Outlet $outlet)
         {
             
-            /* --STOCK-- */
+            $variants = new Collection;
             
-            //add stock to outlet
-            $products = Product::all();
-            foreach ($products as $product) {
-
-                $stock = Stock::create([
-                    'outlet_id' => $outlet->id,
-                    'product_id' => $product->id,
-                ]);
-
-                $variantIds = $stock->product
-                                ->variants
-                                ->lists('id')
-                                ->toArray();
-               
-                //create its stock_details
-                $stock->variants()->attach($variantIds);
-
+            foreach ($outlet->products as $product) {
+                
+                foreach($product->variants as $variant) {
+                    $variants->push($variant);
+                }
+                
             }
             
-            
-            $employee = Employee::all('id')->random();
-            $supplier = Supplier::all('id')->random();
-            $stockdetails = $outlet->stockdetails;
-            $stockDetailIds = $stockdetails->random(5)
-                                        ->lists('id')
-                                        ->toArray();
+            $suppliers = Supplier::whereOwnerId($outlet->owner_id)->get();
+            $employees = $outlet->employees;
             
             /* --STOCK ENTRY-- */
             
             //create stock entry
             $entries = factory(Entry::class, 3)->create([
-                'user_id' => $employee->user->id,
+                'user_id' => $employees->random()->user->id,
                 'outlet_id' => $outlet->id,
             ]);
             
             //add it in stock entry
             foreach ($entries as $entry) {
-                $entry->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+                $entry->products()->attach(
+                    $variants->random(3)->lists('id')->toArray(), 
+                    ['total' => rand(1, 50)]
+                );
             }
             
             /* --STOCK OUT-- */
             
             //create stock out
             $outs = factory(Out::class, 3)->create([
-                'user_id' => $employee->user->id,
+                'user_id' => $employees->random()->user->id,
                 'outlet_id' => $outlet->id,
             ]);
             
             //add it in stock out
             foreach ($outs as $out) {
-                $out->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+                $out->products()->attach(
+                    $variants->random(3)->lists('id')->toArray(), 
+                    ['total' => rand(1, 50)]
+                );
             }
             
             /* --OPNAME-- */
             
             //create stock opname
             $opnames = factory(Opname::class, 3)->create([
-                'user_id' => $employee->user->id,
+                'user_id' => $employees->random()->user->id,
                 'outlet_id' => $outlet->id,
             ]);
             
             //add it in stock opname
             foreach ($opnames as $opname) {
-                $opname->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+                $opname->products()->attach(
+                    $variants->random(3)->lists('id')->toArray(), 
+                    ['total' => rand(1, 50)]
+                );
             }
             
             /* --PURCHASE ORDER-- */
             
             //create stock opname
             $purchases = factory(PurchaseOrder::class, 3)->create([
-                'supplier_id' => $supplier->id,
+                'supplier_id' => $suppliers->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
             
             //add it in purchase order
             foreach ($purchases as $purchase) {
-                $purchase->items()->attach($stockDetailIds, ['total' => rand(1, 50)]);
+                $purchase->products()->attach(
+                     $variants->random(3)->lists('id')->toArray(), 
+                    ['total' => rand(1, 50)]
+                );
             }
             
             

@@ -129,27 +129,12 @@ class Outlet extends Model
 
     /**
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'stocks')->withTimestamps();
+        return $this->hasMany(Product::class);
     }
-    
-    public function stocks()
-    {
-        return $this->hasMany(Stock::class);
-    }
-    
-    /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function stockdetails()
-    {
-        return $this->hasManyThrough(StockDetail::class, Stock::class);
-    }
-    
     
     /**
      * 

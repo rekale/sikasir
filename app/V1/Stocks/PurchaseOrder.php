@@ -3,8 +3,8 @@
 namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
-use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\Suppliers\Supplier;
+use Sikasir\V1\Products\Product;
 
 class PurchaseOrder extends Model
 {
@@ -16,9 +16,9 @@ class PurchaseOrder extends Model
         'input_at',
     ];
     
-    public function items()
+    public function products()
     {
-        return $this->belongsToMany(StockDetail::class)->withPivot('total');
+        return $this->belongsToMany(Product::class)->withPivot('total');
     }
     
     public function supplier()

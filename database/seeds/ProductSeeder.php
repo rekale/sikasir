@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Products\Product;
-use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\User\Owner;
 
 class ProductSeeder extends Seeder
@@ -18,29 +18,28 @@ class ProductSeeder extends Seeder
         $fake = Faker\Factory::create();
         //create product category
         $owners = Owner::all();
+        
         $owners->each(function ($owner)
         {
-            $categories = factory(Category::class, 3)->make();
+            $categories = $owner->categories()->saveMany(
+                factory(Category::class, 3)->make()
+            );
             
-            $owner->categories()->saveMany($categories);
+            $outlets = $owner->outlets;
             
-            
-        });
-        
-        Category::all()->each(function ($category) {
-            
-            $products = factory(Product::class, 3)->make();
-            
-            $category->products()->saveMany($products);
-            
-        });
-        
-         //create variant for each 
-        Product::all()->each(function ($product)
-        {
-            $variants = factory(Variant::class, 3)->make();
-            
-            $product->variants()->saveMany($variants);
+            foreach (range(0, 2) as $i) {
+                
+                $products = factory(Product::class, 3)->create([
+                    'category_id' => $categories[$i]->id,
+                    'outlet_id' => $outlets[$i]->id,
+                ]);
+                
+                foreach ($products as $product) {
+                    $product->variants()->saveMany(
+                        factory(Product::class, 3)->make()
+                    );
+                }
+            }
             
             
         });
