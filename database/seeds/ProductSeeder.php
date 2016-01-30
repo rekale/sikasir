@@ -32,6 +32,14 @@ class ProductSeeder extends Seeder
                 $products = factory(Product::class, 3)->create([
                     'category_id' => $categories[$i]->id,
                     'outlet_id' => $outlets[$i]->id,
+                    'barcode' => null,
+                    'price_init' => 0,
+                    'price' => 0,
+                    'countable' => false,
+                    'track_stock' => false,
+                    'stock' => 0,
+                    'alert' => false,
+                    'alert_at' => 0,
                 ]);
                 
                 //make variant /subproduct

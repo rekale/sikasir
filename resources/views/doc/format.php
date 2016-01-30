@@ -49,21 +49,39 @@
         }
 
         --PRODUCT--
+        //jika product tidak punya variant
         {
-            "category_id": "D",
+            category_id": "D",
             "name": "rekale", 
             "description": "asu banget", 
             "barcode": "23424", 
             "unit" : "kg",
             "icon" : "http://lorempixel.com/200/100/food",
             "outlet_ids": ["L", "Z"], 
+            "price_init" : 10000,  
+            "price" : 234234,
+            countable: true,
+            "track_stock": true,
+            "stock": 22,
+            "alert": false,
+            "alert_at": "10"
+        }
+        //jika punya variant
+        {
+            "category_id": "D",
+            "name": "rekale", 
+            "description": "asu banget", 
+            "unit": "kg",
+            "icon" : "http://lorempixel.com/200/100/food",
+            "outlet_ids": ["L", "Z"], 
             "variants": [
                 {
                     "name": "kampret", 
-                    "code": "34234",
+                    "barcode": "34234",
                     "price_init" : 10000,  
                     "price" : 234234,
-                    countable: true,
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": true,
                     "track_stock": true,
                     "stock": 22,
                     "alert": false,
@@ -71,10 +89,11 @@
                 },
                 {
                     "name": "kampret", 
-                    "code": "34234", 
+                    "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    countable: true, 
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": true, 
                     "track_stock": true,
                     "stock": 22,
                     "alert": true,
@@ -83,10 +102,11 @@
 
                 {
                     "name": "kampret", 
-                    "code": "34234", 
+                    "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    countable: false, 
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": false, 
                     "track_stock": false,
                     "stock": 0,
                     "alert": false,

@@ -39,18 +39,26 @@ class ProductRequest extends Request
             'category_id' => 'required',
             'name' => 'required|max:255', 
             'description' => 'required|max:1000', 
-            'barcode' => 'required|max:255', 
+            'barcode' => 'max:255', 
             'unit' => 'required|max:10',
             'outlet_ids' => 'required|array',
+            'price_init' => 'integer',
+            'price' => 'integer',
+            'track_stock' => 'boolean',
+            'stock' => 'integer',
+            'alert' => 'boolean',
+            'alert_at' => 'integer',
         ];
         
         $variants = $this->input('variants');
         
-        $tot = count($variants) - 1;
-         foreach(range(0, $tot) as $key)
-            {
+        if(isset($variants)) {
+            
+            $tot = count($variants) - 1;
+            foreach(range(0, $tot) as $key) {
+                
               $rules['variants.' .$key . '.name'] = 'required|max:255';
-              $rules['variants.' .$key . '.code'] = 'required|max:255';
+              $rules['variants.' .$key . '.barcode'] = 'required|max:255';
               $rules['variants.' .$key . '.price_init'] = 'required|integer';
               $rules['variants.' .$key . '.price'] = 'required|integer';
               $rules['variants.' .$key . '.track_stock'] = 'required|boolean';
@@ -59,6 +67,8 @@ class ProductRequest extends Request
               $rules['variants.' .$key . '.alert_at'] = 'required|integer';
               
             }
+        
+        }
         
         return $rules;
         

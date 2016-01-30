@@ -59,7 +59,7 @@ class CreatePurchaseOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('purchase_order_stock_detail');
+        Schema::drop('product_purchase_order');
         Schema::drop('purchase_orders');
     }
 }

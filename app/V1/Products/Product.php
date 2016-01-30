@@ -73,6 +73,16 @@ class Product extends Model
     }
     
     /**
+     * check if current product is variant or not
+     * 
+     * @return boolean
+     */
+    public function isNotVariant()
+    {
+        return is_null($this->barcode);
+    }
+    
+    /**
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

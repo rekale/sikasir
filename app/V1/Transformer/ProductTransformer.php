@@ -60,9 +60,8 @@ class ProductTransformer extends TransformerAbstract
             $detail[$key] = $product->pivot->total;
         }
         
-        return $product->isVariant() ? 
-                array_merge($main, $detail) : 
-                $main ;
+        return $product->isNotVariant() ? $main :
+                array_merge($main, $detail);
         
     }
    

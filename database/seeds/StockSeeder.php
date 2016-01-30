@@ -54,7 +54,7 @@ class StockSeeder extends Seeder
             
             //add it in stock entry
             foreach ($entries as $entry) {
-                $entry->products()->attach(
+                $entry->variants()->attach(
                     $variants->random(3)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
@@ -70,7 +70,7 @@ class StockSeeder extends Seeder
             
             //add it in stock out
             foreach ($outs as $out) {
-                $out->products()->attach(
+                $out->variants()->attach(
                     $variants->random(3)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
@@ -86,7 +86,7 @@ class StockSeeder extends Seeder
             
             //add it in stock opname
             foreach ($opnames as $opname) {
-                $opname->products()->attach(
+                $opname->variants()->attach(
                     $variants->random(3)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
@@ -102,7 +102,7 @@ class StockSeeder extends Seeder
             
             //add it in purchase order
             foreach ($purchases as $purchase) {
-                $purchase->products()->attach(
+                $purchase->variants()->attach(
                      $variants->random(3)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );

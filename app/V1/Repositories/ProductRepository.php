@@ -46,6 +46,43 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         ]);
     }
     
+    public function save(array $data) {
+        
+        $products = [];
+        
+        //save product or parent product to each outlets, and save it to array
+        foreach ($data['outlet_ids'] as $outletId) {
+          
+            $data['outlet_id'] = $outletId;
+            $products[] = parent::save($data);
+        
+        }
+        
+        //if the product have variant
+        if(isset($data['variants'])) {
+            
+            $variants = [];
+            
+            //make variant instances and put in array
+            foreach ($data['variants'] as $variant) {
+                
+               $variant['category_id'] = $data['category_id'];
+               $variant['unit'] = $data['unit']; 
+               $variants[] = new Product($variant);
+              
+            }
+            
+            //then save it to each products
+            foreach($products as $product) {
+                
+                $product->variants()->saveMany($variants);
+                
+            }
+            
+        }
+        
+    }
+    
     /**
      * 
      * @param integer $ownerId

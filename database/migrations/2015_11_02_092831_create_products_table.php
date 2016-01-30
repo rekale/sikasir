@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('barcode')->nullable();
-            $table->integer('price_init')->unsigned();
-            $table->integer('price')->unsigned();
+            $table->integer('price_init')->unsigned()->default(0);
+            $table->integer('price')->unsigned()->default(0);
             $table->integer('stock')->unsigned()->default(0);
             $table->boolean('countable')->default(true);
             $table->boolean('track_stock')->default(false);
