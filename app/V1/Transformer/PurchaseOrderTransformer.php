@@ -31,7 +31,7 @@ class PurchaseOrderTransformer extends TransformerAbstract
         ];
         
         if (isset($purchase->pivot)) {
-            $data['purchase_total'] = $purchase->pivot->total;
+            $data['total'] = $purchase->pivot->total;
         }
         
         return $data;

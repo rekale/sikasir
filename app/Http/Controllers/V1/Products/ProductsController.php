@@ -23,19 +23,17 @@ class ProductsController extends ApiController
         
         $this->authorizing($currentUser, 'read-product');
        
-        $ownerId = $currentUser->getOwnerId();
-        
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
         $with = $this->filterIncludeParams($include);
         
         $decodedId = $this->decode($id);
         
-        $product = $this->repo()->findForOwner($decodedId, $ownerId, $with);
+        $product = $this->repo()->findWith($decodedId, $with);
 
         return $this->response()
                 ->resource()
-                ->including($include)
+                ->including($with)
                 ->withItem($product, new ProductTransformer);
     }
 

@@ -4,7 +4,10 @@ namespace Sikasir\V1\Products;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\Stocks\StockDetail;
+use Sikasir\V1\Stocks\Entry;
+use Sikasir\V1\Stocks\Out;
+use Sikasir\V1\Stocks\Opname;
+use Sikasir\V1\Stocks\PurchaseOrder;
 
 class Product extends Model
 {
@@ -87,4 +90,25 @@ class Product extends Model
     {
         return $this->hasMany(Product::class, 'product_id');
     }
+    
+    public function entries()
+    {
+        return $this->belongsToMany(Entry::class)->withPivot('total');
+    }
+    
+    public function outs()
+    {
+        return $this->belongsToMany(Out::class)->withPivot('total');
+    }
+    
+    public function opnames()
+    {
+        return $this->belongsToMany(Opname::class)->withPivot('total');
+    }
+    
+    public function purchases()
+    {
+        return $this->belongsToMany(PurchaseOrder::class)->withPivot('total');
+    }
+    
 }

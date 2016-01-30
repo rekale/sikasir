@@ -31,7 +31,7 @@ class OpnameTransformer extends TransformerAbstract
         ];
         
         if (isset($opname->pivot)) {
-            $data['opname_total'] = $opname->pivot->total;
+            $data['total'] = $opname->pivot->total;
         }
         
         return $data;

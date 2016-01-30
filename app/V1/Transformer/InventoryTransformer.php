@@ -31,7 +31,7 @@ class InventoryTransformer extends TransformerAbstract
         ];
         
         if (isset($entry->pivot)) {
-            $data['entry_total'] = $entry->pivot->total;
+            $data['total'] = $entry->pivot->total;
         }
         
         return $data;
