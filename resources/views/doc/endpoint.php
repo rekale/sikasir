@@ -74,7 +74,7 @@
         <li> PUT outlets/{id} </li>
         <li> DELETE outlets/{id} </li>
         <br>
-        <li> GET products?include=variants,<b> category</b> </li>
+        
         <li> GET products/{id}?include=variants,<b> category</b> </li>
         <li> POST products </li>
         <li> PUT products/{id} </li>

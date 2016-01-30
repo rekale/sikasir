@@ -17,27 +17,6 @@ class ProductsController extends ApiController
 
     }
 
-    public function index()
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-       
-        $owner = $currentUser->getOwnerId();
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $products = $this->repo()->getPaginatedForOwner($owner, $with);
-        
-        
-        return $this->response()
-                ->resource()
-                ->including($include)
-                ->withPaginated($products, new ProductTransformer);
-    }
-
     public function show($id)
     {
          $currentUser =  $this->currentUser();

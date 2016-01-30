@@ -121,7 +121,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
          
         Route::group(['namespace' => 'Products'], function()
         {
-            get('products', 'ProductsController@index');
             get('products/{id}', 'ProductsController@show');
             post('products', 'ProductsController@store');
             put('products/{id}', 'ProductsController@update');
