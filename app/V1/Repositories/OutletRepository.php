@@ -8,7 +8,7 @@ use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
-
+use Sikasir\V1\Products\Product;
 
 /**
  * Description of OutletRepository
@@ -136,24 +136,6 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
         return $this->find($outletId)->customers()->save($data);
     }
 
-    /**
-     * get products for specific outlet
-     *
-     * @param integer $outletId
-     * @param boolean $paginated
-     * @param integer $perPage
-     *
-     * @return Collection | Paginator
-     */
-    public function getProducts($outletId, $paginated = true, $perPage = 15)
-    {
-           return $paginated 
-                   ? $this->find($outletId)
-                        ->products()
-                        ->paginate($perPage) 
-                   : $this->findWith($outletId, ['products'])
-                        ->products ;
-    }
 
     /**
      * get employees that working in speicific outlet

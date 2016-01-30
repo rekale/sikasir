@@ -49,14 +49,24 @@ class Product extends Model
         return $this->belongsToMany(Outlet::class);
     }
     
-    public function scopeisVariant($query)
+    public function scopewhereIsVariant($query)
     {
         return $query->whereNotNull('product_id');
     }
     
-    public function scopeisNotVariant($query)
+    public function scopewhereIsNotVariant($query)
     {
         return $query->whereNull('product_id');
+    }
+    
+    /**
+     * check if current product is variant or not
+     * 
+     * @return boolean
+     */
+    public function isVariant()
+    {
+        return ! is_null($this->product_id);
     }
     
     /**
@@ -66,6 +76,11 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
     
     public function variants()

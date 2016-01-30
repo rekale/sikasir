@@ -34,9 +34,12 @@ class ProductSeeder extends Seeder
                     'outlet_id' => $outlets[$i]->id,
                 ]);
                 
+                //make variant /subproduct
                 foreach ($products as $product) {
                     $product->variants()->saveMany(
-                        factory(Product::class, 3)->make()
+                        factory(Product::class, 3)->make([
+                            'category_id' => $product->category_id,
+                        ])
                     );
                 }
             }

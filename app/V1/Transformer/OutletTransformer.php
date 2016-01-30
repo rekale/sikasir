@@ -29,7 +29,6 @@ class OutletTransformer extends TransformerAbstract
         'incomes',
         'outcomes',
         'customers',
-        'variants',
         'printers',
     ];
     
@@ -85,16 +84,7 @@ class OutletTransformer extends TransformerAbstract
 
         return $this->collection($collection, new CashierTransformer);
     }
-    
-    public function includeStocks(Outlet $outlet, ParamBag $params = null)
-    {
-       $collection = $this->setData(
-            $outlet->stocks(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new StockTransformer);
-    }
-    
+     
     public function includeEntries(Outlet $outlet, ParamBag $params = null)
     {
         $collection = $this->setData(
@@ -149,15 +139,6 @@ class OutletTransformer extends TransformerAbstract
         )->result();
         
         return $this->collection($collection, new OutcomeTransformer);
-    }
-    
-    public function includeVariants(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->variants(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new VariantTransformer);
     }
     
     public function includeOrders(Outlet $outlet, ParamBag $params = null)

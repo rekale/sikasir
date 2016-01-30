@@ -21,27 +21,50 @@ class ProductTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'variants',
         'category',
+        'variants',
+        'product',
     ]; 
     
     public function transform(Product $product)
     {
-        return [
+        $main = [
             'id' => $this->encode($product->id),
             'name' => $product->name, 
             'description' => $product->description, 
-            'barcode' => $product->barcode,
-            'unit' => $product->unit,
             'icon' => $product->icon,
         ];
+        
+        $detail = [
+            'barcode' => $product->barcode, 
+            'unit' => $product->unit,
+            'icon' => $product->icon,
+            'price_init'  => (int) $product->price_init,
+            'price' => (int) $product->price,
+            'countable' => (boolean) $product->countable,
+            'track_stock' => (boolean) $product->track_stock,
+            'stock' => (int) $product->stock,
+            'alert' => (boolean) $product->alert,
+            'alert_at' => (int) $product->alert_at,
+        ];
+        
+        if (isset($product->pivot)) {
+            $foreign = explode('_', $product->pivot->getForeignKey());
+            $key = $foreign[0] . '_total';
+            $detail[$key] = $product->pivot->total;
+        }
+        
+        return $product->isVariant() ? 
+                array_merge($main, $detail) : 
+                $main ;
+        
     }
    
     public function includeVariants(Product $product)
     {
         $variants = $product->variants;
         
-        return $this->collection($variants, new VariantTransformer);
+        return $this->collection($variants, new ProductTransformer);
     }
     
     public function includeCategory(Product $product)
@@ -49,6 +72,13 @@ class ProductTransformer extends TransformerAbstract
         $item = $product->category;
         
         return $this->item($item, new CategoryTransformer);
+    }
+    
+    public function includeProduct(Product $variant)
+    {   
+        $item = $variant->product;
+        
+        return $this->item($item, new ProductTransformer);
     }
     
 }

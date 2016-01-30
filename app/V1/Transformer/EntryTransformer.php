@@ -17,8 +17,8 @@ class EntryTransformer extends TransformerAbstract
     use IdObfuscater, ParamTransformer;
     
     protected $availableIncludes = [
-        'items',
         'operator',
+        'variants',
     ];
 
     public function transform(Entry $entry)
@@ -37,11 +37,11 @@ class EntryTransformer extends TransformerAbstract
         return $data;
     }
     
-    public function includeItems(Entry $entry, ParamBag $params = null)
+    public function includeVariants(Entry $entry, ParamBag $params = null)
     {
-       $collection = $entry->items;
+        $collection = $entry->variants;
         
-       return $this->collection($collection, new ItemTransformer);
+        return $this->collection($collection, new ProductTransformer);
     }
     
     public function includeOperator(Entry $entry, ParamBag $params = null)

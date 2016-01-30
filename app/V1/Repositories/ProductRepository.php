@@ -8,7 +8,7 @@ use Sikasir\V1\User\Owner;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
+use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
 use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\StockDetail;
 
@@ -18,9 +18,9 @@ use Sikasir\V1\Stocks\StockDetail;
  * @author rekale 
  *
  */
-class ProductRepository extends EloquentRepository implements OwnerableRepo
+class ProductRepository extends EloquentRepository implements OwnerThroughableRepo
 {
-    use Traits\EloquentOwnerable;
+    use Traits\EloquentOwnerThroughable;
     
     public function __construct(Product $product) 
     {
