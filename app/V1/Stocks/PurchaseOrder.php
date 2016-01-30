@@ -16,9 +16,9 @@ class PurchaseOrder extends Model
         'input_at',
     ];
     
-    public function products()
+    public function variants()
     {
-        return $this->belongsToMany(Product::class)->withPivot('total');
+        return $this->belongsToMany(Product::class, 'product_purchase_order')->withPivot('total');
     }
     
     public function supplier()

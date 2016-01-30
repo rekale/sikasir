@@ -63,7 +63,7 @@ class ItemTransformer extends TransformerAbstract
             $stock->entries(), $params['per_page'][0], $params['current_page'][0] 
         )->result();
         
-        return $this->collection($collection, new EntryTransformer);
+        return $this->collection($collection, new InventoryTransformer);
     }
     
     public function includeOuts(StockDetail $stock, ParamBag $params = null)

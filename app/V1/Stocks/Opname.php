@@ -21,8 +21,8 @@ class Opname extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
     
-    public function products()
+    public function variants()
     {
-        return $this->belongsToMany(Product::class)->withPivot('total');
+        return $this->belongsToMany(Product::class, 'opname_product')->withPivot('total');
     }
 }

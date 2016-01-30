@@ -16,8 +16,8 @@ class PurchaseOrderTransformer extends TransformerAbstract
     use IdObfuscater, ParamTransformer;
     
     protected $availableIncludes = [
-        'items',
         'supplier',
+        'variants',
     ];
 
     public function transform(PurchaseOrder $purchase)
@@ -25,8 +25,8 @@ class PurchaseOrderTransformer extends TransformerAbstract
         
         $data = [
             'id' => $this->encode($purchase->id),
+            'po_number' => $purchase->po_number,
             'note' => $purchase->note,
-            'status' => (boolean) $purchase->status,
             'input_at' => $purchase->input_at,
         ];
         
@@ -37,11 +37,11 @@ class PurchaseOrderTransformer extends TransformerAbstract
         return $data;
     }
     
-    public function includeItems(PurchaseOrder $purchase, ParamBag $params = null)
+    public function includevariants(PurchaseOrder $purchase, ParamBag $params = null)
     {
-       $collection = $purchase->items;
+       $collection = $purchase->variants;
         
-        return $this->collection($collection, new ItemTransformer);
+        return $this->collection($collection, new ProductTransformer);
     }
     
     public function includeSupplier(PurchaseOrder $purchase, ParamBag $params = null)

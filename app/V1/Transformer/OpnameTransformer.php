@@ -16,8 +16,8 @@ class OpnameTransformer extends TransformerAbstract
     use IdObfuscater, ParamTransformer;
     
     protected $availableIncludes = [
-        'items',
-        'operator'
+        'operator',
+        'variants',
     ];
 
     public function transform(Opname $opname)
@@ -36,19 +36,18 @@ class OpnameTransformer extends TransformerAbstract
         
         return $data;
     }
-    
-    public function includeItems(Opname $opname, ParamBag $params = null)
+   
+    public function includeVariants($entry, ParamBag $params = null)
     {
-       $collection = $opname->items;
+        $collection = $entry->variants;
         
-        return $this->collection($collection, new ItemTransformer);
+        return $this->collection($collection, new ProductTransformer);
     }
     
-    public function includeOperator(Opname $opname, ParamBag $params = null)
+    public function includeOperator($entry, ParamBag $params = null)
     {
-       $item = $opname->operator;
+       $item = $entry->operator;
         
         return $this->item($item, new UserTransformer);
     }
-    
 }

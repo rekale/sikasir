@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\Inventories\EntryRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Transformer\EntryTransformer;
+use Sikasir\V1\Transformer\InventoryTransformer;
 use Sikasir\Http\Requests\StockInOutRequest;
 
 class EntriesController extends ApiController
@@ -37,7 +37,7 @@ class EntriesController extends ApiController
         return $this->response()
                 ->resource()
                 ->including($with)
-                ->withPaginated($stocks, new EntryTransformer);
+                ->withPaginated($stocks, new InventoryTransformer);
     }
   
 }

@@ -12,7 +12,7 @@ use League\Fractal\ParamBag;
  *
  * @author rekale
  */
-class EntryTransformer extends TransformerAbstract
+class InventoryTransformer extends TransformerAbstract
 {
     use IdObfuscater, ParamTransformer;
     
@@ -21,7 +21,7 @@ class EntryTransformer extends TransformerAbstract
         'variants',
     ];
 
-    public function transform(Entry $entry)
+    public function transform($entry)
     {
         
         $data = [
@@ -37,14 +37,14 @@ class EntryTransformer extends TransformerAbstract
         return $data;
     }
     
-    public function includeVariants(Entry $entry, ParamBag $params = null)
+    public function includeVariants($entry, ParamBag $params = null)
     {
         $collection = $entry->variants;
         
         return $this->collection($collection, new ProductTransformer);
     }
     
-    public function includeOperator(Entry $entry, ParamBag $params = null)
+    public function includeOperator($entry, ParamBag $params = null)
     {
        $item = $entry->operator;
         

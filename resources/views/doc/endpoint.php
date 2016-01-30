@@ -58,7 +58,7 @@
         <li>GET outlets/{id}/entries?include=<b>operator, variants, variants.product, variants.product.category</b></li>
         <li>GET outlets/{id}/outs?include=<b>operator, variants, variants.product, variants.product.category</b></li>
         <li>GET outlets/{id}/opnames?include=<b>operator, variants, variants.product, variants.product.category</b></li>
-        <li>GET outlets/{id}/purchases?include=<b>operator, variants, variants.product, variants.product.category</b></li>
+        <li>GET outlets/{id}/purchases?include=<b>supplier, variants, variants.product, variants.product.category</b></li>
         <br>
         <li> GET outlets/{id}/customers</li>
         <br>

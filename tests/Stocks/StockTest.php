@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Transformer\ItemTransformer;
-use Sikasir\V1\Transformer\EntryTransformer;
+use Sikasir\V1\Transformer\InventoryTransformer;
 use Sikasir\V1\Transformer\StockOutTransformer;
 
 class StockTest extends TestCase
@@ -57,7 +57,7 @@ class StockTest extends TestCase
         
         $stocks = $repo->getStockEntriesPaginated($outlet->id, $owner);
         
-        $data = $this->createPaginated($stocks, new EntryTransformer);
+        $data = $this->createPaginated($stocks, new InventoryTransformer);
         
         $token = $this->getTokenAsOwner();
         
