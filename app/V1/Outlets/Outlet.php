@@ -116,15 +116,6 @@ class Outlet extends Model
 
     /**
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function customers()
-    {
-        return $this->hasMany(Customer::class, 'outlet_id');
-    }
-
-    /**
-     * 
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function products()

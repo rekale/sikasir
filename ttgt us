@@ -1,0 +1,17 @@
+[33mcommit bbd39347ebdc6740ebb44ef771ec43b90d296e97[m
+Author: rekale <rekale1123@gmail.com>
+Date:   Sun Jan 31 21:18:21 2016 +0700
+
+    fix auth/mobile/login routes api
+
+[33mcommit 2398c8bc776f055dbbf2bdf510e2be21ad53eee9[m
+Author: rekale <rekale1123@gmail.com>
+Date:   Sun Jan 31 20:58:42 2016 +0700
+
+    fix seeder
+
+[33mcommit b8e9862bb6bf3769df44698d1a83fa24ac8c2883[m
+Author: rekale <rekale1123@gmail.com>
+Date:   Sun Jan 31 19:53:48 2016 +0700
+
+    delete owners and replace it to companies table, delete employees, admin tables, delete mobile app and replace to companies, change customers relationship from outlet to companies

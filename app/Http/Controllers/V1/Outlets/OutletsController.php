@@ -24,7 +24,7 @@ class OutletsController extends ApiController
         
         $this->authorizing($currentUser, 'read-outlet');
         
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -44,7 +44,7 @@ class OutletsController extends ApiController
         
         $this->authorizing($currentUser, 'read-specific-outlet');
         
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -66,7 +66,7 @@ class OutletsController extends ApiController
         
         $this->authorizing($currentUser, 'create-outlet');
         
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $dataInput = $request->all();
         
@@ -85,7 +85,7 @@ class OutletsController extends ApiController
         
         $this->authorizing($currentUser, 'update-outlet');
         
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -106,7 +106,7 @@ class OutletsController extends ApiController
         
         $this->authorizing($currentUser, 'delete-outlet');
         
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         

@@ -24,7 +24,7 @@ class SuppliersController extends ApiController
         $this->authorizing($currentUser, 'read-supplier');
         
         $paginator = $this->repo()->getPaginatedForOwner(
-            $currentUser->getOwnerId()
+            $currentUser->getCompanyId()
         );
         
         return $this->response()
@@ -38,7 +38,7 @@ class SuppliersController extends ApiController
         
         $this->authorizing($currentUser, 'read-supplier');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -55,7 +55,7 @@ class SuppliersController extends ApiController
         
         $this->authorizing($currentUser, 'create-supplier');
        
-        $ownerId = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getCompanyId();
         
         $dataInput = $request->all();
         
@@ -71,7 +71,7 @@ class SuppliersController extends ApiController
         
         $this->authorizing($currentUser, 'update-supplier');
        
-        $ownerId = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -88,7 +88,7 @@ class SuppliersController extends ApiController
         
         $this->authorizing($currentUser, 'delete-supplier');
        
-        $ownerId = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
 

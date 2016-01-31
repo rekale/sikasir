@@ -27,7 +27,6 @@ class OutletTransformer extends TransformerAbstract
         'users',
         'incomes',
         'outcomes',
-        'customers',
         'printers',
     ];
     
@@ -99,16 +98,6 @@ class OutletTransformer extends TransformerAbstract
         
         return $this->collection($collection, new OpnameTransformer);
     }
-    
-    public function includeCustomers(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->customers(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new CustomerTransformer);
-    }
-    
     
     public function includeIncomes(Outlet $outlet, ParamBag $params = null)
     {

@@ -24,7 +24,7 @@ class PurchasesController extends ApiController
         
         $this->authorizing($currentUser, 'read-inventory');
         
-        $ownerId = $currentUser->getOwnerId();
+        $ownerId = $currentUser->getCompanyId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         

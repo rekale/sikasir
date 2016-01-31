@@ -59,7 +59,7 @@ class ProductsController extends ApiController
         
         $this->authorizing($currentUser, 'update-product');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -86,7 +86,7 @@ class ProductsController extends ApiController
         
         $this->authorizing($currentUser, 'delete-product');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         

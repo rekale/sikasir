@@ -25,7 +25,7 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET /?include= users, outlets, taxes, categories, discounts, payments</li>
+        <li> GET /?include= users, outlets, taxes, categories, discounts, payments, <b>customers</b> </li>
         <br>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
@@ -45,7 +45,7 @@
         <li> DELETE suppliers/{id} </li>
         </b>
         <br>
-        <li> GET outlets?include=employees, incomes,outcomes, customers, printers</li>
+        <li> GET outlets?include=employees, incomes,outcomes, printers</li>
         <li> GET outlets/{id}?include=employees, incomes, outcomes, customers, printers</li>
         <br>
         <li> GET outlets/{id}/orders?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax </li>

@@ -20,58 +20,58 @@ trait EloquentOwnerThroughable
      * 
      * @param integer $id
      * @param string $throughTableName
-     * @param integer $ownerId
+     * @param integer $companyId
      * @param integer $throughId
      * @param integer $with
      * @return type
      */
-    public function findForOwnerThrough($id,  $throughTableName ,$ownerId, $throughId, $with = [])
+    public function findForOwnerThrough($id,  $throughTableName ,$companyId, $throughId, $with = [])
     {
         
     }
   
     /**
-    * save the current model to owner
+    * save the current model to company
     *
     * @param array $data
-    * @param integer $ownerId
+    * @param integer $companyId
      * @param integer $throughId
      * @param string $throughTableName
     *
     * @return static
     */
-    public function saveForOwnerThrough(array $data, $ownerId, $throughId, $throughTableName)
+    public function saveForOwnerThrough(array $data, $companyId, $throughId, $throughTableName)
     {
         
     }
     
     /**
-    * update the current model to owner
+    * update the current model to company
     *
     * @param integer $id
     * @param array $data
-    * @param integer $ownerId
+    * @param integer $companyId
      * @param integer $throughId
      * @param string $throughTableName
     *
     * @return void
     */
-    public function updateForOwnerThrough($id, array $data, $ownerId, $throughId, $throughTableName)
+    public function updateForOwnerThrough($id, array $data, $companyId, $throughId, $throughTableName)
     {
         
     }
     
     /**
-     * delete specific resource that owner belong
+     * delete specific resource that company belong
      * 
      * @param integer $id
-     * @param integer $ownerId
+     * @param integer $companyId
      * @param integer $throughId
      * @param string $throughTableName
      * 
      * return boolean
      */
-    public function destroyForOwnerThrough($id, $ownerId, $throughId, $throughTableName)
+    public function destroyForOwnerThrough($id, $companyId, $throughId, $throughTableName)
     {
         
     }
@@ -80,17 +80,17 @@ trait EloquentOwnerThroughable
      /**
       * 
       * @param string $throughTableName
-      * @param integer $ownerId
+      * @param integer $companyId
       * @param integer $throughId
       * @param array $with
       * @param integer $perPage
       * 
       * @return Paginator
       */
-     public function getPaginatedForOwnerThrough($throughTableName, $ownerId, $throughId, $with = [], $perPage = 15)
+     public function getPaginatedForOwnerThrough($throughTableName, $companyId, $throughId, $with = [], $perPage = 15)
      {
          return $this->model->whereExists(
-                            function ($query) use($throughTableName, $ownerId, $throughId) {
+                            function ($query) use($throughTableName, $companyId, $throughId) {
                                 
                                 $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
                                 
@@ -99,7 +99,7 @@ trait EloquentOwnerThroughable
                                 $query->select(\DB::raw(1))
                                       ->from($throughTableName)
                                       ->where('id', '=', $throughId)
-                                      ->where('owner_id', '=', $ownerId)
+                                      ->where('company_id', '=', $companyId)
                                       ->whereRaw($constraint);
                             })
                             ->with($with)

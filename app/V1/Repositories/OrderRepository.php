@@ -49,17 +49,17 @@ class OrderRepository extends EloquentRepository
      * get outlet's voided orders
      *
      * @param integer $outletId
-     * @param integer $ownerId
+     * @param integer $companyId
      *
      * @return Collection | Paginator
      */
-    public function getUnvoidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
+    public function getUnvoidPaginated($outletId, $companyId, $with =[],$perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
                 $query->select(\DB::raw(1))
                       ->from('outlets')
                       ->where('id', '=', $outletId)
-                      ->where('owner_id', '=', $ownerId)
+                      ->where('company_id', '=', $companyId)
                       ->whereRaw('outlets.id = orders.outlet_id');
                 })
                 ->where('void', '=', false)
@@ -72,17 +72,17 @@ class OrderRepository extends EloquentRepository
      * get outlet's voided orders
      *
      * @param integer $outletId
-     * @param integer $ownerId
+     * @param integer $companyId
      *
      * @return Collection | Paginator
      */
-    public function getVoidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
+    public function getVoidPaginated($outletId, $companyId, $with =[],$perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
                 $query->select(\DB::raw(1))
                       ->from('outlets')
                       ->where('id', '=', $outletId)
-                      ->where('owner_id', '=', $ownerId)
+                      ->where('company_id', '=', $companyId)
                       ->whereRaw('outlets.id = orders.outlet_id');
                 })
                 ->where('void', '=', true)
@@ -94,17 +94,17 @@ class OrderRepository extends EloquentRepository
      * get outlet's paid only orders
      *
      * @param integer $outletId
-     * @param integer $ownerId
+     * @param integer $companyId
      *
      * @return Collection | Paginator
      */
-    public function getPaidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
+    public function getPaidPaginated($outletId, $companyId, $with =[],$perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
                 $query->select(\DB::raw(1))
                       ->from('outlets')
                       ->where('id', '=', $outletId)
-                      ->where('owner_id', '=', $ownerId)
+                      ->where('company_id', '=', $companyId)
                       ->whereRaw('outlets.id = orders.outlet_id');
                 })
                 ->where('paid', '=', true)
@@ -116,17 +116,17 @@ class OrderRepository extends EloquentRepository
      * get outlet's unpaid only orders
      *
      * @param integer $outletId
-     * @param integer ownerId
+     * @param integer companyId
      *
      * @return Collection | Paginator
      */
-    public function getUnpaidPaginated($outletId, $ownerId, $with =[],$perPage = 15)
+    public function getUnpaidPaginated($outletId, $companyId, $with =[],$perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($ownerId, $outletId) {
+        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
                 $query->select(\DB::raw(1))
                       ->from('outlets')
                       ->where('id', '=', $outletId)
-                      ->where('owner_id', '=', $ownerId)
+                      ->where('company_id', '=', $companyId)
                       ->whereRaw('outlets.id = orders.outlet_id');
                 })
                 ->where('paid', '=', false)

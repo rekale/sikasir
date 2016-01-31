@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\User\OwnerRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\Transformer\OwnerTransformer;
+use Sikasir\V1\Transformer\CompanyTransformer;
 
 class TenantController extends ApiController
 {
@@ -29,14 +29,14 @@ class TenantController extends ApiController
         
         $with = $this->filterIncludeParams($include);
         
-        $ownerId = $this->currentUser()->getOwnerId();
+        $ownerId = $this->currentUser()->getCompanyId();
         
         $item = $this->repo()->findWith($ownerId, $with);
 
         return $this->response()
                 ->resource()
                 ->including($include)
-                ->withItem($item, new OwnerTransformer);
+                ->withItem($item, new CompanyTransformer);
     }
 
     

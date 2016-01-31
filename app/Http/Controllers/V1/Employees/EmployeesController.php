@@ -5,15 +5,15 @@ namespace Sikasir\Http\Controllers\V1\Employees;
 use Illuminate\Http\Request;
 use \Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Transformer\EmployeeTransformer;
+use Sikasir\V1\Transformer\UserTransformer;
 use Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Repositories\EmployeeRepository;
+use Sikasir\V1\Repositories\UserRepository;
 use Sikasir\Http\Requests\EmployeeRequest;
 
 class EmployeesController extends ApiController
 {
 
-    public function __construct(ApiRespond $respond, JWTAuth $auth, EmployeeRepository $repo)
+    public function __construct(ApiRespond $respond, JWTAuth $auth, UserRepository $repo)
     {
         parent::__construct($respond, $auth, $repo);
     }
@@ -25,12 +25,12 @@ class EmployeesController extends ApiController
         $this->authorizing($currentUser, 'read-staff');
         
         $paginator = $this->repo()->getPaginatedForOwner(
-            $currentUser->getOwnerId()
+            $currentUser->getCompanyId()
         );
         
         return $this->response()
                 ->resource()
-                ->withPaginated($paginator, new EmployeeTransformer);
+                ->withPaginated($paginator, new UserTransformer);
     }
 
     public function show($id)
@@ -39,7 +39,7 @@ class EmployeesController extends ApiController
         
         $this->authorizing($currentUser, 'read-staff');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -54,9 +54,9 @@ class EmployeesController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        //$this->authorizing($currentUser, 'create-staff');
+        $this->authorizing($currentUser, 'create-staff');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $dataInput = $request->all();
         
@@ -74,7 +74,7 @@ class EmployeesController extends ApiController
         
         $this->authorizing($currentUser, 'update-staff');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -93,7 +93,7 @@ class EmployeesController extends ApiController
         
         $this->authorizing($currentUser, 'delete-staff');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
 

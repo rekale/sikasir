@@ -19,30 +19,30 @@ trait EloquentOwnerable
      /**
      * 
      * @param integer $id
-     * @param integer $ownerId
+     * @param integer $companyId
      * @param integer $with
      * @return type
      */
-    public function findForOwner($id, $ownerId, $with = [])
+    public function findForOwner($id, $companyId, $with = [])
     {
         return $this->model
                     ->with($with)
-                    ->where('owner_id', '=', $ownerId)
+                    ->where('company_id', '=', $companyId)
                     ->findOrFail($id);
     }
     
      /**
       * 
-      * @param integer $ownerId
+      * @param integer $companyId
       * @param array $with
       * @param integer $perPage
       * @return Paginator
       */
-     public function getPaginatedForOwner($ownerId, $with = [], $perPage = 15)
+     public function getPaginatedForOwner($companyId, $with = [], $perPage = 15)
      {
          return $this->model
                     ->with($with)
-                    ->where('owner_id', '=', $ownerId)
+                    ->where('company_id', '=', $companyId)
                     ->paginate($perPage);
      }
     
@@ -50,13 +50,13 @@ trait EloquentOwnerable
     * save the current model to owner
     *
     * @param array $data
-    * @param integer $ownerId
+    * @param integer $companyId
     *
     * @return static
     */
-    public function saveForOwner(array $data, $ownerId)
+    public function saveForOwner(array $data, $companyId)
     {
-        $data['owner_id'] = $ownerId;
+        $data['company_id'] = $companyId;
         
         return $this->model->create($data);
     }
@@ -66,13 +66,13 @@ trait EloquentOwnerable
     *
     * @param integer $id
     * @param array $data
-    * @param integer $ownerId
+    * @param integer $companyId
     *
     * @return void
     */
-    public function updateForOwner($id, array $data, $ownerId)
+    public function updateForOwner($id, array $data, $companyId)
     {
-        return $this->findForOwner($id, $ownerId)
+        return $this->findForOwner($id, $companyId)
                     ->update($data);
     }
     
@@ -80,13 +80,13 @@ trait EloquentOwnerable
      * delete specific resource that owner belong
      * 
      * @param integer $id
-     * @param integer $ownerId
+     * @param integer $companyId
      * 
      * return boolean
      */
-    public function destroyForOwner($id, $ownerId)
+    public function destroyForOwner($id, $companyId)
     {
-        return $this->findForOwner($id, $ownerId)
+        return $this->findForOwner($id, $companyId)
                 ->delete();
     }
     

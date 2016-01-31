@@ -23,7 +23,7 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'read-product');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -42,7 +42,7 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'create-product');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $this->repo()->saveCategory($owner, $request->input('name'));
 
@@ -55,7 +55,7 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'update-product');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $this->repo()->updateCategory($owner, $this->decode($id), $request->input('name'));
         
@@ -68,7 +68,7 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'delete-product');
        
-        $owner = $currentUser->getOwnerId();
+        $owner = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         

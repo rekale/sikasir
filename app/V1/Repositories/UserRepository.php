@@ -9,7 +9,6 @@
 namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
-use Sikasir\V1\User\Employee;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
 
@@ -18,34 +17,28 @@ use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
  *
  * @author rekale
  */
-class EmployeeRepository extends EloquentRepository implements OwnerableRepo
+class UserRepository extends EloquentRepository implements OwnerableRepo
 {
     use Traits\EloquentOwnerable;
     
-    public function __construct(Employee $model) 
+    public function __construct(User $model) 
     {
         parent::__construct($model);
     }
-
-    public function saveForOwner(array $data, $ownerId) 
+    
+    public function saveForOwner(array $data, $companyId) 
     {
-        \DB::transaction(function () use ($data, $ownerId) {
+        \DB::transaction(function () use ($data, $companyId) {
             
-            $user = new User([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-            ]);
+            $data['password'] = bcrypt($data['password']);
+            
+            $user = new User($data);
 
-            $data['owner_id'] = $ownerId;
+            $data['company_id'] = $companyId;
 
-            $employee = Employee::create($data);
+            $this->addPrivileges($user, $data['privileges']);
 
-            $employee->user()->save($user);
-
-            $this->addPrivileges($employee->user, $data['privileges']);
-
-            $employee->outlets()->attach($data['outlet_id']);
+            $user->outlets()->attach($data['outlet_id']);
 
             
         });
