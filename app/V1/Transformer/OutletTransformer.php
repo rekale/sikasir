@@ -71,67 +71,10 @@ class OutletTransformer extends TransformerAbstract
         
         return $this->collection($collection, new UserTransformer);
     }
-     
-    public function includeEntries(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->entries(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new InventoryTransformer);
-    }
-    
-     public function includeOuts(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->outs(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new OutTransformer);
-    }
-    
-    public function includeOpnames(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->opnames(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new OpnameTransformer);
-    }
-    
-    public function includeIncomes(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->incomes(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new IncomeTransformer);
-    }
-    
-    
-    public function includeOutcomes(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->outcomes(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new OutcomeTransformer);
-    }
-    
-    public function includeOrders(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->orders(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-        
-        return $this->collection($collection, new OrderTransformer);
-    }
     
     public function includePrinters(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->setData(
-            $outlet->printers(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
+        $collection = $outlet->printers;
         
         return $this->collection($collection, new PrinterTransformer);
     }

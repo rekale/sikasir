@@ -2,7 +2,7 @@
 
 namespace Sikasir\Http\Controllers\V1\Customers;
 
-use Illuminate\Http\Request;
+use Sikasir\Http\Requests\CustomerRequest;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\CustomerTransformer;
 use Sikasir\V1\Repositories\CustomerRepository;
@@ -54,7 +54,7 @@ class CustomersController extends ApiController
        
    }
    
-   public function store(Request $request)
+   public function store(CustomerRequest $request)
    {
        $currentUser = $this->currentUser();
         
@@ -69,7 +69,7 @@ class CustomersController extends ApiController
        return $this->response()->created();
    }
    
-      public function update($id, Request $request)
+      public function update($id, CustomerRequest $request)
    {
        $currentUser = $this->currentUser();
         
