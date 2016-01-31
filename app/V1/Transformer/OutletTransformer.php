@@ -24,8 +24,7 @@ class OutletTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'employees',
-        'cashiers',
+        'users',
         'incomes',
         'outcomes',
         'customers',
@@ -67,22 +66,11 @@ class OutletTransformer extends TransformerAbstract
         return $this->item($collection, new BusinessFieldTransformer);
     }
     
-    public function includeEmployees(Outlet $outlet, ParamBag $params = null)
+    public function includeUsers(Outlet $outlet, ParamBag $params = null)
     {
-        $collection = $this->setData(
-            $outlet->employees(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-
-        return $this->collection($collection, new EmployeeTransformer);
-    }
-    
-    public function includeCashiers(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $this->setData(
-            $outlet->cashiers(), $params['per_page'][0], $params['current_page'][0]
-        )->result();
-
-        return $this->collection($collection, new CashierTransformer);
+        $collection = $outlet->users;
+        
+        return $this->collection($collection, new UserTransformer);
     }
      
     public function includeEntries(Outlet $outlet, ParamBag $params = null)

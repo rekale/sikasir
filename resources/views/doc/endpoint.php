@@ -25,7 +25,7 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET /?include=employees outlets, taxes, categories, discounts, payments</li>
+        <li> GET /?include= users, outlets, taxes, categories, discounts, payments</li>
         <br>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>

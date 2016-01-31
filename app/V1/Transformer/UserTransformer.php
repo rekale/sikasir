@@ -19,6 +19,11 @@ class UserTransformer extends TransformerAbstract
             'id' => $this->encode($user->id),
             'name' => $user->name,
             'email' => $user->email,
+            'gender' => $user->gender,
+            'title' => $user->title,
+            'address' => $user->address,
+            'phone'=> $user->phone,
+            'icon' => $user->icon,
         ];
     }
 

@@ -4,8 +4,9 @@ namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Illuminate\Http\Request;
 use Sikasir\Http\Controllers\Controller;
-use \Sikasir\V1\Transformer\OwnerTransformer;
+use Sikasir\V1\Transformer\CompanyTransformer;
 use Tymon\JWTAuth\JWTAuth;
+use Sikasir\V1\User\Company;
 
 class AuthController extends Controller
 {
@@ -26,23 +27,21 @@ class AuthController extends Controller
         $password = $this->request->input('password');
         
         
-        $app = \Sikasir\V1\User\App::whereUsername($username)->get();
+        $company = Company::with('outlets.users')->whereUsername($username)->first();
         
-        if ($app->isEmpty()) {
+        if (is_null($company)) {
             return $this->response->notFound('user not found');
         }
         
-        if(! \Hash::check($password, $app[0]->password)) {
+        if(! \Hash::check($password, $company->password)) {
             return $this->response->notFound('password is not match');
         }
         
-        $include = ['outlets.employees'];
         
-        $owner = $app[0]->company()->with($include)->get();
-        
-        return $this->response->resource()
-                ->including($include)
-                ->withCollection($owner, new OwnerTransformer);
+        return $this->response
+                ->resource()
+                ->including('outlets.users')
+                ->withItem($company, new CompanyTransformer);
         
     }
     
