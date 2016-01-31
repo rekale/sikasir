@@ -41,8 +41,8 @@
         <li> DELETE suppliers/{id} </li>
         </b>
         <br>
-        <li> GET outlets?include=users, incomes,outcomes, printers</li>
-        <li> GET outlets/{id}?include=users, incomes, outcomes, printers</li>
+        <li> GET outlets?include=users,printers</li>
+        <li> GET outlets/{id}?include=users, printers</li>
         <br>
         <li> GET outlets/{id}/orders?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax </li>
         <li> GET outlets/{id}/orders/void?include=<b>operator, items, items.variant, items.variant.product, items.variant.product.category </b> customer, discount, tax  </li>

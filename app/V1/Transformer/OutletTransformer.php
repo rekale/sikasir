@@ -25,8 +25,6 @@ class OutletTransformer extends TransformerAbstract
      */
     protected $availableIncludes = [
         'users',
-        'incomes',
-        'outcomes',
         'printers',
     ];
     
