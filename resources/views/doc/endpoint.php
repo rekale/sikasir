@@ -6,17 +6,6 @@
     </head>
     <body>
         <h1>List EndPoint yang udah di bikin</h1>
-        <pre>
-        note:
-	v1/owners?include=employees:per_page(15):current_page(1)
-        maksud dari per_page(15) adalah data yang di ambil tiap page adalah 15 data,
-        dan maksud current_page(1) adalah halaman paging saat ini
-
-        default perPage : 15
-        default current_page: 1
-
-        
-         </pre>
         link yg di bold adalah endpoint terbaru
         link yg di <i>italic</i> adalah endpint yg di edit
         
@@ -30,6 +19,12 @@
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
         <li> DELETE owners/{id} </li>
+        <br>
+        <b>
+        <li> POST customers </li>
+        <li> PUT customers/{id} </li>
+        <li> DELETE customers/{id} </li>
+        </b>
         <br>
         <li> GET employees </li>
         <li> GET employees/{id} </li>
@@ -59,8 +54,6 @@
         <li>GET outlets/{id}/outs?include=<b>operator, variants, variants.product, variants.product.category</b></li>
         <li>GET outlets/{id}/opnames?include=<b>operator, variants, variants.product, variants.product.category</b></li>
         <li>GET outlets/{id}/purchases?include=<b>supplier, variants, variants.product, variants.product.category</b></li>
-        <br>
-        <li> GET outlets/{id}/customers</li>
         <br>
         <li> GET outlets/{id}/incomes </li>
         <li> POST outlets/{id}/incomes </li>

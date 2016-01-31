@@ -7,17 +7,7 @@
     <body>
         <h1>FORMAT POST / UPDATE</h1>
         <pre>
-        --OWNER--
-        {
-            "name":"Dr. Willa Goldner", //required untuk post
-            "email": "email@baru.com", //required untuk post dna harus unik
-            "password": "12345", //required untuk post
-            "business_name":"Morissette and Sons", //required untuk post
-            "phone":"201.200.3668x8049", //required untuk post
-            "address":"45277 Haley Summit Apt. 223\nSouth Elisa, MI 55720-5644", //required untuk post
-            "active":true   //required untuk post  
-        }
-
+        
         --EMPLOYEE-- //staff atau manager
 
         {
@@ -31,6 +21,18 @@
             "address":"45277 Haley Summit Apt. 223 South Elisa, MI 55720-5644", //required untuk post
             "void_access" : true, //required untuk post
             "privileges": [1, 2, 3, 4], // 1: produk 2:daftar transaksi dan daftar void 3: laporan 4:billing
+        }
+
+        --CUSTOMER-- 
+
+        {
+            "name":"Dr. Willa Goldner",
+            "email": "email@aku.com",
+            "sex": "male",
+            "phone":"201.200.3668x8049",
+            "address":"45277 Haley Summit Apt. 223 South Elisa, MI 55720-5644",
+            "city": "jakarta",
+            "pos_code": "12345"
         }
 
         --OUTLET--

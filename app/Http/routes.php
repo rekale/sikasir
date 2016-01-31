@@ -54,6 +54,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('owners/{id}', 'OwnersController@update');
             delete('owners/{id}', 'OwnersController@destroy');
         });
+        
+        Route::group(['namespace' => 'Customers'], function ()
+        {
+            get('customers', 'CustomersController@index');
+            get('customers/{id}', 'CustomersController@show');
+            post('customers', 'CustomersController@store');
+            put('customers/{id}', 'CustomersController@update');
+            delete('customers/{id}', 'CustomersController@destroy');
+        });
   
         Route::group(['namespace' => 'Employees'], function ()
         {
@@ -89,10 +98,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/outcomes', 'OutcomesController@index');
             post('outlets/{id}/outcomes', 'OutcomesController@store');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroy');
-
-            get('outlets/{id}/customers', 'CustomersController@index');
-            post('outlets/{id}/customers', 'CustomersController@store');
-
+            
             get('outlets/{id}/products', 'ProductsController@index');
 
             get('outlets/{id}/employees', 'EmployeesController@index');
