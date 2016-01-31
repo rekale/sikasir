@@ -138,8 +138,8 @@ class OrdersController extends ApiController
         
         $dataInput['payment_id'] = $this->decode($dataInput['payment_id']);
         
-        foreach ($dataInput['items'] as &$item) {
-            $item['id'] = $this->decode($item['id']);
+        foreach ($dataInput['products'] as &$product) {
+            $product['id'] = $this->decode($product['id']);
         }
         
         

@@ -34,7 +34,7 @@ class Order extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function products()
+    public function variants()
     {
         return $this->belongsToMany(Product::class)->withPivot(['total']);
     }

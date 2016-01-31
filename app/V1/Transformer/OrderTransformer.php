@@ -25,10 +25,10 @@ class OrderTransformer extends TransformerAbstract
         'outlet',
         'operator',
         'customer',
-        'voidby',
-        'items',
+        'variants',
         'tax',
         'discount',
+        'voidby',
     ];
 
     public function transform(Order $order)
@@ -51,11 +51,11 @@ class OrderTransformer extends TransformerAbstract
         
     }
     
-    public function includeItems(Order $order, ParamBag $params = null)
+    public function includeVariants(Order $order, ParamBag $params = null)
     {
-        $collection = $order->items;
+        $collection = $order->variants;
         
-        return $this->collection($collection, new ItemTransformer);
+        return $this->collection($collection, new ProductTransformer);
     }
     
     public function includeCustomer(Order $order)

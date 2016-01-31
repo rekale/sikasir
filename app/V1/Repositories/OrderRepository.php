@@ -37,9 +37,9 @@ class OrderRepository extends EloquentRepository
                 'paid' => $data['paid'],
             ]);
 
-            foreach ($data['items'] as $item)
+            foreach ($data['products'] as $product)
             {
-                $order->items()->attach($item['id'], ['total' => $item['quantity']]);
+                $order->products()->attach($product['id'], ['total' => $product['quantity']]);
             }
             
         });
