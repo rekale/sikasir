@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Suppliers;
 
 use Illuminate\Database\Eloquent\Model;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 
 class Supplier extends Model
 {
@@ -21,6 +21,6 @@ class Supplier extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(Owner::class);
+        return $this->belongsTo(Company::class);
     }
 }

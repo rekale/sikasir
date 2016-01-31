@@ -7,7 +7,7 @@ use Sikasir\V1\Orders\Order;
 use \Sikasir\V1\Traits\IdObfuscater;
 use \Sikasir\V1\Traits\ParamTransformer;
 use League\Fractal\ParamBag;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\User\Cashier;
 
@@ -90,7 +90,7 @@ class OrderTransformer extends TransformerAbstract
     {
         $user = $order->operator;
         
-        if ($user->userable instanceof Owner) {
+        if ($user->userable instanceof Company) {
             return $this->item($user->userable, new OwnerTransformer);
         }
         if ($user->userable instanceof Employee) {
@@ -105,7 +105,7 @@ class OrderTransformer extends TransformerAbstract
     {
         $user = $order->voidBy;
         
-        if (isset($user) && $user->userable instanceof Owner) {
+        if (isset($user) && $user->userable instanceof Company) {
             return $this->item($user->userable, new OwnerTransformer);
         }
         if (isset($user) && $user->userable instanceof Employee) {

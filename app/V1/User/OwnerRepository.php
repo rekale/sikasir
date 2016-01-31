@@ -12,7 +12,7 @@ use Sikasir\V1\User\User;
 class OwnerRepository extends EloquentRepository
 {
     
-    public function __construct(Owner $owner) 
+    public function __construct(Company $owner) 
     {
         parent::__construct($owner);
     }
@@ -25,7 +25,7 @@ class OwnerRepository extends EloquentRepository
             'password' => bcrypt($data['password']),
         ]);
         
-        $owner = Owner::create($data);
+        $owner = Company::create($data);
         
         $owner->user()->save($user);
     }

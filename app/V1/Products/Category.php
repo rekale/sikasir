@@ -3,6 +3,7 @@
 namespace Sikasir\V1\Products;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\User\Company;
 
 class Category extends Model
 {
@@ -13,16 +14,16 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['owner_id','name'];
+    protected $fillable = ['company_id','name'];
     
-    public function owner()
+    public function company()
     {
-        return $this->belongsTo(\Sikasir\V1\User\Owner::class, 'owner_id');
+        return $this->belongsTo(Company::class);
     }
     
     public function products()
     {
-        return $this->hasMany(Product::class, 'category_id');
+        return $this->hasMany(Product::class);
     }
     
 }

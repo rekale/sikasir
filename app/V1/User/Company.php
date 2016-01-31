@@ -11,24 +11,25 @@ use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Suppliers\Supplier;
 use Sikasir\V1\Transactions\Payment;
+use Sikasir\V1\Outlets\Customer;
 
-class Owner extends Model
+class Company extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'owners';
     
-    protected $with = ['user'];
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'business_name', 'phone', 'address', 'icon', 'active',];
+    protected $fillable = [
+        'name',
+        'username',
+        'password', 
+        'phone', 
+        'address', 
+        'icon', 
+        'active',
+    ];
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -37,9 +38,9 @@ class Owner extends Model
      */
     protected $hidden = ['created_at', 'updated_at'];
     
-    public function user()
+    public function users()
     {
-        return $this->morphOne(User::class, 'userable');
+        return $this->hasMany(User::class);
     }
     
     /**
@@ -49,7 +50,7 @@ class Owner extends Model
      */
     public function outlets()
     {
-       return $this->hasMany(Outlet::class, 'owner_id'); 
+       return $this->hasMany(Outlet::class); 
     }
     
     /**
@@ -86,28 +87,9 @@ class Owner extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function employees()
-    {
-        return $this->hasMany(\Sikasir\V1\User\Employee::class);
-    }
-    
-     /**
-     * owner has one app
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function app()
-    {
-       return $this->hasOne(App::class, 'owner_id'); 
-    }
-    
-     /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function categories()
     {
-        return $this->hasMany(Category::class, 'owner_id');
+        return $this->hasMany(Category::class);
     }
     
      /**
@@ -134,6 +116,15 @@ class Owner extends Model
      */
     public function suppliers()
     {
-       return $this->hasOne(Supplier::class); 
+       return $this->hasMany(Supplier::class); 
+    }
+    
+    /**
+    * 
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function customers()
+    {
+       return $this->hasMany(Customer::class); 
     }
 }

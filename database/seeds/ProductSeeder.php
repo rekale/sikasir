@@ -3,8 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Products\Product;
-use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 
 class ProductSeeder extends Seeder
 {
@@ -17,15 +16,15 @@ class ProductSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
         //create product category
-        $owners = Owner::all();
+        $companies = Company::all();
         
-        $owners->each(function ($owner)
+        $companies->each(function ($company)
         {
-            $categories = $owner->categories()->saveMany(
+            $categories = $company->categories()->saveMany(
                 factory(Category::class, 3)->make()
             );
             
-            $outlets = $owner->outlets;
+            $outlets = $company->outlets;
             
             foreach (range(0, 2) as $i) {
                 

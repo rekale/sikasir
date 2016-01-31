@@ -38,7 +38,7 @@ class AuthController extends Controller
         
         $include = ['outlets.employees'];
         
-        $owner = $app[0]->owner()->with($include)->get();
+        $owner = $app[0]->company()->with($include)->get();
         
         return $this->response->resource()
                 ->including($include)

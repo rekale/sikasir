@@ -3,20 +3,16 @@
 namespace Sikasir\V1\Outlets;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\User\User;
 use Sikasir\V1\Products\Product;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\Outlets\BusinessField;
-use Sikasir\V1\User\Employee;
-use Sikasir\V1\User\Cashier;
 use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Outlets\Customer;
-use Sikasir\V1\Stocks\StockDetail;
-use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\Opname;
-use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Outlets\Printer;
@@ -38,8 +34,18 @@ class Outlet extends Model
      * @var array
      */
     protected $fillable = [
-        'business_field_id', 'tax_id' ,'code','name', 'address', 'province', 'city', 'pos_code',
-        'phone1', 'phone2', 'icon', 'owner_id',
+        'company_id',
+        'business_field_id', 
+        'tax_id',
+        'code',
+        'name', 
+        'address', 
+        'province', 
+        'city', 
+        'pos_code',
+        'phone1', 
+        'phone2', 
+        'icon', 
     ];
 
     /**
@@ -55,9 +61,9 @@ class Outlet extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function owner()
+    public function company()
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->belongsTo(Company::class);
     }
 
     /**
@@ -85,21 +91,11 @@ class Outlet extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function employees()
+    public function users()
     {
-        return $this->BelongsToMany(Employee::class);
+        return $this->BelongsToMany(User::class);
     }
-    
-    /**
-     * outlet have many cashier
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function cashiers()
-    {
-        return $this->hasMany(Cashier::class);
-    }
-
+   
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

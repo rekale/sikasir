@@ -11,10 +11,8 @@
 |
 */
 
-use Sikasir\V1\User\Admin;
-use Sikasir\V1\User\Owner;
 use Sikasir\V1\User\User;
-use Sikasir\V1\User\Employee;
+use Sikasir\V1\User\Company;
 
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\BusinessField;
@@ -37,10 +35,27 @@ use Sikasir\V1\Suppliers\Supplier;
 use Sikasir\V1\Transactions\Payment;
 
 
+$factory->define(Company::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'username' => $faker->word,
+        'address' => $faker->address, 
+        'phone' => $faker->phoneNumber, 
+        'icon' => $faker->imageUrl(300, 200, 'people'),
+        'active' => $faker->boolean(),
+        'password' => bcrypt(str_random(10)),
+    ];
+});
+
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+        'title' => $faker->randomElement(['kasir', 'manager', 'owner']), 
+        'gender' => $faker->randomElement(['male', 'female']),
+        'address' => $faker->address, 
+        'phone' => $faker->phoneNumber, 
+        'icon' => $faker->imageUrl(300, 200, 'people'),
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
@@ -52,35 +67,8 @@ $factory->define(BusinessField::class, function (Faker\Generator $fake) {
     ];
 });
 
-$factory->define(Tax::class, function (Faker\Generator $fake) {
-    return [
-        'name' => $fake->word,
-        'amount' => $fake->numberBetween(1, 20),
-    ];
-});
-
-$factory->define(Admin::class, function (Faker\Generator $fake) {
-  
-    return [
-        'name' => $fake->name,
-    ];
-});
-
-$factory->define(Owner::class, function (Faker\Generator $fake) {
-  
-    return [
-        'name' => $fake->name,
-        'business_name' => $fake->company, 
-        'phone' => $fake->phoneNumber,
-        'address' => $fake->address,
-        'icon' => $fake->imageUrl(), 
-        'active' => true,
-    ];
-});
-
 $factory->define(Outlet::class, function (Faker\Generator $fake) {
     return [
-        'owner_id' => null,
         'name' => $fake->word,
         'code' => $fake->numerify(),
         'address' => $fake->address,
@@ -90,13 +78,6 @@ $factory->define(Outlet::class, function (Faker\Generator $fake) {
         'phone1' => $fake->phoneNumber,
         'phone2' => $fake->phoneNumber,
         'icon' => $fake->imageUrl(300, 200, 'people'),
-    ];
-});
-
-$factory->define(Tax::class, function (Faker\Generator $fake) {
-    return [
-        'name' => $fake->word,
-        'amount' => $fake->numberBetween(1, 20),
     ];
 });
 
@@ -121,18 +102,6 @@ $factory->define(Tax::class, function (Faker\Generator $fake) {
     ];
 });
 
-$factory->define(Employee::class, function (Faker\Generator $fake) {
-    return [
-        'name' => $fake->name,
-        'title' => $fake->randomElement(['staff', 'manager']),
-        'gender' => $fake->randomElement(['male', 'female']),
-        'phone' => $fake->phoneNumber,
-        'address' => $fake->address,
-        'icon' => $fake->imageUrl(300, 200, 'people'),
-        'void_access' => true,
-    ];
-    
-});
 
 $factory->define(Customer::class, function (Faker\Generator $fake) {
     return [

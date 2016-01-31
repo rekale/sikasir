@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Sikasir\V1\Transformer\OwnerTransformer;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\User\OwnerRepository;
 use Sikasir\V1\Traits\IdObfuscater;
 use Sikasir\V1\User\User;
@@ -67,7 +67,7 @@ class OwnersTest extends TestCase
     public function test_create_an_owner()
     {
       
-        $owner = factory(Owner::class)->make();
+        $owner = factory(Company::class)->make();
         $user = factory(User::class)->make();
         
         $data = $owner->toArray();
@@ -92,7 +92,7 @@ class OwnersTest extends TestCase
         
         $owner = $this->createOwner();
         
-        $updateowner = factory(Owner::class)->make();
+        $updateowner = factory(Company::class)->make();
         
         $id = $this->encode($owner->id);
         

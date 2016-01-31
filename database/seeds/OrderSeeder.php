@@ -19,17 +19,17 @@ class OrderSeeder extends Seeder
         
         foreach (Outlet::all() as $outlet) {
             
-            $customers = $outlet->customers;
-            $employees = $outlet->employees;
+            $customers = $outlet->company->customers;
+            $employees = $outlet->users;
             $tax = $outlet->tax;
-            $discounts = $outlet->owner->discounts;
-            $payments = $outlet->owner->payments;
+            $discounts = $outlet->company->discounts;
+            $payments = $outlet->company->payments;
             
             //create order
             $orders = factory(Order::class, 3)->create([
                 'outlet_id' => $outlet->id,
                 'customer_id' => $customers->random()->id,
-                'user_id' => $employees->random()->user->id,
+                'user_id' => $employees->random()->id,
                 'payment_id' => $payments->random()->id,
                 'tax_id' => $tax->id,
                 'discount_id' => $discounts->random()->id,
@@ -45,14 +45,14 @@ class OrderSeeder extends Seeder
                             ->toArray();
             
             foreach ($orders as $order) {
-                $order->products()->attach($variantIds, ['total' => $fake->numberBetween(1, 10)]);
+                $order->variants()->attach($variantIds, ['total' => $fake->numberBetween(1, 10)]);
             }
             
             //select random order to void by random employee
             $orderVoided = $orders->random();
             
             $orderVoided->void = true;
-            $orderVoided->void_user_id = $employees->random()->user->id;
+            $orderVoided->void_user_id = $employees->random()->id;
             $orderVoided->void_note = $fake->words(3, true);
             $orderVoided->save();
             

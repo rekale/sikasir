@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\Outlets\Customer;
 
 class CustomerSeeder extends Seeder
@@ -15,11 +15,11 @@ class CustomerSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
         
-        Outlet::all()->each(function ($outlet) use ($fake)
+        Company::all()->each(function ($company) use ($fake)
         {
             $customer = factory(Customer::class)->make();
             
-            $outlet->customers()->save($customer);
+            $company->customers()->save($customer);
 
                 
         });

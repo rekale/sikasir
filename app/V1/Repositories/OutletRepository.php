@@ -160,7 +160,7 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
      * get outlet's stock
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param \Sikasir\V1\User\Company
      *
      * @return Collection | Paginator
      */
@@ -181,7 +181,7 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
      * get outlet's stock entries
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param \Sikasir\V1\User\Company
      *
      * @return Collection | Paginator
      */
@@ -201,7 +201,7 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
      * get outlet's stock outs
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param \Sikasir\V1\User\Company
      *
      * @return Collection | Paginator
      */
@@ -222,7 +222,7 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
      * get outlet's stock opnames
      *
      * @param integer $outletId
-     * @param \Sikasir\V1\User\Owner
+     * @param \Sikasir\V1\User\Company
      *
      * @return Collection | Paginator
      */

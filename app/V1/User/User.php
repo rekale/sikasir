@@ -40,9 +40,8 @@ class User extends Model implements AuthenticatableContract,
         'title', 
         'gender',
         'address', 
-        'phone', 
-        'void_access', 
-        'icon'
+        'phone',  
+        'icon',
     ];
 
     /**
@@ -71,7 +70,7 @@ class User extends Model implements AuthenticatableContract,
     /**
      * get current user's owner id
      * 
-     * @return Sikasir\V1\User\Owner
+     * @return Sikasir\V1\User\Company
      */
     public function getOwnerId()
     {
@@ -79,7 +78,7 @@ class User extends Model implements AuthenticatableContract,
             throw new \Exception("you're admin, you're don't have owner");
         }
         
-        if ($this->userable instanceof Owner) {
+        if ($this->userable instanceof Company) {
             return $this->userable->id;
         }
         else {

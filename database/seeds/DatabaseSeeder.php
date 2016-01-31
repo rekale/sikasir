@@ -7,20 +7,18 @@ class DatabaseSeeder extends Seeder
 {
      
     protected $tables = [
+        'companies',
         'users',
         'roles',
         'abilities',
         'role_abilities',
         'user_abilities',
-        'admins',
-        'owners',
-        'employees',
-        'apps',
         'outlets',
+        'outlet_user',
+        'suppliers',
         'business_fields',
         'taxes',
         'discounts',
-        'employee_outlet',
         'incomes',
         'outcomes',
         'customers',
@@ -36,7 +34,6 @@ class DatabaseSeeder extends Seeder
         'product_purchase_order',
         'orders',
         'order_product',
-        'suppliers',
         'printers',
     ];
 
@@ -45,6 +42,7 @@ class DatabaseSeeder extends Seeder
      */
     protected $seeders = [
         'UserSeeder',
+        'OutletSeeder',
         'RolesSeeder',
         'FinanceSeeder',
         'CustomerSeeder',

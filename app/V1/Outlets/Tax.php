@@ -4,7 +4,7 @@ namespace Sikasir\V1\Outlets;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 
 class Tax extends Model
 {
@@ -28,7 +28,7 @@ class Tax extends Model
      */
     public function owners()
     {
-        $this->belongsTo(Owner::class);
+        $this->belongsTo(Company::class);
     }
     
     /**

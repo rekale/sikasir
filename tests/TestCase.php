@@ -3,7 +3,7 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Item;
 use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\User\User;
 use Sikasir\V1\User\Employee;
 use Sikasir\V1\User\Cashier;
@@ -117,12 +117,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     
     public function owner()
     {
-        return Owner::findOrFail(1);
+        return Company::findOrFail(1);
     }
     
     public function createOwner()
     {
-        $owner = factory(Owner::class)->create();
+        $owner = factory(Company::class)->create();
         
         $user = factory(User::class)->make([
             'name' => $owner->name,

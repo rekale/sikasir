@@ -4,7 +4,7 @@ namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Products\Product;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Outlets\Outlet;
@@ -35,7 +35,7 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
     /**
      * create new categories
      * 
-     * @param Owner $owner
+     * @param Company $owner
      * @param string $category
      */
     public function saveCategory($ownerId, $category)

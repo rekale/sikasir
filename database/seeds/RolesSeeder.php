@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\V1\User\Owner;
-use Sikasir\V1\User\Employee;
-use Sikasir\V1\User\Cashier;
 use Sikasir\V1\User\User;
 
 class RolesSeeder extends Seeder
@@ -25,18 +22,12 @@ class RolesSeeder extends Seeder
             \Bouncer::allow('admin')->to($doThis);
         }
         
-        $user = User::whereName('admin')->get();
+        $owner = User::whereName('owner')->first();
         
-        $user[0]->assign('admin');
+        $owner->assign('owner');
         
-        Owner::all()->each(function ($owner) {
-            $owner->user->assign('owner');
-            $owner->user->assign('employee');
-            
-        });
-        
-        Employee::all()->each(function ($employee) {
-            $employee->user->assign('employee');
+        User::all()->each(function ($employee) {
+            $employee->assign('employee');
         });
         
     }

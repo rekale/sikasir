@@ -18,6 +18,6 @@ class Discount extends Model
      */
     public function owners()
     {
-        $this->belongsTo(Owner::class);
+        $this->belongsTo(Company::class);
     }
 }

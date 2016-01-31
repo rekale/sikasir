@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
 

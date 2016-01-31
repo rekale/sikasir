@@ -3,7 +3,7 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
 
@@ -31,7 +31,7 @@ class OwnerTransformer extends TransformerAbstract
         'products',
     ]; 
     
-    public function transform(Owner $owner)
+    public function transform(Company $owner)
     {
         return [
             'id' => $this->encode($owner->user->id),
@@ -45,7 +45,7 @@ class OwnerTransformer extends TransformerAbstract
         ];
     }
     
-    public function includeOutlets(Owner $owner, ParamBag $params = null)
+    public function includeOutlets(Company $owner, ParamBag $params = null)
     {
         
        $query = $this->setBuilder($owner->outlets());
@@ -59,7 +59,7 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new OutletTransformer);
     }
     
-    public function includeEmployees(Owner $owner, ParamBag $params = null)
+    public function includeEmployees(Company $owner, ParamBag $params = null)
     {
         $query = $this->setBuilder($owner->employees());
         
@@ -72,7 +72,7 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new EmployeeTransformer);
     }
     
-    public function includeCategories(Owner $owner, ParamBag $params = null)
+    public function includeCategories(Company $owner, ParamBag $params = null)
     {
          $collection = $this->setData(
             $owner->categories(), $params['perPage'][0], $params['currentPage'][0]
@@ -81,7 +81,7 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new CategoryTransformer);
     }
     
-    public function includeProducts(Owner $owner, ParamBag $params = null)
+    public function includeProducts(Company $owner, ParamBag $params = null)
     {
         $query = $this->setBuilder($owner->products());
         
@@ -94,7 +94,7 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new ProductTransformer);
     }
     
-    public function includeTaxes(Owner $owner, ParamBag $params = null)
+    public function includeTaxes(Company $owner, ParamBag $params = null)
     {
         $query = $this->setBuilder($owner->taxes());
         
@@ -107,7 +107,7 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new TaxTransformer);
     }
     
-    public function includeDiscounts(Owner $owner, ParamBag $params = null)
+    public function includeDiscounts(Company $owner, ParamBag $params = null)
     {   
         $collection = $this->setData(
             $owner->discounts(), $params['per_page'][0], $params['current_page'][0]
@@ -116,7 +116,7 @@ class OwnerTransformer extends TransformerAbstract
         return $this->collection($collection, new TaxTransformer);
     }
     
-    public function includePayments(Owner $owner, ParamBag $params = null)
+    public function includePayments(Company $owner, ParamBag $params = null)
     {   
         $collection = $this->setData(
             $owner->payments(), $params['per_page'][0], $params['current_page'][0]

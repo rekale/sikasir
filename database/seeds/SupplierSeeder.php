@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\V1\User\Owner;
+use Sikasir\V1\User\Company;
 use Sikasir\V1\Suppliers\Supplier;
 
 class SupplierSeeder extends Seeder
@@ -13,11 +13,11 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
-        Owner::all()->each(function ($owner) {
+        Company::all()->each(function ($company) {
         
             $suppliers = factory(Supplier::class, 3)->make();
             
-            $owner->suppliers()->saveMany($suppliers);
+            $company->suppliers()->saveMany($suppliers);
             
         });
     }
