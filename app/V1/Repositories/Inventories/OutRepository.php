@@ -22,6 +22,29 @@ class OutRepository extends EloquentRepository implements OwnerThroughableRepo
         parent::__construct($model);
     }
     
+    public function saveForOwnerThrough(array $data, $companyId, $throughId, $throughTableName) 
+    {
+        $throughTableExist = \DB::table($throughTableName)
+                                ->where('id', $throughId)
+                                ->where('company_id', $companyId)
+                                ->exists();
+        
+        if($throughTableExist) {
+            
+            $foreignId = str_singular($throughTableName) . '_id';
+            
+            $data[$foreignId] = $throughId;
+            
+            $entry =  $this->model->create($data);
+            
+            foreach ($data['variants'] as $variant) {
+                $entry->variants()->attach($variant['id'], ['total' => $variant['total']]);
+            }
+            
+            return $entry;
+        }
+        
+    }
     
-
+    
 }

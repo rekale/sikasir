@@ -57,7 +57,7 @@ class ProductTransformer extends TransformerAbstract
         if (isset($product->pivot)) {
             $foreign = explode('_', $product->pivot->getForeignKey());
             $key = $foreign[0] . '_total';
-            $detail[$key] = $product->pivot->total;
+            $main[$key] = $product->pivot->total;
         }
         
         return $product->isNotVariant() ? $main :
@@ -69,7 +69,10 @@ class ProductTransformer extends TransformerAbstract
     {
         $variants = $product->variants;
         
-        return $this->collection($variants, new ProductTransformer);
+        if(! is_null($variants)) {
+            return $this->collection($variants, new ProductTransformer);
+        }
+        
     }
     
     public function includeCategory(Product $product)
@@ -83,7 +86,10 @@ class ProductTransformer extends TransformerAbstract
     {   
         $item = $variant->product;
         
-        return $this->item($item, new ProductTransformer);
+        if(! is_null($item)) {
+            return $this->item($item, new ProductTransformer);
+        }
+        
     }
     
     public function includeEntries(Product $product)

@@ -153,6 +153,59 @@
             "phone": "12345688",
             "address": "dimana mana"
         }
+
+        --ENTRY/OUT --
+{
+    "user_id": "Z",
+    "note": "asdfadgsaf",
+    "input_at": "2016-01-08",
+    "variants": [
+        {
+            "id" : "Z",
+            "total": 3
+        },
+        {
+            "id" : "L",
+            "total": 4
+        }
+    ]
+}
+
+        --OPNAME --
+{
+    "user_id": "Z",
+    "note": "asdfadgsaf",
+    "input_at": "2016-01-08",
+    "status" :true,
+    "variants": [
+        {
+            "id" : "Z",
+            "total": 3
+        },
+        {
+            "id" : "L",
+            "total": 4
+        }
+    ]
+}
+
+        --PURCHASE ORDER --
+    {
+        "supplier_id": "Z",
+        "po_number": "12345",
+        "note": "asdfadgsaf",
+        "input_at": "2016-01-08",
+        "variants": [
+            {
+                "id" : "Z",
+                "total": 3
+            },
+            {
+                "id" : "L",
+                "total": 4
+            }
+        ]
+    }
         </pre>
     </body>
 </html>

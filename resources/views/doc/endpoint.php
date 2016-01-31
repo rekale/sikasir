@@ -52,9 +52,16 @@
         <li> GET outlets/{id}/products?include=category,variants </li> 
         <br>
         <li>GET outlets/{id}/entries?include=<b>operator, variants, variants.product, variants.product.category</b></li>
+        <b><li>POST outlets/{id}/entries</li></b>
+        <br>
         <li>GET outlets/{id}/outs?include=<b>operator, variants, variants.product, variants.product.category</b></li>
+        <b><li>POST outlets/{id}/outs</li></b>
+        <br>
         <li>GET outlets/{id}/opnames?include=<b>operator, variants, variants.product, variants.product.category</b></li>
+        <b><li>POST outlets/{id}/opnames</li></b>
+        <br>
         <li>GET outlets/{id}/purchases?include=<b>supplier, variants, variants.product, variants.product.category</b></li>
+        <b><li>POST outlets/{id}/purchases</li></b>
         <br>
         <li> GET outlets/{id}/incomes </li>
         <li> POST outlets/{id}/incomes </li>

@@ -7,7 +7,7 @@ use Sikasir\V1\Repositories\Inventories\EntryRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Transformer\InventoryTransformer;
-use Sikasir\Http\Requests\StockInOutRequest;
+use Sikasir\Http\Requests\InventoryRequest;
 
 class EntriesController extends ApiController
 {
@@ -38,6 +38,27 @@ class EntriesController extends ApiController
                 ->resource()
                 ->including($with)
                 ->withPaginated($stocks, new InventoryTransformer);
+    }
+    
+    public function store($outletId, InventoryRequest $request)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'create-inventory');
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $dataInput = $request->all();
+        
+        $dataInput['user_id'] = $this->decode($dataInput['user_id']);
+        
+        foreach($dataInput['variants'] as &$variant) {
+            $variant['id'] = $this->decode($variant['id']);
+        }
+        
+        $this->repo()->saveForOwnerThrough($dataInput, $companyId, $this->decode($outletId), 'outlets');
+        
+        return $this->response()->created();
     }
   
 }

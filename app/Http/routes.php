@@ -114,12 +114,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             {
                 
                 get('outlets/{id}/entries', 'EntriesController@index');
-                get('outlets/{id}/outs', 'OutsController@index');
-                get('outlets/{id}/opnames', 'OpnamesController@index');
-                get('outlets/{id}/purchases', 'PurchasesController@index');
+                post('outlets/{id}/entries', 'EntriesController@store');
                 
-                get('outlets/{id}/stocks', 'StocksController@index');
-               
+                get('outlets/{id}/outs', 'OutsController@index');
+                post('outlets/{id}/outs', 'OutsController@store');
+                
+                get('outlets/{id}/opnames', 'OpnamesController@index');
+                post('outlets/{id}/opnames', 'OpnamesController@store');
+                
+                get('outlets/{id}/purchases', 'PurchasesController@index');
+                post('outlets/{id}/purchases', 'PurchasesController@store');
+                
             });
             
         });

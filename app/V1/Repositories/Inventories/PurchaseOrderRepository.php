@@ -3,21 +3,15 @@
 namespace Sikasir\V1\Repositories\Inventories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
-use Sikasir\V1\Stocks\Opname;
+use Sikasir\V1\Stocks\PurchaseOrder;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
 use Sikasir\V1\Repositories\Traits\EloquentOwnerThroughable;
 
-/**
- * Description of ProductRepository
- *
- * @author rekale 
- *
- */
-class OpnameRepository extends EloquentRepository implements OwnerThroughableRepo
+class PurchaseOrderRepository extends EloquentRepository implements OwnerThroughableRepo
 {
     use EloquentOwnerThroughable;
     
-    public function __construct(Opname $model) 
+    public function __construct(PurchaseOrder $model) 
     {
         parent::__construct($model);
     }
@@ -28,22 +22,26 @@ class OpnameRepository extends EloquentRepository implements OwnerThroughableRep
                                 ->where('id', $throughId)
                                 ->where('company_id', $companyId)
                                 ->exists();
-        
-        if($throughTableExist) {
+        if($throughTableExist) 
+            {
             
             $foreignId = str_singular($throughTableName) . '_id';
             
             $data[$foreignId] = $throughId;
             
-            $opname =  $this->model->create($data);
+            $purchases = $this->model->create($data);
             
             foreach ($data['variants'] as $variant) {
-                $opname->variants()->attach($variant['id'], ['total' => $variant['total']]);
+                $purchases->variants()->attach($variant['id'], ['total' => $variant['total']]);
             }
             
-            return $opname;
+            return $purchases;
         }
         
     }
+    
+    
+   
+    
 
 }
