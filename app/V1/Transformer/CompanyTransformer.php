@@ -52,7 +52,7 @@ class CompanyTransformer extends TransformerAbstract
     
     public function includeUsers(Company $company, ParamBag $params = null)
     {
-        $collection = $this->users;
+        $collection = $company->users;
         
         return $this->collection($collection, new UserTransformer);
     }
