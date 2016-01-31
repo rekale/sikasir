@@ -14,27 +14,27 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('owner_id')->index();
+            $table->unsignedInteger('company_id')->index();
             $table->string('name');
             $table->integer('amount');
             $table->timestamps();
             
-            $table->foreign('owner_id')
+            $table->foreign('company_id')
                   ->references('id')
-                  ->on('owners')
+                  ->on('companies')
                   ->onDelete('cascade');
         });
         
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('owner_id')->index();
+            $table->unsignedInteger('company_id')->index();
             $table->string('name');
             $table->string('description');
             $table->timestamps();
             
-            $table->foreign('owner_id')
+            $table->foreign('company_id')
                   ->references('id')
-                  ->on('owners')
+                  ->on('companies')
                   ->onDelete('cascade');
         });
     }

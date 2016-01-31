@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembersTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,16 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('company_id')->unsigned()->index();
             $table->string('name');
-            $table->string('business_name');
-            $table->string('phone');
-            $table->text('address');
-            $table->text('icon')->nullable();
-            $table->boolean('active', 0);
             $table->timestamps();
-          
+            
+            $table->foreign('company_id')
+                  ->references('id')
+                  ->on('companies')
+                  ->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('owners');
+        Schema::drop('categories');
     }
 }

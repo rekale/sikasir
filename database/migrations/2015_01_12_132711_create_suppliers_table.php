@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class IncomesTable extends Migration
+class CreateSuppliersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,19 @@ class IncomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('incomes', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('outlet_id')->unsigned()->index();
-            $table->integer('total')->unsigned();
-            $table->text('note');
+            $table->integer('company_id')->unsigned()->index();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->text('address');
             $table->timestamps();
             
-            $table->foreign('outlet_id')
+            $table->foreign('company_id')
                   ->references('id')
-                  ->on('outlets')
+                  ->on('companies')
                   ->onDelete('cascade');
-            
         });
     }
 
@@ -34,6 +35,6 @@ class IncomesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('incomes');
+        Schema::drop('suppliers');
     }
 }

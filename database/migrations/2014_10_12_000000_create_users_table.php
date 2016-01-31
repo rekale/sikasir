@@ -14,21 +14,24 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('company_id')->index();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->integer('userable_id');
-            $table->string('userable_type');
+            $table->string('title') ;
+            $table->string('gender');
+            $table->string('address'); 
+            $table->string('phone');
+            $table->string('icon')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            
+            $table->foreign('company_id')
+                  ->references('id')
+                  ->on('companies')
+                  ->onDelete('cascade');
         });
         
-        Schema::create('admins', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-          
-        });
     }
 
     /**
@@ -39,6 +42,5 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::drop('users');
-        Schema::drop('admins');
     }
 }

@@ -20,7 +20,7 @@ class CreateOutletsTable extends Migration
 
         Schema::create('outlets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id')->unsigned()->index();
+            $table->integer('company_id')->unsigned()->index();
             $table->unsignedInteger('business_field_id')->index();
             $table->unsignedInteger('tax_id')->index()->nullable();
             $table->string('code');
@@ -34,9 +34,9 @@ class CreateOutletsTable extends Migration
             $table->text('icon')->nullable();
             $table->timestamps();
 
-            $table->foreign('owner_id')
+            $table->foreign('company_id')
                   ->references('id')
-                  ->on('owners')
+                  ->on('companies')
                   ->onDelete('cascade');
 
             $table->foreign('business_field_id')

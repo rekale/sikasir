@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAppsTable extends Migration
+class CreateIncomesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,18 @@ class CreateAppsTable extends Migration
      */
     public function up()
     {
-        Schema::create('apps', function (Blueprint $table) {
+        Schema::create('incomes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id')->unsigned()->index();
-            $table->string('username')->unique();
-            $table->string('password');
-            
-            $table->foreign('owner_id')
-                  ->references('id')
-                  ->on('owners')
-                  ->onDelete('cascade');
+            $table->integer('outlet_id')->unsigned()->index();
+            $table->integer('total')->unsigned();
+            $table->text('note');
             $table->timestamps();
+            
+            $table->foreign('outlet_id')
+                  ->references('id')
+                  ->on('outlets')
+                  ->onDelete('cascade');
+            
         });
     }
 
@@ -33,6 +34,6 @@ class CreateAppsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('apps');
+        Schema::drop('incomes');
     }
 }

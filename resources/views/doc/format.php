@@ -132,7 +132,7 @@
             "note": "lalala yeyeye",
             "total": 1000, //required, kalo ngutang valuenya isi 0 aja
             "paid": true, //field untuk menandakan ngutang atau enggak. kalo ini gak di isi defaultnya true
-            "items": [
+            "products": [
                 {
                     "id" : "Z",
                     "quantity": 3

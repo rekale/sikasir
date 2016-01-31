@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EmployeeOutletTable extends Migration
+class OutletUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class EmployeeOutletTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_outlet', function (Blueprint $table) {
-            $table->integer('employee_id')->unsigned()->index();
+        Schema::create('outlet_user', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned()->index();
             $table->integer('outlet_id')->unsigned()->index();
 
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
             
         });
@@ -29,6 +29,6 @@ class EmployeeOutletTable extends Migration
      */
     public function down()
     {
-        Schema::drop('employee_outlet');
+        Schema::drop('outlet_user');
     }
 }

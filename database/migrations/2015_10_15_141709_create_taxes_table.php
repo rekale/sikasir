@@ -14,14 +14,14 @@ class CreateTaxesTable extends Migration
     {
         Schema::create('taxes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('owner_id')->index();
+            $table->unsignedInteger('company_id')->index();
             $table->string('name');
             $table->integer('amount');
             $table->timestamps();
             
-            $table->foreign('owner_id')
+            $table->foreign('company_id')
                   ->references('id')
-                  ->on('owners')
+                  ->on('companies')
                   ->onDelete('cascade');
         });
     }
