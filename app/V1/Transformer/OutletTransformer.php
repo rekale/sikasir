@@ -6,9 +6,7 @@ use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Outlet;
 use League\Fractal\ParamBag;
 use \Sikasir\V1\Traits\ParamTransformer;
-use Sikasir\V1\Stocks\StockDetail;
 use \Sikasir\V1\Traits\IdObfuscater;
-use Sikasir\V1\Outlets\Printer;
 
 /**
  * Description of AppTransformer

@@ -12,7 +12,8 @@ use Sikasir\Http\Requests\PurchaseOrderRequest;
 class PurchasesController extends ApiController
 {
 
-    public function __construct(ApiRespond $respond, PurchaseOrderRepository $repo, JWTAuth $auth) {
+    public function __construct(ApiRespond $respond, PurchaseOrderRepository $repo, JWTAuth $auth) 
+    {
 
         parent::__construct($respond, $auth, $repo);
 
