@@ -1,11 +1,11 @@
 <?php
-/*
+
 $url = parse_url(getenv("DATABASE_URL"));
 $host = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $database = substr($url["path"], 1);
-*/
+
 return [
 
     /*
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'default' => 'mysql',
+    'default' => 'pgsql',
 
     /*
     |--------------------------------------------------------------------------
@@ -67,23 +67,13 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
-        ],/*
+        ],
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'      => env('DB_HOST', $host),
             'database'  => env('DB_DATABASE', $database),
             'username'  => env('DB_USERNAME', $username),
             'password'  => env('DB_PASSWORD', $password),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-        ],*/
-        'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'      => 'localhost',
-            'database'  => 'sikasir',
-            'username'  => 'postgres',
-            'password'  => 'secret',
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
