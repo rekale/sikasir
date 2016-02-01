@@ -218,6 +218,18 @@
     "name": "diskon aja",
     "description": "lalala"
 }
+
+--PRINTER--
+{
+    "code": "234",
+    "name": "asdfaf",
+    "logo": "asdfasdfsa.jpg",
+    "address": "dimana mana",
+    "info": ""yeyeye",
+    "footer_note": "asdfsa",
+    "size": "A4"
+}
+
         </pre>
     </body>
 </html>

@@ -35,7 +35,7 @@ class PaymentsController extends ApiController
         
         $this->repo()->updateForOwner($this->decode($id), $request->all(), $companyId);
        
-       return $this->response()->created();
+       return $this->response()->updated();
    }
    
     public function destroy($id)

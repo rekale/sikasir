@@ -108,7 +108,22 @@ trait EloquentOwnerThroughable
      */
     public function destroyForOwnerThrough($id, $companyId, $throughId, $throughTableName)
     {
-        
+        return $this->model
+                    ->whereExists(
+                        function ($query) use($throughTableName, $companyId, $throughId) {
+
+                            $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
+
+                            $constraint = $throughTableName . '.id' . ' = ' . $modelForeignId;
+
+                            $query->select(\DB::raw(1))
+                                  ->from($throughTableName)
+                                  ->where('id', '=', $throughId)
+                                  ->where('company_id', '=', $companyId)
+                                  ->whereRaw($constraint);
+                    })
+                    ->findOrFail($id)
+                    ->delete();
     }
     
     

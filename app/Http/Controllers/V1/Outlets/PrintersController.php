@@ -3,16 +3,15 @@
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
-use Illuminate\Http\Request;
-use Sikasir\V1\Transformer\IncomeTransformer;
-use Sikasir\V1\Repositories\OutletRepository;
+use Sikasir\Http\Requests\PrinterRequest;
+use Sikasir\V1\Repositories\PrinterRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 
 class PrintersController extends ApiController
 {
     
-    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) 
+    public function __construct(ApiRespond $respond, PrinterRepository $repo, JWTAuth $auth) 
     {
         parent::__construct($respond, $auth, $repo);
     }
@@ -21,33 +20,52 @@ class PrintersController extends ApiController
      * 
      * @param string $id
      */
-   public function index($outletId)
-   {    
-       $incomes = $this->repo()->getIncomes($this->decode($outletId));
-       
-       return $this->response()
-               ->resource()
-               ->withPaginated($incomes, new IncomeTransformer);
-       
-   }
-   
-   public function store($outletId, Request $request)
+   public function store($outletId, PrinterRequest $request)
    {
-       $saved = $this->repo()->saveIncome($this->decode($outletId), [
-          'total' => $request->input('total'),
-          'note' => $request->input('note'), 
-       ]);
+        $currentUser =  $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $throughId = $this->decode($outletId);
+        
+        $this->repo()->saveForOwnerThrough($request->all(), $companyId, $throughId, 'outlets');
        
-       return $saved ? $this->response()->created('new income has created') : 
-           $this->response()->createFailed('fail to create income');
+       return $this->response()->created();
    }
    
-    public function destroy($outletId, $incomeId)
+   public function update($outletId, $printerId, PrinterRequest $request)
+   {
+        $currentUser =  $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $throughId = $this->decode($outletId);
+        
+        $decodedId = $this->decode($printerId);
+        
+        $this->repo()->updateForOwnerThrough(
+            $decodedId, $request->all(), $companyId, $throughId, 'outlets'
+        );
+       
+       return $this->response()->updated();
+   }
+   
+    public function destroy($outletId, $printerId)
     {
         
-        $this->repo()->destroyIncome($this->decode($outletId), $this->decode($incomeId));
+        $currentUser =  $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $throughId = $this->decode($outletId);
+        
+        $decodedId = $this->decode($printerId);
+        
+        $this->repo()->destroyForOwnerThrough(
+            $decodedId, $companyId, $throughId, 'outlets'
+        );
                 
-        return $this->response()->deleted('selected income has deleted');
+        return $this->response()->deleted();
     }
    
 }

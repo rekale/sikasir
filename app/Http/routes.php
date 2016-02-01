@@ -103,6 +103,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
             get('outlets/{id}/employees', 'EmployeesController@index');
             
+            post('outlets/{id}/printers', 'PrintersController@store');
+            put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');
+            delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
+            
             get('outlets/{id}/orders', 'OrdersController@index');
             post('outlets/{id}/orders', 'OrdersController@store');
  

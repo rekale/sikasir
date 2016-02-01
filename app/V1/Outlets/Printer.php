@@ -11,7 +11,7 @@ class Printer extends Model
         'code',
         'name',
         'logo',
-        'adddress',
+        'address',
         'info',
         'footer_note',
         'size',
