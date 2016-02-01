@@ -23,6 +23,11 @@ class CreatePrintersTable extends Migration
             $table->integer('size');
             $table->text('logo');
             $table->timestamps();
+            
+            $table->foreign('outlet_id')
+                 ->references('id')
+                 ->on('outlets')
+                 ->onDelete('cascade');
         });
     }
 

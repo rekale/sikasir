@@ -61,9 +61,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        $this->cleanPgsqlDatabase();
-
+        
+        if(config('database.default') === 'mysql') {
+            $this->cleanMysqlDatabase();
+        }
+        else{
+            $this->cleanPgsqlDatabase();
+        }
+        
         foreach ($this->seeders as $seedClass)
         {
             $this->call($seedClass);
