@@ -15,7 +15,8 @@ class OrderProductTable extends Migration
         Schema::create('order_product', function (Blueprint $table) {
             $table->integer('order_id')->unsigned()->index();
             $table->integer('product_id')->unsigned()->index();
-            $table->integer('total')->default(1);
+            $table->integer('total')->default(0);
+            $table->integer('nego')->default(0);
             
             $table->foreign('order_id')
                 ->references('id')
