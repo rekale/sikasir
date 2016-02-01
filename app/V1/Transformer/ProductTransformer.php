@@ -60,6 +60,10 @@ class ProductTransformer extends TransformerAbstract
             $main[$key] = $product->pivot->total;
         }
         
+        if (isset($product->pivot->nego)) {
+            $main['nego'] = $product->pivot->nego;
+        }
+        
         return $product->isNotVariant() ? $main :
                 array_merge($main, $detail);
         
