@@ -206,6 +206,18 @@
             }
         ]
     }
+
+--DISCOUNT/TAX--
+{
+    "name": "diskon aja",
+    "amount": 7
+}
+
+--PAYMENT--
+{
+    "name": "diskon aja",
+    "description": "lalala"
+}
         </pre>
     </body>
 </html>

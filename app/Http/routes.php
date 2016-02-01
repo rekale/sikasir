@@ -143,9 +143,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('categories/{id}', 'CategoriesController@destroy');
         });
         
-        Route::group(['namespace' => 'Finances'], function()
+        Route::group(['namespace' => 'Settings'], function()
         {
-            delete('incomes/{id}', 'IncomesController@destroy');
+            post('discounts', 'DiscountsController@store');
+            put('discounts/{id}', 'DiscountsController@update');
+            delete('discounts/{id}', 'DiscountsController@destroy');
+            
+            post('taxes', 'TaxesController@store');
+            put('taxes/{id}', 'TaxesController@update');
+            delete('taxes/{id}', 'TaxesController@destroy');
+            
+            post('payments', 'PaymentsController@store');
+            put('payments/{id}', 'PaymentsController@update');
+            delete('payments/{id}', 'PaymentsController@destroy');
 
         });
 

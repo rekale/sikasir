@@ -75,7 +75,6 @@
         <li> PUT outlets/{id} </li>
         <li> DELETE outlets/{id} </li>
         <br>
-        
         <li> GET products/{id}?include=variants,<b> category</b> </li>
         <li> POST products </li>
         <li> PUT products/{id} </li>
@@ -85,5 +84,20 @@
         <li> PUT categories </li>
         <li> POST categories </li>
         <li> DELETE categories/{id} </li>
+        <br>
+        <li> POST discounts </li>
+        <li> PUT discounts/{id} </li>
+        <li> DELETE discounts/{id} </li>
+        <br>
+        <br>
+        <li> POST taxes </li>
+        <li> PUT taxes/{id} </li>
+        <li> DELETE taxes/{id} </li>
+        <br>
+        <br>
+        <li> POST payments </li>
+        <li> PUT payments/{id} </li>
+        <li> DELETE payments/{id} </li>
+        <br>
     </body>
 </html>

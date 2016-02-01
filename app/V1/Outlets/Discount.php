@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     protected $fillable = [
-        'owner_id',
+        'company_id',
         'name',
         'amount',
     ];
@@ -16,7 +16,7 @@ class Discount extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function owners()
+    public function company()
     {
         $this->belongsTo(Company::class);
     }

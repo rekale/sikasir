@@ -9,14 +9,12 @@ use Sikasir\V1\User\Company;
 class Tax extends Model
 {
     protected $fillable = [
-        'owner_id',
+        'company_id',
         'name',
         'amount',
     ];
     
     protected $hidden = [
-        'id',
-        'owner_id',
         'created_at',
         'updated_at',
     ];
@@ -26,7 +24,7 @@ class Tax extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function owners()
+    public function company()
     {
         $this->belongsTo(Company::class);
     }

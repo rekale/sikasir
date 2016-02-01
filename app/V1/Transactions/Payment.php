@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     protected $fillable = [
-        'owner_id',
+        'company_id',
         'name',
         'description',
     ];
@@ -16,7 +16,7 @@ class Payment extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function owners()
+    public function company()
     {
         $this->belongsTo(Company::class);
     }
