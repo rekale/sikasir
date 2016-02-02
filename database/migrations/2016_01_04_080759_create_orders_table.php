@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->integer('discount_id')->unsigned()->index()->nullable();
             $table->string('note')->nullable();
             $table->integer('total')->unsigned();
+            $table->integer('nego')->unsigned()->default(0);
             $table->boolean('void')->default(false);
             $table->integer('void_user_id')->unsigned()->nullable();
             $table->string('void_note')->nullable();

@@ -132,7 +132,8 @@
             "discount_id": "D",
             "tax_id" : "Z", //required
             "note": "lalala yeyeye",
-            "total": 1000, //required, kalo ngutang valuenya isi 0 aja
+            "total": 10000, //required, kalo ngutang valuenya isi 0 aja
+            "nego" : 1000,
             "paid": true, //field untuk menandakan ngutang atau enggak. kalo ini gak di isi defaultnya true
             "products": [
                 {

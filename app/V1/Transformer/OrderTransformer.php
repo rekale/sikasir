@@ -39,6 +39,7 @@ class OrderTransformer extends TransformerAbstract
             'no_order' => $order->no_order,
             'note' => $order->note,
             'total' => $order->total,
+            'nego' => $order->nego,
             'void' => (boolean) $order->void,
             'paid' => (boolean) $order->paid,
         ];

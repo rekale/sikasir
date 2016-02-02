@@ -22,6 +22,7 @@ class Order extends Model
         'tax_id',
         'note',
         'total',
+        'nego',
         'void',
         'void_user_id',
         'void_note',

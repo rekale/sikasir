@@ -13,10 +13,7 @@
 
 get('outlet/{id}', function($id) {
 
-    return \Sikasir\V1\Orders\Order::with('variants')
-            ->whereOutletId($id)
-            ->max('total')
-            ->get();
+    return \Sikasir\V1\Orders\Order::with('variants')->sum('total');
     
 });
 
