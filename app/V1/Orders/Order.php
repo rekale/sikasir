@@ -3,7 +3,6 @@
 namespace Sikasir\V1\Orders;
 
 use Illuminate\Database\Eloquent\Model;
-use Sikasir\V1\Stocks\StockDetail;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Outlet;
@@ -36,7 +35,7 @@ class Order extends Model
      */
     public function variants()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['total', 'nego']);
+        return $this->belongsToMany(Product::class)->withPivot(['total', 'nego'])->withTimestamps();
     }
     
     

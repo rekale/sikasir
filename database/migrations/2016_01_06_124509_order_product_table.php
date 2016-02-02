@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,6 +17,7 @@ class OrderProductTable extends Migration
             $table->integer('product_id')->unsigned()->index();
             $table->integer('total')->default(0);
             $table->integer('nego')->default(0);
+            $table->timestamps();
             
             $table->foreign('order_id')
                 ->references('id')

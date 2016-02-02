@@ -11,6 +11,14 @@
 |
 */
 
+get('outlet/{id}', function($id) {
+
+    return \Sikasir\V1\Orders\Order::with('variants')
+            ->whereOutletId($id)
+            ->max('total')
+            ->get();
+    
+});
 
 Route::group(['prefix' => 'doc'], function()
 {
@@ -90,7 +98,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
-
+            
             get('outlets/{id}/incomes', 'IncomesController@index');
             post('outlets/{id}/incomes', 'IncomesController@store');
             delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroy');
