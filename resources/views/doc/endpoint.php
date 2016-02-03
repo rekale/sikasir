@@ -25,7 +25,9 @@
         <li> POST customers </li>
         <li> PUT customers/{id} </li>
         <li> DELETE customers/{id} </li>
+        <li>GET customers/{id}/histories{dateRange}</li> //contoh: sikasir.herokuapp.com/v1/customers/D/histories/2016-02-01,2017-12-01
         </b>
+        <br>
         <br>
         <li> GET employees </li>
         <li> GET employees/{id} </li>
@@ -39,6 +41,7 @@
         <li> POST suppliers </li>
         <li> PUT suppliers/{id} </li>
         <li> DELETE suppliers/{id} </li>
+        <li>GET suppliers/{id}/purchases?include=variants</li>
         </b>
         <br>
         <li> GET outlets?include=users,printers</li>

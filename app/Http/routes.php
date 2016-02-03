@@ -67,15 +67,6 @@ get('outlet', function() {
     
 });
 
-get('history/{id}', function($id, \Illuminate\Http\Request $request) {
-    
-    $repo = app(\Sikasir\V1\Repositories\CustomerRepository::class);
-    
-    $timeRange = explode(',', $request->input('date-range'));
-    
-    return $repo->getHistoryTransactionForCompany($id, 1, $timeRange);
-});
-
 Route::group(['prefix' => 'doc'], function()
 {
     get('/endpoint', function () {
@@ -146,6 +137,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('suppliers', 'SuppliersController@store');
             put('suppliers/{id}', 'SuppliersController@update');
             delete('suppliers/{id}', 'SuppliersController@destroy');
+            
+            get('suppliers/{id}/purchases', 'SuppliersController@purchaseOrders');
         });
 
         Route::group(['namespace' => 'Outlets'], function()

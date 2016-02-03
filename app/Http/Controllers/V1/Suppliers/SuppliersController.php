@@ -8,6 +8,7 @@ use Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Repositories\SupplierRepository;
 use Sikasir\Http\Requests\SupplierRequest;
 use Sikasir\V1\Transformer\SupplierTransformer;
+use Sikasir\V1\Transformer\PurchaseOrderTransformer;
 
 class SuppliersController extends ApiController
 {
@@ -95,5 +96,27 @@ class SuppliersController extends ApiController
         $this->repo()->destroyForOwner($decodedId, $ownerId);
 
         return $this->response()->deleted();
+   }
+   
+   public function purchaseOrders($id)
+   {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-supplier');
+
+        $ownerId = $currentUser->getCompanyId();
+
+        $decodedId = $this->decode($id);
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
+        $collection = $this->repo()->getPurchaseOrdersForCompany($decodedId, $ownerId, $with);
+        
+        return $this->response()
+                    ->resource()
+                    ->including($with)
+                    ->withPaginated($collection, new PurchaseOrderTransformer);
    }
 }

@@ -25,5 +25,19 @@ class SupplierRepository extends EloquentRepository implements OwnerableRepo
     {
         parent::__construct($model);
     }
+    
+    /**
+     * 
+     * @param integer $id
+     * @param integer $companyId
+     * @return Collection
+     */
+    public function getPurchaseOrdersForCompany($id, $companyId, $with = [], $perPage = 15)
+    {
+        return $this->findForOwner($id, $companyId)
+            ->purchaseOrders()
+            ->with($with)
+            ->paginate($perPage);
+    }
 
 }

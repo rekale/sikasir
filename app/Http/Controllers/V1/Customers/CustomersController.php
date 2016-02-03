@@ -117,7 +117,7 @@ class CustomersController extends ApiController
         
         return $this->response()
                 ->resource()
-                ->withCollection($data, new CustomerHistoryTransformer);
+                ->withPaginated($data, new CustomerHistoryTransformer);
     }
    
 }

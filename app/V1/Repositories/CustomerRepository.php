@@ -30,25 +30,24 @@ class CustomerRepository extends EloquentRepository implements OwnerableRepo
      * @param array $timeRange
      * @return type
      */
-    public function getHistoryTransactionForCompany($id, $companyId, $dateRange = [])
+    public function getHistoryTransactionForCompany($id, $companyId, $dateRange = [], $perPage = 15)
     {   
         $customer = $this->findForOwner($id, $companyId);
         
-        $data = $customer->orders()->select(
-            \DB::raw(
-                'orders.created_at as date, '
-                . 'sum(order_product.total) as product_total, '
-                . 'sum(products.price) as price_total'
-            )
-        )
-        ->join('order_product', 'orders.id', '=', 'order_product.order_id')
-        ->join('products', 'products.id', '=', 'order_product.product_id')
-        ->where('orders.customer_id', '=', $id)
-        ->whereBetween('orders.created_at', $dateRange)
-        ->groupBy('orders.created_at')
-        ->get();
-        
-        return $data;
+        return $customer->orders()
+                        ->select(
+                            \DB::raw(
+                                'orders.created_at as date, '
+                                . 'sum(order_product.total) as product_total, '
+                                . 'sum(products.price) as price_total'
+                            )
+                        )
+                        ->join('order_product', 'orders.id', '=', 'order_product.order_id')
+                        ->join('products', 'products.id', '=', 'order_product.product_id')
+                        ->where('orders.customer_id', '=', $id)
+                        ->whereBetween('orders.created_at', $dateRange)
+                        ->groupBy('orders.created_at')
+                        ->paginate($perPage);
     }
 
 }
