@@ -39,6 +39,7 @@ class StockSeeder extends Seeder
                     $variants->push($variant);
                 }
                 
+                
             }
             
             $suppliers = Supplier::whereCompanyId($outlet->company_id)->get();

@@ -8,6 +8,8 @@ use Sikasir\V1\Transformer\CustomerTransformer;
 use Sikasir\V1\Repositories\CustomerRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Http\Request;
+use Sikasir\V1\Transformer\CustomerHistoryTransformer;
 
 class CustomersController extends ApiController
 {
@@ -97,6 +99,25 @@ class CustomersController extends ApiController
         $this->repo()->destroyForOwner($decodedId, $companyId);
                 
         return $this->response()->success('selected customer has deleted');
+    }
+    
+    public function transactionHistories($id, $dateRange, Request $request)
+    {
+        $currentUser = $this->currentUser();
+        
+        $this->authorizing($currentUser, 'delete-customer');
+
+        $companyId = $currentUser->getCompanyId();
+        
+        $decodedId = $this->decode($id);
+        
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $data = $this->repo()->getHistoryTransactionForCompany($decodedId, $companyId, $dateRange);
+        
+        return $this->response()
+                ->resource()
+                ->withCollection($data, new CustomerHistoryTransformer);
     }
    
 }

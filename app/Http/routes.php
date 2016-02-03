@@ -11,10 +11,69 @@
 |
 */
 
-get('outlet/{id}', function($id) {
-
-    return \Sikasir\V1\Orders\Order::with('variants')->sum('total');
+get('outlet', function() {
     
+    /*
+     select products.id AS product_id, products.name, sum(order_product.total) as product_total, products.price, (products.price * sum(order_product.total)) as price_total
+	from order_product
+    join products
+    on products.id = order_product.product_id
+    group by products.id
+    order by product_total desc
+     */
+    
+    //best outlet query
+    /*
+        select outlets.id as outlet_id, outlets.name, sum(order_product.total)
+        from outlets 
+        join orders on outlets.id = orders.outlet_id
+        join order_product on orders.id = order_product.order_id
+        join products on products.id = order_product.product_id
+        group by outlets.id
+        having sum(order_product.total) < 50
+        order by order_product.total desc
+     */
+    
+    //best product from all outlet query
+    /*
+        select products.id AS product_id, products.name, sum(order_product.total) as product_total
+	from order_product
+        join products
+        on products.id = order_product.product_id
+        group by products.name
+        order by product_total desc
+     */
+    
+    //best product from specific outlet query
+    /*
+        select products.id AS product_id, products.name, sum(order_product.total) as product_total
+	from order_product
+        join products
+        on products.id = order_product.product_id
+        where exists (select * from products as p where p.id = products.product_id and p.outlet_id = 1)
+        group by products.id
+        order by product_total desc
+     */
+
+    $collection = \DB::table('order_product')
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->select(\DB::raw('products.id, products.name, sum(order_product.total) as total'))
+            ->groupBy('products.id')
+            ->orderBy('total', 'desc')
+            ->take(1)
+            ->get(x);
+    
+    return $collection;
+    
+});
+
+get('history/{id}', function($id, \Illuminate\Http\Request $request) {
+    
+    $repo = app(\Sikasir\V1\Repositories\CustomerRepository::class);
+    
+    $timeRange = explode(',', $request->input('date-range'));
+    
+    return $repo->getHistoryTransactionForCompany($id, 1, $timeRange);
 });
 
 Route::group(['prefix' => 'doc'], function()
@@ -67,6 +126,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('customers', 'CustomersController@store');
             put('customers/{id}', 'CustomersController@update');
             delete('customers/{id}', 'CustomersController@destroy');
+            
+            get('customers/{id}/histories/{dateRange}', 'CustomersController@transactionHistories');
         });
   
         Route::group(['namespace' => 'Employees'], function ()

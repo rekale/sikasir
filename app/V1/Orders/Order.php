@@ -36,7 +36,7 @@ class Order extends Model
      */
     public function variants()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['total', 'nego'])->withTimestamps();
+        return $this->belongsToMany(Product::class)->withPivot(['total'])->withTimestamps();
     }
     
     

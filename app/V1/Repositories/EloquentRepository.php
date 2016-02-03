@@ -2,12 +2,15 @@
 
 namespace Sikasir\V1\Repositories;
 
-use \Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 
 abstract class EloquentRepository implements RepositoryInterface
 {
-    
+    /**
+     *
+     * @var Illuminate\Database\Eloquent\Model
+     */
     protected $model;
    
     public function __construct(Model $model) {
