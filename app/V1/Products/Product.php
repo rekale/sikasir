@@ -8,6 +8,7 @@ use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Stocks\PurchaseOrder;
+use Sikasir\V1\Orders\Order;
 
 class Product extends Model
 {
@@ -41,36 +42,6 @@ class Product extends Model
     public function outlets()
     {
         return $this->belongsToMany(Outlet::class);
-    }
-    
-    public function scopewhereIsVariant($query)
-    {
-        return $query->whereNotNull('product_id');
-    }
-    
-    public function scopewhereIsNotVariant($query)
-    {
-        return $query->whereNull('product_id');
-    }
-    
-    /**
-     * check if current product is variant or not
-     * 
-     * @return boolean
-     */
-    public function isVariant()
-    {
-        return ! is_null($this->product_id);
-    }
-    
-    /**
-     * check if current product is variant or not
-     * 
-     * @return boolean
-     */
-    public function isNotVariant()
-    {
-        return is_null($this->barcode);
     }
     
     /**

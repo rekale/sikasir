@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\ProductRepository;
-use Sikasir\V1\Transformer\ProductBestSalesTransformer;
+use Sikasir\V1\Transformer\ProductBestTotalSalesTransformer;
 use Sikasir\Http\Requests\ProductRequest;
 
 class ProductsController extends ApiController
@@ -50,6 +50,6 @@ class ProductsController extends ApiController
         
         return $this->response()
                 ->resource()
-                ->withPaginated($product, new ProductBestSalesTransformer);
+                ->withPaginated($product, new ProductBestTotalSalesTransformer);
     }
 }

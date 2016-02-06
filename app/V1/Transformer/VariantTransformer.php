@@ -17,6 +17,7 @@ class VariantTransformer extends TransformerAbstract
    
     protected $availableIncludes = [
         'product',
+        'orders',
     ];
    
     public function transform(Variant $variant)
@@ -36,14 +37,14 @@ class VariantTransformer extends TransformerAbstract
             'alert_at' => (int) $variant->alert_at,
         ];
         
-        if (isset($product->pivot)) {
-            $foreign = explode('_', $product->pivot->getForeignKey());
+        if (isset($variant->pivot)) {
+            $foreign = explode('_', $variant->pivot->getForeignKey());
             $key = $foreign[0] . '_total';
-            $rules[$key] = $product->pivot->total;
+            $rules[$key] = $variant->pivot->total;
         }
         
-        if (isset($product->pivot->nego)) {
-            $rules['nego'] = $product->pivot->nego;
+        if (isset($variant->pivot->nego)) {
+            $rules['nego'] = $variant->pivot->nego;
         }
         
         return $rules;
@@ -52,6 +53,11 @@ class VariantTransformer extends TransformerAbstract
     public function includeProduct(Variant $variant)
     {
         return $this->item($variant->product, new ProductTransformer);
+    }
+    
+    public function includeOrders(Variant $variant)
+    {
+        return $this->collection($variant->orders, new OrderTransformer);
     }
     
     

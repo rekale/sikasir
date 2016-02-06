@@ -48,6 +48,11 @@ class OrderTransformer extends TransformerAbstract
             $data['void_note'] = $order->void_note;
         }
         
+        if(isset($order->pivot)) {
+            $data['total'] = $order->pivot->total;
+            $data['nego'] = $order->pivot->nego;
+        }
+        
         return $data;
         
     }

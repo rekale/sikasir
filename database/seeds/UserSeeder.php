@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
     {
         
         $company = factory(Company::class)->create([
-            'name' => 'saung ayam',
+            'name' => 'owner',
             'username' => 'owner',
             'password' => bcrypt('owner'),
         ]);

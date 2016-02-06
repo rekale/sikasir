@@ -3,11 +3,12 @@
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Transformer\ProductTransformer;
+use Sikasir\V1\Transformer\ProductBestTotalSalesTransformer;
 use Sikasir\V1\Repositories\ProductRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Requests\ProductRequest;
+use Sikasir\V1\Transformer\ProductTransformer;
 
 class ProductsController extends ApiController
 {
@@ -121,6 +122,24 @@ class ProductsController extends ApiController
         return $this->response()->deleted();
     }
     
+    public function best($outletId, $dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'update-product');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $products = $this->repo()->getTotalBestSalesForOutlet(
+            $this->decode($outletId), $companyId, $dateRange
+        );
+        
+        return $this->response()
+               ->resource()
+               ->withPaginated($products, new ProductBestTotalSalesTransformer);
+    }
     
 
 }

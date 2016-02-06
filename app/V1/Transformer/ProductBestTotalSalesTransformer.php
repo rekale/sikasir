@@ -13,7 +13,7 @@ use Sikasir\V1\Transformer\PurchaseOrderTransformer;
  *
  * @author rekale
  */
-class ProductBestSalesTransformer extends TransformerAbstract
+class ProductBestTotalSalesTransformer extends TransformerAbstract
 {
    use \Sikasir\V1\Traits\IdObfuscater;
    
