@@ -15,7 +15,7 @@ class CreateVariantsTable extends Migration
         Schema::create('variants', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->index();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('barcode')->nullable();
             $table->integer('price_init')->unsigned()->default(0);
             $table->integer('price')->unsigned()->default(0);

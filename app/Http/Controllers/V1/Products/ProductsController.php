@@ -6,7 +6,7 @@ use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\ProductRepository;
-use Sikasir\V1\Transformer\ProductTransformer;
+use Sikasir\V1\Transformer\ProductBestSalesTransformer;
 use Sikasir\Http\Requests\ProductRequest;
 
 class ProductsController extends ApiController
@@ -41,16 +41,15 @@ class ProductsController extends ApiController
         $currentUser =  $this->currentUser();
         
         $this->authorizing($currentUser, 'read-product');
+        
+        $companyId = $currentUser->getCompanyId();
        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $with = $this->filterIncludeParams($include);
+        $product = $this->repo()->getTotalBestSalesForCompany($companyId, $dateRange);
         
-        $product = $this->repo()->getTheBestProducts($dateRange);
-
         return $this->response()
                 ->resource()
-                ->including($with)
-                ->withItem($product, new ProductTransformer);
+                ->withPaginated($product, new ProductBestSalesTransformer);
     }
 }

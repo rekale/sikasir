@@ -47,6 +47,7 @@ class CustomerRepository extends EloquentRepository implements OwnerableRepo
                         ->where('orders.customer_id', '=', $id)
                         ->whereBetween('orders.created_at', $dateRange)
                         ->groupBy('orders.created_at')
+                        ->orderBy('date')
                         ->paginate($perPage);
     }
 

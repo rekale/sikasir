@@ -6,7 +6,6 @@ use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\User\Company;
 use Sikasir\V1\Products\Variant;
-use Sikasir\V1\Products\Category;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
 
 /**
@@ -24,53 +23,6 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         parent::__construct($product);
     }
     
-    public function getCategories($ownerId)
-    {
-        return Category::where('owner_id', '=', $ownerId)->paginate();
-    }
-    
-    /**
-     * create new categories
-     * 
-     * @param Company $owner
-     * @param string $category
-     */
-    public function saveCategory($ownerId, $category)
-    {
-        Category::create([
-            'owner_id' => $ownerId,
-            'name' => $category,
-        ]);
-    }
-    
-    /**
-     * 
-     * @param integer $ownerId
-     * @param integer $id
-     * @param string $name
-     */
-    public function updateCategory($ownerId, $id, $name)
-    {
-        Category::where('owner_id', '=', $ownerId)
-                ->findOrFail($id)
-                ->update( 
-                    ['name' => $name] 
-                );
-    }
-    
-    /**
-     * delete category
-     * 
-     * @param integer $ownerId
-     * @param integer $categories
-     */
-    public function destroyCategories($ownerId, $id)
-    {
-        Category::where('owner_id', '=', $ownerId)
-                ->findOrFail($id)   
-                ->delete();
-    }
-   
     public function saveManyWithVariantsForCompany($data, $companyId)
     {
         
@@ -113,26 +65,26 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         });
         
     }
-   
-    /**
-     * 
-     * save many products
-     * 
-     * @param array $dataInput
-     * @param integer $categoryId
-     * @return array
-     */
-    protected function saveVariants($dataInput, $categoryId, $productId)
+    
+    public function getTotalBestSalesForCompany($companyId, $dateRange = [], $perPage = 15)
     {
-        $instances = [];
-        
-        foreach ($dataInput as $data) {
-            $data['category_id'] = $categoryId;
-            $data['product_id'] = $productId;
-            $instances[] = $this->save($data);
-        }
-        
-        return $instances;
+        return $this->model
+                    ->select(
+                        \DB::raw('products.name, sum(order_variant.total) as total')
+                    )
+                    ->join('variants', 'variants.product_id', '=', 'products.id')
+                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                    ->whereExists(function($query) use ($companyId)
+                    {
+                        $query->select(\DB::raw(1))
+                            ->from('categories')
+                            ->whereRaw('categories.id = products.category_id')
+                            ->where('categories.company_id', '=', $companyId);
+                    })
+                    ->whereBetween('order_variant.created_at', $dateRange)
+                    ->groupBy('products.name')
+                    ->orderBy('total', 'desc')
+                    ->paginate($perPage);
     }
     
     /**
