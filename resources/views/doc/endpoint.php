@@ -14,7 +14,7 @@
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>
-        <li> GET /?include= users, outlets, taxes, categories, discounts, payments, <b>customers</b> </li>
+        <li> GET /?include= users, outlets, taxes, categories, discounts, payments </li>
         <br>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>
@@ -22,6 +22,7 @@
         <br>
         <b>
         <li> GET customers </li>
+        <li> GET customers/{id} </li> // edit
         <li> POST customers </li>
         <li> PUT customers/{id} </li>
         <li> DELETE customers/{id} </li>

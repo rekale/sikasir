@@ -138,11 +138,13 @@
             "products": [
                 {
                     "id" : "Z",
-                    "quantity": 3
+                    "quantity": 3,
+                    "nego":2000
                 },
                 {
                     "id" : "L",
-                    "quantity": 1
+                    "quantity": 1,
+                    "nego": 2000
                 }
             ]
         }

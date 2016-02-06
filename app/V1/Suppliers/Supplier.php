@@ -9,7 +9,7 @@ use Sikasir\V1\Stocks\PurchaseOrder;
 class Supplier extends Model
 {
     protected $fillable = [
-        'owner_id',
+        'company_id',
         'name',
         'email',
         'phone',

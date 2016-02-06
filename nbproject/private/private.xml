@@ -3,21 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/V1/Repositories/PrinterRepository.php</file>
-            <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/PrintersController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Traits/EloquentOwnerThroughable.php</file>
-            <file>file:/D:/project/kasir/app/V1/Outlets/Printer.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2016_01_06_124509_order_product_table.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/PaymentsController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/TaxesController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/DiscountsController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/OrderTransformer.php</file>
-            <file>file:/D:/project/kasir/database/seeds/StockSeeder.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/PrinterRequest.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2016_01_04_080759_create_orders_table.php</file>
-            <file>file:/D:/project/kasir/app/V1/Outlets/Outlet.php</file>
+            <file>file:/D:/project/kasir/app/V1/Suppliers/Supplier.php</file>
+            <file>file:/D:/project/kasir/database/seeds/UserSeeder.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/CustomerRepository.php</file>
+            <file>file:/D:/project/kasir/resources/views/doc/format.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/SupplierRepository.php</file>
+            <file>file:/D:/project/kasir/database/seeds/RolesSeeder.php</file>
+            <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Suppliers/SuppliersController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Customers/CustomersController.php</file>
         </group>
     </open-files>
 </project-private>
