@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
         $company = factory(Company::class)->create([
             'name' => 'owner',
             'username' => 'owner',
+            'active' => true,
             'password' => bcrypt('owner'),
         ]);
         
