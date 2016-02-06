@@ -200,13 +200,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Products'], function()
         {
             post('products', 'ProductsController@store');
+            get('products/best/{dateRange}', 'ProductsController@best');
             
             get('categories', 'CategoriesController@index');
             post('categories', 'CategoriesController@store');
             put('categories/{id}', 'CategoriesController@update');
             delete('categories/{id}', 'CategoriesController@destroy');
             
-            get('products/best/{dateRange}', 'ProductsController@best');
         });
         
         Route::group(['namespace' => 'Settings'], function()

@@ -80,7 +80,6 @@
         <li> DELETE outlets/{id}/outcomes </li>
         <br>
         <li> POST outlets </li>
-        <li> PUT outlets/{id} </li>
         <li> DELETE outlets/{id} </li>
         <br>
         <li> POST products </li>
