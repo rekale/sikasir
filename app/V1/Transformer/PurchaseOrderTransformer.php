@@ -41,7 +41,7 @@ class PurchaseOrderTransformer extends TransformerAbstract
     {
        $collection = $purchase->variants;
         
-        return $this->collection($collection, new ProductTransformer);
+        return $this->collection($collection, new VariantTransformer);
     }
     
     public function includeSupplier(PurchaseOrder $purchase, ParamBag $params = null)

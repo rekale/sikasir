@@ -21,15 +21,30 @@ trait EloquentOwnerThroughable
     /**
      * 
      * @param integer $id
-     * @param string $throughTableName
      * @param integer $companyId
      * @param integer $throughId
-     * @param integer $with
-     * @return type
+     * @param string $throughTableName
+     * @param array $with
+     * @return static|collection
      */
-    public function findForOwnerThrough($id,  $throughTableName ,$companyId, $throughId, $with = [])
+    public function findForOwnerThrough($id, $companyId, $throughId, $throughTableName, $with = [])
     {
-        
+        return $this->model
+                    ->whereExists(
+                        function ($query) use($throughTableName, $companyId, $throughId) {
+
+                            $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
+
+                            $constraint = $throughTableName . '.id' . ' = ' . $modelForeignId;
+
+                            $query->select(\DB::raw(1))
+                                  ->from($throughTableName)
+                                  ->where('id', '=', $throughId)
+                                  ->where('company_id', '=', $companyId)
+                                  ->whereRaw($constraint);
+                    })
+                    ->with($with)
+                    ->findOrFail($id);
     }
   
     /**
@@ -40,7 +55,7 @@ trait EloquentOwnerThroughable
      * @param integer $throughId
      * @param string $throughTableName
     *
-    * @return static|boolean
+    * @return static
     */
     public function saveForOwnerThrough(array $data, $companyId, $throughId, $throughTableName)
     {
@@ -60,7 +75,7 @@ trait EloquentOwnerThroughable
         }
         else
         {
-            return false;
+            throw \Exception('through table does not exist');
         }
         
     }
@@ -78,21 +93,7 @@ trait EloquentOwnerThroughable
     */
     public function updateForOwnerThrough($id, array $data, $companyId, $throughId, $throughTableName)
     {
-        return $this->model
-                    ->whereExists(
-                        function ($query) use($throughTableName, $companyId, $throughId) {
-
-                            $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
-
-                            $constraint = $throughTableName . '.id' . ' = ' . $modelForeignId;
-
-                            $query->select(\DB::raw(1))
-                                  ->from($throughTableName)
-                                  ->where('id', '=', $throughId)
-                                  ->where('company_id', '=', $companyId)
-                                  ->whereRaw($constraint);
-                    })
-                    ->findOrFail($id)
+        return $this->findForOwnerThrough($id, $companyId, $throughId, $throughTableName)
                     ->update($data);
     }
     
@@ -108,21 +109,7 @@ trait EloquentOwnerThroughable
      */
     public function destroyForOwnerThrough($id, $companyId, $throughId, $throughTableName)
     {
-        return $this->model
-                    ->whereExists(
-                        function ($query) use($throughTableName, $companyId, $throughId) {
-
-                            $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
-
-                            $constraint = $throughTableName . '.id' . ' = ' . $modelForeignId;
-
-                            $query->select(\DB::raw(1))
-                                  ->from($throughTableName)
-                                  ->where('id', '=', $throughId)
-                                  ->where('company_id', '=', $companyId)
-                                  ->whereRaw($constraint);
-                    })
-                    ->findOrFail($id)
+        return $this->findForOwnerThrough($id, $companyId, $throughId, $throughTableName)
                     ->delete();
     }
     

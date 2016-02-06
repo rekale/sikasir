@@ -21,19 +21,10 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'outlet_id',
-        'product_id',
         'name', 
         'description', 
-        'barcode', 
         'unit',
         'icon',
-        'price_init',
-        'price',
-        'countable',
-        'track_stock',
-        'stock',
-        'alert',
-        'alert_at',
     ];
     
     /**
@@ -98,7 +89,7 @@ class Product extends Model
     
     public function variants()
     {
-        return $this->hasMany(Product::class, 'product_id');
+        return $this->hasMany(Variant::class);
     }
     
     public function entries()

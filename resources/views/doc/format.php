@@ -50,25 +50,7 @@
             "phone2": "(115)548-8064"
         }
 
-        --PRODUCT--
-        //jika product tidak punya variant
-        {
-            category_id": "D",
-            "name": "rekale", 
-            "description": "asu banget", 
-            "barcode": "23424", 
-            "unit" : "kg",
-            "icon" : "http://lorempixel.com/200/100/food",
-            "outlet_ids": ["L", "Z"], 
-            "price_init" : 10000,  
-            "price" : 234234,
-            countable: true,
-            "track_stock": true,
-            "stock": 22,
-            "alert": false,
-            "alert_at": "10"
-        }
-        //jika punya variant
+        --PRODUCT-- //POST
         {
             "category_id": "D",
             "name": "rekale", 
@@ -114,6 +96,43 @@
                     "alert": false,
                     "alert_at": "0"
                 }
+            ]
+        }
+
+        --PRODUCT-- //PUT
+        {
+            "category_id": "D",
+            "name": "rekale", 
+            "description": "asu banget", 
+            "unit": "kg",
+            "icon" : "http://lorempixel.com/200/100/food",
+            "variants": [
+                {
+                    "id": "D",
+                    "name": "kampret", 
+                    "barcode": "34234",
+                    "price_init" : 10000,  
+                    "price" : 234234,
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": true,
+                    "track_stock": true,
+                    "stock": 22,
+                    "alert": false,
+                    "alert_at": "10"
+                },
+                {
+                    "id": "Z"
+                    "name": "kampret", 
+                    "barcode": "34234", 
+                    "price_init" : 10000,
+                    "price" : 234234,
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": true, 
+                    "track_stock": true,
+                    "stock": 22,
+                    "alert": true,
+                    "alert_at": "10"
+                },
             ]
         }
 

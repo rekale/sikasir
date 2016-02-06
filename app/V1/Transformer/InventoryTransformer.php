@@ -3,7 +3,6 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\Stocks\Entry;
 use \Sikasir\V1\Traits\IdObfuscater;
 use \Sikasir\V1\Traits\ParamTransformer;
 use League\Fractal\ParamBag;
@@ -41,7 +40,7 @@ class InventoryTransformer extends TransformerAbstract
     {
         $collection = $entry->variants;
         
-        return $this->collection($collection, new ProductTransformer);
+        return $this->collection($collection, new VariantTransformer);
     }
     
     public function includeOperator($entry, ParamBag $params = null)

@@ -1,16 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Sikasir\V1\Stocks\Stock;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
-use Sikasir\V1\User\Employee;
 use Sikasir\V1\Outlets\Outlet;
-use Sikasir\V1\Products\Product;
 use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Stocks\PurchaseOrder;
 use Sikasir\V1\Suppliers\Supplier;
-use Sikasir\V1\User\User;
 
 use Illuminate\Support\Collection;
 
@@ -31,16 +27,8 @@ class StockSeeder extends Seeder
         $outlets->each(function (Outlet $outlet)
         {
             
-            $variants = new Collection;
+            $variants = $outlet->variants;
             
-            foreach ($outlet->products as $product) {
-                
-                foreach($product->variants as $variant) {
-                    $variants->push($variant);
-                }
-                
-                
-            }
             
             $suppliers = Supplier::whereCompanyId($outlet->company_id)->get();
             $employees = $outlet->users;

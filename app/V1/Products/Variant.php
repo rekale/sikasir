@@ -16,8 +16,9 @@ class Variant extends Model
      * @var array
      */
     protected $fillable = [
+        'product_id',
         'name', 
-        'code', 
+        'barcode', 
         'price_init',
         'price',
         'countable',
@@ -25,6 +26,7 @@ class Variant extends Model
         'stock',
         'alert',
         'alert_at',
+        'icon',
         ];
     
     public function product()
@@ -34,13 +36,9 @@ class Variant extends Model
     
     public function outlets()
     {
-        return $this->belongsToMany(Outlet::class, 'stocks')
+        return $this->belongsToMany(Outlet::class)
                 ->withTimestamps()
-                ->withPivot('id', 'total');
+                ->withPivot(['total', 'nego']);
     }
     
-    public function stocks()
-    {
-        return $this->belongsToMany(Stock::class, 'stock_details');
-    }
 }

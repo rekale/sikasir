@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Orders\Order;
-use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Variant;
 
 class OrderSeeder extends Seeder
 {
@@ -36,16 +36,16 @@ class OrderSeeder extends Seeder
             ]);
             
             
-            $productIds = $outlet->products()->lists('id')->toArray();
-            //attach items in order
-            $variantIds = Product::whereIn('product_id', $productIds)
-                            ->get()
-                            ->random(3)
-                            ->lists('id')
-                            ->toArray();
+            $variantIds = $outlet->variants->random(3)->lists('id')->toArray(); 
             
             foreach ($orders as $order) {
-                $order->variants()->attach($variantIds, ['total' => $fake->numberBetween(1, 10)]);
+                $order->variants()->attach(
+                    $variantIds, 
+                    [
+                        'total' => $fake->numberBetween(1, 10), 
+                        'nego' => 0,
+                    ]
+                    );
             }
             
             //select random order to void by random employee

@@ -32,10 +32,10 @@ class CreateStockOutsTable extends Migration
             
         });
         
-        Schema::create('out_product', function (Blueprint $table) {
+        Schema::create('out_variant', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('out_id')->unsigned()->index();
-            $table->integer('product_id')->unsigned()->index();
+            $table->integer('variant_id')->unsigned()->index();
             $table->integer('total');
             
             $table->foreign('out_id')
@@ -43,9 +43,9 @@ class CreateStockOutsTable extends Migration
                 ->on('outs')
                 ->onDelete('cascade');
             
-            $table->foreign('product_id')
+            $table->foreign('variant_id')
                 ->references('id')
-                ->on('products')
+                ->on('variants')
                 ->onDelete('cascade');
             
         });
@@ -58,7 +58,7 @@ class CreateStockOutsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('out_product');
+        Schema::drop('out_variant');
         Schema::drop('outs');
     }
 }

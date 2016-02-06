@@ -4,7 +4,7 @@ namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\User\User;
-use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Variant;
 
 class Entry extends Model
 {
@@ -22,6 +22,6 @@ class Entry extends Model
     
     public function variants()
     {
-        return $this->belongsToMany(Product::class, 'entry_product')->withPivot('total');
+        return $this->belongsToMany(Variant::class)->withPivot(['total']);
     }
 }

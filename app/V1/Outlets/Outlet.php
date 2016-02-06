@@ -16,6 +16,7 @@ use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Outlets\Printer;
+use Sikasir\V1\Products\Variant;
 
 class Outlet extends Model
 {
@@ -121,6 +122,11 @@ class Outlet extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+    
+    public function variants()
+    {
+        return $this->hasManyThrough(Variant::class, Product::class);
     }
     
     /**

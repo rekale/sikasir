@@ -23,32 +23,24 @@ class ProductRequest extends Request
      */
     public function rules()
     {
-        
-        if ($this->method() === 'POST') {
-            return $this->createRules();
-        }
-        else {
-            return $this->updateRules();
-        }
-        
-    }
-    
-    public function createRules()
-    {
-        $rules =  [
+        $rulePost =  [
             'category_id' => 'required',
             'name' => 'required|max:255', 
             'description' => 'required|max:1000', 
             'barcode' => 'max:255', 
             'unit' => 'required|max:10',
             'outlet_ids' => 'required|array',
-            'price_init' => 'integer',
-            'price' => 'integer',
-            'track_stock' => 'boolean',
-            'stock' => 'integer',
-            'alert' => 'boolean',
-            'alert_at' => 'integer',
         ];
+        
+        $rulePut =  [
+            'category_id' => 'required',
+            'name' => 'required|max:255', 
+            'description' => 'required|max:1000', 
+            'barcode' => 'max:255', 
+            'unit' => 'required|max:10',
+        ];
+        
+        $rules = $this->method() === 'POST' ? $rulePost : $rulePut;
         
         $variants = $this->input('variants');
         
@@ -73,33 +65,5 @@ class ProductRequest extends Request
         return $rules;
         
     }
-    
-    public function updateRules()
-    {
-        $rules =  [
-            'category_id' => 'required',
-            'name' => 'max:255', 
-            'description' => 'max:1000', 
-            'barcode' => 'max:255', 
-            'unit' => 'max:10',
-        ];
-        
-        $variants = $this->input('variants');
-        
-        $tot = count($variants) - 1;
-         foreach(range(0, $tot) as $key)
-            {
-              $rules['variants.' .$key . '.name'] = 'max:255';
-              $rules['variants.' .$key . '.code'] = 'max:255';
-              $rules['variants.' .$key . '.price_init'] = 'required|integer';
-              $rules['variants.' .$key . '.price'] = 'required|integer';
-              $rules['variants.' .$key . '.track_stock'] = 'boolean';
-              $rules['variants.' .$key . '.stock'] = 'integer';
-              $rules['variants.' .$key . '.alert'] = 'boolean';
-              $rules['variants.' .$key . '.alert_at'] = 'integer';
-              $rules['variants.' .$key . '.delete'] = 'boolean';
-            }
-        
-        return $rules;
-    }
+
 }

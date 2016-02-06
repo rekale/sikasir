@@ -8,7 +8,7 @@ use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
-use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Variant;
 
 class Order extends Model
 {
@@ -34,9 +34,12 @@ class Order extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+    
     public function variants()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['total'])->withTimestamps();
+        return $this->belongsToMany(Variant::class)
+                ->withPivot(['total', 'nego'])
+                ->withTimestamps();
     }
     
     

@@ -7,10 +7,7 @@ use Sikasir\V1\Products\Product;
 use Sikasir\V1\User\Company;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Products\Category;
-use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
-use Sikasir\V1\Stocks\Stock;
-use Sikasir\V1\Stocks\StockDetail;
 
 /**
  * Description of ProductRepository
@@ -46,43 +43,6 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         ]);
     }
     
-    public function save(array $data) {
-        
-        $products = [];
-        
-        //save product or parent product to each outlets, and save it to array
-        foreach ($data['outlet_ids'] as $outletId) {
-          
-            $data['outlet_id'] = $outletId;
-            $products[] = parent::save($data);
-        
-        }
-        
-        //if the product have variant
-        if(isset($data['variants'])) {
-            
-            $variants = [];
-            
-            //make variant instances and put in array
-            foreach ($data['variants'] as $variant) {
-                
-               $variant['category_id'] = $data['category_id'];
-               $variant['unit'] = $data['unit']; 
-               $variants[] = new Product($variant);
-              
-            }
-            
-            //then save it to each products
-            foreach($products as $product) {
-                
-                $product->variants()->saveMany($variants);
-                
-            }
-            
-        }
-        
-    }
-    
     /**
      * 
      * @param integer $ownerId
@@ -110,106 +70,102 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
                 ->findOrFail($id)   
                 ->delete();
     }
-    
-    public function getPaginatedForOwner($ownerId, $with = array(), $perPage = 15) {
-        
-        return Product::whereExists(function ($query) use($ownerId) {
-                $query->select(\DB::raw(1))
-                      ->from('categories')
-                      ->where('owner_id', '=', $ownerId)
-                      ->whereRaw('categories.id = products.category_id');
-                })
-                ->paginate($perPage);
-        
-    }
-    
-    public function saveForOwner(array $data, $ownerId)
+   
+    public function saveManyWithVariantsForCompany($data, $companyId)
     {
-        \DB::transaction(function() use ($data, $ownerId) {
+        
+        \DB::transaction(function () use ($data, $companyId)
+        {
+            $products = [];
             
-            //check if this category is belong to current owner
-            $category = Category::where('owner_id' , '=', $ownerId)
-                                ->findOrFail($data['category_id']);
-
-            $product = $category->products()->save(new Product($data));
-
-             //find product that related to current owner
-            $outlets = Outlet::where('owner_id', '=', $ownerId)
-                            ->findMany($data['outlet_ids']);
-            
-            $stockOutlets = [];
-             //save product to these outlets
-            foreach($outlets as $outlet) {
-                $stockOutlets[] = Stock::create([
-                    'outlet_id' => $outlet->id,
-                    'product_id' => $product->id,
-                ]);
-            }
-
-            foreach ($data['variants'] as $variant) {
+            //save the product to outlets
+            foreach ($data['outlet_ids'] as $outletId) {
                 
-                $dataVariant = new Variant($variant);
+                $products[] = $this->saveForOwnerThrough(
+                    $data, $companyId, $outletId, 'outlets'
+                );
                 
-                $savedVariant = $product->variants()->save($dataVariant);
-                
-                foreach($stockOutlets as $stock) {
-                    StockDetail::create([
-                        'stock_id' => $stock->id,
-                        'variant_id' => $savedVariant->id,
-                    ]);
-                }
             }
             
-           
-           
-            
-            //save variant's product to outlet alias to stock
-            $outlet->variants()->saveMany($variants);
-            
+            $this->saveVariantsToProducts($data['variants'], $products);
+              
+        
         });
         
     }
     
-    public function updateForOwner($id, array $data, $ownerId) 
+    public function updateWithVariantsThroughOutlet($data, $companyId, $productId, $outletId)
     {
-        \DB::transaction(function() use ($id, $data, $ownerId){
         
-            $category = Category::where('owner_id', '=', $ownerId)
-                                ->findOrFail($data['category_id']);
-
-            $product = $category->products()->findOrFail($id);
-
-            $product->update($data);
-
-            $deletedExistVariantIds = [];
-            $newVariants = [];
-
-            foreach($data['variants'] as $variant) {
-
-                if ( isset($variant['id']) ) {
-
-                    if ($variant['delete']) {
-                        $deletedExistVariantIds[] = $variant['id'];
-                    }
-                    else {
-                        $product->findOrFail($variant['id'])
-                            ->update($variant);
-                    }
-
-                }
-                else {
-                    $newVariants[] = new Variant($variant);
-                }
-
-            }
-
-            Variant::destroy($deletedExistVariantIds); 
-
-            $product->variants()->saveMany($newVariants);
-        
+        \DB::transaction(function () use ($data, $companyId, $outletId, $productId)
+        {
+            $product = $this->updateForOwnerThrough(
+                $productId, $data, $companyId, $outletId, 'outlets'
+            );
+                
             
+            if ( isset($data['variants']) ) {
+                
+                $this->updateVariants($data['variants'], $product);
+                
+            }
+        
         });
         
+    }
+   
+    /**
+     * 
+     * save many products
+     * 
+     * @param array $dataInput
+     * @param integer $categoryId
+     * @return array
+     */
+    protected function saveVariants($dataInput, $categoryId, $productId)
+    {
+        $instances = [];
+        
+        foreach ($dataInput as $data) {
+            $data['category_id'] = $categoryId;
+            $data['product_id'] = $productId;
+            $instances[] = $this->save($data);
+        }
+        
+        return $instances;
+    }
+    
+    /**
+     * 
+     * @param array $variants
+     * @param array $products
+     * @return array
+     */
+    protected function saveVariantsToProducts($variants, $products)
+    {
+        $instances = [];
+        
+        foreach ($products as $product) {
+            
+            foreach ($variants as $variant) {
+                $product->variants()->create($variant);
+            }
+            
+        } 
+        
+        return $instances;
+    }
+    
+    protected function updateVariants($variants)
+    {
+        $instances = [];
+        //dd($variants);
+        foreach ($variants as $variant) {
+            $instances[] = Variant::findOrFail($variant['id'])
+                                    ->update($variant);
+        }
+        
+        return $instances;
     }
 
 }

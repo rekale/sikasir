@@ -56,7 +56,7 @@ class OrderTransformer extends TransformerAbstract
     {
         $collection = $order->variants;
         
-        return $this->collection($collection, new ProductTransformer);
+        return $this->collection($collection, new VariantTransformer);
     }
     
     public function includeCustomer(Order $order)

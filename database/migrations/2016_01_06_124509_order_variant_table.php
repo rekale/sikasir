@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OrderProductTable extends Migration
+class OrderVariantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class OrderProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_product', function (Blueprint $table) {
+        Schema::create('order_variant', function (Blueprint $table) {
             $table->integer('order_id')->unsigned()->index();
-            $table->integer('product_id')->unsigned()->index();
+            $table->integer('variant_id')->unsigned()->index();
             $table->unsignedInteger('total')->default(0);
             $table->unsignedInteger('nego')->default(0);
             $table->timestamps();
@@ -24,9 +24,9 @@ class OrderProductTable extends Migration
                 ->on('orders')
                 ->onDelete('cascade');
             
-            $table->foreign('product_id')
+            $table->foreign('variant_id')
                 ->references('id')
-                ->on('products')
+                ->on('variants')
                 ->onDelete('cascade');
         });
     }
@@ -38,6 +38,6 @@ class OrderProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('order_product');
+        Schema::drop('order_variant');
     }
 }

@@ -7,13 +7,13 @@ interface OwnerThroughableRepo
     /**
      * 
      * @param integer $id
-     * @param string $throughTableName
-     * @param integer $ownerId
+     * @param integer $companyId
      * @param integer $throughId
-     * @param integer $with
-     * @return type
+     * @param string $throughTableName
+     * @param array $with
+     * @return static|collection
      */
-    public function findForOwnerThrough($id, $throughTableName, $ownerId, $throughId, $with = []);
+    public function findForOwnerThrough($id, $ownerId, $throughId, $throughTableName, $with = []);
     
      /**
       * 

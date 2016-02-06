@@ -41,7 +41,7 @@ class OpnameTransformer extends TransformerAbstract
     {
         $collection = $entry->variants;
         
-        return $this->collection($collection, new ProductTransformer);
+        return $this->collection($collection, new VariantTransformer);
     }
     
     public function includeOperator($entry, ParamBag $params = null)

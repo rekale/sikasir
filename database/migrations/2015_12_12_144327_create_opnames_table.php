@@ -32,10 +32,10 @@ class CreateOpnamesTable extends Migration
                 ->onDelete('cascade');
         });
         
-        Schema::create('opname_product', function (Blueprint $table) {
+        Schema::create('opname_variant', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('opname_id')->unsigned()->index();
-            $table->integer('product_id')->unsigned()->index();
+            $table->integer('variant_id')->unsigned()->index();
             $table->integer('total');
             
             $table->foreign('opname_id')
@@ -43,9 +43,9 @@ class CreateOpnamesTable extends Migration
                 ->on('opnames')
                 ->onDelete('cascade');
             
-            $table->foreign('product_id')
+            $table->foreign('variant_id')
                 ->references('id')
-                ->on('products')
+                ->on('variants')
                 ->onDelete('cascade');
             
         });
@@ -58,7 +58,7 @@ class CreateOpnamesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('opname_product');
+        Schema::drop('opname_variant');
         Schema::drop('opnames');
     }
 }

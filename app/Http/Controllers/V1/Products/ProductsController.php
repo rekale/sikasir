@@ -16,10 +16,29 @@ class ProductsController extends ApiController
         parent::__construct($respond, $auth, $repo);
 
     }
-
-    public function show($id)
+    
+    public function store(ProductRequest $request)
     {
-         $currentUser =  $this->currentUser();
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'create-product');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $dataInput = $request->all();
+        
+        $dataInput['category_id'] = $this->decode($dataInput['category_id']);
+        $dataInput['outlet_ids'] = $this->decode($dataInput['outlet_ids']);
+        
+        $this->repo()->saveManyWithVariantsForCompany($dataInput, $companyId);
+        
+        return $this->response()->created();
+    }
+
+    
+    public function best($dateRange)
+    {
+        $currentUser =  $this->currentUser();
         
         $this->authorizing($currentUser, 'read-product');
        
@@ -27,71 +46,11 @@ class ProductsController extends ApiController
         
         $with = $this->filterIncludeParams($include);
         
-        $decodedId = $this->decode($id);
-        
-        $product = $this->repo()->findWith($decodedId, $with);
+        $product = $this->repo()->getTheBestProducts($dateRange);
 
         return $this->response()
                 ->resource()
                 ->including($with)
                 ->withItem($product, new ProductTransformer);
-    }
-
-    public function store(ProductRequest $request)
-    {
-         $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'create-product');
-       
-        $dataInput = $request->all();
-        
-        $dataInput['category_id'] = $this->decode($dataInput['category_id']);
-        $dataInput['outlet_ids'] = $this->decode($dataInput['outlet_ids']);
-        
-        $this->repo()->save($dataInput);
-
-        return $this->response()->created();
-    }
-
-    public function update($id, ProductRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'update-product');
-       
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $dataInput = $request->all();
-        
-        $dataInput['category_id'] = $this->decode($dataInput['category_id']);
-        
-        foreach ($dataInput['variants'] as &$variant) {
-            
-            if ( isset($variant['id']) ) {
-                $variant['id'] = $this->decode($variant['id']);
-            }
-            
-        }
-        
-        $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
-
-        return $this->response()->updated();
-    }
-
-    public function destroy($id)
-    {
-         $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'delete-product');
-       
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $this->repo()->destroyForOwner($decodedId, $owner);
-
-        return $this->response()->deleted();
     }
 }

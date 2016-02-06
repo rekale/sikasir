@@ -34,38 +34,12 @@ class ProductTransformer extends TransformerAbstract
     
     public function transform(Product $product)
     {
-        $main = [
+        return [
             'id' => $this->encode($product->id),
             'name' => $product->name, 
             'description' => $product->description, 
             'icon' => $product->icon,
         ];
-        
-        $detail = [
-            'barcode' => $product->barcode, 
-            'unit' => $product->unit,
-            'icon' => $product->icon,
-            'price_init'  => (int) $product->price_init,
-            'price' => (int) $product->price,
-            'countable' => (boolean) $product->countable,
-            'track_stock' => (boolean) $product->track_stock,
-            'stock' => (int) $product->stock,
-            'alert' => (boolean) $product->alert,
-            'alert_at' => (int) $product->alert_at,
-        ];
-        
-        if (isset($product->pivot)) {
-            $foreign = explode('_', $product->pivot->getForeignKey());
-            $key = $foreign[0] . '_total';
-            $main[$key] = $product->pivot->total;
-        }
-        
-        if (isset($product->pivot->nego)) {
-            $main['nego'] = $product->pivot->nego;
-        }
-        
-        return $product->isNotVariant() ? $main :
-                array_merge($main, $detail);
         
     }
    
@@ -73,9 +47,7 @@ class ProductTransformer extends TransformerAbstract
     {
         $variants = $product->variants;
         
-        if(! is_null($variants)) {
-            return $this->collection($variants, new ProductTransformer);
-        }
+        return $this->collection($variants, new VariantTransformer);
         
     }
     

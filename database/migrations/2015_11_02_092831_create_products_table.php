@@ -16,17 +16,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned()->index();
             $table->integer('outlet_id')->unsigned()->index()->nullable();
-            $table->integer('product_id')->unsigned()->index()->nullable();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('barcode')->nullable();
-            $table->integer('price_init')->unsigned()->default(0);
-            $table->integer('price')->unsigned()->default(0);
-            $table->integer('stock')->unsigned()->default(0);
-            $table->boolean('countable')->default(true);
-            $table->boolean('track_stock')->default(false);
-            $table->boolean('alert')->default(false);
-            $table->integer('alert_at')->unsigned()->default(0);
+            $table->text('description');
             $table->string('unit')->nullable();
             $table->text('icon')->nullable();
             $table->timestamps();

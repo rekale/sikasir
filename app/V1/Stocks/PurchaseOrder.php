@@ -4,7 +4,7 @@ namespace Sikasir\V1\Stocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Suppliers\Supplier;
-use Sikasir\V1\Products\Product;
+use Sikasir\V1\Products\Variant;
 
 class PurchaseOrder extends Model
 {
@@ -16,9 +16,10 @@ class PurchaseOrder extends Model
         'input_at',
     ];
     
+   
     public function variants()
     {
-        return $this->belongsToMany(Product::class, 'product_purchase_order')->withPivot('total');
+        return $this->belongsToMany(Variant::class)->withPivot(['total']);
     }
     
     public function supplier()
