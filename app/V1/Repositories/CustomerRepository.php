@@ -38,12 +38,12 @@ class CustomerRepository extends EloquentRepository implements OwnerableRepo
                         ->select(
                             \DB::raw(
                                 'orders.created_at as date, '
-                                . 'sum(order_product.total) as product_total, '
-                                . 'sum(products.price) as price_total'
+                                . 'sum(order_variant.total) as variant_total, '
+                                . 'sum(variants.price) as price_total'
                             )
                         )
-                        ->join('order_product', 'orders.id', '=', 'order_product.order_id')
-                        ->join('products', 'products.id', '=', 'order_product.product_id')
+                        ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+                        ->join('variants', 'variants.id', '=', 'order_variant.variant_id')
                         ->where('orders.customer_id', '=', $id)
                         ->whereBetween('orders.created_at', $dateRange)
                         ->groupBy('orders.created_at')

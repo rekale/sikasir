@@ -17,7 +17,7 @@ class CustomerHistoryTransformer extends TransformerAbstract
     {
         return [
             'date' => $customer->date,
-            'product_total' => (int) $customer->product_total,
+            'variant_total' => (int) $customer->variant_total,
             'price_total' => (int) $customer->price_total,
         ];
     }
