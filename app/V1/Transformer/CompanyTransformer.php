@@ -23,7 +23,6 @@ class CompanyTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'outlets',
         'users',
-        'customers',
         'taxes',
         'discounts',
         'payments',
@@ -56,15 +55,7 @@ class CompanyTransformer extends TransformerAbstract
         
         return $this->collection($collection, new UserTransformer);
     }
-    
-    
-    public function includeCustomers(Company $company, ParamBag $params = null)
-    {
-        $collection = $company->customers;
-        
-        return $this->collection($collection, new CustomerTransformer);
-    }
-    
+   
     public function includeCategories(Company $company, ParamBag $params = null)
     {
          $collection = $company->categories;
