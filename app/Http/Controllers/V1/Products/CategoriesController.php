@@ -5,13 +5,13 @@ namespace Sikasir\Http\Controllers\V1\Products;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\Repositories\ProductRepository;
+use Sikasir\V1\Repositories\CategoryRepository;
 use Sikasir\V1\Transformer\CategoryTransformer;
 use Illuminate\Http\Request;
 
 class CategoriesController extends ApiController
 {
-  public function __construct(ApiRespond $respond, ProductRepository $repo, JWTAuth $auth) {
+  public function __construct(ApiRespond $respond, CategoryRepository $repo, JWTAuth $auth) {
 
         parent::__construct($respond, $auth, $repo);
 
@@ -23,15 +23,17 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'read-product');
        
-        $owner = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
-        $categories = $this->repo()->getCategories($owner);
+        $with = $this->filterIncludeParams($include);
+        
+        $categories = $this->repo()->getPaginatedForOwner($companyId, $with);
 
         return $this->response()
                 ->resource()
-                ->including($include)
+                ->including($with)
                 ->withPaginated($categories, new CategoryTransformer);
     }
 
@@ -42,9 +44,9 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'create-product');
        
-        $owner = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
-        $this->repo()->saveCategory($owner, $request->input('name'));
+        $this->repo()->saveForOwner($request->all(), $companyId);
 
         return $this->response()->created();
     }
@@ -55,9 +57,9 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'update-product');
        
-        $owner = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
-        $this->repo()->updateCategory($owner, $this->decode($id), $request->input('name'));
+        $this->repo()->updateForOwner($this->decode($id), $request->all(), $companyId);
         
         return $this->response()->updated();
     }
@@ -68,11 +70,11 @@ class CategoriesController extends ApiController
         
         $this->authorizing($currentUser, 'delete-product');
        
-        $owner = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
-        $this->repo()->destroyCategories($owner, $decodedId);
+        $this->repo()->destroyForOwner($decodedId, $companyId);
 
         return $this->response()->deleted();
     }
