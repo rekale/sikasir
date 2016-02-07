@@ -70,4 +70,20 @@ class ProductsController extends ApiController
                 ->withPaginated($product, new ProductBestTransformer);
         
     }
+    
+    public function profit($dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-product');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $product = $this->repo()->getProfitForCompany($companyId, $dateRange);
+        
+        return $product;
+
+    }
 }

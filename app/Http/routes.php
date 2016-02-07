@@ -164,6 +164,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             get('outlets/{outletId}/products/best-seller/{dateRange}', 'ProductsController@bestSeller');
             get('outlets/{outletId}/products/best-amounts/{dateRange}', 'ProductsController@bestAmounts');
+            get('outlets/{outletId}/products/profit/{dateRange}', 'ProductsController@profit');
 
             get('outlets/{id}/employees', 'EmployeesController@index');
             
@@ -203,6 +204,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('products', 'ProductsController@store');
             get('products/best-seller/{dateRange}', 'ProductsController@bestSeller');
             get('products/best-amounts/{dateRange}', 'ProductsController@bestAmounts');
+            get('products/profit/{dateRange}', 'ProductsController@profit');
             
             get('categories', 'CategoriesController@index');
             post('categories', 'CategoriesController@store');
