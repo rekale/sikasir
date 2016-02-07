@@ -122,7 +122,7 @@ class ProductsController extends ApiController
         return $this->response()->deleted();
     }
     
-    public function best($outletId, $dateRange)
+    public function bestSeller($outletId, $dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -132,7 +132,7 @@ class ProductsController extends ApiController
         
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $products = $this->repo()->getTotalBestSalesForOutlet(
+        $products = $this->repo()->getTotalBestSellerForOutlet(
             $this->decode($outletId), $companyId, $dateRange
         );
         

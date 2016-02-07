@@ -162,7 +162,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
-            get('outlets/{outletId}/products/best/{dateRange}', 'ProductsController@best');
+            get('outlets/{outletId}/products/best-seller/{dateRange}', 'ProductsController@bestSeller');
 
             get('outlets/{id}/employees', 'EmployeesController@index');
             
@@ -200,7 +200,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Products'], function()
         {
             post('products', 'ProductsController@store');
-            get('products/best/{dateRange}', 'ProductsController@best');
+            get('products/best-seller/{dateRange}', 'ProductsController@bestSeller');
             
             get('categories', 'CategoriesController@index');
             post('categories', 'CategoriesController@store');

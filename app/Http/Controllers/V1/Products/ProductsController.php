@@ -36,7 +36,7 @@ class ProductsController extends ApiController
     }
 
     
-    public function best($dateRange)
+    public function bestSeller($dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -46,10 +46,28 @@ class ProductsController extends ApiController
        
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $product = $this->repo()->getTotalBestSalesForCompany($companyId, $dateRange);
+        $product = $this->repo()->getTotalBestSellerForCompany($companyId, $dateRange);
         
         return $this->response()
                 ->resource()
                 ->withPaginated($product, new ProductBestTotalSalesTransformer);
+    }
+    
+    public function bestAmounts($dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-product');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $product = $this->repo()->getTotalBestAmountsForCompany($companyId, $dateRange);
+        
+        return $this->response()
+                ->resource()
+                ->withPaginated($product, new ProductBestTotalSalesTransformer);
+        
     }
 }
