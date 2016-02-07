@@ -91,7 +91,10 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
     {
         return $this->model
                     ->select(
-                        \DB::raw('products.name, sum(order_variant.total) as total')
+                        \DB::raw(
+                            "products.name ,"
+                            . "sum( (variants.price - order_variant.nego) * order_variant.total ) as total"
+                        )
                     )
                     ->join('variants', 'variants.product_id', '=', 'products.id')
                     ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
@@ -113,6 +116,31 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         return $this->model
                     ->select(
                         \DB::raw('products.name, sum(order_variant.total) as total')
+                    )
+                    ->join('variants', 'variants.product_id', '=', 'products.id')
+                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                    ->whereExists(function($query) use ($companyId, $outletId)
+                    {
+                        $query->select(\DB::raw(1))
+                            ->from('outlets')
+                            ->where('outlets.id', '=', $outletId)
+                            ->whereRaw('outlets.id = products.outlet_id')
+                            ->where('outlets.company_id', '=', $companyId);
+                    })
+                    ->whereBetween('order_variant.created_at', $dateRange)
+                    ->groupBy('products.id')
+                    ->orderBy('total', 'desc')
+                    ->paginate($perPage);
+    }
+    
+    public function getTotalBestAmountsForOutlet($outletId, $companyId, $dateRange = [], $perPage = 15)
+    {
+        return $this->model
+                    ->select(
+                        \DB::raw(
+                            "products.name ,"
+                            . "sum( (variants.price - order_variant.nego) * order_variant.total ) as total"
+                        )
                     )
                     ->join('variants', 'variants.product_id', '=', 'products.id')
                     ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')

@@ -13,7 +13,7 @@ use Sikasir\V1\Transformer\PurchaseOrderTransformer;
  *
  * @author rekale
  */
-class ProductBestTotalSalesTransformer extends TransformerAbstract
+class ProductBestTransformer extends TransformerAbstract
 {
    use \Sikasir\V1\Traits\IdObfuscater;
    
@@ -22,7 +22,7 @@ class ProductBestTotalSalesTransformer extends TransformerAbstract
     {
         return [
             'name' => $collection->name, 
-            'total' => $collection->total,
+            'total' => (int) $collection->total,
         ];
         
     }
