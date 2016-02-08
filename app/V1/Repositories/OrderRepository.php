@@ -53,18 +53,25 @@ class OrderRepository extends EloquentRepository
      *
      * @return Collection | Paginator
      */
-    public function getUnvoidPaginated($outletId, $companyId, $with =[],$perPage = 15)
+    public function getUnvoidPaginated($outletId, $companyId, $with =[], $dateRange = [], $perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
-                $query->select(\DB::raw(1))
-                      ->from('outlets')
-                      ->where('id', '=', $outletId)
-                      ->where('company_id', '=', $companyId)
-                      ->whereRaw('outlets.id = orders.outlet_id');
-                })
-                ->where('void', '=', false)
-                ->with($with)
-                ->paginate($perPage);
+        $queryBuilder = $this->model
+                            ->with($with)
+                            ->whereExists(function ($query) use($companyId, $outletId) {
+                            $query->select(\DB::raw(1))
+                                  ->from('outlets')
+                                  ->where('id', '=', $outletId)
+                                  ->where('company_id', '=', $companyId)
+                                  ->whereRaw('outlets.id = orders.outlet_id');
+                            })
+                            ->where('void', '=', false);
+                            
+        if(! empty($dateRange) ) {
+            
+            $queryBuilder->whereBetween('created_at', $dateRange);
+        }
+                
+        return $queryBuilder->paginate($perPage);
     }
     
     

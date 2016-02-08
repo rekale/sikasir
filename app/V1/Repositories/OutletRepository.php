@@ -101,7 +101,7 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
                             "outlets.id, " .
                             "outlets.name as name," .
                             "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
-                            "sum( (variants.price - order_variant.nego) * order_variant.total "
+                            "sum( ( (variants.price - order_variant.nego) * order_variant.total ) "
                                 . " - (variants.price_init * order_variant.total) ) as profit, " .
                             "count(orders.id) as transaction"
                         )

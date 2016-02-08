@@ -120,6 +120,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
             
             get('outlets/{id}/orders', 'OrdersController@index');
+            get('outlets/{id}/orders/{dateRange}', 'OrdersController@indexByDateRange');
             post('outlets/{id}/orders', 'OrdersController@store');
  
             get('outlets/{id}/orders/void', 'OrdersController@voided');

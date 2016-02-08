@@ -12,7 +12,8 @@ use Sikasir\V1\Products\Variant;
 
 class Order extends Model
 {
-
+   
+    
     protected $fillable = [
         'customer_id',
         'outlet_id',
@@ -38,8 +39,21 @@ class Order extends Model
     public function variants()
     {
         return $this->belongsToMany(Variant::class)
-                ->withPivot(['total', 'nego'])
-                ->withTimestamps();
+                    ->withPivot(['total', 'nego'])
+                    ->withTimestamps()
+                    ->selectRaw(
+                        'variants.*, '
+                        . 'sum( order_variant.total * (variants.price - order_variant.nego) ) as revenue, '//penghasilan kotor
+                        . 'sum'
+                            . '( '
+                                . '( order_variant.total * (variants.price - order_variant.nego) )' //penghasilan kotor
+                                .' - ' // dikurang
+                                . '( order_variant.total * variants.price_init) ' //modal
+                            . ') '
+                            . 'as profit, '//hasilnya profit
+                        . 'variants.price as price'
+                    )
+                    ->groupBy('variants.id');
     }
     
     

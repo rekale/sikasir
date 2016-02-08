@@ -181,9 +181,9 @@ class OutletsController extends ApiController
         $with = $this->filterIncludeParams($include);
         
         // include it with best product or not?
-        $withBestProduct = ! empty($with) && $with === 'best_products';
+        $isIncludedWithBestProducts = ! empty($with) && $with === 'best_products';
         
-        $reports = $this->repo()->getTransactionReports($companyId, $dateRange, $withBestProduct);
+        $reports = $this->repo()->getTransactionReports($companyId, $dateRange, $isIncludedWithBestProducts);
         
         return $this->response()
                 ->resource()

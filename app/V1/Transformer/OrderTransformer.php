@@ -38,8 +38,7 @@ class OrderTransformer extends TransformerAbstract
             'id' => $this->encode($order->id),
             'no_order' => $order->no_order,
             'note' => $order->note,
-            'total' => $order->total,
-            'nego' => $order->nego,
+            'created_at' => $order->created_at,
             'void' => (boolean) $order->void,
             'paid' => (boolean) $order->paid,
         ];

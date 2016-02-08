@@ -45,6 +45,30 @@ class OrdersController extends ApiController
         
    }
    
+   public function indexByDateRange($outletId, $dateRange)
+   {
+       $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
+        $collection = $this->repo()->getUnvoidPaginated(
+            $this->decode($outletId), $companyId, $with, $dateRange
+        );
+        
+        return $this->response()
+                ->resource()
+                ->including($include)
+                ->withPaginated($collection, new OrderTransformer);
+   }
+   
    public function voided($outletId)
    {
         
