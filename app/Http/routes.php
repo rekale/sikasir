@@ -12,58 +12,55 @@
 */
 
 get('outlet', function() {
-    
     /*
-     select products.id AS product_id, products.name, sum(order_product.total) as product_total, products.price, (products.price * sum(order_product.total)) as price_total
-	from order_product
-    join products
-    on products.id = order_product.product_id
-    group by products.id
-    order by product_total desc
+     $query = $this->model
+                    ->with(['products' => function ($query)
+                    {
+                        $query->select(
+                            \DB::raw('products.name, sum(order_variant.total) as total')
+                        )
+                        ->join('variants', 'variants.product_id', '=', 'products.id')
+                        ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                        ->whereExists(function($query) use ($companyId, $outletId)
+                        {
+                            $query->select(\DB::raw(1))
+                                ->from('outlets')
+                                ->where('outlets.id', '=', $outletId)
+                                ->whereRaw('outlets.id = products.outlet_id')
+                                ->where('outlets.company_id', '=', $companyId);
+                        })
+                        ->whereBetween('order_variant.created_at', $dateRange)
+                        ->groupBy('products.id')
+                        ->orderBy('total', 'desc');
+                        
+                    }])
+                    ->select(
+                        \DB::raw(
+                            "outlets.id, " .
+                            "outlets.name as name," .
+                            "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
+                            "sum( variants.price_init * order_variant.total ) as modal, " .
+                            "count(orders.id) as total_transaction"
+                        )
+                    )
+                    ->join('orders', 'outlets.id', '=', 'orders.outlet_id')
+                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+                    ->where('outlets.company_id', '=', $companyId)
+                    ->whereBetween('order_variant.created_at', $dateRange)
+                    ;
+        
+        if(! is_null($outletId))
+        {
+            $query->where('outlets.id', '=', $outletId);
+        }
+        
+        return $query->groupBy('outlets.id')
+                    ->get();
+        
      */
     
-    //best outlet query
-    /*
-        select outlets.id as outlet_id, outlets.name, sum(order_product.total)
-        from outlets 
-        join orders on outlets.id = orders.outlet_id
-        join order_product on orders.id = order_product.order_id
-        join products on products.id = order_product.product_id
-        group by outlets.id
-        having sum(order_product.total) < 50
-        order by order_product.total desc
-     */
-    
-    //best product from all outlet query
-    /*
-        select products.id AS product_id, products.name, sum(order_product.total) as product_total
-	from order_product
-        join products
-        on products.id = order_product.product_id
-        group by products.name
-        order by product_total desc
-     */
-    
-    //best product from specific outlet query
-    /*
-        select products.id AS product_id, products.name, sum(order_product.total) as product_total
-	from order_product
-        join products
-        on products.id = order_product.product_id
-        where exists (select * from products as p where p.id = products.product_id and p.outlet_id = 1)
-        group by products.id
-        order by product_total desc
-     */
-
-    $collection = \DB::table('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->select(\DB::raw('products.id, products.name, sum(order_product.total) as total'))
-            ->groupBy('products.id')
-            ->orderBy('total', 'desc')
-            ->take(1)
-            ->get(x);
-    
-    return $collection;
+  
     
 });
 
@@ -149,6 +146,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
+            get('outlets/best/{dateRange}', 'OutletsController@best');
+            get('outlets/profit/{dateRange}', 'OutletsController@profit');
+            get('outlets/{outletId}/profit/{dateRange}', 'OutletsController@profitForOutlet');
             
             get('outlets/{id}/incomes', 'IncomesController@index');
             post('outlets/{id}/incomes', 'IncomesController@store');
@@ -164,7 +164,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             get('outlets/{outletId}/products/best-seller/{dateRange}', 'ProductsController@bestSeller');
             get('outlets/{outletId}/products/best-amounts/{dateRange}', 'ProductsController@bestAmounts');
-            get('outlets/{outletId}/products/profit/{dateRange}', 'ProductsController@profit');
 
             get('outlets/{id}/employees', 'EmployeesController@index');
             
@@ -204,7 +203,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('products', 'ProductsController@store');
             get('products/best-seller/{dateRange}', 'ProductsController@bestSeller');
             get('products/best-amounts/{dateRange}', 'ProductsController@bestAmounts');
-            get('products/profit/{dateRange}', 'ProductsController@profit');
             
             get('categories', 'CategoriesController@index');
             post('categories', 'CategoriesController@store');

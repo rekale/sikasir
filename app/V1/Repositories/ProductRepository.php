@@ -157,50 +157,7 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
                     ->orderBy('total', 'desc')
                     ->paginate($perPage);
     }
-    
-    public function getProfitForCompany($companyId, $dateRange = [], $perPage = 15)
-    {
-        return $this->model
-                    ->select(
-                        \DB::raw(
-                            "sum( (variants.price - order_variant.nego - variants.price_init ) * order_variant.total ) as total"
-                        )
-                    )
-                    ->join('variants', 'variants.product_id', '=', 'products.id')
-                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereExists(function($query) use ($companyId)
-                    {
-                        $query->select(\DB::raw(1))
-                            ->from('categories')
-                            ->whereRaw('categories.id = products.category_id')
-                            ->where('categories.company_id', '=', $companyId);
-                    })
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ->get();
-    }
-    
-    public function getProfitForOutlet($outletId, $companyId, $dateRange = [], $perPage = 15)
-    {
-        return $this->model
-                    ->select(
-                        \DB::raw(
-                            "sum( (variants.price - order_variant.nego - variants.price_init) * order_variant.total ) as total"
-                        )
-                    )
-                    ->join('variants', 'variants.product_id', '=', 'products.id')
-                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereExists(function($query) use ($companyId, $outletId)
-                    {
-                        $query->select(\DB::raw(1))
-                            ->from('outlets')
-                            ->where('outlets.id', '=', $outletId)
-                            ->whereRaw('outlets.id = products.outlet_id')
-                            ->where('outlets.company_id', '=', $companyId);
-                    })
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ->get();
-    }
-    
+
     /**
      * 
      * @param array $variants

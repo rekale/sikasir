@@ -8,6 +8,7 @@ use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Transformer\BestReportTransformer;
 
 class OutletsController extends ApiController
 {
@@ -113,5 +114,54 @@ class OutletsController extends ApiController
         $this->repo()->destroyForOwner($decodedId, $owner);
 
         return $this->response()->deleted();
+    }
+    
+    public function best($dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $collection = $this->repo()->getTheBestForCompany($companyId, $dateRange);
+     
+        return $this->response()
+                ->resource()
+                ->withPaginated($collection, new BestReportTransformer);
+    }
+    
+    public function profit($dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $product = $this->repo()->getProfitForCompany($companyId, $dateRange);
+        
+        return $product;
+
+    }
+    
+    public function profitForOutlet($outletId, $dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $product = $this->repo()->getProfitForCompany($companyId, $dateRange, $this->decode($outletId));
+        
+        return $product;
+
     }
 }

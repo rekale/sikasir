@@ -3,7 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Transformer\ProductBestTransformer;
+use Sikasir\V1\Transformer\BestReportTransformer;
 use Sikasir\V1\Repositories\ProductRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
@@ -138,7 +138,7 @@ class ProductsController extends ApiController
         
         return $this->response()
                ->resource()
-               ->withPaginated($products, new ProductBestTransformer);
+               ->withPaginated($products, new BestReportTransformer);
     }
     
     public function bestAmounts($outletId, $dateRange)
@@ -157,26 +157,7 @@ class ProductsController extends ApiController
         
         return $this->response()
                ->resource()
-               ->withPaginated($products, new ProductBestTransformer);
+               ->withPaginated($products, new BestReportTransformer);
     }
     
-    public function profit($outletId, $dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $product = $this->repo()->getProfitForOutlet(
-            $this->decode($outletId), $companyId, $dateRange
-        );
-        
-        return $product;
-
-    }
-    
-
 }

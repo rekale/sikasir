@@ -47,6 +47,8 @@
         <br>
         <li> GET outlets?include=users,printers</li>
         <li> GET outlets/{id}?include=users, printers</li>
+        <li> GET outlets/profit/{dateRange}</li>
+        <li> GET outlets/{id}/profit/{dateRange}</li>
         <br>
         <li> GET outlets/{id}/orders?include=operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax </li>
         <li> GET outlets/{id}/orders/void?include=operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax  </li>
@@ -59,7 +61,6 @@
         <li> DELETE outlets/{outletId}/products/{productId} </li>
         <li> GET outlets/{outletId}/products/best-seller/{dateRange}</li>//contoh: sikasir.herokuapp.com/v1/outlets/D/best/2016-02-01,2017-12-01
         <li> GET outlets/{outletId}/products/best-amounts/{dateRange}</li>
-        <li> GET outlets/{outletId}/products/profits/{dateRange}</li>
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants, variants.product, variants.product.category</li>
         <li>POST outlets/{id}/entries</li>
@@ -87,7 +88,6 @@
         <li> POST products </li>
         <li> GET products/best-seller/{dateRange}</li>
         <li> GET products/best-amounts/{dateRange}</li>
-        <li> GET products/profit/{dateRange}</li>
         <li> 
         <br>
         <li> GET categories?include=products, products.variants </li>
