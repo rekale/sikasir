@@ -84,6 +84,51 @@ class OutletRepository extends EloquentRepository implements OwnerableRepo
         
     }
     
+    /**
+     * get the revenue, profit and transaction total for all or one outlets
+     * 
+     * @param integer $companyId
+     * @param array $dateRange
+     * @param integer $outletId
+     * @return type
+     */
+    public function getTransactionReports($companyId, $dateRange, $withBestProducts = false, $outletId = null)
+    {
+        
+        $queryBuilder = $this->model
+                    ->select(
+                        \DB::raw(
+                            "outlets.id, " .
+                            "outlets.name as name," .
+                            "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
+                            "sum( (variants.price - order_variant.nego) * order_variant.total "
+                                . " - (variants.price_init * order_variant.total) ) as profit, " .
+                            "count(orders.id) as transaction"
+                        )
+                    )
+                    ->join('orders', 'outlets.id', '=', 'orders.outlet_id')
+                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+                    ->where('outlets.company_id', '=', $companyId)
+                    ->whereBetween('order_variant.created_at', $dateRange)
+                    ->groupBy('outlets.id')
+                    ->orderBy('profit', 'desc');
+        
+        if($withBestProducts) {
+            $queryBuilder->with(['bestProducts' => function ($query) use ($dateRange)
+            {
+                $query->whereBetween('order_variant.created_at', $dateRange);
+            }]);
+        }
+        
+        if(! is_null($outletId))
+        {
+            $queryBuilder->where('outlets.id', '=', $outletId);
+        }
+        
+        return $queryBuilder->get();
+    }
+    
     
     public function getProfitForOutlet($outletId, $companyId, $dateRange = [], $perPage = 15)
     {

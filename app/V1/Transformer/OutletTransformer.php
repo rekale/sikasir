@@ -24,13 +24,10 @@ class OutletTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'users',
         'printers',
-    ];
-    
-    protected $defaultIncludes = [
         'tax',
         'business_field',
     ];
-
+    
     public function transform(Outlet $outlet)
     {
         return [

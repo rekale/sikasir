@@ -9,7 +9,6 @@ use Sikasir\V1\User\Company;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Finances\Income;
 use Sikasir\V1\Finances\Outcome;
-use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\Opname;
@@ -27,8 +26,6 @@ class Outlet extends Model
      */
     protected $table = 'outlets';
     
-    protected $with = ['businessfield', 'tax'];
-
     /**
      * The attributes that are mass assignable.
      *
@@ -122,6 +119,28 @@ class Outlet extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+    
+    /**
+     * get the best products from outlet
+     * the best products determined by how many it sold
+     * 
+     * @param array $dateRange
+     * @return Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function bestProducts()
+    {
+        return $this->hasMany(Product::class)->selectRaw(
+                            'products.outlet_id, products.id, products.name, '
+                            . 'sum(order_variant.total) as total, '
+                            . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
+                        )
+                        ->join('variants', 'variants.product_id', '=', 'products.id')
+                        ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                        ->groupBy('products.id')
+                        ->orderBy('total', 'desc')
+                        ->orderBy('amounts', 'desc')
+                        ->limit(5);
     }
     
     public function variants()

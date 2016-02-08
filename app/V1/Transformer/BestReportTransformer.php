@@ -21,8 +21,10 @@ class BestReportTransformer extends TransformerAbstract
     public function transform($collection)
     {
         return [
+            'id' => $this->encode($collection->id),
             'name' => $collection->name, 
             'total' => (int) $collection->total,
+            'amounts' => (int) $collection->amounts,
         ];
         
     }

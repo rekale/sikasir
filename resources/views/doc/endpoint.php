@@ -45,10 +45,11 @@
         <li>GET suppliers/{id}/purchases?include=variants</li>
         
         <br>
-        <li> GET outlets?include=users,printers</li>
-        <li> GET outlets/{id}?include=users, printers</li>
-        <li> GET outlets/profit/{dateRange}</li>
-        <li> GET outlets/{id}/profit/{dateRange}</li>
+        <li> GET outlets?include=users,printers, tax, business_field</li>
+        <li> GET outlets/{id}?include=users, printers, tax, business_field</li>
+        <li> GET outlets/reports/{dateRange}?include=best_products</li>
+        <li> GET outlets/profit/{dateRange}</li>//jangan dipake dulu
+        <li> GET outlets/{id}/profit/{dateRange}</li>//jangan dipake dulu
         <br>
         <li> GET outlets/{id}/orders?include=operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax </li>
         <li> GET outlets/{id}/orders/void?include=operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax  </li>
@@ -86,8 +87,8 @@
         <li> DELETE outlets/{id} </li>
         <br>
         <li> POST products </li>
-        <li> GET products/best-seller/{dateRange}</li>
-        <li> GET products/best-amounts/{dateRange}</li>
+        <li> GET products/best-seller/{dateRange}</li>//jangan dipake dulu
+        <li> GET products/best-amounts/{dateRange}</li>//jangan dipake dulu
         <li> 
         <br>
         <li> GET categories?include=products, products.variants </li>

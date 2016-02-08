@@ -10,60 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-get('outlet', function() {
-    /*
-     $query = $this->model
-                    ->with(['products' => function ($query)
-                    {
-                        $query->select(
-                            \DB::raw('products.name, sum(order_variant.total) as total')
-                        )
-                        ->join('variants', 'variants.product_id', '=', 'products.id')
-                        ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                        ->whereExists(function($query) use ($companyId, $outletId)
-                        {
-                            $query->select(\DB::raw(1))
-                                ->from('outlets')
-                                ->where('outlets.id', '=', $outletId)
-                                ->whereRaw('outlets.id = products.outlet_id')
-                                ->where('outlets.company_id', '=', $companyId);
-                        })
-                        ->whereBetween('order_variant.created_at', $dateRange)
-                        ->groupBy('products.id')
-                        ->orderBy('total', 'desc');
-                        
-                    }])
-                    ->select(
-                        \DB::raw(
-                            "outlets.id, " .
-                            "outlets.name as name," .
-                            "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
-                            "sum( variants.price_init * order_variant.total ) as modal, " .
-                            "count(orders.id) as total_transaction"
-                        )
-                    )
-                    ->join('orders', 'outlets.id', '=', 'orders.outlet_id')
-                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
-                    ->where('outlets.company_id', '=', $companyId)
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ;
-        
-        if(! is_null($outletId))
-        {
-            $query->where('outlets.id', '=', $outletId);
-        }
-        
-        return $query->groupBy('outlets.id')
-                    ->get();
-        
-     */
     
-  
-    
-});
-
 Route::group(['prefix' => 'doc'], function()
 {
     get('/endpoint', function () {
@@ -146,6 +93,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
+            get('outlets/reports/{dateRange}', 'OutletsController@reports');
             get('outlets/best/{dateRange}', 'OutletsController@best');
             get('outlets/profit/{dateRange}', 'OutletsController@profit');
             get('outlets/{outletId}/profit/{dateRange}', 'OutletsController@profitForOutlet');

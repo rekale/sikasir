@@ -5,6 +5,7 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Transformer\OutletTransformer;
+use Sikasir\V1\Transformer\OutletReportTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
@@ -163,5 +164,30 @@ class OutletsController extends ApiController
         
         return $product;
 
+    }
+    
+    public function reports($dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
+        // include it with best product or not?
+        $withBestProduct = ! empty($with) && $with === 'best_products';
+        
+        $reports = $this->repo()->getTransactionReports($companyId, $dateRange, $withBestProduct);
+        
+        return $this->response()
+                ->resource()
+                ->including($with)
+                ->withCollection($reports, new OutletReportTransformer);
     }
 }
