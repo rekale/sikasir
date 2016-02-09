@@ -129,7 +129,7 @@ trait EloquentOwnerThroughable
       */
      public function getPaginatedForOwnerThrough($throughTableName, $companyId, $throughId, $with = [], $perPage = 15)
      {
-         return $this->queryForOwnerThrough($id, $companyId, $throughId, $throughTableName)
+         return $this->queryForOwnerThrough($companyId, $throughId, $throughTableName)
                    ->with($with)
                    ->paginate($perPage);
      }
