@@ -23,11 +23,7 @@ class Order extends Model
         'discount_id',
         'tax_id',
         'note',
-        'total',
         'nego',
-        'void',
-        'void_user_id',
-        'void_note',
         'paid',
     ];
     

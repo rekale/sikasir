@@ -35,7 +35,6 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
                 'tax_id' => $data['tax_id'],
                 'user_id' => $data['operator_id'],
                 'note' => $data['note'],
-                'total' => $data['total'],
                 'paid' => $data['paid'],
             ]);
 

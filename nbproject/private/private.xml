@@ -4,23 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/project/kasir/app/V1/Repositories/OrderRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
             <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/OutletReportTransformer.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/BestReportTransformer.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
+            <file>file:/D:/project/kasir/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/D:/project/kasir/database/seeds/OrderSeeder.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OrdersController.php</file>
-            <file>file:/D:/project/kasir/database/migrations/2015_11_02_092831_create_products_table.php</file>
-            <file>file:/D:/project/kasir/app/V1/Orders/Order.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/OrderTransformer.php</file>
+            <file>file:/D:/project/kasir/database/factories/ModelFactory.php</file>
             <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/VariantTransformer.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/ProductsController.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2016_01_04_080759_create_orders_table.php</file>
             <file>file:/D:/project/kasir/app/V1/Outlets/Outlet.php</file>
+            <file>file:/D:/project/kasir/database/migrations/2016_02_09_152606_create_voids_table.php</file>
         </group>
     </open-files>
 </project-private>

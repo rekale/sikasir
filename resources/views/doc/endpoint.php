@@ -26,7 +26,7 @@
         <li> POST customers </li>
         <li> PUT customers/{id} </li>
         <li> DELETE customers/{id} </li>
-        <li>GET customers/{id}/histories{dateRange}</li> //contoh: sikasir.herokuapp.com/v1/customers/D/histories/2016-02-01,2017-12-01
+        <li>GET customers/{id}/histories/{dateRange}</li> //contoh: sikasir.herokuapp.com/v1/customers/D/histories/2016-02-01,2017-12-01
         
         <br>
         <br>
@@ -47,21 +47,22 @@
         <br>
         <li> GET outlets?include=users,printers, tax, business_field</li>
         <li> GET outlets/{id}?include=users, printers, tax, business_field</li>
-        <li> GET outlets/reports/{dateRange}?include=best_products</li>
+        <li> GET outlets/reports/{dateRange}?include=best_products</li>//jangan dipake dulu
         <li> GET outlets/profit/{dateRange}</li>//jangan dipake dulu
         <li> GET outlets/{id}/profit/{dateRange}</li>//jangan dipake dulu
         <br>
-        <li> GET outlets/{id}/orders/{dateRange}?include=operator, variant, variant.product, variant.product.category  customer, discount, tax </li>
-        <li> GET outlets/{id}/orders/void/{dateRange}?include=operator,variant, variant.product, variant.product.category  customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/debt/{dateRange}?include= operator, items, variant, variant.product, variant.product.category  customer, discount, tax  </li>
+        <li> GET outlets/all/orders/{dateRange}?include=operator, variant.product.category  customer, discount, tax </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/{dateRange}?include=operator, variant.product.category  customer, discount, tax </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/void/{dateRange}?include=operator,variant.product.category, customer, discount, tax  </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/debt/{dateRange}?include= operator, variant.product.category  customer, discount, tax  </li>//jangan dipake dulu
         <li> POST outlets/{id}/orders</li>
         <br>
         <li> GET outlets/{id}/products?include=category,variants </li>
         <li> GET outlets/{outletId}/products/{productId}?include=category,variants </li>
         <li> PUT outlets/{outletId}/products/{productId} </li>
         <li> DELETE outlets/{outletId}/products/{productId} </li>
-        <li> GET outlets/{outletId}/products/best-seller/{dateRange}</li>//contoh: sikasir.herokuapp.com/v1/outlets/D/best/2016-02-01,2017-12-01
-        <li> GET outlets/{outletId}/products/best-amounts/{dateRange}</li>
+        <li> GET outlets/{outletId}/products/best-seller/{dateRange}</li>//jangan dipake dulu
+        <li> GET outlets/{outletId}/products/best-amounts/{dateRange}</li>//jangan dipake dulu
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants, variants.product, variants.product.category</li>
         <li>POST outlets/{id}/entries</li>

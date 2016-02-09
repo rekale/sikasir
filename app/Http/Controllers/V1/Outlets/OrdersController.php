@@ -74,7 +74,7 @@ class OrdersController extends ApiController
         
         $this->authorizing($currentUser, 'read-order');
        
-        $ownerId = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
@@ -83,7 +83,7 @@ class OrdersController extends ApiController
         $with = $this->filterIncludeParams($include);
         
         $collection = $this->repo()->getVoidPaginated(
-            $this->decode($outletId), $ownerId, $dateRange, $with
+            $this->decode($outletId), $companyId, $dateRange, $with
         );
 
         return $this->response()
