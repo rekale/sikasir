@@ -18,36 +18,10 @@ class OrdersController extends ApiController
         parent::__construct($respond, $auth, $repo);
 
     }
-    
-    /**
-     * 
-     * @param string $id
-     */
-   public function index($outletId)
-   {    
-       
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-order');
-       
-        $ownerId = $currentUser->getCompanyId();
-       
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $collection = $this->repo()->getUnvoidPaginated($this->decode($outletId), $ownerId, $with);
-        
-        return $this->response()
-                ->resource()
-                ->including($include)
-                ->withPaginated($collection, new OrderTransformer);
-        
-   }
    
-   public function indexByDateRange($outletId, $dateRange)
+   public function all()
    {
-       $currentUser =  $this->currentUser();
+        $currentUser =  $this->currentUser();
         
         $this->authorizing($currentUser, 'read-specific-outlet');
         
@@ -59,8 +33,8 @@ class OrdersController extends ApiController
         
         $with = $this->filterIncludeParams($include);
         
-        $collection = $this->repo()->getUnvoidPaginated(
-            $this->decode($outletId), $companyId, $with, $dateRange
+        $collection = $this->repo()->getNovoidAndDebtPaginated(
+            $this->decode($outletId), $companyId, $dateRange, $with
         );
         
         return $this->response()
@@ -68,8 +42,32 @@ class OrdersController extends ApiController
                 ->including($include)
                 ->withPaginated($collection, new OrderTransformer);
    }
+    
+   public function index($outletId, $dateRange)
+   {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
+        $collection = $this->repo()->getNovoidAndDebtPaginated(
+            $this->decode($outletId), $companyId, $dateRange, $with
+        );
+        
+        return $this->response()
+                ->resource()
+                ->including($with)
+                ->withPaginated($collection, new OrderTransformer);
+   }
    
-   public function voided($outletId)
+   public function void($outletId, $dateRange)
    {
         
         $currentUser =  $this->currentUser();
@@ -78,63 +76,45 @@ class OrdersController extends ApiController
        
         $ownerId = $currentUser->getCompanyId();
         
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $include = isset($include) ? $include . ',voidby' : 'voidby';
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
         $with = $this->filterIncludeParams($include);
         
-        $collection = $this->repo()->getVoidPaginated($this->decode($outletId), $ownerId, $with);
+        $collection = $this->repo()->getVoidPaginated(
+            $this->decode($outletId), $ownerId, $dateRange, $with
+        );
 
         return $this->response()
                 ->resource()
-                ->including($include)
+                ->including($with)
                 ->withPaginated($collection, new OrderTransformer);
         
    }
    
-    public function paid($outletId)
+    public function debt($outletId, $dateRange)
     {
-         
-        $currentUser =  $this->currentUser();
+        $currentUser = $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
         
         $this->authorizing($currentUser, 'read-order');
-       
-        $ownerId = $currentUser->getCompanyId();
-        
+
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
-        $include = isset($include) ? $include . ',voidby' : 'voidby';
+        $with = $this->filterIncludeParams($include);
+        
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $collection = $this->repo()->getDebtPaginated(
+            $this->decode($outletId), $companyId, $dateRange, $with
+        );
 
-         $with = $this->filterIncludeParams($include);
-
-         $collection = $this->repo()->getPaidPaginated($this->decode($outletId), $ownerId, $with);
-
-         return $this->response()
-                 ->resource()
-                 ->including($include)
-                 ->withPaginated($collection, new OrderTransformer);
-
-    }
-    
-    public function unpaid($outletId)
-    {
-         $this->authorizing('read-order');
-
-         $ownerId = $this->currentUser()->getCompanyId();
-
-         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-         $include = isset($include) ? $include . ',voidby' : 'voidby';
-
-         $with = $this->filterIncludeParams($include);
-
-         $collection = $this->repo()->getUnpaidPaginated($this->decode($outletId), $ownerId, $with);
-
-         return $this->response()
-                 ->resource()
-                 ->including($include)
-                 ->withPaginated($collection, new OrderTransformer);
+        return $this->response()
+                ->resource()
+                ->including($with)
+                ->withPaginated($collection, new OrderTransformer);
 
     }
     

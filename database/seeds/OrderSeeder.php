@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Orders\Order;
-use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Orders\Void;
 
 class OrderSeeder extends Seeder
 {
@@ -49,13 +49,11 @@ class OrderSeeder extends Seeder
             }
             
             //select random order to void by random employee
-            $orderVoided = $orders->random();
-            
-            $orderVoided->void = true;
-            $orderVoided->void_user_id = $employees->random()->id;
-            $orderVoided->void_note = $fake->words(3, true);
-            $orderVoided->save();
-            
+            factory(Void::class)->create([
+                'user_id' => $employees->random()->id,
+                'order_id' => $orders->random()->id
+            ]);
+           
         };
         
     }

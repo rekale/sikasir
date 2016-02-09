@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         'purchase_orders',
         'purchase_order_variant',
         'orders',
+        'voids',
         'order_variant',
         'printers',
     ];

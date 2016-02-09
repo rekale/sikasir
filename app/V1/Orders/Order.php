@@ -9,6 +9,7 @@ use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
 use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Orders\Void;
 
 class Order extends Model
 {
@@ -31,6 +32,97 @@ class Order extends Model
     ];
     
     /**
+     * Scope calculate the revenue and profit from orders 
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetRevenueAndProfit($query)
+    {
+        $query->selectRaw(
+                    "orders.*, " .
+                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
+                   "sum( ( (variants.price - order_variant.nego) * order_variant.total ) " //revenue
+                       . " - " //dikurang
+                       . "(variants.price_init * order_variant.total) ) " //modal awal
+                       . "as profit " //jadi profit
+               )
+               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+               ->groupBy('orders.id')
+               ->orderBy('revenue', 'desc')
+               ->orderBy('profit', 'desc');
+    }
+    
+    /**
+     * 
+     * @param Builder $query
+     * @param boolean $voided
+     */
+    public function scopeIsVoid($query, $voided)
+    {
+        if($voided) {
+            $query->whereExists(
+                function ($closureQuery)
+                {
+                    $closureQuery->selectRaw(1)
+                                 ->from('voids')
+                                 ->whereRaw('voids.order_id = orders.id');
+                }
+            );
+           
+        }
+        else {
+            $query->whereNotExists(
+                function ($closureQuery)
+                {
+                    $closureQuery->selectRaw(1)
+                                 ->from('voids')
+                                 ->whereRaw('voids.order_id = orders.id');
+                }
+            );
+        
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param Builder $query
+     * @param boolean $param
+     */
+    public function scopeIsDebt($query, $param)
+    {
+        $query->where('paid', '=', ! $param);
+    }
+    
+    
+    /**
+     * 
+     * @param Builder $query
+     * @param integer $companyId
+     */
+    public function scopeOnlyFromCompany($query, $companyId)
+    {
+        $query->whereExists(
+            function ($closureQuery) use($companyId) {
+                $closureQuery->selectRaw(1)
+                      ->from('outlets')
+                      ->where('company_id', '=', $companyId)
+                      ->whereRaw('outlets.id = orders.outlet_id');
+        });
+    }
+    
+    /**
+     * 
+     * @param Builder $query
+     * @param array $dateRange
+     */
+    public function scopeDateRange($query, $dateRange)
+    {
+        $query->whereBetween('orders.created_at', $dateRange);
+    }
+    
+    /**
      * 
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -40,26 +132,13 @@ class Order extends Model
     {
         return $this->belongsToMany(Variant::class)
                     ->withPivot(['total', 'nego'])
-                    ->withTimestamps()
-                    ->selectRaw(
-                        'variants.*, '
-                        . 'sum( order_variant.total * (variants.price - order_variant.nego) ) as revenue, '//penghasilan kotor
-                        . 'sum'
-                            . '( '
-                                . '( order_variant.total * (variants.price - order_variant.nego) )' //penghasilan kotor
-                                .' - ' // dikurang
-                                . '( order_variant.total * variants.price_init) ' //modal
-                            . ') '
-                            . 'as profit, '//hasilnya profit
-                        . 'variants.price as price'
-                    )
-                    ->groupBy('variants.id');
+                    ->withTimestamps();
     }
     
     
-    public function voidBy()
+    public function void()
     {
-        return $this->belongsTo(User::class, 'void_user_id');
+        return $this->hasOne(Void::class);
     }
     
     /**

@@ -51,10 +51,10 @@
         <li> GET outlets/profit/{dateRange}</li>//jangan dipake dulu
         <li> GET outlets/{id}/profit/{dateRange}</li>//jangan dipake dulu
         <br>
-        <li> GET outlets/{id}/orders?include=operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax </li>
-        <li> GET outlets/{id}/orders/void?include=operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/paid?include= operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/unpaid?include= operator, items, items.variant, items.variant.product, items.variant.product.category  customer, discount, tax </li>
+        <li> GET outlets/{id}/orders/{dateRange}?include=operator, variant, variant.product, variant.product.category  customer, discount, tax </li>
+        <li> GET outlets/{id}/orders/void/{dateRange}?include=operator,variant, variant.product, variant.product.category  customer, discount, tax  </li>
+        <li> GET outlets/{id}/orders/debt/{dateRange}?include= operator, items, variant, variant.product, variant.product.category  customer, discount, tax  </li>
+        <li> POST outlets/{id}/orders</li>
         <br>
         <li> GET outlets/{id}/products?include=category,variants </li>
         <li> GET outlets/{outletId}/products/{productId}?include=category,variants </li>

@@ -34,41 +34,5 @@ class ProductsController extends ApiController
         
         return $this->response()->created();
     }
-
-    
-    public function bestSeller($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $product = $this->repo()->getTotalBestSellerForCompany($companyId, $dateRange);
-        
-        return $this->response()
-                ->resource()
-                ->withPaginated($product, new BestReportTransformer);
-    }
-    
-    public function bestAmounts($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $product = $this->repo()->getTotalBestAmountsForCompany($companyId, $dateRange);
-        
-        return $this->response()
-                ->resource()
-                ->withPaginated($product, new BestReportTransformer);
-        
-    }
     
 }

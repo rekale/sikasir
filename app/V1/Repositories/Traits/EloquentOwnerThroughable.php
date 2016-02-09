@@ -8,8 +8,6 @@
 
 namespace Sikasir\V1\Repositories\Traits;
 
-use Illuminate\Database\Connection as DB;
-
 /**
  * Description of ObfuscaterId
  *
@@ -18,16 +16,8 @@ use Illuminate\Database\Connection as DB;
 trait EloquentOwnerThroughable
 {
     
-    /**
-     * 
-     * @param integer $id
-     * @param integer $companyId
-     * @param integer $throughId
-     * @param string $throughTableName
-     * @param array $with
-     * @return static|collection
-     */
-    public function findForOwnerThrough($id, $companyId, $throughId, $throughTableName, $with = [])
+    
+    public function queryForOwnerThrough($companyId, $throughId, $throughTableName)
     {
         return $this->model
                     ->whereExists(
@@ -42,7 +32,20 @@ trait EloquentOwnerThroughable
                                   ->where('id', '=', $throughId)
                                   ->where('company_id', '=', $companyId)
                                   ->whereRaw($constraint);
-                    })
+                    });
+    }
+    /**
+     * 
+     * @param integer $id
+     * @param integer $companyId
+     * @param integer $throughId
+     * @param string $throughTableName
+     * @param array $with
+     * @return static|collection
+     */
+    public function findForOwnerThrough($id, $companyId, $throughId, $throughTableName, $with = [])
+    {
+        return $this->queryForOwnerThrough($companyId, $throughId, $throughTableName)
                     ->with($with)
                     ->findOrFail($id);
     }
@@ -126,20 +129,7 @@ trait EloquentOwnerThroughable
       */
      public function getPaginatedForOwnerThrough($throughTableName, $companyId, $throughId, $with = [], $perPage = 15)
      {
-         return $this->model
-                    ->whereExists(
-                       function ($query) use($throughTableName, $companyId, $throughId) {
-
-                           $modelForeignId = $this->model->getTable() . '.' . str_singular($throughTableName) . '_id';
-
-                           $constraint = $throughTableName . '.id' . ' = ' . $modelForeignId;
-
-                           $query->select(\DB::raw(1))
-                                 ->from($throughTableName)
-                                 ->where('id', '=', $throughId)
-                                 ->where('company_id', '=', $companyId)
-                                 ->whereRaw($constraint);
-                   })
+         return $this->queryForOwnerThrough($id, $companyId, $throughId, $throughTableName)
                    ->with($with)
                    ->paginate($perPage);
      }

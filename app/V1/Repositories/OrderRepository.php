@@ -13,8 +13,10 @@ use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
  * @author rekale 
  *
  */
-class OrderRepository extends EloquentRepository
+class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
 {
+    
+    use Traits\EloquentOwnerThroughable;
     
     public function __construct(Order $order) 
     {
@@ -45,35 +47,18 @@ class OrderRepository extends EloquentRepository
         });
         
     }
-   /**
-     * get outlet's voided orders
-     *
-     * @param integer $outletId
-     * @param integer $companyId
-     *
-     * @return Collection | Paginator
-     */
-    public function getUnvoidPaginated($outletId, $companyId, $with =[], $dateRange = [], $perPage = 15)
-    {
-        $queryBuilder = $this->model
-                            ->with($with)
-                            ->whereExists(function ($query) use($companyId, $outletId) {
-                            $query->select(\DB::raw(1))
-                                  ->from('outlets')
-                                  ->where('id', '=', $outletId)
-                                  ->where('company_id', '=', $companyId)
-                                  ->whereRaw('outlets.id = orders.outlet_id');
-                            })
-                            ->where('void', '=', false);
-                            
-        if(! empty($dateRange) ) {
-            
-            $queryBuilder->whereBetween('created_at', $dateRange);
-        }
-                
-        return $queryBuilder->paginate($perPage);
-    }
     
+    public function getNoVoidAndDebtPaginated($outletId, $companyId, $dateRange, $with =[], $perPage = 15) {
+        
+        return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
+                    ->with($with)
+                    ->getRevenueAndProfit()
+                    ->isVoid(false)
+                    ->isDebt(false)
+                    ->dateRange($dateRange)
+                    ->paginate($perPage);
+                    
+    }
     
     /**
      * get outlet's voided orders
@@ -83,40 +68,13 @@ class OrderRepository extends EloquentRepository
      *
      * @return Collection | Paginator
      */
-    public function getVoidPaginated($outletId, $companyId, $with =[],$perPage = 15)
+    public function getVoidPaginated($outletId, $companyId, $dateRange, $with =[],$perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
-                $query->select(\DB::raw(1))
-                      ->from('outlets')
-                      ->where('id', '=', $outletId)
-                      ->where('company_id', '=', $companyId)
-                      ->whereRaw('outlets.id = orders.outlet_id');
-                })
-                ->where('void', '=', true)
-                ->with($with)
-                ->paginate($perPage);
-    }
-    
-    /**
-     * get outlet's paid only orders
-     *
-     * @param integer $outletId
-     * @param integer $companyId
-     *
-     * @return Collection | Paginator
-     */
-    public function getPaidPaginated($outletId, $companyId, $with =[],$perPage = 15)
-    {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
-                $query->select(\DB::raw(1))
-                      ->from('outlets')
-                      ->where('id', '=', $outletId)
-                      ->where('company_id', '=', $companyId)
-                      ->whereRaw('outlets.id = orders.outlet_id');
-                })
-                ->where('paid', '=', true)
-                ->with($with)
-                ->paginate($perPage);
+        return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
+                    ->with($with)
+                    ->isVoid(true)
+                    ->dateRange($dateRange)
+                    ->paginate($perPage);
     }
     
     /**
@@ -127,18 +85,13 @@ class OrderRepository extends EloquentRepository
      *
      * @return Collection | Paginator
      */
-    public function getUnpaidPaginated($outletId, $companyId, $with =[],$perPage = 15)
+    public function getDebtPaginated($outletId, $companyId, $dateRange, $with =[],$perPage = 15)
     {
-        return \Sikasir\V1\Orders\Order::whereExists(function ($query) use($companyId, $outletId) {
-                $query->select(\DB::raw(1))
-                      ->from('outlets')
-                      ->where('id', '=', $outletId)
-                      ->where('company_id', '=', $companyId)
-                      ->whereRaw('outlets.id = orders.outlet_id');
-                })
-                ->where('paid', '=', false)
-                ->with($with)
-                ->paginate($perPage);
+        return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
+                    ->with($with)
+                    ->isDebt(true)
+                    ->dateRange($dateRange)
+                    ->paginate($perPage);
     }
     
 

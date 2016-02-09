@@ -7,9 +7,6 @@ use Sikasir\V1\Orders\Order;
 use \Sikasir\V1\Traits\IdObfuscater;
 use \Sikasir\V1\Traits\ParamTransformer;
 use League\Fractal\ParamBag;
-use Sikasir\V1\User\Company;
-use Sikasir\V1\User\Employee;
-use Sikasir\V1\User\Cashier;
 
 /**
  * Description of AppTransformer
@@ -28,7 +25,7 @@ class OrderTransformer extends TransformerAbstract
         'variants',
         'tax',
         'discount',
-        'voidby',
+        'void',
     ];
 
     public function transform(Order $order)
@@ -38,14 +35,11 @@ class OrderTransformer extends TransformerAbstract
             'id' => $this->encode($order->id),
             'no_order' => $order->no_order,
             'note' => $order->note,
-            'created_at' => $order->created_at,
-            'void' => (boolean) $order->void,
+            'revenue' => $order->revenue,
+            'profit' => $order->profit,
             'paid' => (boolean) $order->paid,
+            'created_at' => $order->created_at,
         ];
-        
-        if ($order->void) {
-            $data['void_note'] = $order->void_note;
-        }
         
         if(isset($order->pivot)) {
             $data['total'] = $order->pivot->total;
@@ -88,37 +82,21 @@ class OrderTransformer extends TransformerAbstract
     {
         $item = $order->discount;
         
-        return ! is_null($item) ? $this->item($item, new TaxTransformer) : null;
+        return $this->item($item, new TaxTransformer);
     }
     
     public function includeOperator(Order $order)
     {
-        $user = $order->operator;
+        $item = $order->operator;
         
-        if ($user->userable instanceof Company) {
-            return $this->item($user->userable, new OwnerTransformer);
-        }
-        if ($user->userable instanceof Employee) {
-            return $this->item($user->userable, new EmployeeTransformer);
-        }
-        if ($user->userable instanceof Cashier) {
-            return $this->item($user->userable, new CashierTransformer);
-        }
+        return $this->item($item, new UserTransformer); 
     }
     
-    public function includeVoidby(Order $order)
+    public function includeVoid(Order $order)
     {
-        $user = $order->voidBy;
+        $item = $order->void;
         
-        if (isset($user) && $user->userable instanceof Company) {
-            return $this->item($user->userable, new OwnerTransformer);
-        }
-        if (isset($user) && $user->userable instanceof Employee) {
-            return $this->item($user->userable, new EmployeeTransformer);
-        }
-        if (isset($user) && $user->userable instanceof Cashier) {
-            return $this->item($user->userable, new CashierTransformer);
-        }
+        return $this->item($item, new VoidTransformer); 
     }
     
     

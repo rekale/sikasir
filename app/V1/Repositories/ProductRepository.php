@@ -39,7 +39,7 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
                 
             }
             
-            $this->saveVariantsToProducts($data['variants'], $products);
+            $this->saveVariants($data['variants'], $products);
               
         
         });
@@ -66,105 +66,13 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         
     }
     
-    public function getTotalBestSellerForCompany($companyId, $dateRange = [], $perPage = 15)
-    {
-        return $this->model
-                    ->select(
-                        \DB::raw('products.name, sum(order_variant.total) as total')
-                    )
-                    ->join('variants', 'variants.product_id', '=', 'products.id')
-                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereExists(function($query) use ($companyId)
-                    {
-                        $query->select(\DB::raw(1))
-                            ->from('categories')
-                            ->whereRaw('categories.id = products.category_id')
-                            ->where('categories.company_id', '=', $companyId);
-                    })
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ->groupBy('products.name')
-                    ->orderBy('total', 'desc')
-                    ->paginate($perPage);
-    }
-    
-    public function getTotalBestAmountsForCompany($companyId, $dateRange = [], $perPage = 15)
-    {
-        return $this->model
-                    ->select(
-                        \DB::raw(
-                            "products.name ,"
-                            . "sum( (variants.price - order_variant.nego) * order_variant.total ) as total"
-                        )
-                    )
-                    ->join('variants', 'variants.product_id', '=', 'products.id')
-                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereExists(function($query) use ($companyId)
-                    {
-                        $query->select(\DB::raw(1))
-                            ->from('categories')
-                            ->whereRaw('categories.id = products.category_id')
-                            ->where('categories.company_id', '=', $companyId);
-                    })
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ->groupBy('products.name')
-                    ->orderBy('total', 'desc')
-                    ->paginate($perPage);
-    }
-    
-    public function getTotalBestSellerForOutlet($outletId, $companyId, $dateRange = [], $perPage = 15)
-    {
-        return $this->model
-                    ->select(
-                        \DB::raw('products.name, sum(order_variant.total) as total')
-                    )
-                    ->join('variants', 'variants.product_id', '=', 'products.id')
-                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereExists(function($query) use ($companyId, $outletId)
-                    {
-                        $query->select(\DB::raw(1))
-                            ->from('outlets')
-                            ->where('outlets.id', '=', $outletId)
-                            ->whereRaw('outlets.id = products.outlet_id')
-                            ->where('outlets.company_id', '=', $companyId);
-                    })
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ->groupBy('products.id')
-                    ->orderBy('total', 'desc')
-                    ->paginate($perPage);
-    }
-    
-    public function getTotalBestAmountsForOutlet($outletId, $companyId, $dateRange = [], $perPage = 15)
-    {
-        return $this->model
-                    ->select(
-                        \DB::raw(
-                            "products.name ,"
-                            . "sum( (variants.price - order_variant.nego) * order_variant.total ) as total"
-                        )
-                    )
-                    ->join('variants', 'variants.product_id', '=', 'products.id')
-                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereExists(function($query) use ($companyId, $outletId)
-                    {
-                        $query->select(\DB::raw(1))
-                            ->from('outlets')
-                            ->where('outlets.id', '=', $outletId)
-                            ->whereRaw('outlets.id = products.outlet_id')
-                            ->where('outlets.company_id', '=', $companyId);
-                    })
-                    ->whereBetween('order_variant.created_at', $dateRange)
-                    ->groupBy('products.id')
-                    ->orderBy('total', 'desc')
-                    ->paginate($perPage);
-    }
-
     /**
      * 
      * @param array $variants
      * @param array $products
      * @return array
      */
-    protected function saveVariantsToProducts($variants, $products)
+    protected function saveVariants($variants, $products)
     {
         $instances = [];
         

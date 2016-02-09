@@ -117,54 +117,6 @@ class OutletsController extends ApiController
         return $this->response()->deleted();
     }
     
-    public function best($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-specific-outlet');
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getTheBestForCompany($companyId, $dateRange);
-     
-        return $this->response()
-                ->resource()
-                ->withPaginated($collection, new BestReportTransformer);
-    }
-    
-    public function profit($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-specific-outlet');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $product = $this->repo()->getProfitForCompany($companyId, $dateRange);
-        
-        return $product;
-
-    }
-    
-    public function profitForOutlet($outletId, $dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-specific-outlet');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $product = $this->repo()->getProfitForCompany($companyId, $dateRange, $this->decode($outletId));
-        
-        return $product;
-
-    }
     
     public function reports($dateRange)
     {
@@ -176,18 +128,35 @@ class OutletsController extends ApiController
        
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        $with = ['best_products', 'orders'];
         
-        $with = $this->filterIncludeParams($include);
-        
-        // include it with best product or not?
-        $isIncludedWithBestProducts = ! empty($with) && $with === 'best_products';
-        
-        $reports = $this->repo()->getTransactionReports($companyId, $dateRange, $isIncludedWithBestProducts);
+        $reports = $this->repo()->getTransactionReports($companyId, $dateRange);
         
         return $this->response()
                 ->resource()
                 ->including($with)
-                ->withCollection($reports, new OutletReportTransformer);
+                ->withPaginated($reports, new OutletTransformer);
+    }
+    
+    public function reportsForOutlet($outletId, $dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-specific-outlet');
+        
+        $companyId = $currentUser->getCompanyId();
+       
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $with = ['best_products', 'orders'];
+        
+        $reports = $this->repo()->getTransactionReports(
+            $companyId, $dateRange, $this->decode($outletId)
+        );
+        
+        return $this->response()
+                ->resource()
+                ->including($with)
+                ->withPaginated($reports, new OutletTransformer);
     }
 }

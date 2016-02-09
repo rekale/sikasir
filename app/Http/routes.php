@@ -93,10 +93,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
-            get('outlets/reports/{dateRange}', 'OutletsController@reports');
-            get('outlets/best/{dateRange}', 'OutletsController@best');
-            get('outlets/profit/{dateRange}', 'OutletsController@profit');
-            get('outlets/{outletId}/profit/{dateRange}', 'OutletsController@profitForOutlet');
+            get('outlets/dashboard/{dateRange}', 'OutletsController@reports');
+            get('outlets/{id}/dashboard/{dateRange}', 'OutletsController@reportsForOutlet');
             
             get('outlets/{id}/incomes', 'IncomesController@index');
             post('outlets/{id}/incomes', 'IncomesController@store');
@@ -110,22 +108,18 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
-            get('outlets/{outletId}/products/best-seller/{dateRange}', 'ProductsController@bestSeller');
-            get('outlets/{outletId}/products/best-amounts/{dateRange}', 'ProductsController@bestAmounts');
-
+            
             get('outlets/{id}/employees', 'EmployeesController@index');
             
             post('outlets/{id}/printers', 'PrintersController@store');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
             
-            get('outlets/{id}/orders', 'OrdersController@index');
-            get('outlets/{id}/orders/{dateRange}', 'OrdersController@indexByDateRange');
+            get('outlets/{id}/orders/{dateRange}', 'OrdersController@index');
+            get('outlets/{id}/orders/void/{dateRange}', 'OrdersController@void');
+            get('outlets/{id}/orders/debt/{dateRange}', 'OrdersController@debt');
             post('outlets/{id}/orders', 'OrdersController@store');
  
-            get('outlets/{id}/orders/void', 'OrdersController@voided');
-            get('outlets/{id}/orders/paid', 'OrdersController@paid');
-            get('outlets/{id}/orders/unpaid', 'OrdersController@unpaid');
             
             Route::group(['namespace' => 'Stocks'], function()
             {

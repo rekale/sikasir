@@ -19,23 +19,13 @@ class CreateOrdersTable extends Migration
             $table->integer('outlet_id')->unsigned()->index();
             $table->integer('tax_id')->unsigned()->index();
             $table->integer('payment_id')->unsigned()->index();
-            $table->integer('customer_id')->unsigned()->index()->nullable();
-            $table->integer('discount_id')->unsigned()->index()->nullable();
+            $table->integer('customer_id')->unsigned()->nullable();
+            $table->integer('discount_id')->unsigned()->nullable();
             $table->string('note')->nullable();
-            $table->integer('total')->unsigned();
-            $table->integer('nego')->unsigned()->default(0);
-            $table->boolean('void')->default(false);
-            $table->integer('void_user_id')->unsigned()->nullable();
-            $table->string('void_note')->nullable();
             $table->boolean('paid')->default(true);
             $table->timestamps();
             
             $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-            
-            $table->foreign('void_user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

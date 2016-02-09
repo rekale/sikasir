@@ -130,17 +130,18 @@ class Outlet extends Model
      */
     public function bestProducts()
     {
-        return $this->hasMany(Product::class)->selectRaw(
-                            'products.outlet_id, products.id, products.name, '
-                            . 'sum(order_variant.total) as total, '
-                            . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
-                        )
-                        ->join('variants', 'variants.product_id', '=', 'products.id')
-                        ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                        ->groupBy('products.id')
-                        ->orderBy('total', 'desc')
-                        ->orderBy('amounts', 'desc')
-                        ->limit(5);
+        return $this->hasMany(Product::class)
+                    ->selectRaw(
+                        'products.*, '
+                        . 'sum(order_variant.total) as total, '
+                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
+                    )
+                    ->join('variants', 'variants.product_id', '=', 'products.id')
+                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                    ->groupBy('products.id')
+                    ->orderBy('total', 'desc')
+                    ->orderBy('amounts', 'desc')
+                    ->limit(5);
     }
     
     public function variants()
@@ -183,7 +184,21 @@ class Outlet extends Model
      */
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)
+                    ->selectRaw(
+                        "orders.*, " .
+                       "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
+                       "sum( ( (variants.price - order_variant.nego) * order_variant.total ) " //revenue
+                           . " - " //dikurang
+                           . "(variants.price_init * order_variant.total) ) " //modal awal
+                           . "as profit " //jadi profit
+                   )
+                   ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+                   ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+                   ->where('void', '=', false)
+                   ->groupBy('orders.id')
+                   ->orderBy('revenue', 'desc')
+                   ->orderBy('profit', 'desc');
     }
     
     /**

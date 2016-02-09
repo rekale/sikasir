@@ -40,8 +40,6 @@ class VariantTransformer extends TransformerAbstract
         if (isset($variant->pivot)) {
             $foreign = explode('_', $variant->pivot->getForeignKey());
             $key = $foreign[0] . '_total';
-            $rules['revenue'] = $variant->revenue;
-            $rules['profit'] = $variant->profit;
             $rules['order_total'] = $variant->pivot->total;
         }
         
