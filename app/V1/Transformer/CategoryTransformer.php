@@ -25,6 +25,7 @@ class CategoryTransformer extends TransformerAbstract
         return [
             'id' => $this->encode($category->id),
             'name' => $category->name,
+            'description' => $category->description,
         ];
     }
     

@@ -14,7 +14,11 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id','name'];
+    protected $fillable = [
+        'company_id',
+        'name',
+        'description',
+    ];
     
     public function company()
     {

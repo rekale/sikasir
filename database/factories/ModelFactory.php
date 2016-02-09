@@ -128,6 +128,7 @@ $factory->define(Supplier::class, function (Faker\Generator $fake) {
 $factory->define(Category::class, function(Faker\Generator $fake) {
     return [
         'name' => $fake->word,
+        'description' => $fake->words(3, true),
     ];
     
 });
@@ -190,7 +191,7 @@ $factory->define(Order::class, function(Faker\Generator $fake) {
         'note' => $fake->words(5, true),
         'no_order' => $fake->numerify(),
         'total' => $fake->numberBetween(1000, 1000000),
-        'paid' => $fake->boolean(),
+        'paid' => $fake->boolean(80),
     ];
 });
 
