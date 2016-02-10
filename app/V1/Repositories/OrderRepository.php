@@ -35,12 +35,17 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
                 'tax_id' => $data['tax_id'],
                 'user_id' => $data['operator_id'],
                 'note' => $data['note'],
-                'paid' => $data['paid'],
             ]);
 
-            foreach ($data['products'] as $product)
+            foreach ($data['variants'] as $variant)
             {
-                $order->products()->attach($product['id'], ['total' => $product['quantity']]);
+                $order->variants()->attach(
+                    $variant['id'], 
+                    [
+                        'total' => $variant['quantity'], 
+                        'nego' => $variant['nego'],
+                    ]
+                );
             }
             
         });

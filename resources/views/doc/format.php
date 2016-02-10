@@ -151,8 +151,7 @@
             "discount_id": "D",
             "tax_id" : "Z", //required
             "note": "lalala yeyeye",
-            "paid": true, //field untuk menandakan ngutang atau enggak. kalo ini gak di isi defaultnya true
-            "products": [
+            "variants": [
                 {
                     "id" : "Z",
                     "quantity": 3,

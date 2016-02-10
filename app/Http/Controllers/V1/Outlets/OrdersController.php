@@ -120,9 +120,9 @@ class OrdersController extends ApiController
     
     public function store($outletId, OrderRequest $request)
     {
-        $this->authorizing('create-order');
-
-        $ownerId = $this->auth()->toUser()->getCompanyId();
+        $currentUser = $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-order');        
         
         $dataInput = $request->all();
         
@@ -142,10 +142,9 @@ class OrdersController extends ApiController
         
         $dataInput['payment_id'] = $this->decode($dataInput['payment_id']);
         
-        foreach ($dataInput['products'] as &$product) {
-            $product['id'] = $this->decode($product['id']);
+        foreach ($dataInput['variants'] as &$variant) {
+            $variant['id'] = $this->decode($variant['id']);
         }
-        
         
         $this->repo()->save($dataInput);
 

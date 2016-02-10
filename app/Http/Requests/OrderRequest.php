@@ -23,12 +23,24 @@ class OrderRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'customer_id' => 'max:255',
             'operator_id' => 'required|max:255',
             'note' => 'max:255',
-            'total' => 'required|numeric',
-            'paid' => 'boolean',
         ];
+        
+        $variants = $this->input('variants');
+        
+        $tot = count($variants) - 1;
+        
+        foreach(range(0, $tot) as $key) {
+
+        $rules['variants.' .$key . '.id'] = 'required';
+        $rules['variants.' .$key . '.quantity'] = 'required|integer';
+        $rules['variants.' .$key . '.nego'] = 'required|integer';
+        
+        }
+        
+        return $rules;
     }
 }
