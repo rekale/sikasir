@@ -39,6 +39,7 @@ class ProductTransformer extends TransformerAbstract
             'name' => $product->name, 
             'description' => $product->description, 
             'icon' => $product->icon,
+            'unit' => $product->unit,
         ];
         //if it get the product's best seller
         if (isset($product->total))
