@@ -145,6 +145,70 @@ class ProductsController extends ApiController
         return $this->response()->deleted();
     }
     
+    
+    public function reports($outletId)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-product');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $collection = $this->repo()->getReportsForCompany(
+            $companyId, $this->decode($outletId)
+        );
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        return $this->response()
+               ->resource()
+               ->including($with)
+               ->withPaginated($collection, new ProductTransformer);
+    }
+    
+    public function allReports()
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-product');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $collection = $this->repo()->getReportsForCompany($companyId);
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        return $this->response()
+               ->resource()
+               ->including($with)
+               ->withPaginated($collection, new ProductTransformer);
+    }
+    
+    public function allBestSeller()
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-product');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        
+        $collection = $this->repo()->getBestSellerForCompany($companyId);
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        return $this->response()
+               ->resource()
+               ->including($with)
+               ->withPaginated($collection, new ProductTransformer);
+    }
+    
     public function bestSeller($outletId)
     {
         $currentUser =  $this->currentUser();
@@ -158,8 +222,13 @@ class ProductsController extends ApiController
             $companyId, $this->decode($outletId)
         );
         
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
         return $this->response()
                ->resource()
+               ->including($with)
                ->withPaginated($collection, new ProductTransformer);
     }
      

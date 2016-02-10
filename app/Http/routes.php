@@ -106,8 +106,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             get('outlets/all/products', 'ProductsController@all');
-            get('outlets/{id}/products', 'ProductsController@index');
+            get('outlets/all/products/reports', 'ProductsController@allReports');
+            get('outlets/all/products/reports/best-seller', 'ProductsController@allBestSeller');
+            
+            get('outlets/{outletId}/products/reports', 'ProductsController@reports');
             get('outlets/{outletId}/products/reports/best-seller', 'ProductsController@bestSeller');
+            
+            
+            get('outlets/{outletId}/products', 'ProductsController@index');
             get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
