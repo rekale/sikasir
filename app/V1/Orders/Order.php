@@ -89,9 +89,12 @@ class Order extends Model
     
     /**
      * get the order that have debt
+     * $settled is false if want to get debts that still not paid
+     * $settled is true if want to get debts that have been paid
+     * $settled is null if wanto get both not paid and have been paid
      * 
      * @param Builder $query
-     * @param boolean $param
+     * @param boolean $settled
      */
     public function scopeHaveDebt($query)
     {
@@ -101,6 +104,42 @@ class Order extends Model
                 $closureQuery->selectRaw(1)
                              ->from('debts')
                              ->whereRaw('debts.order_id = orders.id');
+            }
+        );
+    }
+    
+    /**
+     * get the order that its debt has been settled
+     * 
+     * @param Builder $query
+     */
+    public function scopeHaveDebtAndSettled($query)
+    {
+        $query->whereExists(
+            function ($closureQuery)
+            {
+                $closureQuery->selectRaw(1)
+                             ->from('debts')
+                             ->whereRaw('debts.order_id = orders.id')
+                             ->whereNotNull('paid_at');         
+            }
+        );
+    }
+    
+    /**
+     * get the order that its debt has not been settled
+     * 
+     * @param Builder $query
+     */
+    public function scopeHaveDebtAndNotSettled($query)
+    {
+        $query->whereExists(
+            function ($closureQuery)
+            {
+                $closureQuery->selectRaw(1)
+                             ->from('debts')
+                             ->whereRaw('debts.order_id = orders.id')
+                             ->whereNull('paid_at');         
             }
         );
     }

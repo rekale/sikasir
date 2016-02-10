@@ -51,10 +51,11 @@
         <li> GET outlets/profit/{dateRange}</li>//jangan dipake dulu
         <li> GET outlets/{id}/profit/{dateRange}</li>//jangan dipake dulu
         <br>
-        <li> GET outlets/all/orders/{dateRange}?include=operator, variant.product.category  customer, discount, tax </li>//jangan dipake dulu
-        <li> GET outlets/{id}/orders/{dateRange}?include=operator, variant.product.category  customer, discount, tax </li>//jangan dipake dulu
-        <li> GET outlets/{id}/orders/void/{dateRange}?include=operator,variant.product.category, customer, discount, tax  </li>//jangan dipake dulu
-        <li> GET outlets/{id}/orders/debt/{dateRange}?include= operator, variant.product.category  customer, discount, tax  </li>//jangan dipake dulu
+        <li> GET outlets/all/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax  </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax  </li>//jangan dipake dulu
+        <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax  </li>//jangan dipake dulu
         <li> POST outlets/{id}/orders</li>
         <br>
         <li> GET outlets/{id}/products?include=category,variants </li>

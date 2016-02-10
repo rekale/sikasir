@@ -89,14 +89,23 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
      *
      * @return Collection | Paginator
      */
-    public function getDebtPaginated($outletId, $companyId, $dateRange, $with =[],$perPage = 15)
+    public function getDebtPaginated($outletId, $companyId, $dateRange, $settled, $with =[],$perPage = 15)
     {
-        return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
-                    ->with($with)
-                    ->isNotVoid()
-                    ->HaveDebt()
-                    ->dateRange($dateRange)
-                    ->paginate($perPage);
+        $queryBuilder = $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
+                            ->with($with)
+                            ->isNotVoid()
+                            ->dateRange($dateRange);
+        
+        //get only the debts that has been settled
+        if ($settled) {
+            $queryBuilder->haveDebtAndSettled();
+        }
+        //get only the debts that has not been settled
+        else {
+            $queryBuilder->haveDebtAndNotSettled();
+        }
+                   
+        return $queryBuilder->paginate($perPage);
     }
     
 

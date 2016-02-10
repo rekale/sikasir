@@ -93,7 +93,7 @@ class OrdersController extends ApiController
         
    }
    
-    public function debt($outletId, $dateRange)
+    public function debtNotSettled($outletId, $dateRange)
     {
         $currentUser = $this->currentUser();
         
@@ -108,7 +108,32 @@ class OrdersController extends ApiController
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
         $collection = $this->repo()->getDebtPaginated(
-            $this->decode($outletId), $companyId, $dateRange, $with
+            $this->decode($outletId), $companyId, $dateRange, false, $with
+        );
+
+        return $this->response()
+                ->resource()
+                ->including($with)
+                ->withPaginated($collection, new OrderTransformer);
+
+    }
+    
+    public function debtSettled($outletId, $dateRange)
+    {
+        $currentUser = $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $this->authorizing($currentUser, 'read-order');
+
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $collection = $this->repo()->getDebtPaginated(
+            $this->decode($outletId), $companyId, $dateRange, true, $with
         );
 
         return $this->response()

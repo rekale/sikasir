@@ -116,8 +116,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
             
             get('outlets/{id}/orders/{dateRange}', 'OrdersController@index');
-            get('outlets/{id}/orders/void/{dateRange}', 'OrdersController@void');
-            get('outlets/{id}/orders/debt/{dateRange}', 'OrdersController@debt');
+            get('outlets/{id}/orders/{dateRange}/void', 'OrdersController@void');
+            get('outlets/{id}/orders/{dateRange}/debt', 'OrdersController@debtNotSettled');
+            get('outlets/{id}/orders/{dateRange}/debt-settled', 'OrdersController@debtSettled');
             post('outlets/{id}/orders', 'OrdersController@store');
  
             
