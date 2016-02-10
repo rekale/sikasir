@@ -19,7 +19,7 @@ class OrdersController extends ApiController
 
     }
    
-   public function all()
+   public function all($dateRange)
    {
         $currentUser =  $this->currentUser();
         
@@ -27,14 +27,14 @@ class OrdersController extends ApiController
         
         $companyId = $currentUser->getCompanyId();
        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        $arrayDateRange = explode(',' , str_replace(' ', '', $dateRange));
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
         $with = $this->filterIncludeParams($include);
         
         $collection = $this->repo()->getNovoidAndDebtPaginated(
-            $this->decode($outletId), $companyId, $dateRange, $with
+            null, $companyId, $arrayDateRange, $with
         );
         
         return $this->response()

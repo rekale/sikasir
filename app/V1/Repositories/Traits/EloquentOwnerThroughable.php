@@ -17,7 +17,7 @@ trait EloquentOwnerThroughable
 {
     
     
-    public function queryForOwnerThrough($companyId, $throughId, $throughTableName)
+    public function queryForOwnerThrough($companyId, $throughId = null, $throughTableName)
     {
         return $this->model
                     ->whereExists(
@@ -29,9 +29,12 @@ trait EloquentOwnerThroughable
 
                             $query->select(\DB::raw(1))
                                   ->from($throughTableName)
-                                  ->where('id', '=', $throughId)
                                   ->where('company_id', '=', $companyId)
                                   ->whereRaw($constraint);
+                            
+                            if (! is_null($throughId)) {
+                                $query->where('id', '=', $throughId);
+                            }
                     });
     }
     /**

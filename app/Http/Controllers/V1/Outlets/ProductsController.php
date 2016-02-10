@@ -20,6 +20,29 @@ class ProductsController extends ApiController
 
     }
     
+    public function all()
+    {
+        $currentUser =  $this->currentUser();
+
+        $this->authorizing($currentUser, 'read-product');
+
+        $ownerId = $currentUser->getCompanyId();
+
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        $products = $this->repo()
+                        ->getPaginatedForOwnerThrough(
+                            'outlets', $ownerId, null, $with
+                        );
+        
+       return $this->response()
+               ->resource()
+               ->including($include)
+               ->withPaginated($products, new ProductTransformer);
+    }
+    
     /**
      * 
      * @param string $outletId
@@ -120,6 +143,25 @@ class ProductsController extends ApiController
         );
         
         return $this->response()->deleted();
+    }
+    
+    public function bestSeller($outletId = null, $dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-product');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $arrayDateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $collection = $this->repo()->getBestSellerForCompany(
+            $companyId, $this->decode($outletId), $arrayDateRange
+        );
+        
+        return $this->response()
+               ->resource()
+               ->withPaginated($collection, new ProductTransformer);
     }
      
 }

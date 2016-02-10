@@ -26,8 +26,6 @@ class OutletTransformer extends TransformerAbstract
         'printers',
         'tax',
         'business_field',
-        'best_products',
-        'orders',
         
     ];
     
@@ -75,18 +73,5 @@ class OutletTransformer extends TransformerAbstract
         return $this->collection($collection, new PrinterTransformer);
     }
     
-    public function includeOrders(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $outlet->orders;
-        
-        return $this->collection($collection, new OrderTransformer);
-    }
     
-    
-    public function includebestProducts(Outlet $outlet, ParamBag $params = null)
-    {
-        $collection = $outlet->bestProducts;
-        
-        return $this->collection($collection, new BestReportTransformer);
-    }
 }

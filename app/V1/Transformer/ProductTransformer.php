@@ -25,7 +25,7 @@ class ProductTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'category',
         'variants',
-        'product',
+        'outlet',
         'entries',
         'outs',
         'opnames',
@@ -34,13 +34,20 @@ class ProductTransformer extends TransformerAbstract
     
     public function transform(Product $product)
     {
-        return [
+        $data = [
             'id' => $this->encode($product->id),
             'name' => $product->name, 
             'description' => $product->description, 
             'icon' => $product->icon,
         ];
+        //if it get the product's best seller
+        if (isset($product->total))
+        {
+            $data['total'] = (int) $product->total;
+            $data['amounts'] = (int) $product->amounts;
+        }
         
+        return $data;
     }
    
     public function includeVariants(Product $product)
@@ -58,13 +65,11 @@ class ProductTransformer extends TransformerAbstract
         return $this->item($item, new CategoryTransformer);
     }
     
-    public function includeProduct(Product $variant)
+    public function includeOutlet(Product $variant)
     {   
-        $item = $variant->product;
+        $item = $variant->outlet;
         
-        if(! is_null($item)) {
-            return $this->item($item, new ProductTransformer);
-        }
+        return $this->item($item, new OutletTransformer);
         
     }
     

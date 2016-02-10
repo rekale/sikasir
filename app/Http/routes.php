@@ -104,7 +104,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('outlets/{id}/outcomes', 'OutcomesController@store');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroy');
             
+            
+            get('outlets/all/products', 'ProductsController@all');
             get('outlets/{id}/products', 'ProductsController@index');
+            get('outlets/{outletId}/products/{dateRange}/best-seller', 'ProductsController@bestSeller');
             get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
@@ -115,6 +118,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
             
+            get('outlets/all/orders/{dateRange}', 'OrdersController@all');
             get('outlets/{id}/orders/{dateRange}', 'OrdersController@index');
             get('outlets/{id}/orders/{dateRange}/void', 'OrdersController@void');
             get('outlets/{id}/orders/{dateRange}/debt', 'OrdersController@debtNotSettled');

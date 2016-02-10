@@ -8,7 +8,6 @@ use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Stocks\Out;
 use Sikasir\V1\Stocks\Opname;
 use Sikasir\V1\Stocks\PurchaseOrder;
-use Sikasir\V1\Orders\Order;
 
 class Product extends Model
 {
@@ -28,20 +27,28 @@ class Product extends Model
         'icon',
     ];
     
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [];
+    public function scopeBestSeller($query, $dateRange)
+    {
+        $query->selectRaw(
+                        'products.*, '
+                        . 'sum(order_variant.total) as total, '
+                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
+                    )
+                    ->join('variants', 'variants.product_id', '=', 'products.id')
+                    ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                    ->whereBetween('order_variant.created_at', $dateRange)
+                    ->groupBy('products.id')
+                    ->orderBy('total', 'desc')
+                    ->orderBy('amounts', 'desc');
+    }
     
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function outlets()
+    public function outlet()
     {
-        return $this->belongsToMany(Outlet::class);
+        return $this->belongsTo(Outlet::class);
     }
     
     /**
