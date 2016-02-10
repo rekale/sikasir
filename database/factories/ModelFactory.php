@@ -32,6 +32,7 @@ use Sikasir\V1\Stocks\PurchaseOrder;
 
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Orders\Void;
+use Sikasir\V1\Orders\Debt;
 
 use Sikasir\V1\Suppliers\Supplier;
 use Sikasir\V1\Transactions\Payment;
@@ -191,13 +192,20 @@ $factory->define(Order::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
         'no_order' => $fake->numerify(),
-        'paid' => $fake->boolean(80),
     ];
 });
 
 $factory->define(Void::class, function(Faker\Generator $fake) {
     return [
         'note' => $fake->words(5, true),
+    ];
+});
+
+$factory->define(Debt::class, function(Faker\Generator $fake) {
+    return [
+        'due_date' => $fake->date(),
+        'total' => $fake->numberBetween(1000, 1000000),
+        'paid_at' => $fake->date(),
     ];
 });
 

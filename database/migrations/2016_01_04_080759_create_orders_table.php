@@ -22,7 +22,6 @@ class CreateOrdersTable extends Migration
             $table->integer('customer_id')->unsigned()->nullable();
             $table->integer('discount_id')->unsigned()->nullable();
             $table->string('note')->nullable();
-            $table->boolean('paid')->default(true);
             $table->timestamps();
             
             $table->foreign('user_id')
