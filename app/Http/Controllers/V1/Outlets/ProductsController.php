@@ -145,7 +145,7 @@ class ProductsController extends ApiController
         return $this->response()->deleted();
     }
     
-    public function bestSeller($outletId = null, $dateRange)
+    public function bestSeller($outletId)
     {
         $currentUser =  $this->currentUser();
         
@@ -153,10 +153,9 @@ class ProductsController extends ApiController
        
         $companyId = $currentUser->getCompanyId();
         
-        $arrayDateRange = explode(',' , str_replace(' ', '', $dateRange));
         
         $collection = $this->repo()->getBestSellerForCompany(
-            $companyId, $this->decode($outletId), $arrayDateRange
+            $companyId, $this->decode($outletId)
         );
         
         return $this->response()

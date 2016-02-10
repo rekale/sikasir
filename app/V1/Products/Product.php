@@ -27,7 +27,7 @@ class Product extends Model
         'icon',
     ];
     
-    public function scopeBestSeller($query, $dateRange)
+    public function scopeBestSeller($query)
     {
         $query->selectRaw(
                         'products.*, '
@@ -36,7 +36,6 @@ class Product extends Model
                     )
                     ->join('variants', 'variants.product_id', '=', 'products.id')
                     ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
-                    ->whereBetween('order_variant.created_at', $dateRange)
                     ->groupBy('products.id')
                     ->orderBy('total', 'desc')
                     ->orderBy('amounts', 'desc');
