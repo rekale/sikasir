@@ -55,12 +55,15 @@
         <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax  </li>
         <li> POST outlets/{id}/orders</li>
         <br>
+        <li> GET outlets/all/products/reports?include=outlet,category,variants </li>
+        <li> GET outlets/{id}/products/reports?include=outlet,category,variants </li>
+        <li> GET outlets/{outletId}/products/reports/best-seller</li>
+        <br>
         <li> GET outlets/all/products?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products?include=category,variants </li>
         <li> GET outlets/{outletId}/products/{productId}?include=category,variants </li>
         <li> PUT outlets/{outletId}/products/{productId} </li>
         <li> DELETE outlets/{outletId}/products/{productId} </li>
-        <li> GET outlets/{outletId}/products/reports/best-seller</li>
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants.product.category</li>
         <li>POST outlets/{id}/entries</li>
