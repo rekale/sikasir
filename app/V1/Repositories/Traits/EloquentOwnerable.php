@@ -16,6 +16,13 @@ namespace Sikasir\V1\Repositories\Traits;
 trait EloquentOwnerable 
 {
     
+    public function queryForOwner($companyId)
+    {
+        return $this->model
+                    ->where('company_id', '=', $companyId);
+    }
+    
+    
      /**
      * 
      * @param integer $id
@@ -25,9 +32,8 @@ trait EloquentOwnerable
      */
     public function findForOwner($id, $companyId, $with = [])
     {
-        return $this->model
+        return $this->queryForOwner($companyId)
                     ->with($with)
-                    ->where('company_id', '=', $companyId)
                     ->findOrFail($id);
     }
     
@@ -40,9 +46,8 @@ trait EloquentOwnerable
       */
      public function getPaginatedForOwner($companyId, $with = [], $perPage = 15)
      {
-         return $this->model
+         return $this->queryForOwner($companyId)
                     ->with($with)
-                    ->where('company_id', '=', $companyId)
                     ->paginate($perPage);
      }
     

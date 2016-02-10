@@ -3,6 +3,7 @@
 namespace Sikasir\V1\Transactions;
 
 use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\Orders\Order;
 
 class Payment extends Model
 {
@@ -19,5 +20,10 @@ class Payment extends Model
     public function company()
     {
         $this->belongsTo(Company::class);
+    }
+    
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

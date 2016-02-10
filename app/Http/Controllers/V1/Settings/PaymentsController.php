@@ -7,6 +7,7 @@ use Sikasir\Http\Requests\PaymentRequest;
 use Sikasir\V1\Repositories\Settings\PaymentRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Transformer\PaymentTransformer;
 
 class PaymentsController extends ApiController
 {
@@ -14,6 +15,19 @@ class PaymentsController extends ApiController
     public function __construct(ApiRespond $respond, PaymentRepository $repo, JWTAuth $auth) 
     {
         parent::__construct($respond, $auth, $repo);
+    }
+    
+    public function reports()
+    {
+        $currentUser =  $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
+        
+        $collection = $this->repo()->getReportsForCompany($companyId);
+       
+       return $this->response()
+                   ->resource()
+                   ->withPaginated($collection, new PaymentTransformer);
     }
     
    public function store(PaymentRequest $request)

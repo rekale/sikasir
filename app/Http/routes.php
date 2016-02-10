@@ -149,8 +149,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Products'], function()
         {
             post('products', 'ProductsController@store');
-            get('products/best-seller/{dateRange}', 'ProductsController@bestSeller');
-            get('products/best-amounts/{dateRange}', 'ProductsController@bestAmounts');
             
             get('categories', 'CategoriesController@index');
             post('categories', 'CategoriesController@store');
@@ -169,6 +167,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('taxes/{id}', 'TaxesController@update');
             delete('taxes/{id}', 'TaxesController@destroy');
             
+            get('payments/reports', 'PaymentsController@reports');
             post('payments', 'PaymentsController@store');
             put('payments/{id}', 'PaymentsController@update');
             delete('payments/{id}', 'PaymentsController@destroy');
