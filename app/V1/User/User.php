@@ -10,8 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
-use Sikasir\V1\Stocks\StockEntry;
-use Sikasir\V1\Stocks\Out;
+use Sikasir\V1\Outlets\Outlet;
 
 
 class User extends Model implements AuthenticatableContract,
@@ -49,24 +48,13 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
-
-    public function userable()
+    protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
+    
+    public function outlets()
     {
-        return $this->morphTo();
+        return $this->belongsToMany(Outlet::class);
     }
     
-      
-    public function stockEntries()
-    {
-        return $this->hasMany(StockEntry::class);
-    }
-    
-    public function stockOuts()
-    {
-        return $this->hasMany(Out::class);
-    }
-
     /**
      * get current user's owner id
      * 

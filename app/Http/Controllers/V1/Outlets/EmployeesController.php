@@ -22,7 +22,6 @@ class EmployeesController extends ApiController
      */
    public function index($id)
    {    
-       
        $decodedId = $this->decode($id);
        
        $products = $this->repo()->getEmployees($decodedId);
@@ -30,7 +29,6 @@ class EmployeesController extends ApiController
        return $this->response()
                ->resource()
                ->withPaginated($products, new EmployeeTransformer);
-       
    }
-
+   
 }

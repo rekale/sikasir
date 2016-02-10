@@ -60,8 +60,7 @@
         <li> GET outlets/{outletId}/products/{productId}?include=category,variants </li>
         <li> PUT outlets/{outletId}/products/{productId} </li>
         <li> DELETE outlets/{outletId}/products/{productId} </li>
-        <li> GET outlets/{outletId}/products/best-seller/{dateRange}</li>//jangan dipake dulu
-        <li> GET outlets/{outletId}/products/best-amounts/{dateRange}</li>//jangan dipake dulu
+        <li> GET outlets/{outletId}/products/reports/best-seller</li>
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants.product.category</li>
         <li>POST outlets/{id}/entries</li>

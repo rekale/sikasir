@@ -57,11 +57,14 @@ class AuthController extends Controller
             return $this->response->notFound('email or password don\'t match our record');
         }
         
-        $loggedUserAbilities = $auth->toUser($token)->getAbilities()->lists('name');
+        $loggedUser = $auth->toUser($token)->load(['outlets']);
+        
+        $loggedUserAbilities = $loggedUser->getAbilities()->lists('name');
         
         return $this->response->respond([
             'success' => [
                 'token' => $token,
+                'user' => $loggedUser->toArray(),
                 'expire_at' => config('jwt.ttl'),
                 'privileges' => $loggedUserAbilities,
                 'code' => 200,

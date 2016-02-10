@@ -44,6 +44,21 @@ class UserRepository extends EloquentRepository implements OwnerableRepo
         });
                
     }
+    
+    public function getReportsForCompany($companyId)
+    {
+        return $this->queryForOwner($companyId)
+                    ->selectRaw(
+                        'users.*'
+                        . 'count(orders.id) as transaction_total, '
+                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
+                    )
+                    ->join('orders', 'payments.id', '=', 'orders.payment_id')
+                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+                    ->groupBy('payments.id')
+                    ->paginate();
+    }
    
     private function addPrivileges(User $user, $privileges)
     {
