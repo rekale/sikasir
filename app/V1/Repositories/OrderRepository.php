@@ -52,8 +52,8 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
         return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
                     ->with($with)
                     ->getRevenueAndProfit()
-                    ->isVoid(false)
-                    ->isDebt(false)
+                    ->isNotVoid()
+                    ->DontHaveDebt()
                     ->dateRange($dateRange)
                     ->paginate($perPage);
                     
@@ -71,7 +71,7 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
     {
         return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
                     ->with($with)
-                    ->isVoid(true)
+                    ->isVoid()
                     ->dateRange($dateRange)
                     ->paginate($perPage);
     }
@@ -88,7 +88,8 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
     {
         return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
                     ->with($with)
-                    ->isDebt(true)
+                    ->isNotVoid()
+                    ->HaveDebt()
                     ->dateRange($dateRange)
                     ->paginate($perPage);
     }

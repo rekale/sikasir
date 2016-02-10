@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Orders\Void;
+use Sikasir\V1\Orders\Debt;
 
 class OrderSeeder extends Seeder
 {
@@ -52,6 +53,11 @@ class OrderSeeder extends Seeder
             factory(Void::class)->create([
                 'user_id' => $employees->random()->id,
                 'order_id' => $orders->random()->id
+            ]);
+            
+            //select random order to void by random employee
+            factory(Debt::class)->create([
+                'order_id' => $orders->random()->id,
             ]);
            
         };

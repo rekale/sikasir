@@ -26,6 +26,7 @@ class OrderTransformer extends TransformerAbstract
         'tax',
         'discount',
         'void',
+        'debt',
     ];
 
     public function transform(Order $order)
@@ -37,7 +38,6 @@ class OrderTransformer extends TransformerAbstract
             'note' => $order->note,
             'revenue' => $order->revenue,
             'profit' => $order->profit,
-            'paid' => (boolean) $order->paid,
             'created_at' => $order->created_at,
         ];
         
@@ -99,5 +99,10 @@ class OrderTransformer extends TransformerAbstract
         return $this->item($item, new VoidTransformer); 
     }
     
-    
+    public function includeDebt(Order $order)
+    {
+        $item = $order->debt;
+        
+        return $this->item($item, new DebtTransformer); 
+    }
 }

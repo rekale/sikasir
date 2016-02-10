@@ -10,6 +10,7 @@ use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Outlets\Discount;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Orders\Void;
+use Sikasir\V1\Orders\Debt;
 
 class Order extends Model
 {
@@ -50,45 +51,76 @@ class Order extends Model
     }
     
     /**
+     * get the order that has been voided
      * 
      * @param Builder $query
      * @param boolean $voided
      */
-    public function scopeIsVoid($query, $voided)
+    public function scopeIsVoid($query)
     {
-        if($voided) {
-            $query->whereExists(
-                function ($closureQuery)
-                {
-                    $closureQuery->selectRaw(1)
-                                 ->from('voids')
-                                 ->whereRaw('voids.order_id = orders.id');
-                }
-            );
-           
-        }
-        else {
-            $query->whereNotExists(
-                function ($closureQuery)
-                {
-                    $closureQuery->selectRaw(1)
-                                 ->from('voids')
-                                 ->whereRaw('voids.order_id = orders.id');
-                }
-            );
-        
-        }
+        $query->whereExists(
+            function ($closureQuery)
+            {
+                $closureQuery->selectRaw(1)
+                             ->from('voids')
+                             ->whereRaw('voids.order_id = orders.id');
+            }
+        );
+    }
+    
+    /**
+     * get the order that is not void
+     * 
+     * @param Builder $query
+     * @param boolean $voided
+     */
+    public function scopeIsNotVoid($query)
+    {
+        $query->whereNotExists(
+            function ($closureQuery)
+            {
+                $closureQuery->selectRaw(1)
+                             ->from('voids')
+                             ->whereRaw('voids.order_id = orders.id');
+            }
+        );
     }
     
     
     /**
+     * get the order that have debt
      * 
      * @param Builder $query
      * @param boolean $param
      */
-    public function scopeIsDebt($query, $param)
+    public function scopeHaveDebt($query)
     {
-        $query->where('paid', '=', ! $param);
+        $query->whereExists(
+            function ($closureQuery)
+            {
+                $closureQuery->selectRaw(1)
+                             ->from('debts')
+                             ->whereRaw('debts.order_id = orders.id');
+            }
+        );
+    }
+    
+    /**
+     * get the order that have debt
+     * 
+     * @param Builder $query
+     * @param boolean $param
+     */
+    public function scopeDontHaveDebt($query)
+    {
+        $query->whereNotExists(
+            function ($closureQuery)
+            {
+                $closureQuery->selectRaw(1)
+                             ->from('debts')
+                             ->whereRaw('debts.order_id = orders.id');
+            }
+        );
     }
     
     
@@ -135,6 +167,11 @@ class Order extends Model
     public function void()
     {
         return $this->hasOne(Void::class);
+    }
+    
+    public function debt()
+    {
+        return $this->hasOne(Debt::class);
     }
     
     /**
