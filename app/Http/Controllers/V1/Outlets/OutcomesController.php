@@ -24,7 +24,7 @@ class OutcomesController extends ApiController
      */
    public function index($outletId)
    {    
-       $outcomes = $this->repo->getOutcomes($outletId);
+       $outcomes = $this->repo()->getOutcomes($this->decode($outletId));
        
        return $this->response()
                ->resource()
@@ -34,7 +34,7 @@ class OutcomesController extends ApiController
    
    public function store($outletId, Request $request)
    {
-       $saved = $this->repo->saveOutcome($outletId, [
+       $saved = $this->repo()->saveOutcome($outletId, [
           'total' => $request->input('total'),
           'note' => $request->input('note'), 
        ]);
@@ -46,7 +46,7 @@ class OutcomesController extends ApiController
     public function destroy($outletId, $outcomeId)
     {
         
-        $this->repo->destroyOutcome($this->decode($outletId), $this->decode($outcomeId));
+        $this->repo()->destroyOutcome($this->decode($outletId), $this->decode($outcomeId));
                 
         return $this->response()->deleted('selected outcome has deleted');
     }
