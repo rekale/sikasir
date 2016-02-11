@@ -146,7 +146,7 @@ class ProductsController extends ApiController
     }
     
     
-    public function reports($outletId)
+    public function reports($outletId, $dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -154,8 +154,10 @@ class ProductsController extends ApiController
        
         $companyId = $currentUser->getCompanyId();
         
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
         $collection = $this->repo()->getReportsForCompany(
-            $companyId, $this->decode($outletId)
+            $companyId, $this->decode($outletId), $dateRange
         );
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
@@ -168,7 +170,7 @@ class ProductsController extends ApiController
                ->withPaginated($collection, new ProductTransformer);
     }
     
-    public function allReports()
+    public function allReports($dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -176,7 +178,9 @@ class ProductsController extends ApiController
        
         $companyId = $currentUser->getCompanyId();
         
-        $collection = $this->repo()->getReportsForCompany($companyId);
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $collection = $this->repo()->getReportsForCompany($companyId, null, $dateRange);
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -188,7 +192,7 @@ class ProductsController extends ApiController
                ->withPaginated($collection, new ProductTransformer);
     }
     
-    public function allBestSeller()
+    public function allBestSeller($dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -196,8 +200,9 @@ class ProductsController extends ApiController
        
         $companyId = $currentUser->getCompanyId();
         
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $collection = $this->repo()->getBestSellerForCompany($companyId);
+        $collection = $this->repo()->getBestSellerForCompany($companyId, null, $dateRange);
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -209,7 +214,7 @@ class ProductsController extends ApiController
                ->withPaginated($collection, new ProductTransformer);
     }
     
-    public function bestSeller($outletId)
+    public function bestSeller($outletId, $dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -217,9 +222,10 @@ class ProductsController extends ApiController
        
         $companyId = $currentUser->getCompanyId();
         
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
         $collection = $this->repo()->getBestSellerForCompany(
-            $companyId, $this->decode($outletId)
+            $companyId, $this->decode($outletId), $dateRange
         );
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);

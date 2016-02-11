@@ -55,9 +55,9 @@
         <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax  </li>
         <li> POST outlets/{id}/orders</li>
         <br>
-        <li> GET outlets/all/products/reports?include=outlet,category,variants </li>
-        <li> GET outlets/{id}/products/reports?include=outlet,category,variants </li>
-        <li> GET outlets/{outletId}/products/reports/best-seller</li>
+        <li> GET outlets/all/products/reports/{dateRange}?include=outlet,category,variants </li>
+        <li> GET outlets/{id}/products/reports/{dateRange}?include=outlet,category,variants </li>
+        <li> GET outlets/{outletId}/products/reports//{dateRange}/best-seller</li>
         <br>
         <li> GET outlets/all/products?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products?include=category,variants </li>
