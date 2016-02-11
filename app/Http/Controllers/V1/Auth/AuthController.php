@@ -45,7 +45,7 @@ class AuthController extends Controller
             return $this->response->respond([
                 'success' => [
                     'token' => $loggedIn,
-                    'user_id' => $loggedUser->id,
+                    'user_id' => $this->encode($loggedUser->id),
                     'expire_at' => config('jwt.ttl'),
                     'privileges' => $loggedUserAbilities,
                     'code' => 200,
