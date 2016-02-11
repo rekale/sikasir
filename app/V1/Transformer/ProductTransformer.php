@@ -41,7 +41,7 @@ class ProductTransformer extends TransformerAbstract
             'icon' => $product->icon,
             'unit' => $product->unit,
         ];
-        //if it get the product's best seller
+        //if it's the report
         if (isset($product->total))
         {
             $data['total'] = (int) $product->total;

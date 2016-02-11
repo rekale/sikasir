@@ -18,5 +18,12 @@ class CategoryRepository extends EloquentRepository implements OwnerableRepo
     public function __construct(Category $model) {
         parent::__construct($model);
     }
-   
+    
+    public function getReportsForCompany($companyId, $dateRange, $outletId = null, $perPage = 15)
+    {
+        return $this->queryForOwner($companyId)
+                    ->getTotalAndAmounts($dateRange, $outletId)
+                    ->paginate($perPage);
+    }
+    
 }

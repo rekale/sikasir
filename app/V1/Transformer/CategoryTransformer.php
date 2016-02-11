@@ -22,11 +22,20 @@ class CategoryTransformer extends TransformerAbstract
 
     public function transform(Category $category)
     {
-        return [
+        $data = [
             'id' => $this->encode($category->id),
             'name' => $category->name,
             'description' => $category->description,
         ];
+        
+        //if it's the report
+        if (isset($category->total))
+        {
+            $data['total'] = (int) $category->total;
+            $data['amounts'] = (int) $category->amounts;
+        }
+        
+        return $data;
     }
     
     public function includeProducts(Category $category, ParamBag $params = null)

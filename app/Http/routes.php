@@ -54,6 +54,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('owners/{id}', 'OwnersController@destroy');
         });
         
+        /* CUSTOMERS */
         Route::group(['namespace' => 'Customers'], function ()
         {
             get('customers', 'CustomersController@index');
@@ -65,6 +66,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('customers/{id}/histories/{dateRange}', 'CustomersController@transactionHistories');
         });
   
+        /* EMPLOYEES */
         Route::group(['namespace' => 'Employees'], function ()
         {
             get('employees', 'EmployeesController@index');
@@ -74,6 +76,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('employees/{id}', 'EmployeesController@destroy');
         });
         
+        /* SUPPLIER */
         Route::group(['namespace' => 'Suppliers'], function ()
         {
             get('suppliers', 'SuppliersController@index');
@@ -87,48 +90,49 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
         Route::group(['namespace' => 'Outlets'], function()
         {
-
+            /* OUTLETS */
             post('outlets', 'OutletsController@store');
             get('outlets', 'OutletsController@index');
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
             
+            /* INCOMES */
             get('outlets/{id}/incomes', 'IncomesController@index');
             post('outlets/{id}/incomes', 'IncomesController@store');
             delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroy');
 
+            /* OUTCOMES */
             get('outlets/{id}/outcomes', 'OutcomesController@index');
             post('outlets/{id}/outcomes', 'OutcomesController@store');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroy');
             
+            /* CATEGORIES */
+            get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@allReports');
+            get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reports');
+            
+            /* PRODUCTS */
             get('outlets/all/products', 'ProductsController@all');
             get('outlets/all/products/reports/{dateRange}', 'ProductsController@allReports');
             get('outlets/all/products/reports/{dateRange}/best-seller', 'ProductsController@allBestSeller');
-            
             get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reports');
             get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
-            
-            get('outlets/all/products', 'ProductsController@all');
-            get('outlets/all/products/reports', 'ProductsController@allReports');
-            get('outlets/all/products/reports/best-seller', 'ProductsController@allBestSeller');
-            
-            get('outlets/{outletId}/products/reports', 'ProductsController@reports');
-            get('outlets/{outletId}/products/reports/best-seller', 'ProductsController@bestSeller');
-            
             
             get('outlets/{outletId}/products', 'ProductsController@index');
             get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             
+            /* EMPLOYEES */
             get('outlets/{id}/employees', 'EmployeesController@index');
             get('outlets/{id}/employees/reports', 'EmployeesController@reports');
             
+            /* PRINTERS */
             post('outlets/{id}/printers', 'PrintersController@store');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
             
+            /* ORDERS */
             get('outlets/all/orders/{dateRange}', 'OrdersController@all');
             get('outlets/{id}/orders/{dateRange}', 'OrdersController@index');
             get('outlets/{id}/orders/{dateRange}/void', 'OrdersController@void');
@@ -156,7 +160,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
         });
         
-         
+        /* PRODUCTS AND CATEGORIES */ 
         Route::group(['namespace' => 'Products'], function()
         {
             post('products', 'ProductsController@store');
@@ -170,14 +174,20 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         
         Route::group(['namespace' => 'Settings'], function()
         {
+            
+            /* DISCOUNT */
             post('discounts', 'DiscountsController@store');
             put('discounts/{id}', 'DiscountsController@update');
             delete('discounts/{id}', 'DiscountsController@destroy');
             
+            
+            /* TAXES */
             post('taxes', 'TaxesController@store');
             put('taxes/{id}', 'TaxesController@update');
             delete('taxes/{id}', 'TaxesController@destroy');
             
+            
+            /* PAYMENTS */
             get('payments/reports', 'PaymentsController@reports');
             post('payments', 'PaymentsController@store');
             put('payments/{id}', 'PaymentsController@update');
