@@ -26,6 +26,8 @@ class Outlet extends Model
      */
     protected $table = 'outlets';
     
+    protected $with = ['businessfield', 'tax'];
+    
     /**
      * The attributes that are mass assignable.
      *

@@ -45,8 +45,8 @@
         <li>GET suppliers/{id}/purchases?include=variants</li>
         
         <br>
-        <li> GET outlets?include=users,printers, tax, business_field</li>
-        <li> GET outlets/{id}?include=users, printers, tax, business_field</li>
+        <li> GET outlets?include=users,printers</li>
+        <li> GET outlets/{id}?include=users, printers</li>
         <br>
         <li> GET outlets/all/orders/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax </li>
         <li> GET outlets/{id}/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax </li>

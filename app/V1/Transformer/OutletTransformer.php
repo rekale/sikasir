@@ -16,17 +16,15 @@ use \Sikasir\V1\Traits\IdObfuscater;
 class OutletTransformer extends TransformerAbstract
 {
     use IdObfuscater, ParamTransformer;
-    /**
-     * List of resources possible to include
-     *
-     * @var array
-     */
+    
+    protected $defaultIncludes = [
+        'tax',
+        'businessfield',
+    ];
+    
     protected $availableIncludes = [
         'users',
         'printers',
-        'tax',
-        'businessfield',
-        
     ];
     
     public function transform(Outlet $outlet)
