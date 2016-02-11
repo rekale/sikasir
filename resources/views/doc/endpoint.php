@@ -57,7 +57,10 @@
         <br>
         <li> GET outlets/all/products/reports/{dateRange}?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products/reports/{dateRange}?include=outlet,category,variants </li>
-        <li> GET outlets/{outletId}/products/reports//{dateRange}/best-seller</li>
+        <li> GET outlets/{outletId}/products/reports/{dateRange}/best-seller</li>
+        <br>
+        <li> GET outlets/all/products/categories/{dateRange}</li>
+        <li> GET outlets/{id}/products/categories/{dateRange}</li>
         <br>
         <li> GET outlets/all/products?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products?include=category,variants </li>
