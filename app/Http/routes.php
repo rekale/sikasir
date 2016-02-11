@@ -102,6 +102,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('outlets/{id}/outcomes', 'OutcomesController@store');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroy');
             
+            get('outlets/all/products', 'ProductsController@all');
+            get('outlets/all/products/reports/{dateRange}', 'ProductsController@allReports');
+            get('outlets/all/products/reports/{dateRange}/best-seller', 'ProductsController@allBestSeller');
+            
+            get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reports');
+            get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
             
             get('outlets/all/products', 'ProductsController@all');
             get('outlets/all/products/reports', 'ProductsController@allReports');

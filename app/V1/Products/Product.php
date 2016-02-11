@@ -27,7 +27,7 @@ class Product extends Model
         'icon',
     ];
     
-    public function scopeGetTotalAndAmounts($query)
+    public function scopeGetTotalAndAmounts($query, $dateRange)
     {
         $query->selectRaw(
                         'products.*, '
@@ -36,6 +36,7 @@ class Product extends Model
                     )
                     ->join('variants', 'variants.product_id', '=', 'products.id')
                     ->join('order_variant', 'order_variant.variant_id', '=', 'variants.id')
+                    ->whereBetween('order_variant.created_at', $dateRange)
                     ->groupBy('products.id');
     }
     
