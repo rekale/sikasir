@@ -31,10 +31,9 @@ class UserRepository extends EloquentRepository implements OwnerableRepo
         \DB::transaction(function () use ($data, $companyId) {
             
             $data['password'] = bcrypt($data['password']);
-            
-            $user = new User($data);
-
             $data['company_id'] = $companyId;
+            
+            $user = $this->save($data);
 
             $this->addPrivileges($user, $data['privileges']);
 
@@ -45,7 +44,7 @@ class UserRepository extends EloquentRepository implements OwnerableRepo
                
     }
     
-    public function getReportsForCompany($companyId)
+    public function getReportsForCompany($companyId, $perPage = 15)
     {
         return $this->queryForOwner($companyId)
                     ->selectRaw(
@@ -53,13 +52,13 @@ class UserRepository extends EloquentRepository implements OwnerableRepo
                         . 'count(orders.id) as transaction_total, '
                         . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
                     )
-                    ->join('orders', 'payments.id', '=', 'orders.payment_id')
+                    ->join('orders', 'users.id', '=', 'orders.user_id')
                     ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
                     ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
-                    ->groupBy('payments.id')
-                    ->paginate();
+                    ->groupBy('users.id')
+                    ->paginate($perPage);
     }
-   
+    
     private function addPrivileges(User $user, $privileges)
     {
         if (in_array( 1, $privileges)) {

@@ -23,31 +23,16 @@ class EmployeeRequest extends Request
      */
     public function rules()
     {
-        if($this->getMethod() === 'POST') {
-            return [
-                'name' => 'required|max:255',
-                'title' => 'required|max:255',
-                'gender' => 'required|max:255',
-                'email' => 'required|email|unique:users',
-                'address' => 'max:255',
-                'phone'=> 'max:255',
-                'void_access' => 'required|boolean',
-                'password' => 'required|max:255',
-                'outlet_id.0' => 'required',
-            ];
-        }
-        else {
-            return [
-                'name' => 'max:255',
-                'title' => 'max:255',
-                'gender' => 'max:255',
-                'email' => 'email|max:255',
-                'address' => 'max:255',
-                'phone'=> 'max:255',
-                'void_access' => 'boolean',
-                'password' => 'max:255',
-                'outlet_id.0' => 'required',
-            ];
-        }
+        return [
+            'name' => 'required|max:255',
+            'title' => 'required|max:255',
+            'gender' => 'required|max:255',
+            'email' => 'required|email|unique:users',
+            'address' => 'max:255',
+            'phone'=> 'max:255',
+            'password' => 'required|max:255',
+            'outlet_id.0' => 'required',
+        ];
+
     }
 }

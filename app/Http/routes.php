@@ -182,6 +182,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Employees'], function()
         {
             get('employees', 'EmployeesController@index');
+            get('employees/{id}', 'EmployeesController@show');
+            post('employees', 'EmployeesController@store');
+            put('employees', 'EmployeesController@update');
 
         });
 
