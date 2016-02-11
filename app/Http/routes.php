@@ -93,8 +93,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
-            get('outlets/dashboard/{dateRange}', 'OutletsController@reports');
-            get('outlets/{id}/dashboard/{dateRange}', 'OutletsController@reportsForOutlet');
             
             get('outlets/{id}/incomes', 'IncomesController@index');
             post('outlets/{id}/incomes', 'IncomesController@store');
@@ -119,6 +117,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             
             get('outlets/{id}/employees', 'EmployeesController@index');
+            get('outlets/{id}/employees/reports', 'EmployeesController@reports');
             
             post('outlets/{id}/printers', 'PrintersController@store');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');

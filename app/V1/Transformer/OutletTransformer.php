@@ -25,7 +25,7 @@ class OutletTransformer extends TransformerAbstract
         'users',
         'printers',
         'tax',
-        'business_field',
+        'businessfield',
         
     ];
     

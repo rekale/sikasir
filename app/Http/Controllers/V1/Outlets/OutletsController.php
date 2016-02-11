@@ -117,46 +117,4 @@ class OutletsController extends ApiController
         return $this->response()->deleted();
     }
     
-    
-    public function reports($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-specific-outlet');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $with = ['best_products', 'orders'];
-        
-        $reports = $this->repo()->getTransactionReports($companyId, $dateRange);
-        
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($reports, new OutletTransformer);
-    }
-    
-    public function reportsForOutlet($outletId, $dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-specific-outlet');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $with = ['best_products', 'orders'];
-        
-        $reports = $this->repo()->getTransactionReports(
-            $companyId, $dateRange, $this->decode($outletId)
-        );
-        
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($reports, new OutletTransformer);
-    }
 }
