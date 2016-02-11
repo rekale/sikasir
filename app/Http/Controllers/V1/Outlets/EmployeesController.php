@@ -18,17 +18,45 @@ class EmployeesController extends ApiController
     
     /**
      * 
-     * @param string $id
+     * @param string $outletId
      */
-   public function index($id)
+   public function index($outletId)
    {    
-       $decodedId = $this->decode($id);
+        $currentUser =  $this->currentUser();
+        
+        $companyId = $currentUser->getCompanyId();
+
+        $this->authorizing($currentUser, 'read-staff');
+        
+        $decodedId = $this->decode($outletId);
        
-       $products = $this->repo()->getEmployees($decodedId);
+        $products = $this->repo()->getPaginatedfromOutlet($companyId, $decodedId);
        
-       return $this->response()
-               ->resource()
-               ->withPaginated($products, new EmployeeTransformer);
+        return $this->response()
+                   ->resource()
+                   ->withPaginated($products, new EmployeeTransformer);
    }
+   
+   public function reports($outletId)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-staff');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $collection = $this->repo()->getReportsForCompany(
+            $companyId, $this->decode($outletId)
+        );
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        return $this->response()
+               ->resource()
+               ->including($with)
+               ->withPaginated($collection, new ProductTransformer);
+    }
    
 }

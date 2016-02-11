@@ -47,7 +47,7 @@ class EmployeesController extends ApiController
 
         return $this->response()
                 ->resource()
-                ->withItem($user, new EmployeeTransformer);
+                ->withItem($user, new UserTransformer);
     }
 
     public function store(EmployeeRequest $request)
@@ -56,13 +56,13 @@ class EmployeesController extends ApiController
         
         $this->authorizing($currentUser, 'create-staff');
        
-        $owner = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
         $dataInput = $request->all();
         
         $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
         
-        $this->repo()->saveForOwner($dataInput, $owner);
+        $this->repo()->saveForOwner($dataInput, $companyId);
         
 
         return $this->response()->created();

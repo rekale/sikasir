@@ -21,30 +21,6 @@ class AuthController extends Controller
         $this->request = $request;
     }
     
-    public function mobileLogin()
-    {
-        $username = $this->request->input('username');
-        $password = $this->request->input('password');
-        
-        
-        $company = Company::with('outlets.users')->whereUsername($username)->first();
-        
-        if (is_null($company)) {
-            return $this->response->notFound('user not found');
-        }
-        
-        if(! \Hash::check($password, $company->password)) {
-            return $this->response->notFound('password is not match');
-        }
-        
-        
-        return $this->response
-                ->resource()
-                ->including('outlets.users')
-                ->withItem($company, new CompanyTransformer);
-        
-    }
-    
     public function login(JWTAuth $auth)
     {
         
@@ -53,23 +29,32 @@ class AuthController extends Controller
             'password' => $this->request->input('password'),
         ];
         
-        if ( ! $token = $auth->attempt($credentials)) {
+        $loggedIn = $auth->attempt($credentials);
+        
+        if ( ! $loggedIn ) {
             return $this->response->notFound('email or password don\'t match our record');
         }
         
-        $loggedUser = $auth->toUser($token)->load(['outlets']);
+        $loggedUser = $auth->toUser($loggedIn);
         
-        $loggedUserAbilities = $loggedUser->getAbilities()->lists('name');
+        $active = $this->getCompanyActiveState($loggedUser->getCompanyId());
         
-        return $this->response->respond([
-            'success' => [
-                'token' => $token,
-                'user' => $loggedUser->toArray(),
-                'expire_at' => config('jwt.ttl'),
-                'privileges' => $loggedUserAbilities,
-                'code' => 200,
-            ]
-        ]);
+        if($active) {
+            $loggedUserAbilities = $loggedUser->getAbilities()->lists('name');
+        
+            return $this->response->respond([
+                'success' => [
+                    'token' => $loggedIn,
+                    'user_id' => $loggedUser->id,
+                    'expire_at' => config('jwt.ttl'),
+                    'privileges' => $loggedUserAbilities,
+                    'code' => 200,
+                ]
+            ]);
+        }
+        else{
+            return $this->response->notFound('your company account is not active');
+        }
         
     }
     
@@ -91,6 +76,11 @@ class AuthController extends Controller
         $token = $auth->fromUser($user);
 
         return response()->json(compact('token'));
+    }
+    
+    public function getCompanyActiveState($companyId)
+    {
+        return Company::findOrFail($companyId)->active;
     }
 
 }

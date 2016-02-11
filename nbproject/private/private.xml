@@ -3,22 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/V1/Repositories/OrderRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/ProductTransformer.php</file>
-            <file>file:/D:/project/kasir/resources/views/doc/format.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/OrderRequest.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/PaymentsController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Settings/PaymentRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/PaymentTransformer.php</file>
-            <file>file:/D:/project/kasir/app/Http/Requests/ProductRequest.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/OutletRepository.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/UserRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
+            <file>file:/D:/project/kasir/config/database.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/EmployeesController.php</file>
-            <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transactions/Payment.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/ProductsController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
         </group>
     </open-files>
 </project-private>
