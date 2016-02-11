@@ -28,8 +28,13 @@ class EmployeesController extends ApiController
             $currentUser->getCompanyId()
         );
         
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
         return $this->response()
                 ->resource()
+                ->including($with)
                 ->withPaginated($paginator, new UserTransformer);
     }
 
@@ -43,10 +48,15 @@ class EmployeesController extends ApiController
         
         $decodedId = $this->decode($id);
         
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+        
+        $with = $this->filterIncludeParams($include);
+        
         $user = $this->repo()->findFOrOwner($decodedId, $owner);
 
         return $this->response()
                 ->resource()
+                ->including($with)
                 ->withItem($user, new UserTransformer);
     }
 

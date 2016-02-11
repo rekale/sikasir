@@ -22,7 +22,7 @@
         <br>
         
         <li> GET customers </li>
-        <li> GET customers/{id} </li> // edit
+        <li> GET customers/{id} </li>
         <li> POST customers </li>
         <li> PUT customers/{id} </li>
         <li> DELETE customers/{id} </li>

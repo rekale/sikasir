@@ -12,6 +12,10 @@ use Sikasir\V1\User\User;
 class UserTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
+    
+    protected $availableIncludes = [
+        'outlets',
+    ];
 
     public function transform(User $user)
     {
@@ -25,6 +29,11 @@ class UserTransformer extends TransformerAbstract
             'phone'=> $user->phone,
             'icon' => $user->icon,
         ];
+    }
+    
+    public function includeOutlets(User $user)
+    {
+        return $this->collection($user->outlets, new OutletTransformer);
     }
 
 }
