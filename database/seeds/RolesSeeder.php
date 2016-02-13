@@ -36,6 +36,7 @@ class RolesSeeder extends Seeder
     {
         return [
             'read-specific-outlet',
+            'read-specific-staff',
             
             'create-customer',
             'read-customer',
