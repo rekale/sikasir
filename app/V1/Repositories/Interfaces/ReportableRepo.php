@@ -2,7 +2,7 @@
 
 namespace Sikasir\V1\Repositories\Interfaces;
 
-interface Reportable
+interface ReportableRepo
 {
     /**
      * 

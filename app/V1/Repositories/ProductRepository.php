@@ -6,7 +6,7 @@ use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
-use Sikasir\V1\Repositories\Interfaces\Reportable;
+use Sikasir\V1\Repositories\Interfaces\ReportableRepo;
 
 /**
  * Description of ProductRepository
@@ -14,7 +14,7 @@ use Sikasir\V1\Repositories\Interfaces\Reportable;
  * @author rekale 
  *
  */
-class ProductRepository extends EloquentRepository implements OwnerThroughableRepo, Reportable
+class ProductRepository extends EloquentRepository implements OwnerThroughableRepo, ReportableRepo
 {
     use Traits\EloquentOwnerThroughable;
     

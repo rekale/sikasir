@@ -19,7 +19,7 @@ class UserTransformer extends TransformerAbstract
 
     public function transform(User $user)
     {
-        return [
+        $data = [
             'id' => $this->encode($user->id),
             'name' => $user->name,
             'email' => $user->email,
@@ -29,6 +29,14 @@ class UserTransformer extends TransformerAbstract
             'phone'=> $user->phone,
             'icon' => $user->icon,
         ];
+        
+        //if it reports
+        if (isset($user->total)) {
+            $data['transaction_total'] = $user->total;
+            $data['amounts'] = $user->amounts;
+        }
+        
+        return $data;
     }
     
     public function includeOutlets(User $user)

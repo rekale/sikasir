@@ -124,8 +124,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             
             /* EMPLOYEES */ 
+            get('outlets/all/employees/reports/{dateRange}', 'EmployeesController@allReports');
+            get('outlets/{id}/employees/reports/{dateRange}', 'EmployeesController@reports');
             get('outlets/{id}/employees', 'EmployeesController@index');
-            //get('outlets/{id}/employees/reports', 'EmployeesController@reports');
             
             /* PRINTERS */
             post('outlets/{id}/printers', 'PrintersController@store');

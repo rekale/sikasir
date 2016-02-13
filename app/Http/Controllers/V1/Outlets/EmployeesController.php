@@ -3,14 +3,14 @@
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Transformer\EmployeeTransformer;
-use Sikasir\V1\Repositories\OutletRepository;
+use Sikasir\V1\Transformer\UserTransformer;
+use Sikasir\V1\Repositories\UserRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 
 class EmployeesController extends ApiController
 {
-    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
+    public function __construct(ApiRespond $respond, UserRepository $repo, JWTAuth $auth) {
 
         parent::__construct($respond, $auth, $repo);
 
@@ -34,10 +34,10 @@ class EmployeesController extends ApiController
        
         return $this->response()
                    ->resource()
-                   ->withPaginated($products, new EmployeeTransformer);
+                   ->withPaginated($products, new UserTransformer);
    }
    
-   public function reports($outletId)
+   public function allReports($dateRange)
     {
         $currentUser =  $this->currentUser();
         
@@ -45,8 +45,10 @@ class EmployeesController extends ApiController
        
         $companyId = $currentUser->getCompanyId();
         
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
         $collection = $this->repo()->getReportsForCompany(
-            $companyId, $this->decode($outletId)
+            $companyId, $dateRange
         );
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
@@ -56,7 +58,31 @@ class EmployeesController extends ApiController
         return $this->response()
                ->resource()
                ->including($with)
-               ->withPaginated($collection, new ProductTransformer);
+               ->withPaginated($collection, new UserTransformer);
+    }
+    
+    public function reports($outletId, $dateRange)
+    {
+        $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-staff');
+       
+        $companyId = $currentUser->getCompanyId();
+        
+        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
+        
+        $collection = $this->repo()->getReportsForCompany(
+            $companyId, $dateRange, $this->decode($outletId)
+        );
+        
+        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
+
+        $with = $this->filterIncludeParams($include);
+        
+        return $this->response()
+               ->resource()
+               ->including($with)
+               ->withPaginated($collection, new UserTransformer);
     }
    
 }

@@ -51,6 +51,25 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
     
+    
+    public function scopeReport($query, $dateRange, $outletId = null)
+    {
+        $query->selectRaw(
+            'users.* ,'
+            . 'count(orders.id) as total, '
+            . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
+        )
+        ->join('orders', 'users.id', '=', 'orders.user_id')
+        ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+        ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+        ->whereBetween('orders.created_at', $dateRange)
+        ->groupBy('users.id');
+        
+        if(! is_null($outletId)) {
+            $query->where('orders.outlet_id', '=', $outletId);
+        }
+    }
+    
     public function outlets()
     {
         return $this->belongsToMany(Outlet::class);

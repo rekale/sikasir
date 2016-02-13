@@ -11,14 +11,14 @@ namespace Sikasir\V1\Repositories;
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
-use Sikasir\V1\Repositories\Interfaces\Reportable;
+use Sikasir\V1\Repositories\Interfaces\ReportableRepo;
 
 /**
  * Description of EmployeeRepository
  *
  * @author rekale
  */
-class UserRepository extends EloquentRepository implements OwnerableRepo, Reportable
+class UserRepository extends EloquentRepository implements OwnerableRepo, ReportableRepo
 {
     use Traits\EloquentOwnerable;
     
@@ -106,15 +106,7 @@ class UserRepository extends EloquentRepository implements OwnerableRepo, Report
 
     public function getReportsForCompany($companyId, $dateRange, $outletId = null, $perPage = 15) {
          return $this->queryForOwner($companyId)
-                    ->selectRaw(
-                        'users.*'
-                        . 'count(orders.id) as transaction_total, '
-                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
-                    )
-                    ->join('orders', 'users.id', '=', 'orders.user_id')
-                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
-                    ->groupBy('users.id')
+                    ->report($dateRange, $outletId)
                     ->paginate($perPage);
     }
 
