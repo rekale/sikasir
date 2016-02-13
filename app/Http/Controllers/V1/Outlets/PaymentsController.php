@@ -21,6 +21,8 @@ class PaymentsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
+        $this->authorizing($currentUser, 'read-report');
+        
         $companyId = $currentUser->getCompanyId();
         
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
@@ -35,6 +37,8 @@ class PaymentsController extends ApiController
      public function reports($outletId, $dateRange)
     {
         $currentUser =  $this->currentUser();
+        
+        $this->authorizing($currentUser, 'read-report');
         
         $companyId = $currentUser->getCompanyId();
         

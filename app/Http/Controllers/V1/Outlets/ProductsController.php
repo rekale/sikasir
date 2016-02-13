@@ -150,7 +150,7 @@ class ProductsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-product');
+        $this->authorizing($currentUser, 'read-report');
        
         $companyId = $currentUser->getCompanyId();
         
@@ -174,7 +174,7 @@ class ProductsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-product');
+        $this->authorizing($currentUser, 'read-report');
        
         $companyId = $currentUser->getCompanyId();
         
@@ -196,7 +196,7 @@ class ProductsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-product');
+        $this->authorizing($currentUser, 'read-report');
        
         $companyId = $currentUser->getCompanyId();
         

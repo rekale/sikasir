@@ -68,6 +68,9 @@ class RolesSeeder extends Seeder
             'update-order',
             'delete-order',
             
+            'read-report',
+            'export-report',
+            
         ];
     }
 

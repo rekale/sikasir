@@ -41,7 +41,7 @@ class EmployeesController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-staff');
+        $this->authorizing($currentUser, 'read-report');
        
         $companyId = $currentUser->getCompanyId();
         
@@ -65,7 +65,7 @@ class EmployeesController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-staff');
+        $this->authorizing($currentUser, 'read-report');
        
         $companyId = $currentUser->getCompanyId();
         
