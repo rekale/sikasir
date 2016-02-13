@@ -123,9 +123,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             
-            /* EMPLOYEES */
+            /* EMPLOYEES */ 
             get('outlets/{id}/employees', 'EmployeesController@index');
-            get('outlets/{id}/employees/reports', 'EmployeesController@reports');
+            //get('outlets/{id}/employees/reports', 'EmployeesController@reports');
             
             /* PRINTERS */
             post('outlets/{id}/printers', 'PrintersController@store');
@@ -139,7 +139,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/orders/{dateRange}/debt', 'OrdersController@debtNotSettled');
             get('outlets/{id}/orders/{dateRange}/debt-settled', 'OrdersController@debtSettled');
             post('outlets/{id}/orders', 'OrdersController@store');
- 
+            
+            /* PAYMENTS */
+            get('outlets/all/payments/reports/{dateRange}', 'PaymentsController@allReports');
+            get('outlets/{outletId}/payments/reports/{dateRange}', 'PaymentsController@reports');
             
             Route::group(['namespace' => 'Stocks'], function()
             {

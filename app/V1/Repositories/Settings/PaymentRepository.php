@@ -24,17 +24,8 @@ class PaymentRepository extends EloquentRepository implements OwnerableRepo, Rep
     public function getReportsForCompany($companyId, $dateRange, $outletId = null, $perPage = 15) {
 
         return $this->queryForOwner($companyId)
-                    ->selectRaw(
-                        'payments.*, '
-                        . 'count(orders.id) as transaction_total, '
-                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
-                    )
-                    ->join('orders', 'payments.id', '=', 'orders.payment_id')
-                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
-                    ->groupBy('payments.id')
-                    ->paginate();
-
+                    ->report($dateRange, $outletId)
+                    ->paginate($perPage);
     }
 
 }

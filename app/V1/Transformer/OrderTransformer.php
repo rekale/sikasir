@@ -27,6 +27,7 @@ class OrderTransformer extends TransformerAbstract
         'discount',
         'void',
         'debt',
+        'payment',
     ];
 
     public function transform(Order $order)
@@ -104,5 +105,12 @@ class OrderTransformer extends TransformerAbstract
         $item = $order->debt;
         
         return $this->item($item, new DebtTransformer); 
+    }
+    
+    public function includePayment(Order $order)
+    {
+        $item = $order->payment;
+        
+        return $this->item($item, new PaymentTransformer); 
     }
 }

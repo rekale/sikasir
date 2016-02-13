@@ -11,6 +11,7 @@ use Sikasir\V1\Outlets\Discount;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Orders\Void;
 use Sikasir\V1\Orders\Debt;
+use Sikasir\V1\Transactions\Payment;
 
 class Order extends Model
 {
@@ -256,6 +257,11 @@ class Order extends Model
     public function discount()
     {
         return $this->belongsTo(Discount::class);
+    }
+    
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
     }
     
 }

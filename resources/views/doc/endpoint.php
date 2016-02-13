@@ -48,19 +48,22 @@
         <li> GET outlets?include=users,printers</li>
         <li> GET outlets/{id}?include=users, printers</li>
         <br>
-        <li> GET outlets/all/orders/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax </li>
-        <li> GET outlets/{id}/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax </li>
-        <li> GET outlets/{id}/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax  </li>
-        <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax  </li>
+        <li> GET outlets/all/orders/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax, payment </li>
+        <li> GET outlets/{id}/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax, payment </li>
+        <li> GET outlets/{id}/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
+        <li> GET outlets/{id}/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
+        <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
         <li> POST outlets/{id}/orders</li>
         <br>
         <li> GET outlets/all/products/reports/{dateRange}?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products/reports/{dateRange}?include=outlet,category,variants </li>
         <li> GET outlets/{outletId}/products/reports/{dateRange}/best-seller</li>
         <br>
-        <li> GET outlets/all/products/categories/{dateRange}</li>
-        <li> GET outlets/{id}/products/categories/{dateRange}</li>
+        <li> GET outlets/all/categories/reports/{dateRange}</li>
+        <li> GET outlets/{id}/categories/reports/{dateRange}</li>
+        <br>
+        <li> GET outlets/all/payments/reports/{dateRange}</li>
+        <li> GET outlets/{id}/payments/reports/{dateRange}</li>
         <br>
         <li> GET outlets/all/products?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products?include=category,variants </li>
