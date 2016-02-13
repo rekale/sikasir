@@ -11,13 +11,14 @@ namespace Sikasir\V1\Repositories;
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
+use Sikasir\V1\Repositories\Interfaces\Reportable;
 
 /**
  * Description of EmployeeRepository
  *
  * @author rekale
  */
-class UserRepository extends EloquentRepository implements OwnerableRepo
+class UserRepository extends EloquentRepository implements OwnerableRepo, Reportable
 {
     use Traits\EloquentOwnerable;
     
@@ -44,20 +45,6 @@ class UserRepository extends EloquentRepository implements OwnerableRepo
                
     }
     
-    public function getReportsForCompany($companyId, $perPage = 15)
-    {
-        return $this->queryForOwner($companyId)
-                    ->selectRaw(
-                        'users.*'
-                        . 'count(orders.id) as transaction_total, '
-                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
-                    )
-                    ->join('orders', 'users.id', '=', 'orders.user_id')
-                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
-                    ->groupBy('users.id')
-                    ->paginate($perPage);
-    }
     
     private function addPrivileges(User $user, $privileges)
     {
@@ -115,6 +102,20 @@ class UserRepository extends EloquentRepository implements OwnerableRepo
             'update-billing',
             'delete-billing',
         ];
+    }
+
+    public function getReportsForCompany($companyId, $dateRange, $outletId = null, $perPage = 15) {
+         return $this->queryForOwner($companyId)
+                    ->selectRaw(
+                        'users.*'
+                        . 'count(orders.id) as transaction_total, '
+                        . 'sum( (variants.price - order_variant.nego) * order_variant.total ) as amounts'
+                    )
+                    ->join('orders', 'users.id', '=', 'orders.user_id')
+                    ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
+                    ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+                    ->groupBy('users.id')
+                    ->paginate($perPage);
     }
 
 }

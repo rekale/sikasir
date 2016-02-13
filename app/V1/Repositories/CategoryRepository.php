@@ -4,6 +4,7 @@ namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Repositories\Interfaces\OwnerableRepo;
+use Sikasir\V1\Repositories\Interfaces\Reportable;
 use Sikasir\V1\Products\Category;
 
 /**
@@ -11,7 +12,7 @@ use Sikasir\V1\Products\Category;
  *
  * @author rekale
  */
-class CategoryRepository extends EloquentRepository implements OwnerableRepo
+class CategoryRepository extends EloquentRepository implements OwnerableRepo, Reportable
 {
     use Traits\EloquentOwnerable;
 

@@ -4,9 +4,9 @@ namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Products\Product;
-use Sikasir\V1\User\Company;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
+use Sikasir\V1\Repositories\Interfaces\Reportable;
 
 /**
  * Description of ProductRepository
@@ -14,7 +14,7 @@ use Sikasir\V1\Repositories\Interfaces\OwnerThroughableRepo;
  * @author rekale 
  *
  */
-class ProductRepository extends EloquentRepository implements OwnerThroughableRepo
+class ProductRepository extends EloquentRepository implements OwnerThroughableRepo, Reportable
 {
     use Traits\EloquentOwnerThroughable;
     
@@ -66,12 +66,6 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         
     }
     
-    public function getReportsForCompany($companyId, $outletId = null, $dateRange, $perPage = 15)
-    {
-        return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
-                    ->getTotalAndAmounts($dateRange)
-                    ->paginate($perPage);
-    }
     
     public function getBestSellerForCompany($companyId, $outletId = null, $dateRange, $perPage = 15)
     {
@@ -112,6 +106,12 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         }
         
         return $instances;
+    }
+
+    public function getReportsForCompany($companyId, $dateRange, $outletId = null, $perPage = 15) {
+         return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
+                    ->getTotalAndAmounts($dateRange)
+                    ->paginate($perPage);
     }
 
 }
