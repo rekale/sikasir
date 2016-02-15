@@ -202,7 +202,7 @@ class ProductsController extends ApiController
         
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
-        $collection = $this->repo()->getBestSellerForCompany($companyId, null, $dateRange);
+        $collection = $this->repo()->getBestSellerForCompany($companyId, $dateRange);
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
 
@@ -225,7 +225,7 @@ class ProductsController extends ApiController
         $dateRange = explode(',' , str_replace(' ', '', $dateRange));
         
         $collection = $this->repo()->getBestSellerForCompany(
-            $companyId, $this->decode($outletId), $dateRange
+            $companyId,  $dateRange, $this->decode($outletId)
         );
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);

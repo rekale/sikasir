@@ -67,7 +67,7 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
     }
     
     
-    public function getBestSellerForCompany($companyId, $outletId = null, $dateRange, $perPage = 15)
+    public function getBestSellerForCompany($companyId, $dateRange, $outletId = null, $perPage = 15)
     {
         return $this->queryForOwnerThrough($companyId, $outletId, 'outlets')
                     ->getTotalAndAmounts($dateRange)

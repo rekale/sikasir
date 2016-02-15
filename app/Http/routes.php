@@ -118,6 +118,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reports');
             get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
             
+            /* INVENTORY */
             get('outlets/{outletId}/products', 'ProductsController@index');
             get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
             put('outlets/{outletId}/products/{productId}', 'ProductsController@update');

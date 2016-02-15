@@ -4,14 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/PaymentsController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Employees/EmployeesController.php</file>
             <file>file:/D:/project/kasir/config/database.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/UserRepository.php</file>
+            <file>file:/D:/project/kasir/app/V1/Outlets/Tax.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/User/User.php</file>
-            <file>file:/D:/project/kasir/database/seeds/RolesSeeder.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/UserTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/Settings/TaxRepository.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/TaxesController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/ProductsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/TaxTransformer.php</file>
         </group>
     </open-files>
 </project-private>
