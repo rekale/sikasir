@@ -7,10 +7,8 @@
             <file>file:/D:/project/kasir/config/database.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/UserRepository.php</file>
             <file>file:/D:/project/kasir/app/V1/Outlets/Tax.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/Settings/TaxRepository.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/TaxesController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/ProductsController.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/TaxTransformer.php</file>
         </group>
     </open-files>

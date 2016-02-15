@@ -38,17 +38,14 @@ class Order extends Model
     {
         $query->selectRaw(
                     "orders.*, " .
-                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as revenue, " .
-                   "sum( ( (variants.price - order_variant.nego) * order_variant.total ) " //revenue
-                       . " - " //dikurang
-                       . "(variants.price_init * order_variant.total) ) " //modal awal
-                       . "as profit " //jadi profit
+                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
+                   "sum( (variants.price_init * order_variant.total) ) as sales"
                )
                ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
                ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
                ->groupBy('orders.id')
-               ->orderBy('revenue', 'desc')
-               ->orderBy('profit', 'desc');
+               ->orderBy('gross_sales', 'desc')
+               ->orderBy('sales', 'desc');
     }
     
     /**

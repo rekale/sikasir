@@ -37,8 +37,8 @@ class OrderTransformer extends TransformerAbstract
             'id' => $this->encode($order->id),
             'no_order' => $order->no_order,
             'note' => $order->note,
-            'revenue' => $order->revenue,
-            'profit' => $order->profit,
+            'gross_sales' => $order->gross_sales,
+            'sales' => $order->sales,
             'created_at' => $order->created_at,
         ];
         
