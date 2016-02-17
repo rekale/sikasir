@@ -24,13 +24,13 @@ class EmployeesController extends ApiController
         
         $this->authorizing($currentUser, 'read-staff');
         
-        $paginator = $this->repo()->getPaginatedForOwner(
-            $currentUser->getCompanyId()
-        );
-        
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
         $with = $this->filterIncludeParams($include);
+        
+        $paginator = $this->repo()->getPaginatedForOwner(
+            $currentUser->getCompanyId(), $with
+        );
         
         return $this->response()
                 ->resource()
@@ -44,7 +44,7 @@ class EmployeesController extends ApiController
         
         $this->authorizing($currentUser, 'read-specific-staff');
        
-        $owner = $currentUser->getCompanyId();
+        $companyId = $currentUser->getCompanyId();
         
         $decodedId = $this->decode($id);
         
@@ -52,7 +52,7 @@ class EmployeesController extends ApiController
         
         $with = $this->filterIncludeParams($include);
         
-        $user = $this->repo()->findFOrOwner($decodedId, $owner);
+        $user = $this->repo()->findFOrOwner($decodedId, $companyId, $with);
 
         return $this->response()
                 ->resource()
