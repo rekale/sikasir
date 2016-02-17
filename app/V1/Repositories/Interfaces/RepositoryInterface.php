@@ -41,4 +41,7 @@ interface RepositoryInterface
     public function getPaginated($with = [], $perPage = 10);
     
     
+    public function update(array $data, $id);
+    
+    
 }

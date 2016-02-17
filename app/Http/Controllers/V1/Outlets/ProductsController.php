@@ -3,7 +3,6 @@
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Transformer\BestReportTransformer;
 use Sikasir\V1\Repositories\ProductRepository;
 use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
