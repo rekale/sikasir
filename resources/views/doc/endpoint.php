@@ -101,6 +101,7 @@
         <li> POST categories </li>
         <li> DELETE categories/{id} </li>
         <br>
+        <li> get discounts/{id} </li>
         <li> POST discounts </li>
         <li> PUT discounts/{id} </li>
         <li> DELETE discounts/{id} </li>

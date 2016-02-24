@@ -181,6 +181,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             
             /* DISCOUNT */
+            get('discounts/{id}', 'DiscountsController@show');
             post('discounts', 'DiscountsController@store');
             put('discounts/{id}', 'DiscountsController@update');
             delete('discounts/{id}', 'DiscountsController@destroy');

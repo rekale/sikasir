@@ -5,11 +5,9 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Transformer\OutletTransformer;
-use Sikasir\V1\Transformer\OutletReportTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Transformer\BestReportTransformer;
 
 class OutletsController extends ApiController
 {
