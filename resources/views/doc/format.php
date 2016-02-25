@@ -147,6 +147,7 @@
                 },
                 {//kalo mau hapus tambah field delete:true
                     "delete": true,
+                    "id": "Z",
                     "name": "kampret", 
                     "barcode": "34234", 
                     "price_init" : 10000,
