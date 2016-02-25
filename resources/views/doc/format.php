@@ -133,6 +133,31 @@
                     "alert": true,
                     "alert_at": "10"
                 },
+                {//bikin baru, gak pake id
+                    "name": "kampret", 
+                    "barcode": "34234", 
+                    "price_init" : 10000,
+                    "price" : 234234,
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": true, 
+                    "track_stock": true,
+                    "stock": 22,
+                    "alert": true,
+                    "alert_at": "10"
+                },
+                {//kalo mau hapus tambah field delete:true
+                    "delete": true,
+                    "name": "kampret", 
+                    "barcode": "34234", 
+                    "price_init" : 10000,
+                    "price" : 234234,
+                    "icon" : "http://lorempixel.com/200/100/food"
+                    "countable": true, 
+                    "track_stock": true,
+                    "stock": 22,
+                    "alert": true,
+                    "alert_at": "10"
+                },
             ]
         }
 

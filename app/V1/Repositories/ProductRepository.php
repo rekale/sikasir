@@ -104,8 +104,14 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         foreach ($variants as $variant) {
             
             
+            
+            //create new if there's no id
             if(! isset($variant['id'])) {
                 $product->variants()->create($variant);
+            }
+            //if want to delete the variant
+            else if (isset($variant['delete']) && $variant['delete'] === true) {
+                Variant::destroy($variant['id']);
             }
             else {
                 $instances[] = Variant::findOrFail($variant['id'])
