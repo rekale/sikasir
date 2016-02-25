@@ -7,7 +7,7 @@ use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Repositories\CategoryRepository;
 use Sikasir\V1\Transformer\CategoryTransformer;
-use Illuminate\Http\Request;
+use Sikasir\Http\Requests\CategoryRequest;
 
 class CategoriesController extends ApiController
 {
@@ -38,7 +38,7 @@ class CategoriesController extends ApiController
     }
 
     
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $currentUser =  $this->currentUser();
         
@@ -51,7 +51,7 @@ class CategoriesController extends ApiController
         return $this->response()->created();
     }
     
-    public function update($id, Request $request)
+    public function update($id, Category $request)
     {
          $currentUser =  $this->currentUser();
         
