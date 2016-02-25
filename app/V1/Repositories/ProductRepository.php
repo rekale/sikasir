@@ -51,12 +51,13 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         
         \DB::transaction(function () use ($data, $companyId, $outletId, $productId)
         {
-            $product = $this->updateForOwnerThrough(
+            $this->updateForOwnerThrough(
                 $productId, $data, $companyId, $outletId, 'outlets'
-            );
-                
-            
+            ); 
+           
             if ( isset($data['variants']) ) {
+                
+                $product = $this->find($productId);
                 
                 $this->updateVariants($data['variants'], $product);
                 
@@ -96,14 +97,22 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
         return $instances;
     }
     
-    protected function updateVariants($variants)
+    protected function updateVariants($variants, $product)
     {
         $instances = [];
         //dd($variants);
         foreach ($variants as $variant) {
-            $instances[] = Variant::findOrFail($variant['id'])
-                                    ->update($variant);
+            
+            
+            if(! isset($variant['id'])) {
+                $product->variants()->create($variant);
+            }
+            else {
+                $instances[] = Variant::findOrFail($variant['id'])
+                                        ->update($variant);
+            }
         }
+        
         
         return $instances;
     }
