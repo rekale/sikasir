@@ -64,7 +64,7 @@
                     "barcode": "34234",
                     "price_init" : 10000,  
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true,
                     "track_stock": true,
                     "stock": 22,
@@ -76,7 +76,7 @@
                     "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true, 
                     "track_stock": true,
                     "stock": 22,
@@ -89,7 +89,7 @@
                     "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": false, 
                     "track_stock": false,
                     "stock": 0,
@@ -113,7 +113,7 @@
                     "barcode": "34234",
                     "price_init" : 10000,  
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true,
                     "track_stock": true,
                     "stock": 22,
@@ -126,7 +126,7 @@
                     "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true, 
                     "track_stock": true,
                     "stock": 22,
@@ -138,7 +138,7 @@
                     "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true, 
                     "track_stock": true,
                     "stock": 22,
@@ -152,7 +152,7 @@
                     "barcode": "34234", 
                     "price_init" : 10000,
                     "price" : 234234,
-                    "icon" : "http://lorempixel.com/200/100/food"
+                    "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true, 
                     "track_stock": true,
                     "stock": 22,
@@ -164,7 +164,8 @@
 
         --CATEGORIES--
         {
-            "name": "baju"
+            "name": "baju",
+            "description: "lalala yeyeye"
         }
 
 
