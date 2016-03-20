@@ -9,14 +9,18 @@ use Sikasir\V1\User\EloquentUser;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\EloquentCompany;
-use Sikasir\Http\Controllers\V1\Traits\Gettable;
+use Sikasir\Http\Controllers\V1\Traits\Indexable;
+use Sikasir\Http\Controllers\V1\Traits\Showable;
+use Sikasir\Http\Controllers\V1\Traits\Storable;
+use Sikasir\Http\Controllers\V1\Traits\Updateable;
+use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\Http\Controllers\V1\Traits\PostAndUpdateable;
 use Sikasir\Http\Controllers\TempApiController;
 
 class OutletsController extends TempApiController
 {
-    use Gettable, PostAndUpdateable;
+    
+   use Indexable, Showable, Storable, Updateable, Destroyable;
     
     public function __construct(EloquentUser $user, ApiRespond $response, OutletTransformer $transformer) 
     {
@@ -44,13 +48,13 @@ class OutletsController extends TempApiController
         $this->showAccess = 'read-specific-outlet';
         $this->deleteAccess = 'delete-outlet';
         
-        $this->createAccess = 'create-outlet';
+        $this->storeAccess = 'create-outlet';
         $this->updateAccess = 'update-outlet';
     }
 
     public function request() 
     {
-        return new OutletRequest;
+        return app(OutletRequest::class);
     }
 
 }

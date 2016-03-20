@@ -2,80 +2,56 @@
 
 namespace Sikasir\Http\Controllers\V1\Products;
 
-use Sikasir\Http\Controllers\ApiController;
+use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Traits\ApiRespond;
-use Tymon\JWTAuth\JWTAuth;
-use Sikasir\V1\Repositories\CategoryRepository;
+use Sikasir\V1\User\EloquentUser;
 use Sikasir\V1\Transformer\CategoryTransformer;
 use Sikasir\Http\Requests\CategoryRequest;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Products\Category;
+use Sikasir\Http\Controllers\V1\Traits\Showable;
+use Sikasir\Http\Controllers\V1\Traits\Storable;
+use Sikasir\Http\Controllers\V1\Traits\Updateable;
+use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 
-class CategoriesController extends ApiController
+class CategoriesController extends TempApiController
 {
-  public function __construct(ApiRespond $respond, CategoryRepository $repo, JWTAuth $auth) {
-
-        parent::__construct($respond, $auth, $repo);
-
-    }
-
-    public function index()
-    {
-         $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $categories = $this->repo()->getPaginatedForOwner($companyId, $with);
-
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($categories, new CategoryTransformer);
-    }
-
     
-    public function store(CategoryRequest $request)
+   use Showable, Storable, Updateable, Destroyable;
+   
+    public function __construct(EloquentUser $user, ApiRespond $response, CategoryTransformer $transformer) 
     {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'create-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->repo()->saveForOwner($request->all(), $companyId);
+       parent::__construct($user, $response, $transformer);
+    }
+   
 
-        return $this->response()->created();
+    public function getRepo()
+    {
+        $queryType = new EloquentCompany(new Category, $this->currentUser->getCompanyId());
+        
+        return new TempEloquentRepository($queryType);
     }
     
-    public function update($id, CategoryRequest $request)
+    public function getFactory()
     {
-         $currentUser =  $this->currentUser();
+        $queryType = new EloquentCompany(new Category, $this->currentUser->getCompanyId());
         
-        $this->authorizing($currentUser, 'update-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->repo()->updateForOwner($this->decode($id), $request->all(), $companyId);
-        
-        return $this->response()->updated();
+        return new EloquentFactory($queryType);
     }
 
-    public function destroy($id)
+    public function initializeAccess() 
     {
-         $currentUser =  $this->currentUser();
+        $this->indexAccess = 'read-category';
+        $this->showAccess = 'read-category';
+        $this->deleteAccess = 'delete-category';
         
-        $this->authorizing($currentUser, 'delete-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $this->repo()->destroyForOwner($decodedId, $companyId);
+        $this->storeAccess = 'create-category';
+        $this->updateAccess = 'update-category';
+    }
 
-        return $this->response()->deleted();
+    public function request() 
+    {
+        return new CategoryRequest;
     }
 }

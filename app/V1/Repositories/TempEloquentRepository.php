@@ -104,7 +104,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function destroy($id) 
     {
-        return $this->query->forCompany()->delete($id);
+        return $this->query->getModel()->destroy($id);
     }
     
     public function getAll(array $coloumns = array('*')) 

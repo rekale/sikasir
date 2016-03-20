@@ -2,14 +2,13 @@
 
 namespace Sikasir\Http\Controllers\V1\Settings;
 
-use Sikasir\Http\Controllers\ApiController;
 use Sikasir\Http\Requests\TaxDiscountRequest;
-use Sikasir\V1\Repositories\Settings\TaxRepository;
-use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\Http\Controllers\V1\Traits\Gettable;
-use Sikasir\Http\Controllers\V1\Traits\PostAndUpdateable;
+use Sikasir\Http\Controllers\V1\Traits\Showable;
+use Sikasir\Http\Controllers\V1\Traits\Storable;
+use Sikasir\Http\Controllers\V1\Traits\Updateable;
+use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\User\EloquentUser;
 use Sikasir\V1\Transformer\TaxTransformer;
 use Sikasir\V1\Repositories\TempEloquentRepository;
@@ -18,7 +17,7 @@ use Sikasir\V1\Outlets\Tax;
 
 class TaxesController extends TempApiController
 {
-   use Gettable, PostAndUpdateable;
+   use Showable, Storable, Updateable, Destroyable;
    
     public function __construct(EloquentUser $user, ApiRespond $response, TaxTransformer $transformer) 
     {
@@ -46,7 +45,7 @@ class TaxesController extends TempApiController
         $this->showAccess = 'read-tax';
         $this->deleteAccess = 'delete-tax';
         
-        $this->createAccess = 'create-tax';
+        $this->storeAccess = 'create-tax';
         $this->updateAccess = 'update-tax';
     }
 

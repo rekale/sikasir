@@ -48,6 +48,10 @@ class RolesSeeder extends Seeder
             'update-tax',
             'delete-tax',
             
+            'create-category',
+            'read-category',
+            'update-category',
+            'delete-category',
             
             'create-supplier',
             'read-supplier',

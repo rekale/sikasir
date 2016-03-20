@@ -8,24 +8,9 @@ use Sikasir\V1\Util\Obfuscater;
  *
  * @author rekale
  */
-trait PostAndUpdateable
+trait Updateable
 {
-    
-    protected $createAccess;
     protected $updateAccess;
-    
-    public function store()
-    {
-        $this->currentUser->authorizing($this->createAccess);
-        
-        $dataInput = Obfuscater::decodeArray($this->request()->all(), 'id');
-        
-        $factory = $this->getFactory();
-        
-        $factory->create($dataInput);
-        
-        return $this->response->created();
-    }
 
     public function update($id)
     {
@@ -35,7 +20,9 @@ trait PostAndUpdateable
         
         $entity = $repo->find( Obfuscater::decode($id) );
         
-        $updateInput = Obfuscater::decodeArray($this->request()->all());
+        $updateInput = Obfuscater::decodeArray($this->request()->all(), 'id');
+        
+        
         
         $entity->update($updateInput);
         

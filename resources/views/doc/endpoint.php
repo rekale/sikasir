@@ -96,7 +96,7 @@
         <br>
         <li> POST products </li>
         <br>
-        <li> GET categories?include=products, products.variants </li>
+        <li> GET categories/{id}?include=products, products.variants </li>
         <li> PUT categories </li>
         <li> POST categories </li>
         <li> DELETE categories/{id} </li>

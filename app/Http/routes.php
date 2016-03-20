@@ -170,7 +170,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             post('products', 'ProductsController@store');
             
-            get('categories', 'CategoriesController@index');
+            get('categories/{id}', 'CategoriesController@show');
             post('categories', 'CategoriesController@store');
             put('categories/{id}', 'CategoriesController@update');
             delete('categories/{id}', 'CategoriesController@destroy');

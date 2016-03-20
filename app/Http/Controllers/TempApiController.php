@@ -46,4 +46,21 @@ abstract class TempApiController extends Controller
     abstract public function getFactory();
     
     abstract public function request();
+    
+    public function filterIncludeParams($param)
+    {
+        $paramsinclude  = [];
+        
+        
+        if (! is_null($param)) {
+            //remove the whitespace
+            $param = str_replace(' ', '', $param);
+        
+            foreach (explode(',', $param) as $data) {
+                $paramsinclude[]  = $data;
+            }
+        }
+        
+        return $paramsinclude;
+    }
 }
