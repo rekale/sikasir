@@ -4,6 +4,7 @@ namespace Sikasir\V1\Repositories;
 
 use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 class TempEloquentRepository implements RepositoryInterface
 {
@@ -14,9 +15,21 @@ class TempEloquentRepository implements RepositoryInterface
     protected $query;
    
     
+    public function __construct(QueryCompanyInterface $query) 
+    {
+        $this->query = $query;
+    }
+    
+    /**
+     * 
+     * @param QueryCompanyInterface $query
+     * @return $this
+     */
     public function setQuery(QueryCompanyInterface $query)
     {
         $this->query = $query;
+        
+        return $this;
     }
     
     /**
@@ -24,7 +37,7 @@ class TempEloquentRepository implements RepositoryInterface
      * 
      * @param integer $id
      * 
-     * @return \Illuminate\Support\Collection|static;
+     * @return Model;
      */
     public function find($id) 
     {   
@@ -91,7 +104,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function destroy($id) 
     {
-        return $this->query->forCompany()->destroy($id);
+        return $this->query->forCompany()->delete($id);
     }
     
     public function getAll(array $coloumns = array('*')) 

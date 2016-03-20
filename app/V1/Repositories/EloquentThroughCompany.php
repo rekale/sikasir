@@ -64,4 +64,24 @@ class EloquentThroughCompany implements Interfaces\QueryCompanyInterface
                     });
     }
 
+    public function dataForCompany(array $data) 
+    {
+        
+        $throughTableExist = $this->model
+                                ->findOrFail($this->throughId)
+                                ->where('company_id', $this->companyId)
+                                ->exists();
+        
+        if ($throughTableExist) {
+            
+            $foreignId = $this->model->getForeignKey();
+            
+            $data[$foreignId] = $this->throughId;
+            
+        }
+        
+        return $data;
+        
+    }
+
 }

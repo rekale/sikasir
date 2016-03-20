@@ -3,23 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Interfaces/QueryCompanyInterface.php</file>
-            <file>file:/D:/project/kasir/config/database.php</file>
-            <file>file:/D:/project/kasir/app/V1/Outlets/Tax.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/ProductsController.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/Traits/EloquentOwnerThroughable.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/EloquentRepository.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/CategoriesController.php</file>
             <file>file:/D:/project/kasir/app/V1/Transformer/TaxTransformer.php</file>
+            <file>file:/D:/project/kasir/app/V1/Util/Obfuscater.php</file>
+            <file>file:/D:/project/kasir/app/V1/Factories/EloquentFactory.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/TaxesController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/ProductRepository.php</file>
+            <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Traits/Resource.php</file>
+            <file>file:/D:/project/kasir/app/V1/Traits/IdObfuscater.php</file>
+            <file>file:/D:/project/kasir/app/V1/Factories/OutletFactory.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/TempApiController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/EloquentCompany.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/ApiController.php</file>
+            <file>file:/D:/project/kasir/config/database.php</file>
+            <file>file:/D:/project/kasir/resources/views/doc/format.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transformer/OutletTransformer.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/EloquentThroughCompany.php</file>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/V1/Repositories/Interfaces/RepositoryInterface.php</file>
-            <file>file:/D:/project/kasir/app/V1/Orders/Order.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/UserRepository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/TaxesController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Transformer/OrderTransformer.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Settings/TaxRepository.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/TempEloquentRepository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/OutletsController.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Outlets/ProductsController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/DiscountsController.php</file>
+            <file>file:/D:/project/kasir/app/V1/interfaces/CurrentUser.php</file>
+            <file>file:/D:/project/kasir/app/V1/Repositories/Traits/EloquentOwnerable.php</file>
+            <file>file:/D:/project/kasir/app/Http/Requests/CategoryRequest.php</file>
         </group>
     </open-files>
 </project-private>

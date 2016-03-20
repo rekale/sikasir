@@ -38,9 +38,9 @@
         --OUTLET--
 
         {
-            "name": "kfc", //required untuk post
-            "code": "1234", //required untuk post
-            "business_field_id": "D", //required untuk post
+            "name": "kfc",
+            "code": "1234",
+            "business_field_id": "D",
             "tax_id": "Z",
             "address": "01815 Wallace Flats Suite 760\nSouth Nyahburgh, NE 05239-4018",
             "province": "quos",

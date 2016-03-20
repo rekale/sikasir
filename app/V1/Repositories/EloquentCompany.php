@@ -3,6 +3,7 @@
 namespace Sikasir\V1\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Description of OutletRepository
@@ -34,9 +35,34 @@ class EloquentCompany implements Interfaces\QueryCompanyInterface
         $this->companyId = $companyId;
     }
     
+    /**
+     * 
+     * @return Builder
+     */
     public function forCompany()
     {
         return $this->model->whereCompanyId($this->companyId);
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @return Model
+     */
+    public function dataForCompany(array $data) 
+    {
+        $data['company_id'] = $this->companyId;
+        
+        return $this->model->fill($data);
+    }
+    
+    /**
+     * 
+     * @return Model
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 
 }

@@ -2,6 +2,8 @@
 
 namespace Sikasir\V1\Repositories\Interfaces;
 
+use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
+
 interface RepositoryInterface 
 {
     /**
@@ -42,6 +44,5 @@ interface RepositoryInterface
     
     
     public function update(array $data, $id);
-    
-    
+   
 }

@@ -51,7 +51,7 @@ class CategoriesController extends ApiController
         return $this->response()->created();
     }
     
-    public function update($id, Category $request)
+    public function update($id, CategoryRequest $request)
     {
          $currentUser =  $this->currentUser();
         

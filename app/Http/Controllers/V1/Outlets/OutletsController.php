@@ -2,117 +2,55 @@
 
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
-use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Repositories\OutletRepository;
 use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
-use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\User\EloquentUser;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\Http\Controllers\V1\Traits\Gettable;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\Http\Controllers\V1\Traits\PostAndUpdateable;
+use Sikasir\Http\Controllers\TempApiController;
 
-class OutletsController extends ApiController
+class OutletsController extends TempApiController
 {
-
-    public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
-
-        parent::__construct($respond, $auth, $repo);
-
-    }
-
-    public function index()
+    use Gettable, PostAndUpdateable;
+    
+    public function __construct(EloquentUser $user, ApiRespond $response, OutletTransformer $transformer) 
     {
-        $currentUser =  $this->currentUser();
+        parent::__construct($user, $response, $transformer);
         
-        $this->authorizing($currentUser, 'read-outlet');
-        
-        $owner = $currentUser->getCompanyId();
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $outlets = $this->repo()->getPaginatedForOwner($owner, $with);
-        
-        return $this->response()
-                ->resource()
-                ->including($include)
-                ->withPaginated($outlets, new OutletTransformer);
-    }
+    }  
 
-    public function show($id)
+    public function getRepo()
     {
-        $currentUser =  $this->currentUser();
+        $queryType = new EloquentCompany(new Outlet, $this->currentUser->getCompanyId());
         
-        $this->authorizing($currentUser, 'read-specific-outlet');
-        
-        $owner = $currentUser->getCompanyId();
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $decodedId = $this->decode($id);
-        
-        $outlet = $this->repo()->findForOwner($decodedId, $owner, $with);
-
-        return $this->response()
-                ->resource()
-                ->including($include)
-                ->withItem($outlet, new OutletTransformer);
-    }
-
-    public function store(OutletRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'create-outlet');
-        
-        $owner = $currentUser->getCompanyId();
-        
-        $dataInput = $request->all();
-        
-        $dataInput['business_field_id'] = $this->decode($dataInput['business_field_id']);
-        
-        $dataInput['tax_id'] = $this->decode($dataInput['tax_id']);
-        
-        $this->repo()->saveForOwner($dataInput, $owner);
-
-        return $this->response()->created();
-    }
-
-    public function update($id, OutletRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'update-outlet');
-        
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $dataInput = $request->all();
-        
-        $dataInput['business_field_id'] = $this->decode($dataInput['business_field_id']);
-
-        $dataInput['tax_id'] = $this->decode($dataInput['tax_id']);
-        
-        $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
-
-        return $this->response()->updated();
-    }
-
-    public function destroy($id)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'delete-outlet');
-        
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $this->repo()->destroyForOwner($decodedId, $owner);
-
-        return $this->response()->deleted();
+        return new TempEloquentRepository($queryType);
     }
     
+    public function getFactory()
+    {
+        $queryType = new EloquentCompany(new Outlet, $this->currentUser->getCompanyId());
+        
+        return new EloquentFactory($queryType);
+    }
+
+    public function initializeAccess() 
+    {
+        $this->indexAccess = 'read-outlet';
+        $this->showAccess = 'read-specific-outlet';
+        $this->deleteAccess = 'delete-outlet';
+        
+        $this->createAccess = 'create-outlet';
+        $this->updateAccess = 'update-outlet';
+    }
+
+    public function request() 
+    {
+        return new OutletRequest;
+    }
+
 }
