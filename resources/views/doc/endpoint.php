@@ -107,6 +107,7 @@
         <li> DELETE discounts/{id} </li>
         <br>
         <br>
+        <li> GET taxes/{id} </li>
         <li> POST taxes </li>
         <li> PUT taxes/{id} </li>
         <li> DELETE taxes/{id} </li>

@@ -188,6 +188,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             /* TAXES */
+            get('taxes/{id}', 'TaxesController@show');
             post('taxes', 'TaxesController@store');
             put('taxes/{id}', 'TaxesController@update');
             delete('taxes/{id}', 'TaxesController@destroy');
