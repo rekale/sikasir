@@ -4,7 +4,7 @@ namespace Sikasir\Http\Controllers\V1\Products;
 
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\User\EloquentUser;
+use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Transformer\CategoryTransformer;
 use Sikasir\Http\Requests\CategoryRequest;
 use Sikasir\V1\Repositories\EloquentCompany;
@@ -20,7 +20,7 @@ class CategoriesController extends TempApiController
     
    use Showable, Storable, Updateable, Destroyable;
    
-    public function __construct(EloquentUser $user, ApiRespond $response, CategoryTransformer $transformer) 
+    public function __construct(CurrenttUser $user, ApiRespond $response, CategoryTransformer $transformer) 
     {
        parent::__construct($user, $response, $transformer);
     }

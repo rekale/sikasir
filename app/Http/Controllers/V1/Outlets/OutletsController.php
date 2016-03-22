@@ -4,8 +4,8 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
-use \Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\User\EloquentUser;
+use Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\EloquentCompany;
@@ -22,7 +22,7 @@ class OutletsController extends TempApiController
     
    use Indexable, Showable, Storable, Updateable, Destroyable;
     
-    public function __construct(EloquentUser $user, ApiRespond $response, OutletTransformer $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response, OutletTransformer $transformer) 
     {
         parent::__construct($user, $response, $transformer);
         

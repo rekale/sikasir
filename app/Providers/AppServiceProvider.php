@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(\Sikasir\V1\Interfaces\CurrentUser::class, \Sikasir\V1\User\EloquentUser::class);
     }
 }

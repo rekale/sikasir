@@ -9,7 +9,7 @@ use Sikasir\Http\Controllers\V1\Traits\Showable;
 use Sikasir\Http\Controllers\V1\Traits\Storable;
 use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
-use Sikasir\V1\User\EloquentUser;
+use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Transformer\TaxTransformer;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Repositories\EloquentCompany;
@@ -19,7 +19,7 @@ class TaxesController extends TempApiController
 {
    use Showable, Storable, Updateable, Destroyable;
    
-    public function __construct(EloquentUser $user, ApiRespond $response, TaxTransformer $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response, TaxTransformer $transformer) 
     {
        parent::__construct($user, $response, $transformer);
     }

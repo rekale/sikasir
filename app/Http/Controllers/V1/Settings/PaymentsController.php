@@ -4,9 +4,9 @@ namespace Sikasir\Http\Controllers\V1\Settings;
 
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\Http\Requests\PaymentRequest;
-use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Transformer\PaymentTransformer;
-use Sikasir\V1\User\EloquentUser;
+use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Transactions\Payment;
 use Sikasir\Http\Controllers\V1\Traits\Showable;
@@ -21,7 +21,7 @@ class PaymentsController extends TempApiController
     use Showable, Storable, Updateable, Destroyable;
    
     
-    public function __construct(EloquentUser $user, ApiRespond $response, PaymentTransformer $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response, PaymentTransformer $transformer) 
     {
        parent::__construct($user, $response, $transformer);
     }
