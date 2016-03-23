@@ -91,6 +91,11 @@
         <li> POST outlets/{id}/outcomes </li>
         <li> DELETE outlets/{id}/outcomes </li>
         <br>
+        <br>
+        <li> POST outlets/{id}/outcomes </li>
+        <li> PUT outlets/{id}/printers/{printerId} </li>
+        <li> DELETE outlets/{id}/printers/{printerId} </li>
+        <br>
         <li> POST outlets </li>
         <li> DELETE outlets/{id} </li>
         <br>
