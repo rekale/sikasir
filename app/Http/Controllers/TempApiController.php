@@ -11,8 +11,20 @@ use Sikasir\V1\Factories\EloquentFactory;
 
 abstract class TempApiController extends Controller
 {
+    /**
+     *
+     * @var CurrentUser 
+     */
     protected $currentUser;
+   /**
+    *
+    * @var ApiRespond 
+    */
     protected $response;
+    /**
+     *
+     * @var type 
+     */
     protected $transformer;
 
     public function __construct(CurrentUser $user, ApiRespond $response, TransformerAbstract $transformer) 
