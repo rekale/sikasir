@@ -32,7 +32,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         post('mobile/login', 'AuthController@mobileLogin');
         post('login', 'AuthController@login');
         post('/register', 'AuthController@signup');
-        
+        get('/refresh', 'AuthController@refresh');
         
 
     });

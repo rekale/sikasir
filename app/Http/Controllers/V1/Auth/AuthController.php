@@ -3,30 +3,32 @@
 namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\Controller;
 use Sikasir\V1\Transformer\CompanyTransformer;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\User\Company;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Traits\ApiRespond;
+use Illuminate\Routing\Controller;
 
 class AuthController extends Controller
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
-    protected $request;
     protected $response;
-    
-    public function __construct(\Sikasir\V1\Traits\ApiRespond $respond, Request $request) {
-        $this->response = $respond;
+
+
+    public function __construct(ApiRespond $response) 
+    {
+        $this->response = $response;
         
-        $this->request = $request;
     }
     
-    public function login(JWTAuth $auth)
+    public function login(JWTAuth $auth, Request $request)
     {
-        
         $credentials = [
-            'email' => $this->request->input('email'),
-            'password' => $this->request->input('password'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
         ];
         
         $loggedIn = $auth->attempt($credentials);
@@ -60,7 +62,7 @@ class AuthController extends Controller
     
     public function signup(JWTAuth $auth)
     {
-        $data = $this->request->only('email', 'password', 'name');
+        $data = $this->request()->only('email', 'password', 'name');
         
         try {
             $user = \Sikasir\V1\User::create([
@@ -76,6 +78,13 @@ class AuthController extends Controller
         $token = $auth->fromUser($user);
 
         return response()->json(compact('token'));
+    }
+    
+    public function refresh(JWTAuth $auth)
+    {
+        $token = $auth->parseToken()->refresh();
+        
+        return $this->response->success($token);
     }
     
     public function getCompanyActiveState($companyId)
