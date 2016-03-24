@@ -47,6 +47,12 @@ class RolesSeeder extends Seeder
             'read-tax',
             'update-tax',
             'delete-tax',
+        	
+        	'create-discount',
+        	'read-discount',
+        	'update-discount',
+        	'delete-discount',
+        		 
             
             'create-payment',
             'read-payment',

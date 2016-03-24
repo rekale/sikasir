@@ -8,7 +8,7 @@ interface QueryCompanyInterface
     /**
      * speciify how to get item only for speoific company
      * 
-     * Builder
+     * @return Builder
      */
     public function forCompany();
     

@@ -4,7 +4,6 @@ namespace Sikasir\Http\Controllers\V1\Products;
 
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Transformer\CategoryTransformer;
 use Sikasir\Http\Requests\CategoryRequest;
 use Sikasir\V1\Repositories\EloquentCompany;
@@ -15,6 +14,7 @@ use Sikasir\Http\Controllers\V1\Traits\Storable;
 use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Interfaces\CurrentUser;
 
 class CategoriesController extends TempApiController
 {

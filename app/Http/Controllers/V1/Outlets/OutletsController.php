@@ -5,7 +5,6 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
 use Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\EloquentCompany;
@@ -16,6 +15,7 @@ use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Interfaces\CurrentUser;
 
 class OutletsController extends TempApiController
 {

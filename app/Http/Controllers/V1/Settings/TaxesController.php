@@ -9,12 +9,12 @@ use Sikasir\Http\Controllers\V1\Traits\Showable;
 use Sikasir\Http\Controllers\V1\Traits\Storable;
 use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Transformer\TaxTransformer;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Interfaces\CurrentUser;
 
 class TaxesController extends TempApiController
 {

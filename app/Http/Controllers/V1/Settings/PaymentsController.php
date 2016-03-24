@@ -6,7 +6,6 @@ use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\Http\Requests\PaymentRequest;
 use Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Transformer\PaymentTransformer;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Transactions\Payment;
 use Sikasir\Http\Controllers\V1\Traits\Showable;
@@ -15,6 +14,8 @@ use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Repositories\Settings\PaymentRepository;
 
 class PaymentsController extends TempApiController
 {
@@ -24,19 +25,6 @@ class PaymentsController extends TempApiController
     public function __construct(CurrentUser $user, ApiRespond $response) 
     {
        parent::__construct($user, $response);
-    }
-    
-    public function reports()
-    {
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $collection = $this->repo()->getReportsForCompany($companyId);
-       
-       return $this->response()
-                   ->resource()
-                   ->withPaginated($collection, new PaymentTransformer);
     }
 
     public function getRepo()

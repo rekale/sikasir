@@ -5,10 +5,11 @@
         <group>
             <file>file:/D:/project/kasir/app/Http/routes.php</file>
             <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/PaymentsController.php</file>
-            <file>file:/D:/project/kasir/app/V1/Repositories/Settings/PaymentRepository.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Employees/EmployeesController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Settings/DiscountsController.php</file>
+            <file>file:/D:/project/kasir/app/Http/Kernel.php</file>
+            <file>file:/D:/project/kasir/app/V1/User/User.php</file>
             <file>file:/D:/project/kasir/resources/views/doc/endpoint.php</file>
-            <file>file:/D:/project/kasir/app/Http/Controllers/V1/Products/CategoriesController.php</file>
+            <file>file:/D:/project/kasir/app/V1/Transactions/Payment.php</file>
         </group>
     </open-files>
 </project-private>

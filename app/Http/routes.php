@@ -196,7 +196,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             /* PAYMENTS */
             get('payments/{id}', 'PaymentsController@show');
-            get('payments/reports', 'PaymentsController@reports');
             post('payments', 'PaymentsController@store');
             put('payments/{id}', 'PaymentsController@update');
             delete('payments/{id}', 'PaymentsController@destroy');

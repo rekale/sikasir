@@ -2,73 +2,63 @@
 
 namespace Sikasir\Http\Controllers\V1\Settings;
 
-use Sikasir\Http\Controllers\ApiController;
-use Sikasir\Http\Requests\TaxDiscountRequest;
-use Sikasir\V1\Repositories\Settings\DiscountRepository;
-use Tymon\JWTAuth\JWTAuth;
+
 use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Outlets\Discount;
+use Sikasir\Http\Requests\TaxDiscountRequest;
 use Sikasir\V1\Transformer\TaxTransformer;
+use Sikasir\Http\Controllers\V1\Traits\Showable;
+use Sikasir\Http\Controllers\V1\Traits\Destroyable;
+use Sikasir\Http\Controllers\V1\Traits\Updateable;
+use Sikasir\Http\Controllers\V1\Traits\Storable;
 
-class DiscountsController extends ApiController
+class DiscountsController extends TempApiController
 {
-    
-    public function __construct(ApiRespond $respond, DiscountRepository $repo, JWTAuth $auth) 
-    {
-        parent::__construct($respond, $auth, $repo);
-    }
-    
-    public function show($id)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $decodedId = $this->decode($id);
-        
-        $discount = $this->repo()->findForOwner($decodedId, $companyId, $with);
-
-        return $this->response()
-                ->resource()
-                ->including($include)
-                ->withItem($discount, new TaxTransformer);
-    }
-    
-   public function store(TaxDiscountRequest $request)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->repo()->saveForOwner($request->all(), $companyId);
-       
-       return $this->response()->created();
-   }
-   
-   public function update($id, TaxDiscountRequest $request)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->repo()->updateForOwner($this->decode($id), $request->all(), $companyId);
-       
-       return $this->response()->updated();
-   }
-   
-    public function destroy($id)
-    {
-        
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->repo()->destroyForOwner($this->decode($id), $companyId);
-                
-        return $this->response()->deleted();
-    }
+	use Showable, Destroyable, Updateable, Storable;
+	
+	public function __construct(CurrentUser $user, ApiRespond $response)
+	{
+		parent::__construct($user, $response);
+	
+	}
+	
+	public function getRepo()
+	{
+		$queryType = new EloquentCompany(new Discount, $this->currentUser->getCompanyId());
+	
+		return new TempEloquentRepository($queryType);
+	}
+	
+	public function getFactory()
+	{
+		$queryType = new EloquentCompany(new Discount, $this->currentUser->getCompanyId());
+	
+		return new EloquentFactory($queryType);
+	}
+	
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-discount';
+		$this->showAccess = 'read-discount';
+		$this->deleteAccess = 'delete-discount';
+	
+		$this->storeAccess = 'create-discount';
+		$this->updateAccess = 'update-discount';
+	}
+	
+	public function getRequest()
+	{
+		return app(TaxDiscountRequest::class);
+	}
+	
+	public function getTransformer()
+	{
+		return new TaxTransformer;
+	}
    
 }
