@@ -8,6 +8,7 @@ use Sikasir\V1\Traits\ApiRespond;
 use League\Fractal\TransformerAbstract;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 use Sikasir\V1\Factories\EloquentFactory;
+use Illuminate\Http\Request;
 
 abstract class TempApiController extends Controller
 {
@@ -23,15 +24,14 @@ abstract class TempApiController extends Controller
     protected $response;
     /**
      *
-     * @var type 
+     * @var TransformerAbstract
      */
-    protected $transformer;
+    private $transformer;
 
-    public function __construct(CurrentUser $user, ApiRespond $response, TransformerAbstract $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response) 
     {    
         $this->currentUser = $user;
-        $this->response = $response;
-        $this->transformer = $transformer;   
+        $this->response = $response;  
         
         $this->initializeAccess();
     }
@@ -57,7 +57,19 @@ abstract class TempApiController extends Controller
      */
     abstract public function getFactory();
     
-    abstract public function request();
+    /**
+     * get the request
+     * 
+     * @return Request
+     */
+    abstract public function getRequest();
+    
+    /**
+     * set the transformer
+     * 
+     * @return TransformerAbstract
+     */
+    abstract public function getTransformer();
     
     public function filterIncludeParams($param)
     {

@@ -3,11 +3,8 @@
 namespace Sikasir\Http\Controllers\V1\Auth;
 
 use Illuminate\Http\Request;
-use Sikasir\V1\Transformer\CompanyTransformer;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\User\Company;
-use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Traits\ApiRespond;
 use Illuminate\Routing\Controller;
 

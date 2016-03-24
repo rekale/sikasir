@@ -21,9 +21,9 @@ class PaymentsController extends TempApiController
     use Showable, Storable, Updateable, Destroyable;
    
     
-    public function __construct(CurrentUser $user, ApiRespond $response, PaymentTransformer $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response) 
     {
-       parent::__construct($user, $response, $transformer);
+       parent::__construct($user, $response);
     }
     
     public function reports()
@@ -62,9 +62,14 @@ class PaymentsController extends TempApiController
         $this->updateAccess = 'update-payment';
     }
 
-    public function request() 
+    public function getRequest() 
     {
-        return new PaymentRequest;
+        return app(PaymentRequest::class);
+    }
+    
+    public function getTransformer()
+    {
+    	return new PaymentTransformer;
     }
 
 }

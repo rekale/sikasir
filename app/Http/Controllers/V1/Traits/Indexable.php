@@ -29,7 +29,7 @@ trait Indexable
         return $this->response
                 ->resource()
                 ->including($with)
-                ->withPaginated($outlets, $this->transformer);
+                ->withPaginated($outlets, $this->getTransformer());
     }
 
 }

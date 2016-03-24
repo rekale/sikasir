@@ -14,15 +14,16 @@ use Sikasir\Http\Controllers\V1\Traits\Showable;
 use Sikasir\Http\Controllers\V1\Traits\Storable;
 use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
+use Sikasir\V1\Factories\EloquentFactory;
 
 class CategoriesController extends TempApiController
 {
     
    use Showable, Storable, Updateable, Destroyable;
    
-    public function __construct(CurrenttUser $user, ApiRespond $response, CategoryTransformer $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response) 
     {
-       parent::__construct($user, $response, $transformer);
+       parent::__construct($user, $response);
     }
    
 
@@ -50,8 +51,13 @@ class CategoriesController extends TempApiController
         $this->updateAccess = 'update-category';
     }
 
-    public function request() 
+    public function getRequest() 
     {
-        return new CategoryRequest;
+        return app(CategoryRequest::class);
+    }
+    
+    public function getTransformer()
+    {
+    	return new CategoryTransformer;
     }
 }

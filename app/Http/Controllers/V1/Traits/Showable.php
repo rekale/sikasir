@@ -27,7 +27,7 @@ trait Showable
         return $this->response
                 ->resource()
                 ->including($with)
-                ->withItem($outlets, $this->transformer);
+                ->withItem($outlets, $this->getTransformer());
         
     }
     

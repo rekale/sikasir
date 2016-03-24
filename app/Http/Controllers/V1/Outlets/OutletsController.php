@@ -22,9 +22,9 @@ class OutletsController extends TempApiController
     
    use Indexable, Showable, Storable, Updateable, Destroyable;
     
-    public function __construct(CurrentUser $user, ApiRespond $response, OutletTransformer $transformer) 
+    public function __construct(CurrentUser $user, ApiRespond $response) 
     {
-        parent::__construct($user, $response, $transformer);
+        parent::__construct($user, $response);
         
     }  
 
@@ -52,9 +52,14 @@ class OutletsController extends TempApiController
         $this->updateAccess = 'update-outlet';
     }
 
-    public function request() 
+    public function getRequest() 
     {
         return app(OutletRequest::class);
+    }
+    
+    public function getTransformer()
+    {
+    	return new OutletTransformer;
     }
 
 }
