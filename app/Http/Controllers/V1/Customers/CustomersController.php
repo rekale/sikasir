@@ -3,121 +3,83 @@
 namespace Sikasir\Http\Controllers\V1\Customers;
 
 use Sikasir\Http\Requests\CustomerRequest;
-use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\CustomerTransformer;
-use Sikasir\V1\Repositories\CustomerRepository;
 use Sikasir\V1\Traits\ApiRespond;
-use Tymon\JWTAuth\JWTAuth;
-use Illuminate\Http\Request;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Outlets\Customer;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\Http\Controllers\V1\Traits\Indexable;
+use Sikasir\Http\Controllers\V1\Traits\Showable;
+use Sikasir\Http\Controllers\V1\Traits\Storable;
+use Sikasir\Http\Controllers\V1\Traits\Updateable;
+use Sikasir\Http\Controllers\V1\Traits\Destroyable;
+use Sikasir\V1\Reports\CustomerReport;
+use Sikasir\V1\Reports\Report;
 use Sikasir\V1\Transformer\CustomerHistoryTransformer;
+use Sikasir\Http\Controllers\V1\Traits\Reportable;
 
-class CustomersController extends ApiController
+class CustomersController extends TempApiController
 {
     
-    public function __construct(ApiRespond $respond, CustomerRepository $repo, JWTAuth $auth) {
-        
-        parent::__construct($respond, $auth, $repo);
-    
-    }
-    
-    /**
-     * 
-     * @param string $id
-     */
-   public function index()
-   {    
-       $currentUser = $this->currentUser();
-        
-       $this->authorizing($currentUser, 'read-customer');
-       
-       $companyId = $currentUser->getCompanyId();
-       
-       $customers = $this->repo()->getPaginatedForOwner($companyId);
-       
-       return $this->response()
-               ->resource()
-               ->withPaginated($customers, new CustomerTransformer);
-       
-   }
-   
-   public function show($id)
-   {    
-       $currentUser = $this->currentUser();
-        
-       $this->authorizing($currentUser, 'read-customer');
-       
-       $companyId = $currentUser->getCompanyId();
-       
-       $customers = $this->repo()->findForOwner($companyId, $this->decode($id));
-       
-       return $this->response()
-               ->resource()
-               ->withItem($customers, new CustomerTransformer);
-       
-   }
-   
-   public function store(CustomerRequest $request)
-   {
-       $currentUser = $this->currentUser();
-        
-       $this->authorizing($currentUser, 'read-customer');
-       
-       $companyId = $currentUser->getCompanyId();
-       
-       $dataInput = $request->all();
-       
-       $this->repo()->saveForOwner($request->all(), $companyId);
-       
-       return $this->response()->created();
-   }
-   
-      public function update($id, CustomerRequest $request)
-   {
-       $currentUser = $this->currentUser();
-        
-       $this->authorizing($currentUser, 'update-customer');
-       
-       $companyId = $currentUser->getCompanyId();
-       
-       $decodedId = $this->decode($id);
-       
-       $this->repo()->updateForOwner($decodedId, $request->all(), $companyId);
-       
-       return $this->response()->created();
-   }
-   
-    public function destroy($id)
-    {
-        $currentUser = $this->currentUser();
-        
-        $this->authorizing($currentUser, 'delete-customer');
+	use Indexable, Showable, Storable, Updateable, Destroyable, Reportable;
+	
+	public function __construct(CurrentUser $user, ApiRespond $response)
+	{
+		parent::__construct($user, $response);
+	
+	}
+	
+	public function getRepo()
+	{
+		$queryType = new EloquentCompany(new Customer, $this->currentUser->getCompanyId());
+	
+		return new TempEloquentRepository($queryType);
+	}
+	
+	public function getFactory()
+	{
+		$queryType = new EloquentCompany(new Customer, $this->currentUser->getCompanyId());
+	
+		return new EloquentFactory($queryType);
+	}
+	
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-customer';
+		$this->showAccess = 'read-customer';
+		$this->deleteAccess = 'delete-customer';
+	
+		$this->storeAccess = 'create-customer';
+		$this->updateAccess = 'update-customer';
+		$this->reportAccess = 'read-report';
+	}
+	
+	public function getRequest()
+	{
+		return app(CustomerRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new CustomerTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new CustomerHistoryTransformer;
+	}
+	
 
-        $companyId = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $this->repo()->destroyForOwner($decodedId, $companyId);
-                
-        return $this->response()->success('selected customer has deleted');
-    }
-    
-    public function transactionHistories($id, $dateRange, Request $request)
-    {
-        $currentUser = $this->currentUser();
-        
-        $this->authorizing($currentUser, 'delete-customer');
+	public function getReport()
+	{
 
-        $companyId = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $data = $this->repo()->getHistoryTransactionForCompany($decodedId, $companyId, $dateRange);
-        
-        return $this->response()
-                ->resource()
-                ->withPaginated($data, new CustomerHistoryTransformer);
-    }
+		$queryType = new EloquentCompany(new Customer, $this->currentUser->getCompanyId());
+		
+		return new CustomerReport($queryType);
+	}
    
 }

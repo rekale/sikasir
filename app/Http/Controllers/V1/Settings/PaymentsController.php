@@ -15,7 +15,6 @@ use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Interfaces\CurrentUser;
-use Sikasir\V1\Repositories\Settings\PaymentRepository;
 
 class PaymentsController extends TempApiController
 {

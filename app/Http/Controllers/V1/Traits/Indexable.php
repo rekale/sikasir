@@ -2,9 +2,8 @@
 
 namespace Sikasir\Http\Controllers\V1\Traits;
 
-use Sikasir\V1\Util\Obfuscater;
 /**
- * Description of ObfuscaterId
+ *
  *
  * @author rekale
  */

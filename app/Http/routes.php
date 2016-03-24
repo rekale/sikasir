@@ -63,7 +63,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('customers/{id}', 'CustomersController@update');
             delete('customers/{id}', 'CustomersController@destroy');
             
-            get('customers/{id}/histories/{dateRange}', 'CustomersController@transactionHistories');
+            get('customers/{id}/histories/{dateRange}', 'CustomersController@reportFor');
         });
   
         /* EMPLOYEES */

@@ -4,12 +4,13 @@ namespace Sikasir\V1\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 abstract class EloquentRepository implements RepositoryInterface
 {
     /**
      *
-     * @var Illuminate\Database\Eloquent\Model
+     * @var Model
      */
     protected $model;
    
@@ -35,7 +36,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * 
      * @param integer $id
      * 
-     * @return @return \Illuminate\Support\Collection
+     * @return @return Model
      */
     public function findWith($id, array $relations)
     {
