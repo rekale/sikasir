@@ -55,14 +55,5 @@ class EloquentCompany implements Interfaces\QueryCompanyInterface
         
         return $this->model->fill($data);
     }
-    
-    /**
-     * 
-     * @return Model
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
 
 }

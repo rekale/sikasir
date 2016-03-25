@@ -20,9 +20,7 @@ trait Updateable
         
         $entity = $repo->find( Obfuscater::decode($id) );
         
-        $updateInput = Obfuscater::decodeArray($this->request()->all(), 'id');
-        
-        
+        $updateInput = Obfuscater::decodeArray($this->getRequest()->all(), 'id');
         
         $entity->update($updateInput);
         

@@ -3,80 +3,59 @@
 namespace Sikasir\Http\Controllers\V1\Employees;
 
 use Illuminate\Http\Request;
-use \Tymon\JWTAuth\JWTAuth;
-use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\UserTransformer;
-use Sikasir\V1\Traits\ApiRespond;
-use Sikasir\V1\Repositories\UserRepository;
 use Sikasir\Http\Requests\EmployeeRequest;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\Http\Controllers\V1\Traits\Indexable;
+use Sikasir\Http\Controllers\V1\Traits\Showable;
+use Sikasir\Http\Controllers\V1\Traits\Destroyable;
+use Sikasir\V1\User\User;
+use Sikasir\V1\Factories\UserFactory;
+use Sikasir\Http\Controllers\V1\Traits\Storable;
 
-class EmployeesController extends ApiController
+class EmployeesController extends TempApiController
 {
-
-    public function __construct(ApiRespond $respond, JWTAuth $auth, UserRepository $repo)
+	
+	use Indexable, Showable, Destroyable, Storable;
+	
+ 
+    public function getRepo()
     {
-        parent::__construct($respond, $auth, $repo);
+        $queryType = new EloquentCompany(new User, $this->currentUser->getCompanyId());
+        
+        return new TempEloquentRepository($queryType);
+    }
+    
+    public function getFactory()
+    {
+        $queryType = new EloquentCompany(new User, $this->currentUser->getCompanyId());
+        
+        return new UserFactory($queryType);
     }
 
-    public function index()
+    public function initializeAccess() 
     {
-        $currentUser = $this->currentUser();
+        $this->indexAccess = 'read-staff';
+        $this->showAccess = 'read-specific-staff';
+        $this->deleteAccess = 'delete-staff';
         
-        $this->authorizing($currentUser, 'read-staff');
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $paginator = $this->repo()->getPaginatedForOwner(
-            $currentUser->getCompanyId(), $with
-        );
-        
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($paginator, new UserTransformer);
+        $this->storeAccess = 'create-staff';
+        $this->updateAccess = 'update-staff';
     }
 
-    public function show($id)
+    public function getRequest() 
     {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-specific-staff');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $user = $this->repo()->findFOrOwner($decodedId, $companyId, $with);
-
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withItem($user, new UserTransformer);
+        return app(EmployeeRequest::class);
+    }
+    
+    public function getTransformer()
+    {
+    	return new UserTransformer;
     }
 
-    public function store(EmployeeRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'create-staff');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $dataInput = $request->all();
-        
-        $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
-        
-        $this->repo()->saveForOwner($dataInput, $companyId);
-        
-
-        return $this->response()->created();
-    }
 
     public function update($id, EmployeeRequest $request)
     {
@@ -97,18 +76,4 @@ class EmployeesController extends ApiController
         return $this->response()->updated();
     }
 
-    public function destroy($id)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'delete-staff');
-       
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-
-        $this->repo()->destroyForOwner($decodedId, $owner);
-
-        return $this->response()->deleted();
-   }
 }

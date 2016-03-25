@@ -19,7 +19,7 @@ trait Storable
         
         $factory = $this->getFactory();
         
-        $createInput = Obfuscater::decodeArray($this->request()->all(), 'id');
+        $createInput = Obfuscater::decodeArray($this->getRequest()->all(), 'id');
         
         $factory->create($createInput);
         

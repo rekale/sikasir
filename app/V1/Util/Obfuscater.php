@@ -31,7 +31,7 @@ final class Obfuscater {
         return $tiny->to($id);
     }
     
-    public static function decodeArray(array $data, $keyword = null)
+    public static function decodeArray(array $data, $keyword)
     {
         $tiny = new \ZackKitzmiller\Tiny(self::$salt);
         
@@ -41,14 +41,13 @@ final class Obfuscater {
             if(is_array($currentData)) {
                 $data[$name] = self::decodeArray($currentData, $keyword);
             }
-            //decode only from name that have similiar string with keyword
-            else if ( isset($keyword) ) {
-                $data[$name] = strpos($name, $keyword)!== false ? $tiny->from($currentData): $data[$name];
-            }
             
-            //decode all data in array
-            else {
-                $data[$name] = $tiny->from($currentData);
+            
+            //decode only from name that have similiar string with keyword
+            else if ( isset($currentData) && strpos($name, $keyword) !== false) {
+            	
+            	$data[$name] = $tiny->from($currentData);
+        
             }
             
         }

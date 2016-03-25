@@ -21,18 +21,6 @@ class TempEloquentRepository implements RepositoryInterface
     }
     
     /**
-     * 
-     * @param QueryCompanyInterface $query
-     * @return $this
-     */
-    public function setQuery(QueryCompanyInterface $query)
-    {
-        $this->query = $query;
-        
-        return $this;
-    }
-    
-    /**
      * find specific resource by id
      * 
      * @param integer $id

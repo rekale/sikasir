@@ -5,16 +5,11 @@ namespace Sikasir\V1\Factories;
 
 use Illuminate\Database\Eloquent\Model;
 use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
+use Sikasir\V1\Factories\Factory;
 
-class EloquentFactory
+class EloquentFactory extends Factory
 {
-    protected $query;
     protected $data;
-    /**
-     *
-     * @var Model
-     */
-    protected $model;
     
     public function __construct(QueryCompanyInterface $query) 
     {
@@ -31,7 +26,9 @@ class EloquentFactory
     {
         $savedData = $this->query->dataForCompany($data);
             
-        return $savedData->save();
+        $savedData->save();
+        
+        return $savedData;
     }
     
 }
