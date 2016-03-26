@@ -52,7 +52,7 @@ class EloquentThroughCompany implements Interfaces\QueryCompanyInterface
                             $modelForeignId = $this->model->getTable() . '.' . str_singular($this->throughTableName) . '_id';
 
                             $constraint = $this->throughTableName . '.id' . ' = ' . $modelForeignId;
-
+							
                             $query->select(\DB::raw(1))
                                   ->from($this->throughTableName)
                                   ->where('company_id', '=', $this->companyId)
@@ -66,21 +66,16 @@ class EloquentThroughCompany implements Interfaces\QueryCompanyInterface
 
     public function dataForCompany(array $data) 
     {
-        
-        $throughTableExist = $this->model
-                                ->findOrFail($this->throughId)
-                                ->where('company_id', $this->companyId)
-                                ->exists();
-        
-        if ($throughTableExist) {
-            
-            $foreignId = $this->model->getForeignKey();
-            
-            $data[$foreignId] = $this->throughId;
-            
-        }
-        
-        return $data;
+    	$throughModel= $this->model->findOrFail($this->throughId);
+                     
+    	if($throughModel->company_id === $this->companyId)
+    	{
+    		$foreignId = $this->model->getForeignKey();
+    		
+    		$data[$foreignId] = $this->throughId;
+    	}
+    	
+        return $this->model->fill($data);
         
     }
 

@@ -5,7 +5,6 @@ namespace Sikasir\V1\Transformer;
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Orders\Order;
 use \Sikasir\V1\Traits\IdObfuscater;
-use \Sikasir\V1\Traits\ParamTransformer;
 use League\Fractal\ParamBag;
 
 /**
@@ -15,7 +14,7 @@ use League\Fractal\ParamBag;
  */
 class OrderTransformer extends TransformerAbstract
 {
-    use IdObfuscater, ParamTransformer;
+    use IdObfuscater;
     
     
     protected $availableIncludes = [

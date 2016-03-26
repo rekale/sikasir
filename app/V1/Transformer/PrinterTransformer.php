@@ -6,7 +6,6 @@ use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Printer;
 use \Sikasir\V1\Traits\IdObfuscater;
 use League\Fractal\ParamBag;
-use \Sikasir\V1\Traits\ParamTransformer;
 
 /**
  * Description of AppTransformer
@@ -15,7 +14,7 @@ use \Sikasir\V1\Traits\ParamTransformer;
  */
 class PrinterTransformer extends TransformerAbstract
 {
-    use IdObfuscater, ParamTransformer;
+    use IdObfuscater;
    
      protected $availableIncludes = [
         'outlet',

@@ -5,7 +5,6 @@ namespace Sikasir\V1\Transformer;
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\Outlet;
 use League\Fractal\ParamBag;
-use \Sikasir\V1\Traits\ParamTransformer;
 use \Sikasir\V1\Traits\IdObfuscater;
 
 /**

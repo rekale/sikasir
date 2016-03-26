@@ -3,10 +3,6 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\Products\Product;
-use Sikasir\V1\Transformer\InventoryTransformer;
-use Sikasir\V1\Transformer\OpnameTransformer;
-use Sikasir\V1\Transformer\PurchaseOrderTransformer;
 
 /**
  * Description of AppTransformer

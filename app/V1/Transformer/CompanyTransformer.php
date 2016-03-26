@@ -5,7 +5,6 @@ namespace Sikasir\V1\Transformer;
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\User\Company;
 use League\Fractal\ParamBag;
-use \Sikasir\V1\Traits\ParamTransformer;
 
 /**
  * Description of AppTransformer
@@ -14,7 +13,7 @@ use \Sikasir\V1\Traits\ParamTransformer;
  */
 class CompanyTransformer extends TransformerAbstract
 {
-   use \Sikasir\V1\Traits\IdObfuscater, ParamTransformer;
+   use \Sikasir\V1\Traits\IdObfuscater;
     /**
      * List of resources possible to include
      *

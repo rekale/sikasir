@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF</li>8">
+        <meta charset="UTF-8">
         <title>endpoint list</title>
     </head>
     <body>
@@ -11,6 +11,7 @@
         
         <ul>
         <li> POST auth/login </li>
+        <li> POST auth/refresh </li>
         <li> POST auth/mobile/login </li>	
         <li> POST auth/register </li>
         <br>

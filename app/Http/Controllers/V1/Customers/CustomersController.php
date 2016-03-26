@@ -30,7 +30,7 @@ class CustomersController extends TempApiController implements
     
 	use Indexable, Showable, Storable, Updateable, Destroyable, Reportable;
 	
-	public function getQueryType() 
+	public function getQueryType($throughId = null) 
 	{
 		return  new EloquentCompany(new Customer, $this->auth->getCompanyId());
 	}

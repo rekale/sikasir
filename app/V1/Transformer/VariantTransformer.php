@@ -3,7 +3,6 @@
 namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
-use Sikasir\V1\User\Company;
 use Sikasir\V1\Products\Variant;
 
 /**

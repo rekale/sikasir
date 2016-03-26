@@ -5,7 +5,6 @@ namespace Sikasir\V1\Transformer;
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Orders\Debt;
 use \Sikasir\V1\Traits\IdObfuscater;
-use \Sikasir\V1\Traits\ParamTransformer;
 
 /**
  * Description of AppTransformer
@@ -14,7 +13,7 @@ use \Sikasir\V1\Traits\ParamTransformer;
  */
 class DebtTransformer extends TransformerAbstract
 {
-    use IdObfuscater, ParamTransformer;
+    use IdObfuscater;
     
     public function transform(Debt $debt)
     {

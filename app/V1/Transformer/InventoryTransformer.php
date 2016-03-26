@@ -4,8 +4,8 @@ namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
 use \Sikasir\V1\Traits\IdObfuscater;
-use \Sikasir\V1\Traits\ParamTransformer;
 use League\Fractal\ParamBag;
+
 /**
  * Description of AppTransformer
  *
@@ -13,7 +13,7 @@ use League\Fractal\ParamBag;
  */
 class InventoryTransformer extends TransformerAbstract
 {
-    use IdObfuscater, ParamTransformer;
+    use IdObfuscater;
     
     protected $availableIncludes = [
         'operator',

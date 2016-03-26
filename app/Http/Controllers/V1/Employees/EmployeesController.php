@@ -25,7 +25,7 @@ class EmployeesController extends TempApiController implements
 	
 	use Indexable, Showable, Destroyable, Storable;
 	
-	public function getQueryType()
+	public function getQueryType($throughId = null)
 	{
 		return 	new EloquentCompany(new User, $this->auth->getCompanyId());
 	}

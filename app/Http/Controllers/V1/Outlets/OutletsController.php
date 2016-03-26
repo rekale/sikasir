@@ -25,7 +25,7 @@ class OutletsController extends TempApiController implements
    use Indexable, Showable, Storable, Updateable, Destroyable;
     
 
-   public function getQueryType()
+   public function getQueryType($throughId = null)
    {
    		return new EloquentCompany(new Outlet, $this->auth->getCompanyId());
    }

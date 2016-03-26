@@ -18,7 +18,7 @@ abstract class TempApiController extends Controller
 {
     /**
      *
-     * @var Auth 
+     * @var AuthInterface 
      */
     protected $auth;
     
@@ -54,7 +54,7 @@ abstract class TempApiController extends Controller
      */
     abstract public function initializeAccess();
     
-    abstract  public function getQueryType();
+    abstract  public function getQueryType($throughId = null);
     
     
     public function filterIncludeParams($param)
