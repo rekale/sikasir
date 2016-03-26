@@ -22,7 +22,7 @@ class TaxesController extends TempApiController implements
 {
    use Showable, Storable, Updateable, Destroyable;
    
-   public function getQueryType()
+   public function getQueryType($throughId = null)
    {
    	return new EloquentCompany(new Tax, $this->auth->getCompanyId());
    }

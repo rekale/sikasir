@@ -23,7 +23,7 @@ class PaymentsController extends TempApiController implements
     use Showable, Storable, Updateable, Destroyable;
    
 
-    public function getQueryType()
+    public function getQueryType($throughId = null)
     {
     	return new EloquentCompany(new Payment, $this->auth->getCompanyId());
     }

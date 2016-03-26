@@ -23,7 +23,7 @@ class DiscountsController extends TempApiController implements
 {
 	use Showable, Destroyable, Updateable, Storable;
 	
-	public function getQueryType()
+	public function getQueryType($throughId = null)
 	{
 		return new EloquentCompany(new Discount, $this->auth->getCompanyId());
 	}
