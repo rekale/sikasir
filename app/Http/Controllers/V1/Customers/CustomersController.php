@@ -4,9 +4,7 @@ namespace Sikasir\Http\Controllers\V1\Customers;
 
 use Sikasir\Http\Requests\CustomerRequest;
 use Sikasir\V1\Transformer\CustomerTransformer;
-use Sikasir\V1\Traits\ApiRespond;
 use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Repositories\TempEloquentRepository;
@@ -20,28 +18,31 @@ use Sikasir\V1\Reports\CustomerReport;
 use Sikasir\V1\Reports\Report;
 use Sikasir\V1\Transformer\CustomerHistoryTransformer;
 use Sikasir\Http\Controllers\V1\Traits\Reportable;
+use Sikasir\Http\Controllers\V1\Interfaces\Reportable as CanReport;
+use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
+use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
 
-class CustomersController extends TempApiController
+class CustomersController extends TempApiController implements 
+													Resourcable, 
+													manipulatable,
+													CanReport
 {
     
 	use Indexable, Showable, Storable, Updateable, Destroyable, Reportable;
 	
-	public function __construct(CurrentUser $user, ApiRespond $response)
+	public function getQueryType() 
 	{
-		parent::__construct($user, $response);
-	
+		return  new EloquentCompany(new Customer, $this->auth->getCompanyId());
 	}
 	
 	public function getRepo()
 	{
-		$queryType = new EloquentCompany(new Customer, $this->currentUser->getCompanyId());
-	
-		return new TempEloquentRepository($queryType);
+		return new TempEloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory()
 	{
-		$queryType = new EloquentCompany(new Customer, $this->currentUser->getCompanyId());
+		$queryType = new EloquentCompany(new Customer, $this->auth->getCompanyId());
 	
 		return new EloquentFactory($queryType);
 	}
@@ -77,9 +78,27 @@ class CustomersController extends TempApiController
 	public function getReport()
 	{
 
-		$queryType = new EloquentCompany(new Customer, $this->currentUser->getCompanyId());
+		$queryType = new EloquentCompany(new Customer, $this->auth->getCompanyId());
 		
 		return new CustomerReport($queryType);
 	}
-   
+	
+	public function createJob(array $data)
+	{
+		$factory = new EloquentFactory($this->getQueryType());
+		
+		$factory->create($data);
+	}
+	
+
+	public function updateJob($id, array $data)
+	{
+		$repo = $this->getRepo();
+        
+        $entity = $repo->find($id);
+        
+        $entity->update($data);
+        
+	}
+
 }

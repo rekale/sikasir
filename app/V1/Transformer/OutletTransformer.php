@@ -15,7 +15,7 @@ use \Sikasir\V1\Traits\IdObfuscater;
  */
 class OutletTransformer extends TransformerAbstract
 {
-    use IdObfuscater, ParamTransformer;
+    use IdObfuscater;
     
     protected $defaultIncludes = [
         'tax',

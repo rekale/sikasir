@@ -3,6 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Traits;
 
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\User\Authorizer;
 /**
  * Description of ObfuscaterId
  *
@@ -14,7 +15,7 @@ trait Destroyable
     
     public function destroy($id)
     {
-        $this->currentUser->authorizing($this->deleteAccess);
+    	(new Authorizer($this->auth->currentUser()))->checkAccess($this->destroyAccess);
         
         $repo = $this->getRepo();
         

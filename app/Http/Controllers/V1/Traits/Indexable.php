@@ -2,6 +2,8 @@
 
 namespace Sikasir\Http\Controllers\V1\Traits;
 
+use Sikasir\V1\User\Authorizer;
+
 /**
  *
  *
@@ -15,7 +17,7 @@ trait Indexable
     public function index()
     {
         
-        $this->currentUser->authorizing($this->indexAccess);
+        (new Authorizer($this->auth->currentUser()))->checkAccess($this->indexAccess);
         
         $include = request('include');
         
@@ -23,12 +25,12 @@ trait Indexable
         
         $repository = $this->getRepo();
         
-        $outlets = $repository->getPaginated($with);
+        $collection = $repository->getPaginated($with);
         
         return $this->response
                 ->resource()
                 ->including($with)
-                ->withPaginated($outlets, $this->getTransformer());
+                ->withPaginated($collection, $this->getTransformer());
     }
 
 }

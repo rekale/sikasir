@@ -3,6 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Traits;
 
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\User\Authorizer;
 /**
  * Description of ObfuscaterId
  *
@@ -14,15 +15,11 @@ trait Updateable
 
     public function update($id)
     {
-        $this->currentUser->authorizing($this->updateAccess);
+    	( new Authorizer($this->auth->currentUser()) )->checkAccess($this->updateAccess);
         
-        $repo = $this->getRepo();
-        
-        $entity = $repo->find( Obfuscater::decode($id) );
-        
-        $updateInput = Obfuscater::decodeArray($this->getRequest()->all(), 'id');
-        
-        $entity->update($updateInput);
+    	$data = Obfuscater::decodeArray($this->getRequest()->all(), 'id');
+    	
+    	$this->updateJob(Obfuscater::decode($id), $data);
         
         return $this->response->updated();
     }

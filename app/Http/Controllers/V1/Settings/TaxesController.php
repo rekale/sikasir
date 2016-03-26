@@ -3,7 +3,6 @@
 namespace Sikasir\Http\Controllers\V1\Settings;
 
 use Sikasir\Http\Requests\TaxDiscountRequest;
-use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\Http\Controllers\V1\Traits\Showable;
 use Sikasir\Http\Controllers\V1\Traits\Storable;
@@ -14,30 +13,28 @@ use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
+use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
 
-class TaxesController extends TempApiController
+class TaxesController extends TempApiController implements
+												Resourcable,
+												manipulatable
 {
    use Showable, Storable, Updateable, Destroyable;
    
-    public function __construct(CurrentUser $user, ApiRespond $response) 
-    {
-       parent::__construct($user, $response);
-    }
-   
+   public function getQueryType()
+   {
+   	return new EloquentCompany(new Tax, $this->auth->getCompanyId());
+   }
 
     public function getRepo()
     {
-        $queryType = new EloquentCompany(new Tax, $this->currentUser->getCompanyId());
-        
-        return new TempEloquentRepository($queryType);
+        return new TempEloquentRepository($this->getQueryType());
     }
     
     public function getFactory()
     { 	
-        $queryType = new EloquentCompany(new Tax, $this->currentUser->getCompanyId());
-        
-        return new EloquentFactory($queryType);
+    	return new EloquentFactory($this->getQueryType());
     }
 
     public function initializeAccess() 
@@ -50,7 +47,25 @@ class TaxesController extends TempApiController
         $this->updateAccess = 'update-tax';
         
     }
-
+	
+    public function createJob(array $data)
+    {
+    	$factory = new EloquentFactory($this->getQueryType());
+    
+    	$factory->create($data);
+    }
+    
+    
+    public function updateJob($id, array $data)
+    {
+    	$repo = $this->getRepo();
+    
+    	$entity = $repo->find($id);
+    
+    	$entity->update($data);
+    
+    }
+    
     public function getRequest() 
     {
         return app(TaxDiscountRequest::class);

@@ -51,6 +51,10 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
     
+    public function setPasswordAttribute($value)
+    {
+    	$this->attributes['password'] = bcrypt($value);
+    }
     
     public function scopeReport($query, $dateRange, $outletId = null)
     {

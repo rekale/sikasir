@@ -3,6 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Traits;
 
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\User\Authorizer;
 
 /**
  *
@@ -17,8 +18,8 @@ trait Reportable
     public function report($dateRange)
     {
         
-        $this->currentUser->authorizing($this->reportAccess);
-        
+    	(new Authorizer($this->auth->currentUser()))->checkAccess($this->showAccess);
+    	
         $include = request('include');
         
         $with = $this->filterIncludeParams($include);
@@ -38,8 +39,8 @@ trait Reportable
     
     public function reportFor($id, $dateRange)
     {
-    
-    	$this->currentUser->authorizing($this->reportAccess);
+
+    	(new Authorizer($this->auth->currentUser()))->checkAccess($this->showAccess);
     
     	$include = request('include');
     

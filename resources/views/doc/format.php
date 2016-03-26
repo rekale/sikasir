@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF</li>8">
+        <meta charset="UTF-8">
         <title>endpoint list</title>
     </head>
     <body>

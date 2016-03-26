@@ -5,10 +5,8 @@ namespace Sikasir\Http\Controllers;
 use Sikasir\Http\Controllers\Controller;
 use Sikasir\V1\Traits\ApiRespond;
 use League\Fractal\TransformerAbstract;
-use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 use Illuminate\Http\Request;
-use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Interfaces\AuthInterface;
 
 /**
  * 
@@ -20,14 +18,16 @@ abstract class TempApiController extends Controller
 {
     /**
      *
-     * @var CurrentUser 
+     * @var Auth 
      */
-    protected $currentUser;
+    protected $auth;
+    
    /**
     *
     * @var ApiRespond 
     */
     protected $response;
+    
     /**
      *
      * @var TransformerAbstract
@@ -36,12 +36,12 @@ abstract class TempApiController extends Controller
 	
     /**
      * 
-     * @param ReportInterface $user
+     * @param ReportInterface $auth
      * @param ApiRespond $response
      */
-    public function __construct(CurrentUser $user, ApiRespond $response) 
+    public function __construct(AuthInterface $auth, ApiRespond $response) 
     {    
-        $this->currentUser = $user;
+        $this->auth = $auth;
         $this->response = $response;  
         
         $this->initializeAccess();
@@ -54,33 +54,8 @@ abstract class TempApiController extends Controller
      */
     abstract public function initializeAccess();
     
-    /**
-     * get repository instance
-     * 
-     * @return RepositoryInterface 
-     */
-    abstract public function getRepo();
+    abstract  public function getQueryType();
     
-    /**
-     * get factory instance
-     * 
-     * @return EloquentFactory 
-     */
-    abstract public function getFactory();
-    
-    /**
-     * get the request
-     * 
-     * @return Request
-     */
-    abstract public function getRequest();
-    
-    /**
-     * set the transformer
-     * 
-     * @return TransformerAbstract
-     */
-    abstract public function getTransformer();
     
     public function filterIncludeParams($param)
     {

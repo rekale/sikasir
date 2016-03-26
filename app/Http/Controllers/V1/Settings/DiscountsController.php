@@ -3,9 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Settings;
 
 
-use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
@@ -16,29 +14,28 @@ use Sikasir\Http\Controllers\V1\Traits\Showable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Storable;
+use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
+use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
 
-class DiscountsController extends TempApiController
+class DiscountsController extends TempApiController implements
+													Resourcable,
+													manipulatable
 {
 	use Showable, Destroyable, Updateable, Storable;
 	
-	public function __construct(CurrentUser $user, ApiRespond $response)
+	public function getQueryType()
 	{
-		parent::__construct($user, $response);
-	
+		return new EloquentCompany(new Discount, $this->auth->getCompanyId());
 	}
 	
 	public function getRepo()
 	{
-		$queryType = new EloquentCompany(new Discount, $this->currentUser->getCompanyId());
-	
-		return new TempEloquentRepository($queryType);
+		return new TempEloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory()
 	{
-		$queryType = new EloquentCompany(new Discount, $this->currentUser->getCompanyId());
-	
-		return new EloquentFactory($queryType);
+		return new EloquentFactory($this->getQueryType());
 	}
 	
 	public function initializeAccess()
@@ -54,6 +51,22 @@ class DiscountsController extends TempApiController
 	public function getRequest()
 	{
 		return app(TaxDiscountRequest::class);
+	}
+	
+	public function createJob(array $data)
+	{
+		$factory = new EloquentFactory($this->getQueryType());
+		 
+		$factory->create($data);
+	}
+	
+	public function updateJob($id, array $data)
+	{
+		$repo = $this->getRepo();
+		 
+		$entity = $repo->find($id);
+		 
+		$entity->update($data);
 	}
 	
 	public function getTransformer()

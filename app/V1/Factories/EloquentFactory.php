@@ -31,4 +31,5 @@ class EloquentFactory extends Factory
         return $savedData;
     }
     
+    
 }

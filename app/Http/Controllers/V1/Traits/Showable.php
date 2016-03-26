@@ -3,6 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Traits;
 
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\User\Authorizer;
 /**
  * Description of ObfuscaterId
  *
@@ -13,8 +14,8 @@ trait Showable
     protected $showAccess;
     
     public function show($id)
-    {               
-        $this->currentUser->authorizing($this->showAccess);
+    {   
+        (new Authorizer($this->auth->currentUser()))->checkAccess($this->showAccess);
         
         $include = request('include');
         
@@ -22,12 +23,12 @@ trait Showable
         
         $repository = $this->getRepo();
         
-        $outlets = $repository->findWith(Obfuscater::decode($id), $with);
+        $item = $repository->findWith(Obfuscater::decode($id), $with);
         
         return $this->response
                 ->resource()
                 ->including($with)
-                ->withItem($outlets, $this->getTransformer());
+                ->withItem($item, $this->getTransformer());
         
     }
     

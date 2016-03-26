@@ -2,38 +2,43 @@
 
 namespace Sikasir\Http\Controllers\V1\Employees;
 
-use Illuminate\Http\Request;
 use Sikasir\V1\Transformer\UserTransformer;
 use Sikasir\Http\Requests\EmployeeRequest;
 use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\V1\Interfaces\CurrentUser;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\Http\Controllers\V1\Traits\Indexable;
 use Sikasir\Http\Controllers\V1\Traits\Showable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\User\User;
-use Sikasir\V1\Factories\UserFactory;
 use Sikasir\Http\Controllers\V1\Traits\Storable;
+use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
+use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\User\Authorizer;
+use Sikasir\V1\Util\Obfuscater;
 
-class EmployeesController extends TempApiController
+class EmployeesController extends TempApiController implements
+													Resourcable,
+													manipulatable
 {
 	
 	use Indexable, Showable, Destroyable, Storable;
 	
+	public function getQueryType()
+	{
+		return 	new EloquentCompany(new User, $this->auth->getCompanyId());
+	}
+	
  
     public function getRepo()
-    {
-        $queryType = new EloquentCompany(new User, $this->currentUser->getCompanyId());
-        
-        return new TempEloquentRepository($queryType);
+    {   
+        return new TempEloquentRepository($this->getQueryType());
     }
     
     public function getFactory()
     {
-        $queryType = new EloquentCompany(new User, $this->currentUser->getCompanyId());
-        
-        return new UserFactory($queryType);
+        return new EloquentFactory($this->getQueryType());
     }
 
     public function initializeAccess() 
@@ -57,23 +62,48 @@ class EmployeesController extends TempApiController
     }
 
 
-    public function update($id, EmployeeRequest $request)
-    {
-         $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'update-staff');
-       
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $dataInput = $request->all();
-        
-        $dataInput['outlet_id'] = $this->decode($dataInput['outlet_id']);
-
-        $this->repo()->updateForOwner($decodedId, $dataInput, $owner);
-
-        return $this->response()->updated();
-    }
+	public function createJob(array $data)
+	{
+		\DB::beginTransaction();
+			
+		try {
+			
+			$factory = new EloquentFactory($this->getQueryType());
+			
+			$user = $factory->create($data);
+			
+			(new Authorizer($user))->giveAccess($data['privileges']);
+				
+			$outletIds = Obfuscater::decode($data['outlet_id']);
+				
+			$user->outlets()->attach($outletIds);
+				
+		
+		}
+		catch (\Exception $e) {
+			
+			\DB::rollback();
+			
+		}
+		
+		\DB::commit();
+		
+		
+	}
+	
+	public function updateJob($id , array $data)
+	{
+		$repo = $this->getRepo();
+		 
+		$user = $repo->find($id);
+		 
+		$user->update($data);
+		
+		(new Authorizer($user))->syncAccess($data['privileges']);
+		
+		$outletIds = Obfuscater::decode($data['outlet_id']);
+		
+		$user->outlets()->sync($outletIds);
+	}
 
 }

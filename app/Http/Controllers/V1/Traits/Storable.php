@@ -3,6 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Traits;
 
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\User\Authorizer;
 /**
  * Description of ObfuscaterId
  *
@@ -15,13 +16,12 @@ trait Storable
 
     public function store()
     {
-        $this->currentUser->authorizing($this->storeAccess);
+
+    	(new Authorizer($this->auth->currentUser()))->checkAccess($this->storeAccess);
         
-        $factory = $this->getFactory();
+        $data = Obfuscater::decodeArray($this->getRequest()->all(), 'id');
         
-        $createInput = Obfuscater::decodeArray($this->getRequest()->all(), 'id');
-        
-        $factory->create($createInput);
+        $this->createJob($data);
         
         return $this->response->created();
     }

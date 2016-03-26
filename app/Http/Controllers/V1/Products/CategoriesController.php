@@ -14,14 +14,14 @@ use Sikasir\Http\Controllers\V1\Traits\Storable;
 use Sikasir\Http\Controllers\V1\Traits\Updateable;
 use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Interfaces\CurrentUser;
+use Sikasir\V1\Interfaces\Auth;
 
 class CategoriesController extends TempApiController
 {
     
    use Showable, Storable, Updateable, Destroyable;
    
-    public function __construct(CurrentUser $user, ApiRespond $response) 
+    public function __construct(Auth $user, ApiRespond $response) 
     {
        parent::__construct($user, $response);
     }
@@ -29,14 +29,14 @@ class CategoriesController extends TempApiController
 
     public function getRepo()
     {
-        $queryType = new EloquentCompany(new Category, $this->currentUser->getCompanyId());
+        $queryType = new EloquentCompany(new Category, $this->auth->getCompanyId());
         
         return new TempEloquentRepository($queryType);
     }
     
     public function getFactory()
     {
-        $queryType = new EloquentCompany(new Category, $this->currentUser->getCompanyId());
+        $queryType = new EloquentCompany(new Category, $this->auth->getCompanyId());
         
         return new EloquentFactory($queryType);
     }
