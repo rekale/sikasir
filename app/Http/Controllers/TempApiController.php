@@ -83,6 +83,17 @@ abstract class TempApiController extends Controller
     
     }
     
+    public function indexThrough($id, Request $request)
+    {
+    	return $this->mediator->checkPermission($this->indexAccess)
+						    	->index(
+						    			$this->getRepository($id),
+						    			$request,
+						    			$this->getTransformer()
+						    			);
+    
+    }
+    
     public function show($id,Request $request)
     {
     	return $this->mediator->checkPermission($this->showAccess)

@@ -85,7 +85,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('suppliers/{id}', 'SuppliersController@update');
             delete('suppliers/{id}', 'SuppliersController@destroy');
             
-            get('suppliers/{id}/purchases', 'SuppliersController@purchaseOrders');
+            get('suppliers/{id}/purchases', 'POController@index');
         });
 
         Route::group(['namespace' => 'Outlets'], function()
