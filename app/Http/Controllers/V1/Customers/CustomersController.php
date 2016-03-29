@@ -24,26 +24,22 @@ class CustomersController extends TempApiController
 		return  new EloquentCompany(new Customer, $this->auth->getCompanyId());
 	}
 	
-	public function getRepository()
+	public function getRepository($troughId = null)
 	{
 		return new TempEloquentRepository($this->getQueryType());
 	}
 	
-	public function getFactory()
+	public function getFactory($troughId = null)
 	{
-		$queryType = new EloquentCompany(new Customer, $this->auth->getCompanyId());
-	
-		return new EloquentFactory($queryType);
+		return new EloquentFactory($this->getQueryType($troughId));
 	}
 	
-	public function createCommand()
+	public function createCommand($troughId = null)
 	{
-		$factory =  EloquentFactory($this->getQueryType());
-		
-		return new GeneralCreateCommand($factory);
+		return new GeneralCreateCommand($this->getFactory($troughId));
 	}
 	
-	public function updateCommand()
+	public function updateCommand($troughId = null)
 	{
 		return new GeneralUpdateCommand($this->getRepository());
 	}
@@ -76,9 +72,9 @@ class CustomersController extends TempApiController
 	}
 	
 
-	public function getReport()
+	public function getReport($troughId = null)
 	{
-		return new CustomerReport($this->getQueryType());
+		return new CustomerReport($this->getQueryType($troughId));
 	}
 	
 

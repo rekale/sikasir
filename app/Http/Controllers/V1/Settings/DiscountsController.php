@@ -31,26 +31,26 @@ class DiscountsController extends TempApiController
 		return  new EloquentCompany(new Discount, $this->auth->getCompanyId());
 	}
 	
-	public function getRepository()
+	public function getRepository($throughId = null)
 	{
 		return new TempEloquentRepository($this->getQueryType());
 	}
 	
-	public function getFactory()
+	public function getFactory($throughId = null)
 	{
 		$queryType = new EloquentCompany(new Discount, $this->auth->getCompanyId());
 	
 		return new EloquentFactory($queryType);
 	}
 	
-	public function createCommand()
+	public function createCommand($throughId = null)
 	{
 		$factory =  new EloquentFactory($this->getQueryType());
 		
 		return new GeneralCreateCommand($factory);
 	}
 	
-	public function updateCommand()
+	public function updateCommand($throughId = null)
 	{
 		return new GeneralUpdateCommand($this->getRepository());
 	}
@@ -71,7 +71,7 @@ class DiscountsController extends TempApiController
 	}
 	
 	
-	public function getReport()
+	public function getReport($throughId = null)
 	{
 		return new CustomerReport($this->getQueryType());
 	}

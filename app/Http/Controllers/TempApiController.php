@@ -89,7 +89,7 @@ abstract class TempApiController extends Controller
     public function store()
     {
     
-    	$command = $this->createCommand();
+    	$command = $this->createCommand($troughId);
     
     	return $this->mediator->checkPermission($this->storeAccess)
     							->store(
@@ -98,6 +98,7 @@ abstract class TempApiController extends Controller
     							);
     
     }
+	
     
     public function update($id)
     {
@@ -154,7 +155,7 @@ abstract class TempApiController extends Controller
      * 
      * @return RepositoryInterface
      */
-    abstract public function getRepository();
+    abstract public function getRepository($troughId = null);
     
     /**
      * 
@@ -172,13 +173,13 @@ abstract class TempApiController extends Controller
      * 
      * @return CreateCommand
      */
-    abstract  public function createCommand();
+    abstract  public function createCommand($troughId = null);
     
     /**
      *
      * @return UpdateCommand
      */
-    abstract  public function updateCommand();
+    abstract  public function updateCommand($troughId = null);
     
     /**
      * 
@@ -190,6 +191,6 @@ abstract class TempApiController extends Controller
      * 
      * @return Report
      */
-    abstract  public function getReport();
+    abstract  public function getReport($troughId = null);
     
 }

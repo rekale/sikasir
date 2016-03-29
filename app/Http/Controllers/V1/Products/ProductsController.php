@@ -42,15 +42,12 @@ class ProductsController extends TempApiController
     
     public function getFactory($throughId = null)
     {
-    	return new EloquentFactory();
+    	return new EloquentFactory($this->getQueryType($throughId));
     }
     
     public function createCommand($throughId = null)
     {
-    	$factory =  $this->getFactory();
-    
-    	$command = new CreateProductCommand($factory);
-    	
+    	$command = new CreateProductCommand($this->getFactory($throughId));
     	
     	return $command->setAuth($this->auth);
     }

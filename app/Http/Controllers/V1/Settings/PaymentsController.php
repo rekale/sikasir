@@ -31,26 +31,22 @@ public function initializeAccess()
 		return  new EloquentCompany(new Payment, $this->auth->getCompanyId());
 	}
 	
-	public function getRepository()
+	public function getRepository($throughId = null)
 	{
 		return new TempEloquentRepository($this->getQueryType());
 	}
 	
-	public function getFactory()
+	public function getFactory($throughId = null)
 	{
-		$queryType = new EloquentCompany(new Payment, $this->auth->getCompanyId());
-	
-		return new EloquentFactory($queryType);
+		return new EloquentFactory($this->getQueryType());
 	}
 	
-	public function createCommand()
-	{
-		$factory =  new EloquentFactory($this->getQueryType());
-		
-		return new GeneralCreateCommand($factory);
+	public function createCommand($throughId = null)
+	{	
+		return new GeneralCreateCommand($this->getFactory());
 	}
 	
-	public function updateCommand()
+	public function updateCommand($throughId = null)
 	{
 		return new GeneralUpdateCommand($this->getRepository());
 	}
@@ -71,7 +67,7 @@ public function initializeAccess()
 	}
 	
 	
-	public function getReport()
+	public function getReport($throughId = null)
 	{
 		return new PaymentReport($this->getQueryType());
 	}
