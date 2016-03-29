@@ -30,17 +30,6 @@ class CreateProductCommand extends CreateCommand
 	{
 		\DB::transaction(function () {
 			
-			$categoryId = $this->data['category_id'];
-				
-			$query = new EloquentThroughCompany(
-				new Product, 
-				$this->auth->getCompanyId(), 
-				'categories',
-				$categoryId
-			);
-				
-			$factory = $this->factory->setQuery($query);
-			
 			$variantModels = [];
 			
 			//create variant Models
@@ -50,13 +39,13 @@ class CreateProductCommand extends CreateCommand
 			}
 			
 			$this->data['outlet_ids'] = Obfuscater::decode($this->data['outlet_ids']);
-				
+			
 			//attach product to each outlets and save variants
 			foreach ($this->data['outlet_ids'] as $outletId) {
 			
 				$this->data['outlet_id'] = $outletId;
 				
-				$product = $factory->create($this->data);
+				$product = $this->factory->create($this->data);
 				
 				$product->variants()->saveMany($variantModels);
 			}

@@ -168,7 +168,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         /* PRODUCTS AND CATEGORIES */ 
         Route::group(['namespace' => 'Products'], function()
         {
-            post('products', 'ProductsController@store');
+            post('categories/{id}/products', 'ProductsController@storeThrough');
             
             get('categories/{id}', 'CategoriesController@show');
             post('categories', 'CategoriesController@store');

@@ -14,6 +14,7 @@ use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 use Sikasir\V1\Reports\Report;
+use Sikasir\V1\Util\Obfuscater;
 
 /**
  * 
@@ -62,6 +63,13 @@ abstract class TempApiController extends Controller
     	$this->auth = $auth;
     	
         $this->initializeAccess();
+        
+        if(config('database.default') === 'mysql') {
+        	\DB::listen(function($sql, $bindings, $time) {
+        		var_dump($sql);
+        		var_dump($time);
+        	});
+        }
     }
     
     public function index(Request $request)
@@ -89,11 +97,25 @@ abstract class TempApiController extends Controller
     public function store()
     {
     
-    	$command = $this->createCommand($troughId);
+    	$command = $this->createCommand();
     
     	return $this->mediator->checkPermission($this->storeAccess)
     							->store(
     								$command, 
+    								$this->getSpecificRequest()
+    							);
+    
+    }
+    
+    public function storeThrough($throughId)
+    {
+    	$id = Obfuscater::decode($throughId);
+    	
+    	$command = $this->createCommand($id);
+    
+    	return $this->mediator->checkPermission($this->storeAccess)
+    							->store(
+    								$command,
     								$this->getSpecificRequest()
     							);
     

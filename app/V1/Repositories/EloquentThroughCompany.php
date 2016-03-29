@@ -45,15 +45,15 @@ class EloquentThroughCompany implements Interfaces\QueryCompanyInterface
     
     public function forCompany()
     {
+    	$modelForeignId = $this->model->getTable() . '.' . str_singular($this->throughTableName) . '_id';
+    	
+    	$constraint = $this->throughTableName . '.id' . ' = ' . $modelForeignId;
+    	
         return $this->model
                     ->whereExists(
-                        function ($query) {
+                        function ($query) use($modelForeignId, $constraint){
 
-                            $modelForeignId = $this->model->getTable() . '.' . str_singular($this->throughTableName) . '_id';
-
-                            $constraint = $this->throughTableName . '.id' . ' = ' . $modelForeignId;
-							
-                            $query->select(\DB::raw(1))
+                            $query->selectRaw(1)
                                   ->from($this->throughTableName)
                                   ->where('company_id', '=', $this->companyId)
                                   ->whereRaw($constraint);
@@ -66,16 +66,22 @@ class EloquentThroughCompany implements Interfaces\QueryCompanyInterface
 
     public function dataForCompany(array $data) 
     {
-    	$throughModel= $this->model->findOrFail($this->throughId);
-                     
-    	if($throughModel->company_id === $this->companyId)
-    	{
-    		$foreignId = $this->model->getForeignKey();
-    		
-    		$data[$foreignId] = $this->throughId;
-    	}
     	
-        return $this->model->fill($data);
+    	$tes = \DB::table($this->throughTableName)
+		    		->whereCompanyId($this->companyId)
+		    		->whereId($this->throughId)
+		    		->get();
+    	
+    	if(empty($tes))
+    	{
+    		throw  new \Exception('thorugh data not found');
+    	}
+		    		
+    	$foreignId = str_singular($this->throughTableName) . '_id';
+    	
+    	$data[$foreignId] = $this->throughId;
+    	
+    	return $this->model->fill($data);
         
     }
 

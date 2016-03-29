@@ -37,9 +37,7 @@ class CategoriesController extends TempApiController
 	
 	public function getFactory($throughId = null)
 	{
-		$queryType = new EloquentCompany(new Category, $this->auth->getCompanyId());
-	
-		return new EloquentFactory($queryType);
+		return new EloquentFactory($this->getQueryType());
 	}
 	
 	public function createCommand($throughId = null)
