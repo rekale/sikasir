@@ -20,7 +20,7 @@ class OwnersController extends ApiController
 
     public function index()
     {
-        $this->authorizing('read-owner');
+        $this->authorizing($this->currentUser(), 'read-owner');
 
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         
@@ -36,7 +36,7 @@ class OwnersController extends ApiController
 
     public function show($id)
     {
-        $this->authorizing('read-specific-owner');
+        $this->authorizing($this->currentUser(), 'read-specific-owner');
         
         $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
         

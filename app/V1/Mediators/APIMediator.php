@@ -57,9 +57,9 @@ class APIMediator
 		$item = $repo->findWith(Obfuscater::decode($id), $with);
 		
 		return $this->response
-		->resource()
-		->including($with)
-		->withItem($item, $transformer);
+					->resource()
+					->including($with)
+					->withItem($item, $transformer);
 		
 	}
 	
@@ -81,9 +81,9 @@ class APIMediator
 		$collection = $repo->getPaginated($with);
 		
 		return $this->response
-		->resource()
-		->including($with)
-		->withCollection($collection, $transformer);
+					->resource()
+					->including($with)
+					->withCollection($collection, $transformer);
 		
 	}
 	

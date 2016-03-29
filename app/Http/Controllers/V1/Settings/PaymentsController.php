@@ -15,7 +15,7 @@ use Sikasir\V1\Reports\PaymentReport;
 
 class PaymentsController extends TempApiController
 {
-public function initializeAccess()
+	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-payment';
 		$this->showAccess = 'read-payment';

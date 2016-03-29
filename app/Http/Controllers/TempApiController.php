@@ -42,7 +42,7 @@ abstract class TempApiController extends Controller
      */
     private $transformer;
     
-    private $mediator;
+    protected $mediator;
     
     protected $indexAccess;
     protected $showAccess;

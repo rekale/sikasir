@@ -42,7 +42,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         
         Route::group(['namespace' => 'Tenants'], function ()
         {
-            get('/', 'TenantController@index');
+            get('/', 'TenantController@myCompany');
         });
         
         Route::group(['namespace' => 'Owners'], function ()
