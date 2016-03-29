@@ -7,6 +7,13 @@ use Sikasir\V1\Traits\ApiRespond;
 use League\Fractal\TransformerAbstract;
 use Illuminate\Http\Request;
 use Sikasir\V1\Interfaces\AuthInterface;
+use Sikasir\V1\Mediators\APIMediator;
+use Sikasir\V1\Commands\CreateCommand;
+use Sikasir\V1\Commands\UpdateCommand;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
+use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
+use Sikasir\V1\Reports\Report;
 
 /**
  * 
@@ -33,18 +40,107 @@ abstract class TempApiController extends Controller
      * @var TransformerAbstract
      */
     private $transformer;
+    
+    private $mediator;
+    
+    protected $indexAccess;
+    protected $showAccess;
+    protected $storeAccess;
+    protected $updateAccess;
+    protected $destroyAccess;
+    protected $reportAccess;
 	
     /**
      * 
      * @param ReportInterface $auth
      * @param ApiRespond $response
      */
-    public function __construct(AuthInterface $auth, ApiRespond $response) 
-    {    
-        $this->auth = $auth;
-        $this->response = $response;  
-        
+    public function __construct(APIMediator $mediator, AuthInterface $auth) 
+    {   
+    	$this->mediator = $mediator;
+    	
+    	$this->auth = $auth;
+    	
         $this->initializeAccess();
+    }
+    
+    public function index(Request $request)
+    {
+    	return $this->mediator->checkPermission($this->indexAccess)
+						    	->index(
+					    			$this->getRepository(),
+					    			$request,
+					    			$this->getTransformer()
+				    			);
+    
+    }
+    
+    public function show($id,Request $request)
+    {
+    	return $this->mediator->checkPermission($this->showAccess)
+					    	->show(
+				    			$id,
+				    			$this->getRepository(),
+				    			$request,
+				    			$this->getTransformer()
+			    			);
+    }
+    
+    public function store()
+    {
+    
+    	$command = $this->createCommand();
+    
+    	return $this->mediator->checkPermission($this->storeAccess)
+    							->store(
+    								$command, 
+    								$this->getSpecificRequest()
+    							);
+    
+    }
+    
+    public function update($id)
+    {
+    	$command = $this->updateCommand();
+    	
+    	return $this->mediator->checkPermission($this->updateAccess)
+    							->update(
+    								$id, 
+    								$command, 
+    								$this->getSpecificRequest()
+    							);
+    }
+    
+    public function destroy($id)
+    {
+    	return $this->mediator->checkPermission($this->destroyAccess)
+    							->destroy(
+    								$id, 
+    								$this->getRepository()
+    							);
+    }
+    
+    public function report($dateRange, Request $request)
+    {
+    	return $this->mediator->checkPermission($this->reportAccess)
+    							->report(
+    								$dateRange, 
+    								$this->getReport(), 
+    								$request, 
+    								$this->getReportTransformer()
+    							);
+    }
+    
+    public function reportFor($id, $dateRange, Request $request)
+    {
+    	return $this->mediator->checkPermission($this->reportAccess)
+						    	->reportFor(
+						    		$id,
+						   			$dateRange,
+						   			$this->getReport(),
+						   			$request,
+						   			$this->getReportTransformer()
+						    	);
     }
     
     /**
@@ -54,23 +150,46 @@ abstract class TempApiController extends Controller
      */
     abstract public function initializeAccess();
     
-    abstract  public function getQueryType($throughId = null);
+    /**
+     * 
+     * @return RepositoryInterface
+     */
+    abstract public function getRepository();
     
+    /**
+     * 
+     * @return TransformerAbstract
+     */
+    abstract  public function getTransformer();
     
-    public function filterIncludeParams($param)
-    {
-        $paramsinclude  = [];
-        
-        
-        if (! is_null($param)) {
-            //remove the whitespace
-            $param = str_replace(' ', '', $param);
-        
-            foreach (explode(',', $param) as $data) {
-                $paramsinclude[]  = $data;
-            }
-        }
-        
-        return $paramsinclude;
-    }
+    /**
+     *
+     * @return TransformerAbstract
+     */
+    abstract  public function getReportTransformer();
+    
+    /**
+     * 
+     * @return CreateCommand
+     */
+    abstract  public function createCommand();
+    
+    /**
+     *
+     * @return UpdateCommand
+     */
+    abstract  public function updateCommand();
+    
+    /**
+     * 
+     * @return Request
+     */
+    abstract  public function getSpecificRequest();
+    
+    /**
+     * 
+     * @return Report
+     */
+    abstract  public function getReport();
+    
 }

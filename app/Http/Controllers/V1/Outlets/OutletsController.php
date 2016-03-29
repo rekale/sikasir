@@ -7,73 +7,71 @@ use Sikasir\Http\Requests\OutletRequest;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\EloquentCompany;
-use Sikasir\Http\Controllers\V1\Traits\Indexable;
-use Sikasir\Http\Controllers\V1\Traits\Showable;
-use Sikasir\Http\Controllers\V1\Traits\Storable;
-use Sikasir\Http\Controllers\V1\Traits\Updateable;
-use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
-use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
 
-class OutletsController extends TempApiController implements 
-												Resourcable,
-												manipulatable
+class OutletsController extends TempApiController
 {
-    
-   use Indexable, Showable, Storable, Updateable, Destroyable;
-    
-
-   public function getQueryType($throughId = null)
-   {
-   		return new EloquentCompany(new Outlet, $this->auth->getCompanyId());
-   }
-   
-    public function getRepo()
-    {   
-        return new TempEloquentRepository($this->getQueryType());
-    }
-    
-    public function getFactory()
-    {   
-        return new EloquentFactory($this->getQueryType());
-    }
-
-    public function initializeAccess() 
-    {
-        $this->indexAccess = 'read-outlet';
-        $this->showAccess = 'read-specific-outlet';
-        $this->deleteAccess = 'delete-outlet';
-        
-        $this->storeAccess = 'create-outlet';
-        $this->updateAccess = 'update-outlet';
-    }
-
-    public function getRequest() 
-    {
-        return app(OutletRequest::class);
-    }
-    
-    public function getTransformer()
-    {
-    	return new OutletTransformer;
-    }
-    
-    public function createJob(array $data)
-    {
-    	$factory = new EloquentFactory($this->getQueryType());
-    	
-    	$factory->create($data);
-    }
-    
-    public function updateJob($id, array $data)
-    {
-    	$repo = $this->getRepo();
-    	
-    	$entity = $repo->find($id);
-    	
-    	$entity->update($data);
-    }
-
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-outlet';
+		$this->showAccess = 'read-outlet';
+		$this->destroyAccess = 'delete-outlet';
+	
+		$this->storeAccess = 'create-outlet';
+		$this->updateAccess = 'update-outlet';
+		$this->reportAccess = 'read-outlet';
+	}
+	
+	public function getQueryType($throughId = null)
+	{
+		return  new EloquentCompany(new Outlet, $this->auth->getCompanyId());
+	}
+	
+	public function getRepository()
+	{
+		return new TempEloquentRepository($this->getQueryType());
+	}
+	
+	public function getFactory()
+	{
+		$queryType = new EloquentCompany(new Outlet, $this->auth->getCompanyId());
+	
+		return new EloquentFactory($queryType);
+	}
+	
+	public function createCommand()
+	{
+		$factory =  new EloquentFactory($this->getQueryType());
+		
+		return new GeneralCreateCommand($factory);
+	}
+	
+	public function updateCommand()
+	{
+		return new GeneralUpdateCommand($this->getRepository());
+	}
+	public function getSpecificRequest()
+	{
+		return app(OutletRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new OutletTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new OutletTransformer;
+	}
+	
+	
+	public function getReport()
+	{
+		return new CustomerReport($this->getQueryType());
+	}
 }

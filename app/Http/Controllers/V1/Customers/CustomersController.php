@@ -9,33 +9,22 @@ use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Outlets\Customer;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\Http\Controllers\V1\Traits\Indexable;
-use Sikasir\Http\Controllers\V1\Traits\Showable;
-use Sikasir\Http\Controllers\V1\Traits\Storable;
-use Sikasir\Http\Controllers\V1\Traits\Updateable;
-use Sikasir\Http\Controllers\V1\Traits\Destroyable;
 use Sikasir\V1\Reports\CustomerReport;
 use Sikasir\V1\Reports\Report;
 use Sikasir\V1\Transformer\CustomerHistoryTransformer;
-use Sikasir\Http\Controllers\V1\Traits\Reportable;
-use Sikasir\Http\Controllers\V1\Interfaces\Reportable as CanReport;
-use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
-use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
 
-class CustomersController extends TempApiController implements 
-													Resourcable, 
-													manipulatable,
-													CanReport
+class CustomersController extends TempApiController
 {
     
-	use Indexable, Showable, Storable, Updateable, Destroyable, Reportable;
 	
 	public function getQueryType($throughId = null) 
 	{
 		return  new EloquentCompany(new Customer, $this->auth->getCompanyId());
 	}
 	
-	public function getRepo()
+	public function getRepository()
 	{
 		return new TempEloquentRepository($this->getQueryType());
 	}
@@ -47,18 +36,30 @@ class CustomersController extends TempApiController implements
 		return new EloquentFactory($queryType);
 	}
 	
+	public function createCommand()
+	{
+		$factory =  EloquentFactory($this->getQueryType());
+		
+		return new GeneralCreateCommand($factory);
+	}
+	
+	public function updateCommand()
+	{
+		return new GeneralUpdateCommand($this->getRepository());
+	}
+	
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-customer';
 		$this->showAccess = 'read-customer';
-		$this->deleteAccess = 'delete-customer';
+		$this->destroyAccess = 'delete-customer';
 	
 		$this->storeAccess = 'create-customer';
 		$this->updateAccess = 'update-customer';
 		$this->reportAccess = 'read-report';
 	}
 	
-	public function getRequest()
+	public function getSpecificRequest()
 	{
 		return app(CustomerRequest::class);
 	}
@@ -77,28 +78,8 @@ class CustomersController extends TempApiController implements
 
 	public function getReport()
 	{
-
-		$queryType = new EloquentCompany(new Customer, $this->auth->getCompanyId());
-		
-		return new CustomerReport($queryType);
+		return new CustomerReport($this->getQueryType());
 	}
 	
-	public function createJob(array $data)
-	{
-		$factory = new EloquentFactory($this->getQueryType());
-		
-		$factory->create($data);
-	}
-	
-
-	public function updateJob($id, array $data)
-	{
-		$repo = $this->getRepo();
-        
-        $entity = $repo->find($id);
-        
-        $entity->update($data);
-        
-	}
 
 }

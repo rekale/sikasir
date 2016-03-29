@@ -40,9 +40,7 @@ class CategoryTransformer extends TransformerAbstract
     
     public function includeProducts(Category $category, ParamBag $params = null)
     {
-        $collection = $this->setData(
-            $category->products(), $params['perPage'][0], $params['currentPage'][0]
-        )->result();
+        $collection = $category->products;
         
         return $this->collection($collection, new ProductTransformer);
     }

@@ -23,16 +23,23 @@ class EmployeeRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:255',
             'title' => 'required|max:255',
             'gender' => 'required|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'address' => 'max:255',
             'phone'=> 'max:255',
             'password' => 'required|max:255',
             'outlet_id.0' => 'required',
         ];
+        
+        $rules['email'] = $this->method() === 'POST'
+		        		? $rules['email'] . '|unique:users'
+		        		: $rules['email']
+		        		;
+    
+        return $rules;
 
     }
 }

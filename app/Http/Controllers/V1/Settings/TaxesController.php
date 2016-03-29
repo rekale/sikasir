@@ -15,65 +15,70 @@ use Sikasir\V1\Outlets\Tax;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
 use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
 
-class TaxesController extends TempApiController implements
-												Resourcable,
-												manipulatable
+class TaxesController extends TempApiController
 {
-   use Showable, Storable, Updateable, Destroyable;
-   
-   public function getQueryType($throughId = null)
-   {
-   	return new EloquentCompany(new Tax, $this->auth->getCompanyId());
-   }
-
-    public function getRepo()
-    {
-        return new TempEloquentRepository($this->getQueryType());
-    }
-    
-    public function getFactory()
-    { 	
-    	return new EloquentFactory($this->getQueryType());
-    }
-
-    public function initializeAccess() 
-    {
-        $this->indexAccess = 'read-tax';
-        $this->showAccess = 'read-tax';
-        $this->deleteAccess = 'delete-tax';
-        
-        $this->storeAccess = 'create-tax';
-        $this->updateAccess = 'update-tax';
-        
-    }
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-tax';
+		$this->showAccess = 'read-tax';
+		$this->destroyAccess = 'delete-tax';
 	
-    public function createJob(array $data)
-    {
-    	$factory = new EloquentFactory($this->getQueryType());
-    
-    	$factory->create($data);
-    }
-    
-    
-    public function updateJob($id, array $data)
-    {
-    	$repo = $this->getRepo();
-    
-    	$entity = $repo->find($id);
-    
-    	$entity->update($data);
-    
-    }
-    
-    public function getRequest() 
-    {
-        return app(TaxDiscountRequest::class);
-    }
-    
-    public function getTransformer()
-    {
-    	return new TaxTransformer;
-    }
+		$this->storeAccess = 'create-tax';
+		$this->updateAccess = 'update-tax';
+		$this->reportAccess = 'read-tax';
+	}
+	
+	public function getQueryType($throughId = null)
+	{
+		return  new EloquentCompany(new Tax, $this->auth->getCompanyId());
+	}
+	
+	public function getRepository()
+	{
+		return new TempEloquentRepository($this->getQueryType());
+	}
+	
+	public function getFactory()
+	{
+		$queryType = new EloquentCompany(new Tax, $this->auth->getCompanyId());
+	
+		return new EloquentFactory($queryType);
+	}
+	
+	public function createCommand()
+	{
+		$factory =  new EloquentFactory($this->getQueryType());
+		
+		return new GeneralCreateCommand($factory);
+	}
+	
+	public function updateCommand()
+	{
+		return new GeneralUpdateCommand($this->getRepository());
+	}
+	public function getSpecificRequest()
+	{
+		return app(TaxDiscountRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new TaxTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new TaxTransformer;
+	}
+	
+	
+	public function getReport()
+	{
+		return new CustomerReport($this->getQueryType());
+	}
 
 }

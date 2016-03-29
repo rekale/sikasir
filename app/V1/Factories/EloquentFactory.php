@@ -11,11 +11,6 @@ class EloquentFactory extends Factory
 {
     protected $data;
     
-    public function __construct(QueryCompanyInterface $query) 
-    {
-        $this->query = $query;
-    }
-    
     /**
      * 
      * @param array $data

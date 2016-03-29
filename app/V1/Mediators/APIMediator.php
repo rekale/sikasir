@@ -11,6 +11,7 @@ use League\Fractal\TransformerAbstract;
 use Sikasir\V1\Commands\CreateCommand;
 use Sikasir\V1\Commands\UpdateCommand;
 use Illuminate\Http\JsonResponse;
+use Sikasir\V1\Reports\Report;
 
 class APIMediator 
 {
@@ -111,11 +112,13 @@ class APIMediator
 	 * 
 	 * @return JsonResponse
 	 */
-	public function update(UpdateCommand $command, Request $request)
+	public function update($id, UpdateCommand $command, Request $request)
 	{
 		$data = Obfuscater::decodeArray($request->all(), 'id');
 		
 		$command->setData($data);
+		
+		$command->setId(Obfuscater::decode($id));
 		
 		$command->execute();
 		
@@ -136,6 +139,65 @@ class APIMediator
 		return $this->response->deleted();
 	}
 	
+	/**
+	 * 
+	 * @param string $dateRange
+	 * @param Report $report
+	 * @param Request $request
+	 * @param TransformerAbstract $transformer
+	 * 
+	 * @return JsonResponse
+	 */
+	public function report($dateRange, Report $report, Request $request, TransformerAbstract $transformer)
+	{
+
+		$include = $request->input('include');
+		
+		$with = $this->filterIncludeParams($include);
+		
+		$result = $report->whenDate($dateRange)
+							->getResult()
+							->paginate();
+		
+		return $this->response
+					->resource()
+					->including($with)
+					->withPaginated($result, $transformer);
+		
+	}
+	
+	/**
+	 * 
+	 * @param unknown $id
+	 * @param unknown $dateRange
+	 * @param Report $report
+	 * @param Request $request
+	 * @param TransformerAbstract $transformer
+	 * 
+	 * @return  JsonResponse
+	 */
+	public function reportFor($id, $dateRange, Report $report, Request $request, TransformerAbstract $transformer)
+	{
+		
+		$include = $request->input('include');
+	
+		$with = $this->filterIncludeParams($include);
+	
+		$result = $report->whenDate($dateRange)
+						->forInstanceWithId( Obfuscater::decode($id) )
+						->getResult()
+						->paginate();
+	
+		return $this->response
+					->resource()
+					->including($with)
+					->withPaginated($result, $transformer);
+	}
+	
+	/**
+	 * 
+	 * @param string $param
+	 */
 	private function filterIncludeParams($param)
 	{
 		$paramsinclude  = [];

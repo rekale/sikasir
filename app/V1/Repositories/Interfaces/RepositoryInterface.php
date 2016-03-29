@@ -6,6 +6,8 @@ use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
 
 interface RepositoryInterface 
 {
+	public function setQuery(QueryCompanyInterface $query);
+	
     /**
      * find a resource by id
      * 

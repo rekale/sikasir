@@ -3,6 +3,8 @@
 namespace Sikasir\V1\User;
 
 
+use Sikasir\V1\Interfaces\AuthInterface;
+
 class Authorizer 
 {
 	/**
@@ -15,9 +17,9 @@ class Authorizer
 	 * 
 	 * @param User $user
 	 */
-	public function __construct(User $user)
+	public function __construct(AuthInterface $auth)
 	{
-		$this->user = $user;
+		$this->user = $auth->currentUser();
 	}
 	
 	public function checkAccess($access)

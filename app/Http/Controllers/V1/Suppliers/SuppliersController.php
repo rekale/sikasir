@@ -9,94 +9,77 @@ use Sikasir\V1\Repositories\SupplierRepository;
 use Sikasir\Http\Requests\SupplierRequest;
 use Sikasir\V1\Transformer\SupplierTransformer;
 use Sikasir\V1\Transformer\PurchaseOrderTransformer;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Suppliers\Supplier;
+use Sikasir\V1\Repositories\TempEloquentRepository;
 
-class SuppliersController extends ApiController
+class SuppliersController extends TempApiController
 {
 
-    public function __construct(ApiRespond $respond, JWTAuth $auth, SupplierRepository $repo)
-    {
-        parent::__construct($respond, $auth, $repo);
-    }
-
-    public function index()
-    {
-        $currentUser = $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-supplier');
-        
-        $paginator = $this->repo()->getPaginatedForOwner(
-            $currentUser->getCompanyId()
-        );
-        
-        return $this->response()
-                ->resource()
-                ->withPaginated($paginator, new SupplierTransformer);
-    }
-
-    public function show($id)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-supplier');
-       
-        $owner = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $supplier = $this->repo()->findFOrOwner($decodedId, $owner);
-
-        return $this->response()
-                ->resource()
-                ->withItem($supplier, new SupplierTransformer);
-    }
-
-    public function store(SupplierRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'create-supplier');
-       
-        $ownerId = $currentUser->getCompanyId();
-        
-        $dataInput = $request->all();
-        
-        $this->repo()->saveForOwner($dataInput, $ownerId);
-        
-
-        return $this->response()->created();
-    }
-
-    public function update($id, SupplierRequest $request)
-    {
-         $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'update-supplier');
-       
-        $ownerId = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-        
-        $dataInput = $request->all();
-
-        $this->repo()->updateForOwner($decodedId, $dataInput, $ownerId);
-
-        return $this->response()->updated();
-    }
-
-    public function destroy($id)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'delete-supplier');
-       
-        $ownerId = $currentUser->getCompanyId();
-        
-        $decodedId = $this->decode($id);
-
-        $this->repo()->destroyForOwner($decodedId, $ownerId);
-
-        return $this->response()->deleted();
-   }
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-supplier';
+		$this->showAccess = 'read-supplier';
+		$this->destroyAccess = 'delete-supplier';
+	
+		$this->storeAccess = 'create-supplier';
+		$this->updateAccess = 'update-supplier';
+		$this->reportAccess = 'read-supplier';
+	}
+	
+	public function getQueryType($throughId = null)
+	{
+		return  new EloquentCompany(new Supplier, $this->auth->getCompanyId());
+	}
+	
+	public function getRepository()
+	{
+		return new TempEloquentRepository($this->getQueryType());
+	}
+	
+	public function getFactory()
+	{
+		$queryType = new EloquentCompany(new Supplier, $this->auth->getCompanyId());
+	
+		return new EloquentFactory($queryType);
+	}
+	
+	public function createCommand()
+	{
+		$factory =  new EloquentFactory($this->getQueryType());
+	
+		return new GeneralCreateCommand($factory);
+	}
+	
+	public function updateCommand()
+	{
+		return new GeneralUpdateCommand($this->getRepository());
+	}
+	public function getSpecificRequest()
+	{
+		return app(SupplierRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new SupplierTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new SupplierTransformer;
+	}
+	
+	
+	public function getReport()
+	{
+		return new CustomerReport($this->getQueryType());
+	}
    
    public function purchaseOrders($id)
    {

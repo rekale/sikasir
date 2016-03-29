@@ -4,7 +4,7 @@ namespace Sikasir\V1\Commands;
 
 use Sikasir\V1\Factories\Factory;
 
-abstract  class CreateCommand
+abstract class CreateCommand
 {
 	protected $factory;
 	protected $data;
@@ -12,14 +12,13 @@ abstract  class CreateCommand
 	public function  __construct(Factory $factory)
 	{
 		$this->factory = $factory;
-		$this->data = $data;
 	}
 	
-	public function setData($data)
+	public function setData(array $data)
 	{
 		$this->data = $data;
 	}
-
-	public function execute();
+	
+	abstract public function execute();
 	
 }

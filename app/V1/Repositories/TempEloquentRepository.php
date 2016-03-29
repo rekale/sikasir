@@ -15,7 +15,12 @@ class TempEloquentRepository implements RepositoryInterface
     protected $query;
    
     
-    public function __construct(QueryCompanyInterface $query) 
+    public function __construct(QueryCompanyInterface $query = null) 
+    {
+        $this->query = $query;
+    }
+    
+    public function setQuery(QueryCompanyInterface $query) 
     {
         $this->query = $query;
     }
@@ -92,7 +97,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function destroy($id) 
     {
-        return $this->query->getModel()->destroy($id);
+        return $this->query->forCompany()->whereId($id)->delete();
     }
     
     public function getAll(array $coloumns = array('*')) 

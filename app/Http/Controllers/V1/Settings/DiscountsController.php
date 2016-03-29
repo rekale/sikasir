@@ -7,71 +7,73 @@ use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Outlets\Discount;
 use Sikasir\Http\Requests\TaxDiscountRequest;
 use Sikasir\V1\Transformer\TaxTransformer;
-use Sikasir\Http\Controllers\V1\Traits\Showable;
-use Sikasir\Http\Controllers\V1\Traits\Destroyable;
-use Sikasir\Http\Controllers\V1\Traits\Updateable;
-use Sikasir\Http\Controllers\V1\Traits\Storable;
-use Sikasir\Http\Controllers\V1\Interfaces\Resourcable;
-use Sikasir\Http\Controllers\V1\Interfaces\manipulatable;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Outlets\Discount;
 
-class DiscountsController extends TempApiController implements
-													Resourcable,
-													manipulatable
+class DiscountsController extends TempApiController
 {
-	use Showable, Destroyable, Updateable, Storable;
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-discount';
+		$this->showAccess = 'read-discount';
+		$this->destroyAccess = 'delete-discount';
+	
+		$this->storeAccess = 'create-discount';
+		$this->updateAccess = 'update-discount';
+		$this->reportAccess = 'read-discount';
+	}
 	
 	public function getQueryType($throughId = null)
 	{
-		return new EloquentCompany(new Discount, $this->auth->getCompanyId());
+		return  new EloquentCompany(new Discount, $this->auth->getCompanyId());
 	}
 	
-	public function getRepo()
+	public function getRepository()
 	{
 		return new TempEloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory()
 	{
-		return new EloquentFactory($this->getQueryType());
+		$queryType = new EloquentCompany(new Discount, $this->auth->getCompanyId());
+	
+		return new EloquentFactory($queryType);
 	}
 	
-	public function initializeAccess()
+	public function createCommand()
 	{
-		$this->indexAccess = 'read-discount';
-		$this->showAccess = 'read-discount';
-		$this->deleteAccess = 'delete-discount';
-	
-		$this->storeAccess = 'create-discount';
-		$this->updateAccess = 'update-discount';
+		$factory =  new EloquentFactory($this->getQueryType());
+		
+		return new GeneralCreateCommand($factory);
 	}
 	
-	public function getRequest()
+	public function updateCommand()
+	{
+		return new GeneralUpdateCommand($this->getRepository());
+	}
+	public function getSpecificRequest()
 	{
 		return app(TaxDiscountRequest::class);
 	}
 	
-	public function createJob(array $data)
-	{
-		$factory = new EloquentFactory($this->getQueryType());
-		 
-		$factory->create($data);
-	}
-	
-	public function updateJob($id, array $data)
-	{
-		$repo = $this->getRepo();
-		 
-		$entity = $repo->find($id);
-		 
-		$entity->update($data);
-	}
 	
 	public function getTransformer()
 	{
 		return new TaxTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new TaxTransformer;
+	}
+	
+	
+	public function getReport()
+	{
+		return new CustomerReport($this->getQueryType());
 	}
    
 }

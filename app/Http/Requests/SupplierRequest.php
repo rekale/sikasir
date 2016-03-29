@@ -23,11 +23,17 @@ class SupplierRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:255',
-            'email' => 'required|max:255|email|unique:suppliers',
+            'email' => 'max:255|email|unique:suppliers',
             'phone' => 'required',
             'address' => 'required|max:1000',
         ];
+        
+        if ($this->getMethod() === 'POST') {
+        	$rules['email'] = $rules['email'] . '|required';
+        }
+        
+        return $rules;
     }
 }

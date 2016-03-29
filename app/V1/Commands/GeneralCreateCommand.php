@@ -7,6 +7,6 @@ class GeneralCreateCommand extends CreateCommand
 	
 	public function execute()
 	{
-		$this->factory($this->data);
+		$this->factory->create($this->data);
 	}
 }

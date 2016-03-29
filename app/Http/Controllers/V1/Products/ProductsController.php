@@ -11,17 +11,23 @@ use Sikasir\V1\Products\Product;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Util\Obfuscater;
 use Sikasir\V1\Products\Variant;
+use Sikasir\V1\Commands\CreateProductCommand;
+use Sikasir\V1\Transformer\ProductTransformer;
+use Sikasir\V1\Repositories\TempEloquentRepository;
 
-class ProductsController extends TempApiController implements
-													manipulatable
+class ProductsController extends TempApiController
 {
-	use Storable;
 	
-    
-    public function initializeAccess()
-    {
-    	$this->storeAccess = 'create-product';
-    }
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-category';
+		$this->showAccess = 'read-category';
+		$this->destroyAccess = 'delete-category';
+	
+		$this->storeAccess = 'create-category';
+		$this->updateAccess = 'update-category';
+		$this->reportAccess = 'read-category';
+	}
     
     public function getQueryType($throughId = null)
     {
@@ -29,7 +35,52 @@ class ProductsController extends TempApiController implements
     		new Product, $this->auth->getCompanyId(), 'categories', $throughId
     	);
     }
-	
+    public function getRepository($throughId = null)
+    {
+    	return new TempEloquentRepository($this->getQueryType($throughId));
+    }
+    
+    public function getFactory($throughId = null)
+    {
+    	return new EloquentFactory();
+    }
+    
+    public function createCommand($throughId = null)
+    {
+    	$factory =  $this->getFactory();
+    
+    	$command = new CreateProductCommand($factory);
+    	
+    	
+    	return $command->setAuth($this->auth);
+    }
+    
+    public function updateCommand($throughId = null)
+    {
+    	throw new \Exception('not implemented');
+    }
+    public function getSpecificRequest()
+    {
+    	return app(ProductRequest::class);
+    }
+    
+    
+    public function getTransformer()
+    {
+    	return new ProductTransformer;
+    }
+    
+    public function getReportTransformer()
+    {
+    	return new ProductTransformer;
+    }
+    
+    
+    public function getReport($throughId = null)
+    {
+    	return new CustomerReport($this->getQueryType($throughId));
+    }
+    
 	public function createJob(array $data) 
 	{
 		\DB::transaction(function() use  ($data) {
