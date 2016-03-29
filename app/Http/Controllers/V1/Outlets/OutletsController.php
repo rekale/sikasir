@@ -37,9 +37,7 @@ class OutletsController extends TempApiController
 	
 	public function getFactory($throughId = null)
 	{
-		$queryType = new EloquentCompany(new Outlet, $this->auth->getCompanyId());
-	
-		return new EloquentFactory($queryType);
+		return new EloquentFactory($this->getQueryType());
 	}
 	
 	public function createCommand($throughId = null)

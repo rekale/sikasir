@@ -276,6 +276,12 @@
     "size": "A4"
 }
 
+--INCOME/OUTCOME--
+{
+	"total": 40000,
+	"note": "asdfasfdsafasdfsad"
+}
+
         </pre>
     </body>
 </html>

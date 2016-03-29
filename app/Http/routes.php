@@ -98,14 +98,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{id}', 'OutletsController@destroy');
             
             /* INCOMES */
-            get('outlets/{id}/incomes', 'IncomesController@index');
-            post('outlets/{id}/incomes', 'IncomesController@store');
-            delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroy');
+            get('outlets/{id}/incomes', 'IncomesController@indexThrough');
+            post('outlets/{id}/incomes', 'IncomesController@storeThrough');
+            delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroyThrough');
 
             /* OUTCOMES */
-            get('outlets/{id}/outcomes', 'OutcomesController@index');
-            post('outlets/{id}/outcomes', 'OutcomesController@store');
-            delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroy');
+            get('outlets/{id}/outcomes', 'OutcomesController@indexThrough');
+            post('outlets/{id}/outcomes', 'OutcomesController@storeThrough');
+            delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroyThrough');
             
             /* CATEGORIES */
             get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@allReports');

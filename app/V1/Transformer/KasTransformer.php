@@ -9,11 +9,11 @@ use Sikasir\V1\Finances\Income;
  *
  * @author rekale
  */
-class IncomeTransformer extends TransformerAbstract
+class KasTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
-    public function transform(Income $income)
+    public function transform($income)
     {
         return [
             'id' => $this->encode($income->id),

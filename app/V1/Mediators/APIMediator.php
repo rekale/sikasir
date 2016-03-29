@@ -83,7 +83,7 @@ class APIMediator
 		return $this->response
 					->resource()
 					->including($with)
-					->withCollection($collection, $transformer);
+					->withPaginated($collection, $transformer);
 		
 	}
 	

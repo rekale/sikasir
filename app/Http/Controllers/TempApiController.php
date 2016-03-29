@@ -85,12 +85,14 @@ abstract class TempApiController extends Controller
     
     public function indexThrough($id, Request $request)
     {
+    	$throughId = Obfuscater::decode($id);
+    	
     	return $this->mediator->checkPermission($this->indexAccess)
 						    	->index(
-						    			$this->getRepository($id),
-						    			$request,
-						    			$this->getTransformer()
-						    			);
+						    		$this->getRepository($throughId),
+						   			$request,
+						   			$this->getTransformer()
+						    	);
     
     }
     
@@ -152,6 +154,17 @@ abstract class TempApiController extends Controller
     								$id, 
     								$this->getRepository()
     							);
+    }
+    
+    public function destroyThrough($throughId, $id)
+    {
+    	$throughId = Obfuscater::decode($throughId);
+    	
+    	return $this->mediator->checkPermission($this->destroyAccess)
+				    			->destroy(
+				    				$id,
+				    				$this->getRepository($throughId)
+				    			);
     }
     
     public function report($dateRange, Request $request)

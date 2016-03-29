@@ -8,46 +8,77 @@ use Sikasir\V1\Transformer\OutcomeTransformer;
 use Sikasir\V1\Repositories\OutletRepository;
 use Tymon\JWTAuth\JWTAuth;
 use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\V1\Repositories\EloquentThroughCompany;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Finances\Outcome;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Commands\GeneralCreateCommand;
+use Sikasir\V1\Commands\GeneralUpdateCommand;
+use Sikasir\Http\Requests\KasRequest;
+use Sikasir\V1\Transformer\KasTransformer;
+use Sikasir\Http\Controllers\TempApiController;
 
 
-class OutcomesController extends ApiController
+class OutcomesController extends TempApiController
 {
     
-   public function __construct(ApiRespond $respond, OutletRepository $repo, JWTAuth $auth) {
-
-        parent::__construct($respond, $auth, $repo);
-
-    }
-    /**
-     * 
-     * @param string $id
-     */
-   public function index($outletId)
-   {    
-       $outcomes = $this->repo()->getOutcomes($this->decode($outletId));
-       
-       return $this->response()
-               ->resource()
-               ->withPaginated($outcomes, new OutcomeTransformer);
-       
-   }
-   
-   public function store($outletId, Request $request)
-   {
-       $saved = $this->repo()->saveOutcome($outletId, [
-          'total' => $request->input('total'),
-          'note' => $request->input('note'), 
-       ]);
-       
-       return $saved ? $this->response()->created('new outcome has created') : 
-           $this->response()->createFailed('fail to create outcome');
-   }
-   
-    public function destroy($outletId, $outcomeId)
-    {
-        
-        $this->repo()->destroyOutcome($this->decode($outletId), $this->decode($outcomeId));
-                
-        return $this->response()->deleted('selected outcome has deleted');
-    }
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-outlet';
+		$this->storeAccess = 'create-outlet';
+	
+		$this->destroyAccess = 'read-outlet';
+	}
+	
+	public function getQueryType($throughId = null)
+	{
+		return  new EloquentThroughCompany(
+			new Outcome, $this->auth->getCompanyId(), 'outlets', $throughId
+		);
+		
+	}
+	
+	public function getRepository($throughId = null)
+	{
+		return new TempEloquentRepository($this->getQueryType($throughId));
+	}
+	
+	public function getFactory($throughId = null)
+	{
+		return new EloquentFactory($this->getQueryType($throughId));
+	}
+	
+	public function createCommand($throughId = null)
+	{
+		$factory =  new EloquentFactory($this->getQueryType($throughId));
+	
+		return new GeneralCreateCommand($factory);
+	}
+	
+	public function updateCommand($throughId = null)
+	{
+		return new GeneralUpdateCommand($this->getRepository($throughId));
+	}
+	public function getSpecificRequest()
+	{
+		return app(KasRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new KasTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new KasTransformer;
+	}
+	
+	
+	public function getReport($throughId = null)
+	{
+		return new CustomerReport($this->getQueryType());
+	}   
+	
 }
