@@ -2,12 +2,6 @@
 
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
-use Illuminate\Http\Request;
-use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Transformer\OutcomeTransformer;
-use Sikasir\V1\Repositories\OutletRepository;
-use Tymon\JWTAuth\JWTAuth;
-use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Finances\Outcome;
