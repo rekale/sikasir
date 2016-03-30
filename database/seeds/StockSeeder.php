@@ -36,7 +36,7 @@ class StockSeeder extends Seeder
             /* --STOCK ENTRY-- */
             
             //create stock entry
-            $entries = factory(Entry::class, 300)->create([
+            $entries = factory(Entry::class, 50)->create([
                 'user_id' => $employees->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -52,7 +52,7 @@ class StockSeeder extends Seeder
             /* --STOCK OUT-- */
             
             //create stock out
-            $outs = factory(Out::class, 300)->create([
+            $outs = factory(Out::class, 50)->create([
                 'user_id' => $employees->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -68,7 +68,7 @@ class StockSeeder extends Seeder
             /* --OPNAME-- */
             
             //create stock opname
-            $opnames = factory(Opname::class, 300)->create([
+            $opnames = factory(Opname::class, 50)->create([
                 'user_id' => $employees->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -84,7 +84,7 @@ class StockSeeder extends Seeder
             /* --PURCHASE ORDER-- */
             
             //create stock opname
-            $purchases = factory(PurchaseOrder::class, 300)->create([
+            $purchases = factory(PurchaseOrder::class, 50)->create([
                 'supplier_id' => $suppliers->random()->id,
                 'outlet_id' => $outlet->id,
             ]);

@@ -19,7 +19,7 @@ class CustomerSeeder extends Seeder
         {
             $customer = factory(Customer::class, 300)->make();
             
-            $company->customers()->save($customer);
+            $company->customers()->saveMany($customer);
 
                 
         });

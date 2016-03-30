@@ -27,7 +27,7 @@ class OrderSeeder extends Seeder
             $payments = $outlet->company->payments;
             
             //create order
-            $orders = factory(Order::class, 300)->create([
+            $orders = factory(Order::class, 50)->create([
                 'outlet_id' => $outlet->id,
                 'customer_id' => $customers->random()->id,
                 'user_id' => $employees->random()->id,
@@ -37,7 +37,7 @@ class OrderSeeder extends Seeder
             ]);
             
             
-            $variantIds = $outlet->variants->random(300)->lists('id')->toArray(); 
+            $variantIds = $outlet->variants->random(50)->lists('id')->toArray(); 
             
             foreach ($orders as $order) {
                 $order->variants()->attach(
