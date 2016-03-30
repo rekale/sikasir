@@ -5,7 +5,6 @@ namespace Sikasir\V1\Commands;
 use Sikasir\V1\Commands\CreateCommand;
 use Sikasir\V1\Interfaces\AuthInterface;
 use Sikasir\V1\Util\Obfuscater;
-use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Products\Variant;
 

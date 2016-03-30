@@ -2,14 +2,9 @@
 
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
-use Sikasir\Http\Controllers\ApiController;
 use Sikasir\Http\Requests\PrinterRequest;
-use Sikasir\V1\Repositories\PrinterRepository;
-use Tymon\JWTAuth\JWTAuth;
-use \Sikasir\V1\Traits\ApiRespond;
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
-use Sikasir\V1\Stocks\PurchaseOrder;
 use Sikasir\V1\Outlets\Printer;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;

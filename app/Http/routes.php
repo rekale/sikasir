@@ -150,17 +150,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             Route::group(['namespace' => 'Stocks'], function()
             {
                 
-                get('outlets/{id}/entries', 'EntriesController@index');
-                post('outlets/{id}/entries', 'EntriesController@store');
+                get('outlets/{id}/entries', 'EntriesController@indexThrough');
+                post('outlets/{id}/entries', 'EntriesController@storeThrough');
                 
-                get('outlets/{id}/outs', 'OutsController@index');
-                post('outlets/{id}/outs', 'OutsController@store');
+                get('outlets/{id}/outs', 'OutsController@indexThrough');
+                post('outlets/{id}/outs', 'OutsController@storeThrough');
                 
-                get('outlets/{id}/opnames', 'OpnamesController@index');
-                post('outlets/{id}/opnames', 'OpnamesController@store');
+                get('outlets/{id}/opnames', 'OpnamesController@Through');
+                post('outlets/{id}/opnames', 'OpnamesController@Through');
                 
-                get('outlets/{id}/purchases', 'PurchasesController@index');
-                post('outlets/{id}/purchases', 'PurchasesController@store');
+                get('outlets/{id}/purchases', 'PurchasesController@indexThrough');
+                post('outlets/{id}/purchases', 'PurchasesController@storeThrough');
                 
             });
             
