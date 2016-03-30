@@ -75,56 +75,5 @@ class PrintersController extends TempApiController
 	{
 		throw new \Exception('not implemented');
 	}
-    /**
-     * 
-     * @param string $id
-     
-   public function store($outletId, PrinterRequest $request)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $throughId = $this->decode($outletId);
-        
-        $this->repo()->saveForOwnerThrough($request->all(), $companyId, $throughId, 'outlets');
-       
-       return $this->response()->created();
-   }
-   
-   public function update($outletId, $printerId, PrinterRequest $request)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $throughId = $this->decode($outletId);
-        
-        $decodedId = $this->decode($printerId);
-        
-        $this->repo()->updateForOwnerThrough(
-            $decodedId, $request->all(), $companyId, $throughId, 'outlets'
-        );
-       
-       return $this->response()->updated();
-   }
-   
-    public function destroy($outletId, $printerId)
-    {
-        
-        $currentUser =  $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $throughId = $this->decode($outletId);
-        
-        $decodedId = $this->decode($printerId);
-        
-        $this->repo()->destroyForOwnerThrough(
-            $decodedId, $companyId, $throughId, 'outlets'
-        );
-                
-        return $this->response()->deleted();
-    }
-   */
+    
 }

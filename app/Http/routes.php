@@ -85,7 +85,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('suppliers/{id}', 'SuppliersController@update');
             delete('suppliers/{id}', 'SuppliersController@destroy');
             
-            get('suppliers/{id}/purchases', 'POController@index');
+            get('suppliers/{id}/purchases', 'POController@indexThrough');
         });
 
         Route::group(['namespace' => 'Outlets'], function()
@@ -132,8 +132,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             /* PRINTERS */
             get('outlets/{throughId}/printers/{id}', 'PrintersController@showThrough');
             post('outlets/{id}/printers', 'PrintersController@storeThrough');
-            put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');
-            delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
+            put('outlets/{outletId}/printers/{printerId}', 'PrintersController@updateThrough');
+            delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroyThrough');
             
             /* ORDERS */
             get('outlets/all/orders/{dateRange}', 'OrdersController@all');
