@@ -76,9 +76,11 @@ class APIMediator
 		
 		$include = $request->input('include');
 		
+		$perPage = $request->input('per_page') % 101;
+		
 		$with = $this->filterIncludeParams($include);
 		
-		$collection = $repo->getPaginated($with);
+		$collection = $repo->getPaginated($with, $perPage);
 		
 		return $this->response
 					->resource()
@@ -153,11 +155,13 @@ class APIMediator
 
 		$include = $request->input('include');
 		
+		$perPage = $request->input('per_page') % 101;
+		
 		$with = $this->filterIncludeParams($include);
 		
 		$result = $report->whenDate($dateRange)
 							->getResult()
-							->paginate();
+							->paginate($perPage);
 		
 		return $this->response
 					->resource()
@@ -180,13 +184,15 @@ class APIMediator
 	{
 		
 		$include = $request->input('include');
+
+		$perPage = $request->input('per_page') % 101;
 	
 		$with = $this->filterIncludeParams($include);
 	
 		$result = $report->whenDate($dateRange)
 						->forInstanceWithId( Obfuscater::decode($id) )
 						->getResult()
-						->paginate();
+						->paginate($perPage);
 	
 		return $this->response
 					->resource()
