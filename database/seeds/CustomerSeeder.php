@@ -17,7 +17,7 @@ class CustomerSeeder extends Seeder
         
         Company::all()->each(function ($company) use ($fake)
         {
-            $customer = factory(Customer::class)->make();
+            $customer = factory(Customer::class, 300)->make();
             
             $company->customers()->save($customer);
 

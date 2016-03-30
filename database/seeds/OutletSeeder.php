@@ -17,6 +17,8 @@ class OutletSeeder extends Seeder
      */
     public function run()
     {
+    	$businessField = [];
+    	
         $businessField[] = BusinessField::create([
             'name' => 'F&B',
         ])->id;
@@ -54,7 +56,7 @@ class OutletSeeder extends Seeder
                 ]);
                 
                 //create outlet for each company and add tax
-                $outlets = factory(Outlet::class, 3)->create([
+                $outlets = factory(Outlet::class, 100)->create([
                     'company_id' => $company->id,
                     'tax_id' => $taxes->random()->id,
                     'business_field_id' => $businessField[mt_rand(0, 2)],

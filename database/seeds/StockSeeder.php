@@ -36,7 +36,7 @@ class StockSeeder extends Seeder
             /* --STOCK ENTRY-- */
             
             //create stock entry
-            $entries = factory(Entry::class, 3)->create([
+            $entries = factory(Entry::class, 300)->create([
                 'user_id' => $employees->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -44,7 +44,7 @@ class StockSeeder extends Seeder
             //add it in stock entry
             foreach ($entries as $entry) {
                 $entry->variants()->attach(
-                    $variants->random(3)->lists('id')->toArray(), 
+                    $variants->random(10)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
             }
@@ -52,7 +52,7 @@ class StockSeeder extends Seeder
             /* --STOCK OUT-- */
             
             //create stock out
-            $outs = factory(Out::class, 3)->create([
+            $outs = factory(Out::class, 300)->create([
                 'user_id' => $employees->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -60,7 +60,7 @@ class StockSeeder extends Seeder
             //add it in stock out
             foreach ($outs as $out) {
                 $out->variants()->attach(
-                    $variants->random(3)->lists('id')->toArray(), 
+                    $variants->random(10)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
             }
@@ -68,7 +68,7 @@ class StockSeeder extends Seeder
             /* --OPNAME-- */
             
             //create stock opname
-            $opnames = factory(Opname::class, 3)->create([
+            $opnames = factory(Opname::class, 300)->create([
                 'user_id' => $employees->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -76,7 +76,7 @@ class StockSeeder extends Seeder
             //add it in stock opname
             foreach ($opnames as $opname) {
                 $opname->variants()->attach(
-                    $variants->random(3)->lists('id')->toArray(), 
+                    $variants->random(10)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
             }
@@ -84,7 +84,7 @@ class StockSeeder extends Seeder
             /* --PURCHASE ORDER-- */
             
             //create stock opname
-            $purchases = factory(PurchaseOrder::class, 3)->create([
+            $purchases = factory(PurchaseOrder::class, 300)->create([
                 'supplier_id' => $suppliers->random()->id,
                 'outlet_id' => $outlet->id,
             ]);
@@ -92,7 +92,7 @@ class StockSeeder extends Seeder
             //add it in purchase order
             foreach ($purchases as $purchase) {
                 $purchase->variants()->attach(
-                     $variants->random(3)->lists('id')->toArray(), 
+                     $variants->random(10)->lists('id')->toArray(), 
                     ['total' => rand(1, 50)]
                 );
             }

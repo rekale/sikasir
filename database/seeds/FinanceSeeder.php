@@ -18,7 +18,7 @@ class FinanceSeeder extends Seeder
         
         Outlet::all()->each(function ($outlet) use ($fake)
         {
-            foreach(range(1, 20) as $i) {
+            foreach(range(1, 300) as $i) {
                 
                 $outlet->incomes()->save(new Income([
                     'total' => $fake->numberBetween(1000, 1000000),
@@ -31,7 +31,7 @@ class FinanceSeeder extends Seeder
         
         Outlet::all()->each(function ($outlet) use ($fake)
         {
-            foreach(range(1, 20) as $i) {
+            foreach(range(1, 300) as $i) {
                 
                 $outlet->outcomes()->save(new Outcome([
                     'total' => $fake->numberBetween(1000, 1000000),

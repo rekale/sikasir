@@ -15,7 +15,7 @@ class SupplierSeeder extends Seeder
     {
         Company::all()->each(function ($company) {
         
-            $suppliers = factory(Supplier::class, 3)->make();
+            $suppliers = factory(Supplier::class, 50)->make();
             
             $company->suppliers()->saveMany($suppliers);
             

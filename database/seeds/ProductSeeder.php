@@ -22,14 +22,14 @@ class ProductSeeder extends Seeder
         $companies->each(function ($company)
         {
             $categories = $company->categories()->saveMany(
-                factory(Category::class, 3)->make()
+                factory(Category::class, 10)->make()
             );
             
             $outlets = $company->outlets;
             
             foreach (range(0, 2) as $i) {
                 
-                $products = factory(Product::class, 3)->create([
+                $products = factory(Product::class, 50)->create([
                     'category_id' => $categories[$i]->id,
                     'outlet_id' => $outlets[$i]->id,
                 ]);
@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
                 //make variant /subproduct
                 foreach ($products as $product) {
                     $product->variants()->saveMany(
-                        factory(Variant::class, 3)->make()
+                        factory(Variant::class, 100)->make()
                     );
                 }
             }

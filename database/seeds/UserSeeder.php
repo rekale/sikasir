@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('owner'),
         ]);
         
-        $employees = factory(User::class, 5)->create([
+        $employees = factory(User::class, 300)->create([
             'company_id' => $company->id, 
             'password' => bcrypt('12345'),
         ]);
