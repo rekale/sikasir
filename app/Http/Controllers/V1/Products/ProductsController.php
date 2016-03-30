@@ -20,13 +20,13 @@ class ProductsController extends TempApiController
 	
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-category';
-		$this->showAccess = 'read-category';
-		$this->destroyAccess = 'delete-category';
+		$this->indexAccess = 'read-product';
+		$this->showAccess = 'read-product';
+		$this->destroyAccess = 'edit-product';
 	
-		$this->storeAccess = 'create-category';
-		$this->updateAccess = 'update-category';
-		$this->reportAccess = 'read-category';
+		$this->storeAccess = 'edit-product';
+		$this->updateAccess = 'edit-product';
+		$this->reportAccess = 'edit-product';
 	}
     
     public function getQueryType($throughId = null)

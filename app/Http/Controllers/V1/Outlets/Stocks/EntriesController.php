@@ -9,7 +9,6 @@ use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Stocks\Entry;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Commands\CreateInventoryCommand;
 
 class EntriesController extends TempApiController
@@ -17,7 +16,7 @@ class EntriesController extends TempApiController
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-inventory';
-		$this->storeAccess = 'create-inventory';
+		$this->storeAccess = 'edit-inventory';
 	}
 	
 	public function getQueryType($throughId = null)

@@ -17,13 +17,13 @@ class PaymentsController extends TempApiController
 {
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-payment';
-		$this->showAccess = 'read-payment';
-		$this->destroyAccess = 'delete-payment';
+			$this->indexAccess = 'read-settings';
+		$this->showAccess = 'read-settings';
+		$this->destroyAccess = 'edit-settings';
 	
-		$this->storeAccess = 'create-payment';
-		$this->updateAccess = 'update-payment';
-		$this->reportAccess = 'read-payment';
+		$this->storeAccess = 'edit-settings';
+		$this->updateAccess = 'edit-settings';
+		$this->reportAccess = 'edit-settings';
 	}
 	
 	public function getQueryType($throughId = null)

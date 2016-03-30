@@ -16,10 +16,10 @@ class IncomesController extends TempApiController
 {
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-outlet';
-		$this->storeAccess = 'create-outlet';
+		$this->indexAccess = 'read-settings';
+		$this->storeAccess = 'read-settings';
 	
-		$this->destroyAccess = 'read-outlet';
+		$this->destroyAccess = 'read-settings';
 	}
 	
 	public function getQueryType($throughId = null)

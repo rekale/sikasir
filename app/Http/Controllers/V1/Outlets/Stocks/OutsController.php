@@ -16,7 +16,7 @@ class OutsController extends TempApiController
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-inventory';
-		$this->storeAccess = 'create-inventory';
+		$this->storeAccess = 'edit-inventory';
 	}
 	
 	public function getQueryType($throughId = null)

@@ -48,10 +48,10 @@ class CustomersController extends TempApiController
 	{
 		$this->indexAccess = 'read-customer';
 		$this->showAccess = 'read-customer';
-		$this->destroyAccess = 'delete-customer';
+		$this->destroyAccess = 'edit-customer';
 	
-		$this->storeAccess = 'create-customer';
-		$this->updateAccess = 'update-customer';
+		$this->storeAccess = 'edit-customer';
+		$this->updateAccess = 'edit-customer';
 		$this->reportAccess = 'read-report';
 	}
 	

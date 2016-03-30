@@ -102,7 +102,7 @@ class ProductsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'update-product');
+        $this->authorizing($currentUser, 'edit-product');
        
         $companyId = $currentUser->getCompanyId();
         
@@ -133,7 +133,7 @@ class ProductsController extends ApiController
     {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'update-product');
+        $this->authorizing($currentUser, 'edit-product');
        
         $companyId = $currentUser->getCompanyId();
         

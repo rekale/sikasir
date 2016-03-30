@@ -23,13 +23,10 @@ class AuthController extends Controller
     
     public function login(JWTAuth $auth, Request $request)
     {
-        $credentials = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-        ];
+        $credentials = $request->only('email', 'password');
         
         $loggedIn = $auth->attempt($credentials);
-        
+ 	     
         if ( ! $loggedIn ) {
             return $this->response->notFound('email or password don\'t match our record');
         }

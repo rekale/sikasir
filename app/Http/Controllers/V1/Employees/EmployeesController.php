@@ -18,13 +18,13 @@ class EmployeesController extends TempApiController
 	
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-staff';
-		$this->showAccess = 'read-staff';
-		$this->destroyAccess = 'delete-staff';
+		$this->indexAccess = 'read-employee';
+		$this->showAccess = 'read-employee';
+		$this->destroyAccess = 'edit-employee';
 	
-		$this->storeAccess = 'create-staff';
-		$this->updateAccess = 'update-staff';
-		$this->reportAccess = 'read-staff';
+		$this->storeAccess = 'edit-employee';
+		$this->updateAccess = 'edit-employee';
+		$this->reportAccess = 'read-report';
 	}
 	
 	public function getQueryType($throughId = null) 

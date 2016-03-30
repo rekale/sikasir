@@ -17,10 +17,10 @@ class PrintersController extends TempApiController
    	
 	public function initializeAccess()
 	{
-		$this->storeAccess = 'read-outlet';
-		$this->showAccess = 'read-outlet';
-		$this->updateAccess = 'update-outlet';
-		$this->destroyAccess = 'delete-outlet';
+		$this->storeAccess = 'read-settings';
+		$this->showAccess = 'read-settings';
+		$this->updateAccess = 'edit-settings';
+		$this->destroyAccess = 'edit-settings';
 	}
 	
 	public function getQueryType($throughId = null)

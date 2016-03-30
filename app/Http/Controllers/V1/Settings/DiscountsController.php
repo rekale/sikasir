@@ -17,13 +17,13 @@ class DiscountsController extends TempApiController
 {
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-discount';
-		$this->showAccess = 'read-discount';
-		$this->destroyAccess = 'delete-discount';
+		$this->indexAccess = 'read-settings';
+		$this->showAccess = 'read-settings';
+		$this->destroyAccess = 'edit-settings';
 	
-		$this->storeAccess = 'create-discount';
-		$this->updateAccess = 'update-discount';
-		$this->reportAccess = 'read-discount';
+		$this->storeAccess = 'edit-settings';
+		$this->updateAccess = 'edit-settings';
+		$this->reportAccess = 'edit-settings';
 	}
 	
 	public function getQueryType($throughId = null)

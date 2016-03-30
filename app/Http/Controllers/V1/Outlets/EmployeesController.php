@@ -26,7 +26,7 @@ class EmployeesController extends ApiController
         
         $companyId = $currentUser->getCompanyId();
 
-        $this->authorizing($currentUser, 'read-staff');
+        $this->authorizing($currentUser, 'read-employee');
         
         $decodedId = $this->decode($outletId);
        

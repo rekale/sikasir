@@ -23,7 +23,7 @@ class TenantController extends TempApiController
     
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-staff';
+		$this->indexAccess = 'read-employee';
 	}
 	
 	public function myCompany(Request $request)

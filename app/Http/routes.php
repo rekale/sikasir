@@ -21,9 +21,6 @@ Route::group(['prefix' => 'doc'], function()
     });
 });
 
-get('refresh', function(){
-})->middleware('jwt.refresh');
-
 Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 {
 

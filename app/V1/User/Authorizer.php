@@ -77,29 +77,54 @@ class Authorizer
 	}
 	
 	
+	public function managerDefault()
+	{
+		$default = [];
+		
+		$default[] = [
+			 'edit-supplier',
+        	'edit-settings', //tax, discount, payment, printer
+            'edit-cashier',
+        	'edit-employee',
+		];
+		
+		$default[] = $this->cashierDefault();
+		
+		return $default;
+		
+		
+	}
+	
+	public function cashierDefault()
+	{
+		return [
+			'read-customer',
+        	'edit-customer',
+        	'read-inventory',
+        	'read-supplier',
+        	'read-settings', //tax, discount, payment, printer
+        	'read-cashier',
+        	'read-employee', 
+        	'read-product',
+            'read-inventory',
+        	'edit-inventory',
+        	'read-order',
+        	'edit-order',
+		];
+	}
+	
 	
 	private function doProductAbilities()
 	{
 		return [
-				'create-product',
-				'read-product',
-				'update-product',
-				'delete-product',
-	
-				'create-inventory',
-				'read-inventory',
-				'update-inventory',
-				'delete-inventory',
+			'edit-product',
 		];
 	}
 	
 	private function doOrderAbilties()
 	{
 		return [
-				'create-order',
-				'read-order',
-				'void-order',
-				'update-order',
+			'report-order',
 		];
 	}
 	
@@ -113,10 +138,7 @@ class Authorizer
 	private function doBillingAbilties()
 	{
 		return [
-				'read-billing',
-				'create-billing',
-				'update-billing',
-				'delete-billing',
+			'billing',
 		];
 	}
 	

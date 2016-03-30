@@ -38,61 +38,32 @@ class RolesSeeder extends Seeder
             'read-specific-outlet',
             'read-specific-staff',
             
-            'create-customer',
-            'read-customer',
-            'update-customer',
-            'delete-customer',
-            
-            'create-tax',
-            'read-tax',
-            'update-tax',
-            'delete-tax',
-        	
-        	'create-discount',
-        	'read-discount',
-        	'update-discount',
-        	'delete-discount',
-        		 
-            
-            'create-payment',
-            'read-payment',
-            'update-payment',
-            'delete-payment',
-            
-       
-            'create-category',
-            'read-category',
-            'update-category',
-            'delete-category',
-            
-            'create-supplier',
-            'read-supplier',
-            'update-supplier',
-            'delete-supplier',
-            
-            'create-cashier',
-            'read-cashier',
-            'update-cashier',
-            'delete-cashier',
-            
-            'create-product',
-            'read-product',
-            'update-product',
-            'delete-product',
-            
+        	//manager default, kasisr default termasuk manager default
+            'edit-supplier',
+        	'edit-settings', //tax, discount, payment, printer
+            'edit-cashier',
+        	'edit-employee',
+        		
+        	//manager optional, buat bikin kategori produk dan variant
+            'edit-product', //1
+        	'report-order',//2
+        	'void-order',//5
+        	'read-report',//3
+        	'billing',//4
+        		
+            //kasir default
+        	'read-customer',
+        	'edit-customer',
+        	'read-inventory',
+        	'read-supplier',
+        	'read-settings', //tax, discount, payment, printer
+        	'read-cashier',
+        	'read-employee', 
+        	'read-product',
             'read-inventory',
-            'create-inventory',
-            'update-inventory',
-            'delete-inventory',
-            
-            'create-order',
-            'read-order',
-            'void-order',
-            'update-order',
-            'delete-order',
-            
-            'read-report',
-            'export-report',
+        	'edit-inventory',
+        	'read-order',
+        	'edit-order',
             
         ];
     }
@@ -110,10 +81,6 @@ class RolesSeeder extends Seeder
             'update-staff',
             'delete-staff',
             
-            'create-mobileaccount',
-            'read-mobileaccount',
-            'update-mobileaccount',
-            'delete-mobileaccount',
             
             'crud-billing',
         ];

@@ -22,13 +22,13 @@ class TaxesController extends TempApiController
 {
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-tax';
-		$this->showAccess = 'read-tax';
-		$this->destroyAccess = 'delete-tax';
+			$this->indexAccess = 'read-settings';
+		$this->showAccess = 'read-settings';
+		$this->destroyAccess = 'edit-settings';
 	
-		$this->storeAccess = 'create-tax';
-		$this->updateAccess = 'update-tax';
-		$this->reportAccess = 'read-tax';
+		$this->storeAccess = 'edit-settings';
+		$this->updateAccess = 'edit-settings';
+		$this->reportAccess = 'edit-settings';
 	}
 	
 	public function getQueryType($throughId = null)

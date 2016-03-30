@@ -18,10 +18,10 @@ class OutcomesController extends TempApiController
     
 	public function initializeAccess()
 	{
-		$this->indexAccess = 'read-outlet';
-		$this->storeAccess = 'create-outlet';
+		$this->indexAccess = 'read-settings';
+		$this->storeAccess = 'create-settings';
 	
-		$this->destroyAccess = 'read-outlet';
+		$this->destroyAccess = 'read-settings';
 	}
 	
 	public function getQueryType($throughId = null)

@@ -24,11 +24,11 @@ class SuppliersController extends TempApiController
 	{
 		$this->indexAccess = 'read-supplier';
 		$this->showAccess = 'read-supplier';
-		$this->destroyAccess = 'delete-supplier';
+		$this->destroyAccess = 'edit-supplier';
 	
-		$this->storeAccess = 'create-supplier';
-		$this->updateAccess = 'update-supplier';
-		$this->reportAccess = 'read-supplier';
+		$this->storeAccess = 'edit-supplier';
+		$this->updateAccess = 'edit-supplier';
+		$this->reportAccess = 'edit-supplier';
 	}
 	
 	public function getQueryType($throughId = null)
