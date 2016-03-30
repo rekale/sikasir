@@ -156,8 +156,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 get('outlets/{id}/outs', 'OutsController@indexThrough');
                 post('outlets/{id}/outs', 'OutsController@storeThrough');
                 
-                get('outlets/{id}/opnames', 'OpnamesController@Through');
-                post('outlets/{id}/opnames', 'OpnamesController@Through');
+                get('outlets/{id}/opnames', 'OpnamesController@indexThrough');
+                post('outlets/{id}/opnames', 'OpnamesController@storeThrough');
                 
                 get('outlets/{id}/purchases', 'PurchasesController@indexThrough');
                 post('outlets/{id}/purchases', 'PurchasesController@storeThrough');

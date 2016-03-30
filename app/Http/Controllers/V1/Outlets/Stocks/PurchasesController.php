@@ -2,65 +2,69 @@
 
 namespace Sikasir\Http\Controllers\V1\Outlets\Stocks;
 
-use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Repositories\Inventories\PurchaseOrderRepository;
-use Tymon\JWTAuth\JWTAuth;
-use \Sikasir\V1\Traits\ApiRespond;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Repositories\EloquentThroughCompany;
+use Sikasir\V1\Stocks\PurchaseOrder;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Commands\CreateInventoryCommand;
 use Sikasir\V1\Transformer\PurchaseOrderTransformer;
 use Sikasir\Http\Requests\PurchaseOrderRequest;
 
-class PurchasesController extends ApiController
+class PurchasesController extends TempApiController
 {
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-inventory';
+		$this->storeAccess = 'create-inventory';
+	}
+	
+	public function getQueryType($throughId = null)
+	{
+		return  new EloquentThroughCompany(
+			new PurchaseOrder, $this->auth->getCompanyId(), 'outlets', $throughId
+		);
+	}
+	
+	public function getRepository($throughId = null)
+	{
+		return new TempEloquentRepository($this->getQueryType($throughId));
+	}
+	
+	public function getFactory($throughId = null)
+	{
+		return new EloquentFactory($this->getQueryType($throughId));
+	}
+	
+	public function createCommand($throughId = null)
+	{
+		return new CreateInventoryCommand($this->getFactory($throughId));
+	}
+	
+	public function updateCommand($throughId = null)
+	{
 
-    public function __construct(ApiRespond $respond, PurchaseOrderRepository $repo, JWTAuth $auth) 
-    {
-
-        parent::__construct($respond, $auth, $repo);
-
-    }
-
-    public function index($outletId)
-    {
-        
-       $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-inventory');
-        
-        $ownerId = $currentUser->getCompanyId();
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $decodedId = $this->decode($outletId);
-        
-        $stocks = $this->repo()->getPaginatedForOwnerThrough('outlets', $ownerId, $decodedId, $with);
-
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($stocks, new PurchaseOrderTransformer);
-    }
-    
-    public function store($outletId, PurchaseOrderRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'create-inventory');
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $dataInput = $request->all();
-        
-        $dataInput['supplier_id'] = $this->decode($dataInput['supplier_id']);
-        
-        foreach($dataInput['variants'] as &$variant) {
-            $variant['id'] = $this->decode($variant['id']);
-        }
-        
-        $this->repo()->saveForOwnerThrough($dataInput, $companyId, $this->decode($outletId), 'outlets');
-        
-        return $this->response()->created();
-    }
-  
+		throw new \Exception('not implemented');
+	}
+	public function getSpecificRequest()
+	{
+		return app(PurchaseOrderRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new PurchaseOrderTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		throw new \Exception('not implemented');
+	}
+	
+	
+	public function getReport($throughId = null)
+	{
+		throw new \Exception('not implemented');
+	}
 }

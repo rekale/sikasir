@@ -44,7 +44,7 @@ class EntriesController extends TempApiController
 	
 	public function updateCommand($throughId = null)
 	{
-		return new GeneralUpdateCommand($this->getRepository($throughId));
+		throw new \Exception('not implemented');
 	}
 	public function getSpecificRequest()
 	{
