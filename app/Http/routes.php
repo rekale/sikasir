@@ -130,7 +130,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/employees', 'EmployeesController@index');
             
             /* PRINTERS */
-            post('outlets/{id}/printers', 'PrintersController@store');
+            get('outlets/{throughId}/printers/{id}', 'PrintersController@showThrough');
+            post('outlets/{id}/printers', 'PrintersController@storeThrough');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@update');
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroy');
             

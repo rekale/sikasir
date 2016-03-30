@@ -271,7 +271,7 @@
     "name": "asdfaf",
     "logo": "asdfasdfsa.jpg",
     "address": "dimana mana",
-    "info": ""yeyeye",
+    "info": "yeyeye",
     "footer_note": "asdfsa",
     "size": "A4"
 }

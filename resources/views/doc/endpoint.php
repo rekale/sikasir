@@ -93,6 +93,7 @@
         <li> DELETE outlets/{id}/outcomes </li>
         <br>
         <br>
+        <li> GET outlets/{id}/printers/{printerId} </li>
         <li> POST outlets/{id}/printers </li>
         <li> PUT outlets/{id}/printers/{printerId} </li>
         <li> DELETE outlets/{id}/printers/{printerId} </li>

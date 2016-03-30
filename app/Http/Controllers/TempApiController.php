@@ -107,6 +107,19 @@ abstract class TempApiController extends Controller
 			    			);
     }
     
+    public function showThrough($throughId, $id, Request $request)
+    {
+    	$throughId = Obfuscater::decode($throughId);
+    	
+    	return $this->mediator->checkPermission($this->showAccess)
+    	->show(
+    			$id,
+    			$this->getRepository($throughId),
+    			$request,
+    			$this->getTransformer()
+    			);
+    }
+    
     public function store()
     {
     

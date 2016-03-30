@@ -34,21 +34,21 @@ class POController extends TempApiController
 	
 	public function getFactory($throughId = null)
 	{
-		return new EloquentFactory($this->getQueryType());
+		return new EloquentFactory($this->getQueryType($throughId));
 	}
 	
 	public function createCommand($throughId = null)
 	{
-		return new GeneralCreateCommand($this->getFactory());
+		return new GeneralCreateCommand($this->getFactory($throughId));
 	}
 	
 	public function updateCommand($throughId = null)
 	{
-		return new GeneralUpdateCommand($this->getRepository());
+		return new GeneralUpdateCommand($this->getRepository($throughId));
 	}
 	public function getSpecificRequest()
 	{
-		return app(SupplierRequest::class);
+		throw new \Exception('not implemented');
 	}
 	
 	
