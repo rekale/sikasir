@@ -82,7 +82,7 @@ class Authorizer
 		$default = [];
 		
 		$default[] = [
-			 'edit-supplier',
+			'edit-supplier',
         	'edit-settings', //tax, discount, payment, printer
             'edit-cashier',
         	'edit-employee',
