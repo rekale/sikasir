@@ -25,7 +25,7 @@ class JsonWebTokenAuth implements AuthInterface
      */
     public function getCompanyId()
     {
-        return $this->currentUser->id;
+        return $this->currentUser->company_id;
     }
     
     public function currentUser()

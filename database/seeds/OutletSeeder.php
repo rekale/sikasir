@@ -63,11 +63,12 @@ class OutletSeeder extends Seeder
                 ]);
                 
                 //lists created employees id
-                $employees = $company->users->lists('id');
+               
                
                 //add employees to every outlets
                 foreach ($outlets as $outlet) {
-                    $outlet->users()->attach($employees->toArray());
+                	$employees = $company->users->random(100)->lists('id');
+                	$outlet->users()->attach($employees->toArray());
                 }
         });
     }

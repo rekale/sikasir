@@ -81,7 +81,7 @@ class APIMediator
 		$with = $this->filterIncludeParams($include);
 		
 		$collection = $repo->getPaginated($with, $perPage);
-		
+			
 		return $this->response
 					->resource()
 					->including($with)

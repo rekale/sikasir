@@ -35,8 +35,6 @@ class RolesSeeder extends Seeder
     public function employeeAbilities()
     {
         return [
-            'read-specific-outlet',
-            'read-specific-staff',
             
         	//manager default, kasisr default termasuk manager default
             'edit-supplier',
@@ -52,6 +50,7 @@ class RolesSeeder extends Seeder
         	'billing',//4
         		
             //kasir default
+            'read-outlet',
         	'read-customer',
         	'edit-customer',
         	'read-inventory',
@@ -71,18 +70,7 @@ class RolesSeeder extends Seeder
     public function ownerAbilities()
     {
         return [
-            'create-outlet',
-            'update-outlet',
-            'delete-outlet',
-            'read-outlet',
-            
-            'create-staff',
-            'read-staff',
-            'update-staff',
-            'delete-staff',
-            
-            
-            'crud-billing',
+            'edit-outlet',
         ];
     }
 

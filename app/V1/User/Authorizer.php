@@ -98,6 +98,7 @@ class Authorizer
 	public function cashierDefault()
 	{
 		return [
+			'read-outlet',
 			'read-customer',
         	'edit-customer',
         	'read-inventory',

@@ -18,11 +18,11 @@ class OutletsController extends TempApiController
 	{
 		$this->indexAccess = 'read-outlet';
 		$this->showAccess = 'read-outlet';
-		$this->destroyAccess = 'delete-outlet';
+		$this->destroyAccess = 'edit-outlet';
 	
-		$this->storeAccess = 'create-outlet';
-		$this->updateAccess = 'update-outlet';
-		$this->reportAccess = 'read-outlet';
+		$this->storeAccess = 'edit-outlet';
+		$this->updateAccess = 'edit-outlet';
+		$this->reportAccess = 'read-report';
 	}
 	
 	public function getQueryType($throughId = null)
