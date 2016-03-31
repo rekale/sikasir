@@ -12,6 +12,7 @@ use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\User\Authorizer;
 use Sikasir\V1\Commands\CreateUserCommand;
 use Sikasir\V1\Commands\UpdateUserCommand;
+use Sikasir\V1\Reports\EmployeeReport;
 
 class EmployeesController extends TempApiController
 {
@@ -77,7 +78,7 @@ class EmployeesController extends TempApiController
 
 	public function getReport($throughId = null)
 	{
-		return new CustomerReport($this->getQueryType());
+		return new EmployeeReport($this->getQueryType());
 	}
 
 }

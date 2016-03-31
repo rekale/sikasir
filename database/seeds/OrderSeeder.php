@@ -20,27 +20,32 @@ class OrderSeeder extends Seeder
         
         foreach (Outlet::all() as $outlet) {
             
-            $customers = $outlet->company->customers;
+            $customers= $outlet->company->customers;
             $employees = $outlet->users;
             $tax = $outlet->tax;
             $discounts = $outlet->company->discounts;
             $payments = $outlet->company->payments;
             
             //create order
-            $orders = factory(Order::class, 50)->create([
-                'outlet_id' => $outlet->id,
-                'customer_id' => $customers->random()->id,
-                'user_id' => $employees->random()->id,
-                'payment_id' => $payments->random()->id,
-                'tax_id' => $tax->id,
-                'discount_id' => $discounts->random()->id,
-            ]);
+            $orders = [];
             
-            
-            $variantIds = $outlet->variants->random(50)->lists('id')->toArray(); 
+            foreach (range(1, 100) as $i) {
+            	$orders[] = factory(Order::class)->create([
+		            			'outlet_id' => $outlet->id,
+		            			'customer_id' => $customers->random()->id,
+		            			'user_id' => $employees->random()->id,
+		            			'payment_id' => $payments->random()->id,
+		            			'tax_id' => $tax->id,
+		            			'discount_id' => $discounts->random()->id,
+            				]);
+            }
+             
             
             foreach ($orders as $order) {
-                $order->variants()->attach(
+            	
+            	$variantIds = $outlet->variants->random(10)->lists('id')->toArray();
+            	
+            	$order->variants()->attach(
                     $variantIds, 
                     [
                         'total' => $fake->numberBetween(1, 10), 
@@ -49,16 +54,22 @@ class OrderSeeder extends Seeder
                     );
             }
             
-            //select random order to void by random employee
-            factory(Void::class)->create([
-                'user_id' => $employees->random()->id,
-                'order_id' => $orders->random()->id
-            ]);
+            
             
             //select random order to void by random employee
-            factory(Debt::class)->create([
-                'order_id' => $orders->random()->id,
-            ]);
+            foreach (range(0, 20) as $i) {
+            	factory(Void::class)->create([
+            			'user_id' => $employees->random()->id,
+            			'order_id' => $orders[mt_rand(0, 99)]->id
+            	]);
+            }
+            
+            //select random order to void by random employee
+            foreach (range(0, 20) as $i) {
+            	factory(Debt::class)->create([
+            			'order_id' => $orders[mt_rand(0, 99)]->id
+            	]);
+            }
            
         };
         

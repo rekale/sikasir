@@ -4,9 +4,10 @@ namespace Sikasir\V1\Reports;
 
 class CustomerReport extends Report
 {
-	public function getResult()
+	public function getResultFor($id)
 	{
 		return $this->query
+					->findOrFail($id)
 					->orders()
                         ->selectRaw(
                            'orders.created_at as date, '
@@ -18,5 +19,10 @@ class CustomerReport extends Report
                         ->whereBetween('orders.created_at', $this->dateRange)
                         ->groupBy('orders.created_at')
                         ->orderBy('date');
+	}
+	
+	public function getResult()
+	{
+		throw new \Exception('not implemented');
 	}
 }

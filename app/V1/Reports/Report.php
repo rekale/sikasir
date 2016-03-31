@@ -24,19 +24,6 @@ abstract class Report
 	}
 	
 	/**
-	 *
-	 * @param integer $id
-	 *
-	 * @return Builder
-	 */
-	public function forInstanceWithId($id)
-	{
-		$this->query = $this->query->findOrFail($id);
-	
-		return $this;
-	}
-	
-	/**
 	 * 
 	 * @param string $dateRange
 	 * 
@@ -48,6 +35,12 @@ abstract class Report
 		
 		return $this;
 	}
+	
+	/**
+	 * 
+	 * @param integer $id
+	 */
+	abstract function getResultFor($id);
 	
 	abstract public function getResult();
 }

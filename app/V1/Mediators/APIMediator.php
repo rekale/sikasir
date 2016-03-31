@@ -190,8 +190,7 @@ class APIMediator
 		$with = $this->filterIncludeParams($include);
 	
 		$result = $report->whenDate($dateRange)
-						->forInstanceWithId( Obfuscater::decode($id) )
-						->getResult()
+						->getResultFor( Obfuscater::decode($id) )
 						->paginate($perPage);
 	
 		return $this->response
