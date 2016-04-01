@@ -20,7 +20,7 @@
             "outlet_id": [ "D", "L"],
             "address":"45277 Haley Summit Apt. 223 South Elisa, MI 55720-5644",
             "void_access" : true,
-            "privileges": [1, 2, 3, 4]
+            "privileges": [0, 1, 2, 3, 4]
         }
 
         --CUSTOMER-- 

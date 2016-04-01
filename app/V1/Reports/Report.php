@@ -3,7 +3,6 @@
 namespace Sikasir\V1\Reports;
 
 use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
-use Illuminate\Database\Query\Builder;
 
 abstract class Report 
 {

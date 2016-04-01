@@ -15,6 +15,7 @@ class UserTransformer extends TransformerAbstract
     
     protected $availableIncludes = [
         'outlets',
+    	'abilities',
     ];
 
     public function transform(User $user)
@@ -42,6 +43,47 @@ class UserTransformer extends TransformerAbstract
     public function includeOutlets(User $user)
     {
         return $this->collection($user->outlets, new OutletTransformer);
+    }
+    
+    public function includeAbilities(User $user)
+    {
+    	$abilities = $user->getAbilities();
+    	
+    	$tes = $abilities->filter(function ($ability) {
+  
+    		return $ability->name === 'edit-product' ||
+    			   $ability->name === 'report-order'  ||
+    			   $ability->name === 'read-report' ||
+    			   $ability->name === 'billing' ||
+    			   $ability->name === 'void-order'
+    		;
+    	});
+    	
+    	$result = [];
+    	
+    	foreach ($tes as $abl) {
+    		
+    		switch ($abl->name) {
+    			case 'edit-product':
+    				$result[] = 1;
+    				break;
+    			case 'report-order':
+    				$result[] = 2;
+    				break;
+    			case 'read-report':
+    				$result[] = 3;
+    				break;
+    			case 'billing':
+    				$result[] = 4;
+    				break;
+    			case 'void-order':
+    				$result[] = 5;
+    				break;
+    		}
+    		
+    	}
+    	
+    	return $this->collection($result, new AbilityTransformer);
     }
 
 }

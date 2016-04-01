@@ -51,6 +51,9 @@ class Authorizer
 		if (in_array( 4, $privileges)) {
 			$this->user->allow($this->doBillingAbilties());
 		}
+		if (in_array( 5, $privileges)) {
+			$this->user->allow($this->doVoidOrder());
+		}
 	}
 	
 	/**
@@ -73,6 +76,9 @@ class Authorizer
 		}
 		if (! in_array( 4, $privileges)) {
 			$this->user->disallow($this->doBillingAbilties());
+		}
+		if (! in_array( 5, $privileges)) {
+			$this->user->disallow($this->doVoidOrder());
 		}
 	}
 	
@@ -132,7 +138,7 @@ class Authorizer
 	private function doReportAbilties()
 	{
 		return [
-				'read-report',
+			'read-report',
 		];
 	}
 	
@@ -140,6 +146,13 @@ class Authorizer
 	{
 		return [
 			'billing',
+		];
+	}
+	
+	public function doVoidOrder()
+	{
+		return [
+			'void-order',	
 		];
 	}
 	

@@ -13,12 +13,9 @@ class AbilityTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
-    public function transform(Ability $ability)
+    public function transform($ability)
     {
-        return [
-            'id' => $this->encode($ability->id),
-            'name' => $ability->name,
-        ];
+        return $ability;
     }
   
 }

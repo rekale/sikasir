@@ -31,8 +31,8 @@
         
         <br>
         <br>
-        <li> GET employees </li>
-        <li> GET employees/{id} </li>
+        <li> GET employees?include=abilities </li>
+        <li> GET employees/{id}?include=abilities </li>
         <li> POST employees </li>
         <li> PUT employees/{id} </li>
         <li> DELETE employees/{id} </li>
