@@ -238,6 +238,22 @@ abstract class TempApiController extends Controller
     						  	);
     }
     
+    public function searchThrough($throughId, $field, $param, Request $request)
+    {
+    	$throughId = Obfuscater::decode($throughId);
+    	
+    	return $this->mediator->checkPermission($this->indexAccess)
+    	->setRequest($request)
+    	->setWith()
+    	->setPerPage()
+    	->search(
+    			$this->getRepository($throughId),
+    			$field,
+    			$param,
+    			$this->getTransformer()
+    			);
+    }
+    
     /**
      * for intializing access variable from traits
      * 

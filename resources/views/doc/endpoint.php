@@ -23,6 +23,7 @@
         <br>
         
         <li> GET customers </li>
+        <li> GET customers/search/{field}/{word} </li>//contoh jika ingin mencari nama customer: customers/search/name/agus
         <li> GET customers/{id} </li>
         <li> POST customers </li>
         <li> PUT customers/{id} </li>
@@ -32,6 +33,7 @@
         <br>
         <br>
         <li> GET employees?include=abilities </li>
+        <li> GET employees/search/{field}/{word} </li>
         <li> GET employees/reports/{dateRange}</li>
         <li> GET employees/{id}?include=abilities </li>
         <li> POST employees </li>
@@ -40,6 +42,7 @@
         <br>
         
         <li> GET suppliers </li>
+        <li> GET suppliers/search/{field}/{word} </li>
         <li> GET suppliers/{id} </li>
         <li> POST suppliers </li>
         <li> PUT suppliers/{id} </li>
@@ -48,6 +51,7 @@
         
         <br>
         <li> GET outlets?include=users,printers</li>
+        <li> GET outlets/search/{field}/{word} </li>
         <li> GET outlets/{id}?include=users, printers</li>
         <br>
         <li> GET outlets/all/orders/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax, payment </li>
@@ -95,6 +99,7 @@
         <br>
         <br>
         <li> GET outlets/{id}/printers/{printerId} </li>
+        <li> GET outlets/{id}/printers/search/{field}/{word} </li>
         <li> POST outlets/{id}/printers </li>
         <li> PUT outlets/{id}/printers/{printerId} </li>
         <li> DELETE outlets/{id}/printers/{printerId} </li>
@@ -105,22 +110,27 @@
         <li> POST products </li>
         <br>
         <li> GET categories/{id}?include=products, products.variants </li>
+        <li> GET categories/search/{field}/{word} </li>
         <li> PUT categories </li>
         <li> POST categories </li>
         <li> DELETE categories/{id} </li>
         <br>
         <li> get discounts/{id} </li>
+        <li> GET discounts/search/{field}/{word} </li>
         <li> POST discounts </li>
         <li> PUT discounts/{id} </li>
         <li> DELETE discounts/{id} </li>
         <br>
         <br>
         <li> GET taxes/{id} </li>
+        <li> GET taxes/search/{field}/{word} </li>
         <li> POST taxes </li>
         <li> PUT taxes/{id} </li>
         <li> DELETE taxes/{id} </li>
         <br>
         <br>
+        <li> GET payments/{id} </li>
+        <li> GET payments/search/{field}/{word} </li>
         <li> POST payments </li>
         <li> PUT payments/{id} </li>
         <li> DELETE payments/{id} </li>

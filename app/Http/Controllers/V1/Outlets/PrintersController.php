@@ -17,6 +17,7 @@ class PrintersController extends TempApiController
    	
 	public function initializeAccess()
 	{
+		$this->indexAccess = 'read-settings';
 		$this->storeAccess = 'read-settings';
 		$this->showAccess = 'read-settings';
 		$this->updateAccess = 'edit-settings';

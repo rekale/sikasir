@@ -128,6 +128,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             
             /* PRINTERS */
+            get('outlets/{id}/printers/search/{field}/{param}', 'PrintersController@searchThrough');
             get('outlets/{throughId}/printers/{id}', 'PrintersController@showThrough');
             post('outlets/{id}/printers', 'PrintersController@storeThrough');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@updateThrough');
