@@ -63,21 +63,23 @@ abstract class TempApiController extends Controller
     	$this->auth = $auth;
     	
         $this->initializeAccess();
-        /*
+        
         if(config('database.default') === 'mysql') {
         	\DB::listen(function($sql, $bindings, $time) {
         		var_dump($sql);
         		var_dump($time);
         	});
-        }*/
+        }
     }
     
     public function index(Request $request)
     {
     	return $this->mediator->checkPermission($this->indexAccess)
+    							->setRequest($request)
+    							->setWith()
+    							->setPerPage()
 						    	->index(
 					    			$this->getRepository(),
-					    			$request,
 					    			$this->getTransformer()
 				    			);
     
@@ -88,9 +90,11 @@ abstract class TempApiController extends Controller
     	$throughId = Obfuscater::decode($id);
     	
     	return $this->mediator->checkPermission($this->indexAccess)
+						    	->setRequest($request)
+    							->setWith()
+    							->setPerPage()
 						    	->index(
 						    		$this->getRepository($throughId),
-						   			$request,
 						   			$this->getTransformer()
 						    	);
     
@@ -99,12 +103,13 @@ abstract class TempApiController extends Controller
     public function show($id,Request $request)
     {
     	return $this->mediator->checkPermission($this->showAccess)
-					    	->show(
-				    			$id,
-				    			$this->getRepository(),
-				    			$request,
-				    			$this->getTransformer()
-			    			);
+					    		->setRequest($request)
+    							->setWith()
+    							->show(
+					    			$id,
+					    			$this->getRepository(),
+					    			$this->getTransformer()
+				    			);
     }
     
     public function showThrough($throughId, $id, Request $request)
@@ -112,12 +117,13 @@ abstract class TempApiController extends Controller
     	$throughId = Obfuscater::decode($throughId);
     	
     	return $this->mediator->checkPermission($this->showAccess)
-    	->show(
-    			$id,
-    			$this->getRepository($throughId),
-    			$request,
-    			$this->getTransformer()
-    			);
+    							->setRequest($request)
+						    	->setWith()
+						    	->show(
+						    			$id,
+						    			$this->getRepository($throughId),
+						    			$this->getTransformer()
+						    	);
     }
     
     public function store()
@@ -126,10 +132,8 @@ abstract class TempApiController extends Controller
     	$command = $this->createCommand();
     
     	return $this->mediator->checkPermission($this->storeAccess)
-    							->store(
-    								$command, 
-    								$this->getSpecificRequest()
-    							);
+    							->setRequest($this->getSpecificRequest())
+    							->store($command);
     
     }
     
@@ -140,10 +144,8 @@ abstract class TempApiController extends Controller
     	$command = $this->createCommand($id);
     
     	return $this->mediator->checkPermission($this->storeAccess)
-    							->store(
-    								$command,
-    								$this->getSpecificRequest()
-    							);
+    							->setRequest($this->getSpecificRequest())
+    							->store($command);
     
     }
 	
@@ -153,10 +155,10 @@ abstract class TempApiController extends Controller
     	$command = $this->updateCommand();
     	
     	return $this->mediator->checkPermission($this->updateAccess)
+    							->setRequest($this->getSpecificRequest())
     							->update(
     								$id, 
-    								$command, 
-    								$this->getSpecificRequest()
+    								$command
     							);
     }
     
@@ -167,11 +169,11 @@ abstract class TempApiController extends Controller
     	$command = $this->updateCommand($throughId);
     	 
     	return $this->mediator->checkPermission($this->updateAccess)
+    						->setRequest($this->getSpecificRequest())
 					    	->update(
 					    		$id,
-					   			$command,
-					   			$this->getSpecificRequest()
-					    	);
+					   			$command
+					   		);
     }
     
     public function destroy($id)
@@ -197,10 +199,12 @@ abstract class TempApiController extends Controller
     public function report($dateRange, Request $request)
     {
     	return $this->mediator->checkPermission($this->reportAccess)
+						    	->setRequest($request)
+						    	->setWith()
+						    	->setPerPage()
     							->report(
     								$dateRange, 
-    								$this->getReport(), 
-    								$request, 
+    								$this->getReport(),
     								$this->getReportTransformer()
     							);
     }
@@ -208,6 +212,9 @@ abstract class TempApiController extends Controller
     public function reportFor($id, $dateRange, Request $request)
     {
     	return $this->mediator->checkPermission($this->reportAccess)
+						    	->setRequest($request)
+						    	->setWith()
+						    	->setPerPage()
 						    	->reportFor(
 						    		$id,
 						   			$dateRange,
@@ -215,6 +222,20 @@ abstract class TempApiController extends Controller
 						   			$request,
 						   			$this->getReportTransformer()
 						    	);
+    }
+    
+    public function search($field, $param, Request $request)
+    {
+    	return $this->mediator->checkPermission($this->indexAccess)
+					    		->setRequest($request)
+					    		->setWith()
+					    		->setPerPage()
+    						  	->search(
+    						  		$this->getRepository(),
+    						  		$field,
+    						  		$param,
+    						  		$this->getTransformer()
+    						  	);
     }
     
     /**

@@ -10,7 +10,7 @@ class TempEloquentRepository implements RepositoryInterface
 {
     /**
      *
-     * @var Illuminate\Database\Eloquent\Model
+     * @var QueryCompanyInterface
      */
     protected $query;
    
@@ -110,5 +110,12 @@ class TempEloquentRepository implements RepositoryInterface
        return $this->query->forCompany()->take($take)->skip($skip)->get();
     }
     
-   
+	public function search($field, $word, $with =[], $perPage = 15)
+	{
+		return $this->query->forCompany()
+						   ->with($with)
+						   ->where($field, 'LIKE', '%'.$word.'%')
+						   ->paginate($perPage);
+	}
+
 }

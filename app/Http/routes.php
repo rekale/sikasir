@@ -55,6 +55,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Customers'], function ()
         {
             get('customers', 'CustomersController@index');
+            get('customers/search/{field}/{param}', 'CustomersController@search');
             get('customers/{id}', 'CustomersController@show');
             post('customers', 'CustomersController@store');
             put('customers/{id}', 'CustomersController@update');
@@ -67,6 +68,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Employees'], function()
         {
         	get('employees', 'EmployeesController@index');
+        	get('employees/search/{field}/{param}', 'EmployeesController@search');
         	get('employees/reports/{dateRange}', 'EmployeesController@report');
         	get('employees/{id}', 'EmployeesController@show');
         	post('employees', 'EmployeesController@store');
@@ -79,6 +81,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Suppliers'], function ()
         {
             get('suppliers', 'SuppliersController@index');
+            get('suppliers/search/{field}/{param}', 'SuppliersController@search');
             get('suppliers/{id}', 'SuppliersController@show');
             post('suppliers', 'SuppliersController@store');
             put('suppliers/{id}', 'SuppliersController@update');
@@ -91,6 +94,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             /* OUTLETS */
             post('outlets', 'OutletsController@store');
+            get('outlets/search/{field}/{param}', 'OutletsController@search');
             get('outlets', 'OutletsController@index');
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
@@ -167,6 +171,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             post('categories/{id}/products', 'ProductsController@storeThrough');
             
+            get('categories/search/{field}/{param}', 'CategoriesController@search');
             get('categories/{id}', 'CategoriesController@show');
             post('categories', 'CategoriesController@store');
             put('categories/{id}', 'CategoriesController@update');
@@ -178,6 +183,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             
             /* DISCOUNT */
+            get('discounts/search/{field}/{param}', 'DiscountsController@search');
             get('discounts/{id}', 'DiscountsController@show');
             post('discounts', 'DiscountsController@store');
             put('discounts/{id}', 'DiscountsController@update');
@@ -185,6 +191,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             /* TAXES */
+            get('taxes/search/{field}/{param}', 'TaxesController@search');
             get('taxes/{id}', 'TaxesController@show');
             post('taxes', 'TaxesController@store');
             put('taxes/{id}', 'TaxesController@update');
@@ -192,6 +199,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             /* PAYMENTS */
+            get('payments/search/{field}/{param}', 'PaymentsController@search');
             get('payments/{id}', 'PaymentsController@show');
             post('payments', 'PaymentsController@store');
             put('payments/{id}', 'PaymentsController@update');

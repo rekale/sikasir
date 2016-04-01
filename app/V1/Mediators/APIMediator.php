@@ -18,6 +18,9 @@ class APIMediator
 	private $response;
 	private $authorizer;
 	private $permission;
+	private $request;
+	private $with;
+	private $perPage;
 	
 	public function __construct(Authorizer $authorizer, ApiRespond $response)
 	{
@@ -40,6 +43,42 @@ class APIMediator
 	
 	/**
 	 * 
+	 * @param Request $request
+	 */
+	public function setRequest(Request $request)
+	{
+		$this->request = $request;
+		
+		return $this;
+	}
+	
+	/**
+	 * 
+	 * return $this
+	 */
+	public function setWith()
+	{
+		$include = $this->request->input('include');
+		
+		$this->with = $this->filterIncludeParams($include);
+		
+		return $this;
+		
+	}
+	
+	/**
+	 * 
+	 * return $this
+	 */
+	public function setPerPage()
+	{
+		$this->perPage = $this->request->input('per_page') % 101;
+		
+		return $this;
+	}
+	
+	/**
+	 * 
 	 * @param integer $id
 	 * @param RepositoryInterface $repo
 	 * @param Request $request
@@ -47,18 +86,14 @@ class APIMediator
 	 * 
 	 * @return JsonResponse
 	 */
-	public function show($id, RepositoryInterface $repo, Request $request, TransformerAbstract $transformer)
+	public function show($id, RepositoryInterface $repo, TransformerAbstract $transformer)
 	{
-		
-		$include = $request->input('include');
-		
-		$with = $this->filterIncludeParams($include);
-		
-		$item = $repo->findWith(Obfuscater::decode($id), $with);
+				
+		$item = $repo->findWith(Obfuscater::decode($id), $this->with);
 		
 		return $this->response
 					->resource()
-					->including($with)
+					->including($this->with)
 					->withItem($item, $transformer);
 		
 	}
@@ -71,20 +106,14 @@ class APIMediator
 	 * 
 	 * @return JsonResponse
 	 */
-	public function index(RepositoryInterface $repo, Request $request, TransformerAbstract $transformer)
+	public function index(RepositoryInterface $repo, TransformerAbstract $transformer)
 	{
 		
-		$include = $request->input('include');
-		
-		$perPage = $request->input('per_page') % 101;
-		
-		$with = $this->filterIncludeParams($include);
-		
-		$collection = $repo->getPaginated($with, $perPage);
+		$collection = $repo->getPaginated($this->with, $this->perPage);
 			
 		return $this->response
 					->resource()
-					->including($with)
+					->including($this->with)
 					->withPaginated($collection, $transformer);
 		
 	}
@@ -96,9 +125,9 @@ class APIMediator
 	 * 
 	 * @return JsonResponse
 	 */
-	public function store(CreateCommand $command, Request $request)
+	public function store(CreateCommand $command)
 	{
-		$data = Obfuscater::decodeArray($request->all(), 'id');
+		$data = Obfuscater::decodeArray($this->request->all(), 'id');
 		
 		$command->setData($data);
 		
@@ -114,9 +143,9 @@ class APIMediator
 	 * 
 	 * @return JsonResponse
 	 */
-	public function update($id, UpdateCommand $command, Request $request)
+	public function update($id, UpdateCommand $command)
 	{
-		$data = Obfuscater::decodeArray($request->all(), 'id');
+		$data = Obfuscater::decodeArray($this->request->all(), 'id');
 		
 		$command->setData($data);
 		
@@ -152,20 +181,14 @@ class APIMediator
 	 */
 	public function report($dateRange, Report $report, Request $request, TransformerAbstract $transformer)
 	{
-
-		$include = $request->input('include');
-		
-		$perPage = $request->input('per_page') % 101;
-		
-		$with = $this->filterIncludeParams($include);
 		
 		$result = $report->whenDate($dateRange)
 							->getResult()
-							->paginate($perPage);
+							->paginate($this->perPage);
 		
 		return $this->response
 					->resource()
-					->including($with)
+					->including($this->with)
 					->withPaginated($result, $transformer);
 		
 	}
@@ -180,22 +203,26 @@ class APIMediator
 	 * 
 	 * @return  JsonResponse
 	 */
-	public function reportFor($id, $dateRange, Report $report, Request $request, TransformerAbstract $transformer)
+	public function reportFor($id, $dateRange, Report $report, TransformerAbstract $transformer)
 	{
 		
-		$include = $request->input('include');
-
-		$perPage = $request->input('per_page') % 101;
-	
-		$with = $this->filterIncludeParams($include);
-	
 		$result = $report->whenDate($dateRange)
 						->getResultFor( Obfuscater::decode($id) )
-						->paginate($perPage);
+						->paginate($this->perPage);
 	
 		return $this->response
 					->resource()
-					->including($with)
+					->including($this->with)
+					->withPaginated($result, $transformer);
+	}
+	
+	public function search(RepositoryInterface $repo, $field, $param, TransformerAbstract $transformer)
+	{
+		$result = $repo->search($field, $param, $this->with, $this->perPage);
+
+		return $this->response
+					->resource()
+					->including($this->with)
 					->withPaginated($result, $transformer);
 	}
 	

@@ -45,4 +45,5 @@ interface RepositoryInterface
     
     public function update(array $data, $id);
    
+    public function search($field, $word, $with =[], $perPage = 15);
 }
