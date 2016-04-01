@@ -32,6 +32,7 @@
         <br>
         <br>
         <li> GET employees?include=abilities </li>
+        <li> GET employees/reports/{dateRange}</li>
         <li> GET employees/{id}?include=abilities </li>
         <li> POST employees </li>
         <li> PUT employees/{id} </li>
