@@ -28,13 +28,16 @@ class TenantController extends TempApiController
 	
 	public function myCompany(Request $request)
 	{
+		$companyId = Obfuscater::encode($this->auth->getCompanyId());
+		
 		return $this->mediator->checkPermission($this->indexAccess)
-							->show(
-								Obfuscater::encode($this->auth->getCompanyId()),
-								$this->getRepository(),
-								$request,
-								$this->getTransformer()
-							);
+					    		->setRequest($request)
+    							->setWith()
+    							->show(
+					    			$companyId,
+					    			$this->getRepository(),
+					    			$this->getTransformer()
+				    			);
 	}
 	
 	public function getQueryType($throughId = null)
