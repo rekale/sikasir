@@ -11,6 +11,7 @@ use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
+use Sikasir\V1\Commands\CreateOutletCommand;
 
 class OutletsController extends TempApiController
 {
@@ -44,7 +45,9 @@ class OutletsController extends TempApiController
 	{
 		$factory =  new EloquentFactory($this->getQueryType());
 		
-		return new GeneralCreateCommand($factory);
+		$command = new CreateOutletCommand($factory);
+		
+		return $command->setAuth($this->auth);
 	}
 	
 	public function updateCommand($throughId = null)
