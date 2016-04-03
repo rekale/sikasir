@@ -9,6 +9,8 @@
         link yg di bold adalah endpoint terbaru
         link yg di <i>italic</i> adalah endpint yg di edit
         
+       	parameter di GET yg bisa dipakai: include, order_by:{field}|asc/desc
+        
         <ul>
         <li> POST auth/login </li>
         <li> POST auth/refresh </li>
@@ -49,6 +51,7 @@
         <li> PUT suppliers/{id} </li>
         <li> DELETE suppliers/{id} </li>
         <li>GET suppliers/{id}/purchases?include=variants</li>
+        <li>GET suppliers/{id}/purchases/search/{field}/{word}?include=variants</li>
         
         <br>
         <li> GET outlets?include=users,printers</li>
@@ -79,9 +82,11 @@
         <li> DELETE outlets/{outletId}/products/{productId} </li>
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants.product.category</li>
+        <li>GET outlets/{id}/entries/search/{field}/{word}</li>
         <li>POST outlets/{id}/entries</li>
         <br>
         <li>GET outlets/{id}/outs?include=operator, variants.product.category</li>
+        <li>GET outlets/{id}/entries/search/{field}/{word}</li>
         <li>POST outlets/{id}/outs</li>
         <br>
         <li>GET outlets/{id}/opnames?include=operator, variants.product.category</li>
@@ -91,10 +96,12 @@
         <li>POST outlets/{id}/purchases</li>
         <br>
         <li> GET outlets/{id}/incomes </li>
+         <li> GET outlets/{id}/incomes/search/{field}/{word} </li>
         <li> POST outlets/{id}/incomes </li>
         <li> DELETE outlets/{id}/incomes </li>
         <br>
         <li> GET outlets/{id}/outcomes </li>
+        <li> GET outlets/{id}/outcomes/search/{field}/{word} </li>
         <li> POST outlets/{id}/outcomes </li>
         <li> DELETE outlets/{id}/outcomes </li>
         <br>

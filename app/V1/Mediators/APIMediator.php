@@ -21,6 +21,7 @@ class APIMediator
 	private $request;
 	private $with;
 	private $perPage;
+	private $orderBy;
 	
 	public function __construct(Authorizer $authorizer, ApiRespond $response)
 	{
@@ -77,6 +78,13 @@ class APIMediator
 		return $this;
 	}
 	
+	public function orderBy()
+	{
+		$this->orderBy = $this->request->input('order_by');
+		
+		return $this;
+	}
+	
 	/**
 	 * 
 	 * @param integer $id
@@ -109,7 +117,7 @@ class APIMediator
 	public function index(RepositoryInterface $repo, TransformerAbstract $transformer)
 	{
 		
-		$collection = $repo->getPaginated($this->with, $this->perPage);
+		$collection = $repo->orderBy($this->orderBy)->getPaginated($this->with, $this->perPage);
 			
 		return $this->response
 					->resource()
@@ -218,7 +226,7 @@ class APIMediator
 	
 	public function search(RepositoryInterface $repo, $field, $param, TransformerAbstract $transformer)
 	{
-		$result = $repo->search($field, $param, $this->with, $this->perPage);
+		$result = $repo->orderBy($this->orderBy)->search($field, $param, $this->with, $this->perPage);
 
 		return $this->response
 					->resource()

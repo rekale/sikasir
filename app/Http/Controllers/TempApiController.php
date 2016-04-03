@@ -66,6 +66,7 @@ abstract class TempApiController extends Controller
     							->setRequest($request)
     							->setWith()
     							->setPerPage()
+    							->orderBy()
 						    	->index(
 					    			$this->getRepository(),
 					    			$this->getTransformer()
@@ -218,6 +219,7 @@ abstract class TempApiController extends Controller
 					    		->setRequest($request)
 					    		->setWith()
 					    		->setPerPage()
+					    		->orderBy()
     						  	->search(
     						  		$this->getRepository(),
     						  		$field,
@@ -231,15 +233,16 @@ abstract class TempApiController extends Controller
     	$throughId = Obfuscater::decode($throughId);
     	
     	return $this->mediator->checkPermission($this->indexAccess)
-    	->setRequest($request)
-    	->setWith()
-    	->setPerPage()
-    	->search(
-    			$this->getRepository($throughId),
-    			$field,
-    			$param,
-    			$this->getTransformer()
-    			);
+						    	->setRequest($request)
+						    	->setWith()
+						    	->orderBy()
+						    	->setPerPage()
+						    	->search(
+						    			$this->getRepository($throughId),
+						    			$field,
+						    			$param,
+						    			$this->getTransformer()
+						    			);
     }
     
     /**

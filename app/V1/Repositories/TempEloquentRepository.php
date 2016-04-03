@@ -5,24 +5,25 @@ namespace Sikasir\V1\Repositories;
 use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 class TempEloquentRepository implements RepositoryInterface
 {
     /**
      *
-     * @var QueryCompanyInterface
+     * @var Builder
      */
     protected $query;
    
     
     public function __construct(QueryCompanyInterface $query = null) 
     {
-        $this->query = $query;
+        $this->query = $query->forCompany();
     }
     
     public function setQuery(QueryCompanyInterface $query) 
     {
-        $this->query = $query;
+        $this->query = $query->forCompany();
     }
     
     /**
@@ -34,7 +35,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function find($id) 
     {   
-        return $this->query->forCompany()->findOrFail($id);
+        return $this->query->findOrFail($id);
     }
     
     /**
@@ -47,7 +48,7 @@ class TempEloquentRepository implements RepositoryInterface
     public function findWith($id, array $relations)
     {
         
-        return $this->query->forCompany()->with($relations)->findOrFail($id);
+        return $this->query->with($relations)->findOrFail($id);
     }
 
     /**
@@ -58,7 +59,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function getPaginated($with = [], $perPage = 15) {
         
-        return $this->query->forCompany()->with($with)->paginate($perPage);
+        return $this->query->with($with)->paginate($perPage);
     }
 
     /**
@@ -83,7 +84,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function update(array $data, $id) 
     {
-        return $this->query->forCompany()->findOrFail($id)
+        return $this->findOrFail($id)
                 ->update($data);    
     }
     
@@ -97,25 +98,39 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function destroy($id) 
     {
-        return $this->query->forCompany()->whereId($id)->delete();
+        return $this->query->whereId($id)->delete();
     }
     
     public function getAll(array $coloumns = array('*')) 
     {
-        return $this->query->forCompany()->all($coloumns);
+        return $this->query->all($coloumns);
     }
     
     public function getSome($take, $skip = 0)
     {
-       return $this->query->forCompany()->take($take)->skip($skip)->get();
+       return $this->query->take($take)->skip($skip)->get();
     }
     
 	public function search($field, $word, $with =[], $perPage = 15)
 	{
-		return $this->query->forCompany()
-						   ->with($with)
+		return $this->query->with($with)
 						   ->where($field, 'LIKE', '%'.$word.'%')
 						   ->paginate($perPage);
+	}
+	
+	/**
+	 * 
+	 * @param string $value
+	 */
+	public function orderBy($value = null)
+	{
+		if(isset($value)) {
+			$param = explode('|', $value);
+			
+			$this->query = $this->query->orderBy($param[0], $param[1]);
+		}
+		
+		return $this;
 	}
 
 }
