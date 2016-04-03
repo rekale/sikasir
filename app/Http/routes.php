@@ -56,7 +56,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Customers'], function ()
         {
             get('customers', 'CustomersController@index');
-            get('customers/search/{field}/{param}', 'CustomersController@search');
+            get('customers/search/{field}/{word}', 'CustomersController@search');
             get('customers/{id}', 'CustomersController@show');
             post('customers', 'CustomersController@store');
             put('customers/{id}', 'CustomersController@update');
@@ -69,7 +69,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Employees'], function()
         {
         	get('employees', 'EmployeesController@index');
-        	get('employees/search/{field}/{param}', 'EmployeesController@search');
+        	get('employees/search/{field}/{word}', 'EmployeesController@search');
         	get('employees/reports/{dateRange}', 'EmployeesController@report');
         	get('employees/{id}', 'EmployeesController@show');
         	post('employees', 'EmployeesController@store');
@@ -82,12 +82,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Suppliers'], function ()
         {
             get('suppliers', 'SuppliersController@index');
-            get('suppliers/search/{field}/{param}', 'SuppliersController@search');
+            get('suppliers/search/{field}/{word}', 'SuppliersController@search');
             get('suppliers/{id}', 'SuppliersController@show');
             post('suppliers', 'SuppliersController@store');
             put('suppliers/{id}', 'SuppliersController@update');
             delete('suppliers/{id}', 'SuppliersController@destroy');
-            
+
+            get('suppliers/{id}/purchases/search/{field}/{word}', 'POController@searchThrough');
             get('suppliers/{id}/purchases', 'POController@indexThrough');
         });
 
@@ -95,18 +96,20 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             /* OUTLETS */
             post('outlets', 'OutletsController@store');
-            get('outlets/search/{field}/{param}', 'OutletsController@search');
+            get('outlets/search/{field}/{word}', 'OutletsController@search');
             get('outlets', 'OutletsController@index');
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
             
             /* INCOMES */
+            get('outlets/{id}/incomes/search/{field}/{word}', 'IncomesController@searchThrough');
             get('outlets/{id}/incomes', 'IncomesController@indexThrough');
             post('outlets/{id}/incomes', 'IncomesController@storeThrough');
             delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroyThrough');
 
             /* OUTCOMES */
+            get('outlets/{id}/outcomes/search/{field}/{word}', 'IncomesController@searchThrough');
             get('outlets/{id}/outcomes', 'OutcomesController@indexThrough');
             post('outlets/{id}/outcomes', 'OutcomesController@storeThrough');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroyThrough');
@@ -129,7 +132,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
             
             /* PRINTERS */
-            get('outlets/{id}/printers/search/{field}/{param}', 'PrintersController@searchThrough');
+            get('outlets/{id}/printers/search/{field}/{word}', 'PrintersController@searchThrough');
             get('outlets/{throughId}/printers/{id}', 'PrintersController@showThrough');
             post('outlets/{id}/printers', 'PrintersController@storeThrough');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@updateThrough');
@@ -151,10 +154,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             Route::group(['namespace' => 'Stocks'], function()
             {
-                
+
+            	get('outlets/{id}/entries/search/{field}/{word}', 'EntriesController@searchThrough');
                 get('outlets/{id}/entries', 'EntriesController@indexThrough');
                 post('outlets/{id}/entries', 'EntriesController@storeThrough');
-                
+
+                get('outlets/{id}/entries/search/{field}/{word}', 'OutsController@searchThrough');
                 get('outlets/{id}/outs', 'OutsController@indexThrough');
                 post('outlets/{id}/outs', 'OutsController@storeThrough');
                 
@@ -173,7 +178,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             post('categories/{id}/products', 'ProductsController@storeThrough');
             
-            get('categories/search/{field}/{param}', 'CategoriesController@search');
+            get('categories/search/{field}/{word}', 'CategoriesController@search');
             get('categories/{id}', 'CategoriesController@show');
             post('categories', 'CategoriesController@store');
             put('categories/{id}', 'CategoriesController@update');
@@ -185,7 +190,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         {
             
             /* DISCOUNT */
-            get('discounts/search/{field}/{param}', 'DiscountsController@search');
+            get('discounts/search/{field}/{word}', 'DiscountsController@search');
             get('discounts/{id}', 'DiscountsController@show');
             post('discounts', 'DiscountsController@store');
             put('discounts/{id}', 'DiscountsController@update');
@@ -193,7 +198,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             /* TAXES */
-            get('taxes/search/{field}/{param}', 'TaxesController@search');
+            get('taxes/search/{field}/{word}', 'TaxesController@search');
             get('taxes/{id}', 'TaxesController@show');
             post('taxes', 'TaxesController@store');
             put('taxes/{id}', 'TaxesController@update');
@@ -201,7 +206,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             /* PAYMENTS */
-            get('payments/search/{field}/{param}', 'PaymentsController@search');
+            get('payments/search/{field}/{word}', 'PaymentsController@search');
             get('payments/{id}', 'PaymentsController@show');
             post('payments', 'PaymentsController@store');
             put('payments/{id}', 'PaymentsController@update');
