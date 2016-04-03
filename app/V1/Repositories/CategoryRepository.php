@@ -27,4 +27,9 @@ class CategoryRepository extends EloquentRepository implements OwnerableRepo, Re
                     ->paginate($perPage);
     }
     
+    public function search($field, $word, $with=[], $perPage=15)
+    {
+    	
+    }
+    
 }

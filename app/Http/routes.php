@@ -118,6 +118,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@allReports');
             get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reports');
             
+            /* CATEGORIES */
+            get('outlets/all/taxes/reports/{dateRange}', 'TaxesController@allReports');
+            get('outlets/{outletId}/taxes/reports/{dateRange}', 'TaxesController@reports');
+            
+            
             /* PRODUCTS */
             get('outlets/all/products', 'ProductsController@all');
             get('outlets/all/products/reports/{dateRange}', 'ProductsController@allReports');

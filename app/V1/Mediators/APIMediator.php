@@ -182,9 +182,8 @@ class APIMediator
 	 * 
 	 * @param string $dateRange
 	 * @param Report $report
-	 * @param Request $request
 	 * @param TransformerAbstract $transformer
-	 * 
+	 * e
 	 * @return JsonResponse
 	 */
 	public function report($dateRange, Report $report, TransformerAbstract $transformer)
