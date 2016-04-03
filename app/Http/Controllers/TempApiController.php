@@ -30,18 +30,6 @@ abstract class TempApiController extends Controller
      */
     protected $auth;
     
-   /**
-    *
-    * @var ApiRespond 
-    */
-    protected $response;
-    
-    /**
-     *
-     * @var TransformerAbstract
-     */
-    private $transformer;
-    
     protected $mediator;
     
     protected $indexAccess;

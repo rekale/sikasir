@@ -4,6 +4,7 @@ namespace Sikasir\V1\Transformer;
 
 use \League\Fractal\TransformerAbstract;
 use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\Util\Obfuscater;
 /**
  * Description of AppTransformer
  *
@@ -16,6 +17,7 @@ class BusinessFieldTransformer extends TransformerAbstract
     public function transform(BusinessField $businessField)
     {
         return [
+        	'id' => Obfuscater::encode($businessField->id),
             'name' => $businessField->name,
         ];
     }

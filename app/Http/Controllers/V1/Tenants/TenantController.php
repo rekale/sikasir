@@ -17,6 +17,9 @@ use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\User\Company;
 use Sikasir\V1\Repositories\NoCompany;
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\Outlets\BusinessField;
+use Sikasir\V1\Transformer\BusinessFieldTransformer;
+use Illuminate\Auth\Access\Response;
 
 class TenantController extends TempApiController
 {
@@ -38,6 +41,11 @@ class TenantController extends TempApiController
 					    			$this->getRepository(),
 					    			$this->getTransformer()
 				    			);
+	}
+	
+	public function businessField()
+	{
+		return( new ApiRespond)->resource()->withCollection(BusinessField::all(), new BusinessFieldTransformer);
 	}
 	
 	public function getQueryType($throughId = null)

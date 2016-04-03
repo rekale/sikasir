@@ -16,6 +16,7 @@
         <li> POST auth/register </li>
         <br>
         <li> GET /?include= users, outlets, taxes, categories, discounts, payments </li>
+        <li> GET /business_field </li>
         <br>
         <li> POST owners </li>
         <li> PUT owners/{id} </li>

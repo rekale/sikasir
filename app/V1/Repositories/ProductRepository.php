@@ -128,5 +128,10 @@ class ProductRepository extends EloquentRepository implements OwnerThroughableRe
                     ->getTotalAndAmounts($dateRange)
                     ->paginate($perPage);
     }
+    
+    public function search($field, $word, $with = [], $perPage = 15)
+    {
+    	
+    }
 
 }
