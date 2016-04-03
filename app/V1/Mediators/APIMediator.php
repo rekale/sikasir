@@ -187,7 +187,7 @@ class APIMediator
 	 * 
 	 * @return JsonResponse
 	 */
-	public function report($dateRange, Report $report, Request $request, TransformerAbstract $transformer)
+	public function report($dateRange, Report $report, TransformerAbstract $transformer)
 	{
 		
 		$result = $report->whenDate($dateRange)
