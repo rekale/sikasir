@@ -173,7 +173,15 @@ class APIMediator
 	 */
 	public function destroy($id, RepositoryInterface $repo)
 	{
-		$repo->destroy(Obfuscater::decode($id));
+		$deletedId = $id;
+		
+		if (strpos($id, ',') !== false) {
+	
+			$deletedId = $this->filterIncludeParams($id);
+			
+		}
+		
+		$repo->destroy(Obfuscater::decode($deletedId));
 		
 		return $this->response->deleted();
 	}

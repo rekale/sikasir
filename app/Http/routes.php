@@ -74,6 +74,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         	get('employees/{id}', 'EmployeesController@show');
         	post('employees', 'EmployeesController@store');
         	put('employees', 'EmployeesController@update');
+        	delete('employees/{id}', 'EmployeesController@destroy');
         
         });
   
