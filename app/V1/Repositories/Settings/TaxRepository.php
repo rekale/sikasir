@@ -20,6 +20,10 @@ class TaxRepository extends EloquentRepository implements OwnerableRepo
     {
         parent::__construct($model);
     }
-   
+
+    public function search($field, $word, $with=[], $perPage=15)
+    {
+    	 
+    }
     
 }
