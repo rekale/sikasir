@@ -115,8 +115,10 @@ class TempEloquentRepository implements RepositoryInterface
 	{
 		$word = strtolower($word);
 		
+		$constraint = config('database.default') === 'mysql' ? 'LIKE':'ILIKE';
+		
 		return $this->query->with($with)
-						   ->whereRaw("lower($field) LIKE '%$word%' ")
+						   ->where($field, $constraint, '%'.$word.'%')
 						   ->paginate($perPage);
 	}
 	
