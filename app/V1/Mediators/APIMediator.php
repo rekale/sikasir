@@ -173,13 +173,8 @@ class APIMediator
 	 */
 	public function destroy($id, RepositoryInterface $repo)
 	{
-		$deletedId = $id;
 		
-		if (strpos($id, ',') !== false) {
-	
-			$deletedId = $this->filterIncludeParams($id);
-			
-		}
+		$deletedId = $this->filterIncludeParams($id);
 		
 		$repo->destroy(Obfuscater::decode($deletedId));
 		
@@ -210,8 +205,8 @@ class APIMediator
 	
 	/**
 	 * 
-	 * @param unknown $id
-	 * @param unknown $dateRange
+	 * @param integer $id
+	 * @param string $dateRange yyy-mm-dd
 	 * @param Report $report
 	 * @param Request $request
 	 * @param TransformerAbstract $transformer
@@ -230,7 +225,17 @@ class APIMediator
 					->including($this->with)
 					->withPaginated($result, $transformer);
 	}
-	
+
+	/**
+	 * search resource in $field where like $param
+	 * 
+	 * @param RepositoryInterface $repo
+	 * @param string $field
+	 * @param string $param
+	 * @param TransformerAbstract $transformer
+	 * 
+	 * @return  JsonResponse
+	 */
 	public function search(RepositoryInterface $repo, $field, $param, TransformerAbstract $transformer)
 	{
 		$result = $repo->orderBy($this->orderBy)->search($field, $param, $this->with, $this->perPage);

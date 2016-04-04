@@ -211,7 +211,6 @@ abstract class TempApiController extends Controller
 						    		$id,
 						   			$dateRange,
 						   			$this->getReport(),
-						   			$request,
 						   			$this->getReportTransformer()
 						    	);
     }

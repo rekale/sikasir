@@ -98,13 +98,7 @@ class TempEloquentRepository implements RepositoryInterface
      */
     public function destroy($id) 
     {
-    	if(is_array($id)) {
-    		return $this->query->whereIn('id', $id)->delete();
-    	}
-    	else {
-    		return $this->query->whereId($id)->delete();
-    	}
-        
+   		return $this->query->whereIn('id', $id)->delete();     
     }
     
     public function getAll(array $coloumns = array('*')) 
