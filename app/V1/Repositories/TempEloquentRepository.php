@@ -113,8 +113,10 @@ class TempEloquentRepository implements RepositoryInterface
     
 	public function search($field, $word, $with =[], $perPage = 15)
 	{
+		$word = strtolower($word);
+		
 		return $this->query->with($with)
-						   ->where($field, 'LIKE', '%'.$word.'%')
+						   ->whereRaw("lower($field) LIKE '%$word%' ")
 						   ->paginate($perPage);
 	}
 	
