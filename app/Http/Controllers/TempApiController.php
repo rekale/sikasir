@@ -82,6 +82,7 @@ abstract class TempApiController extends Controller
 						    	->setRequest($request)
     							->setWith()
     							->setPerPage()
+    							->orderBy()
 						    	->index(
 						    		$this->getRepository($throughId),
 						   			$this->getTransformer()
@@ -191,6 +192,7 @@ abstract class TempApiController extends Controller
 						    	->setRequest($request)
 						    	->setWith()
 						    	->setPerPage()
+						    	->orderBy()
     							->report(
     								$dateRange, 
     								$this->getReport(),
