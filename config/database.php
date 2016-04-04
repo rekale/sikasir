@@ -1,11 +1,11 @@
 <?php
-
+/*
 $url = parse_url(getenv("DATABASE_URL"));
 $host = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $database = substr($url["path"], 1);
-
+*/
 return [
 
     /*
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'default' => 'pgsql',
+    'default' => 'mysql',
 
     /*
     |--------------------------------------------------------------------------
@@ -59,15 +59,27 @@ return [
         ],
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'sikasir',
-            'username'  => 'root',
-            'password'  => '',
+            'host'      => env('DB_HOST', '127.0.0.1'),
+            'database'  => env('DB_DATABASE', 'sikasirc_sikasir'),//sikasirc_tagtoyota
+            'username'  => env('DB_USERNAME', 'sikasirc_tag'),//sikasirc_tag
+            'password'  => env('DB_PASSWORD', '^S6(9_WO-QH~'),//^S6(9_WO-QH~
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
-        ],
+        ],/*
+    	'mysql' => [
+    			'driver'    => 'mysql',
+   				'host'      => 'localhost',
+   				'database'  => 'sikasir',
+   				'username'  => 'root',
+   				'password'  => '',
+    			'charset'   => 'utf8',
+    			'collation' => 'utf8_unicode_ci',
+    			'prefix'    => '',
+    			'strict'    => false,
+   		],*/
+        /*
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'      => env('DB_HOST', $host),
@@ -77,7 +89,7 @@ return [
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
-        ],
+        ],*/
        'sqlsrv' => [
             'driver'   => 'sqlsrv',
             'host'     => env('DB_HOST', 'localhost'),
