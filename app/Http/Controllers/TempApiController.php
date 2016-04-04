@@ -51,13 +51,14 @@ abstract class TempApiController extends Controller
     	$this->auth = $auth;
     	
         $this->initializeAccess();
-        
+        /*
         if(config('database.default') === 'mysql') {
         	\DB::listen(function($sql, $bindings, $time) {
         		var_dump($sql);
         		var_dump($time);
         	});
         }
+        */
     }
     
     public function index(Request $request)
