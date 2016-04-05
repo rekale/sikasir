@@ -80,7 +80,8 @@ class APIMediator
 	
 	public function orderBy()
 	{
-		$this->orderBy = $this->request->input('order_by');
+		$order = $this->request->input('order_by');
+		$this->orderBy = $this->filterIncludeParams($order);
 		
 		return $this;
 	}

@@ -126,12 +126,12 @@ class TempEloquentRepository implements RepositoryInterface
 	 * 
 	 * @param string $value
 	 */
-	public function orderBy($value = null)
+	public function orderBy($value = [])
 	{
-		if(isset($value)) {
-			$param = explode('|', $value);
+		//if array is not empty
+		if(count($value) > 0 ) {
 			
-			$this->query = $this->query->orderBy($param[0], $param[1]);
+			$this->query = $this->query->orderBy($value[0], $value[1]);
 		}
 		
 		return $this;
