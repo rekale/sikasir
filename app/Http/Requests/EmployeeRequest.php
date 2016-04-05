@@ -27,7 +27,7 @@ class EmployeeRequest extends Request
             'name' => 'required|max:255',
             'title' => 'required|max:255',
             'gender' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => 'email|unique:users',
             'address' => 'max:255',
             'phone'=> 'max:255',
             'password' => 'required|max:255',
@@ -35,7 +35,7 @@ class EmployeeRequest extends Request
         ];
         
         $rules['email'] = $this->method() === 'POST'
-		        		? $rules['email'] . '|unique:users'
+		        		? $rules['email'] . '|required'
 		        		: $rules['email']
 		        		;
     

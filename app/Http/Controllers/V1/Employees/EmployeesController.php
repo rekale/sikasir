@@ -41,21 +41,20 @@ class EmployeesController extends TempApiController
 	public function getFactory($throughId = null)
 	{
 	
-		return new EloquentFactory($this->getQueryType());
+		return new EloquentFactory($this->getQueryType($throughId));
 	}
 	
 	public function createCommand($throughId = null)
-	{
-		$factory =  EloquentFactory($this->getQueryType());
-		
-		$command = new CreateUserCommand($factory);
+	{		
+		$command = new CreateUserCommand($this->getFactory($throughId));
 		
 		return $command->setAuthorizer(new Authorizer($this->auth));
 	}
 	
 	public function updateCommand($throughId = null)
 	{
-		$command = new UpdateUserCommand($this->getRepository());
+		$command = new UpdateUserCommand($this->getRepository($throughId));
+		
 		return $command->setAuthorizer(new Authorizer($this->auth));
 	}
 	

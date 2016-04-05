@@ -4,6 +4,7 @@ namespace Sikasir\V1\Commands;
 
 use Sikasir\V1\Commands\CreateCommand;
 use Sikasir\V1\User\Authorizer;
+use Sikasir\V1\Util\Obfuscater;
 
 class CreateUserCommand extends CreateCommand 
 {

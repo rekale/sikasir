@@ -73,7 +73,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         	get('employees/reports/{dateRange}', 'EmployeesController@report');
         	get('employees/{id}', 'EmployeesController@show');
         	post('employees', 'EmployeesController@store');
-        	put('employees', 'EmployeesController@update');
+        	put('employees/{id}', 'EmployeesController@update');
         	delete('employees/{id}', 'EmployeesController@destroy');
         
         });
@@ -119,7 +119,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@allReports');
             get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reports');
             
-            /* CATEGORIES */
+            /* TAXES */
             get('outlets/all/taxes/reports/{dateRange}', 'TaxesController@allReports');
             get('outlets/{outletId}/taxes/reports/{dateRange}', 'TaxesController@reports');
             
