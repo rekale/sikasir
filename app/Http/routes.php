@@ -110,7 +110,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroyThrough');
 
             /* OUTCOMES */
-            get('outlets/{id}/outcomes/search/{field}/{word}', 'IncomesController@searchThrough');
+            get('outlets/{id}/outcomes/search/{field}/{word}', 'OutcomesController@searchThrough');
             get('outlets/{id}/outcomes', 'OutcomesController@indexThrough');
             post('outlets/{id}/outcomes', 'OutcomesController@storeThrough');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroyThrough');

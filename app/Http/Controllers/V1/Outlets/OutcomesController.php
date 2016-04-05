@@ -19,9 +19,9 @@ class OutcomesController extends TempApiController
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-settings';
-		$this->storeAccess = 'create-settings';
+		$this->storeAccess = 'read-settings';
 	
-		$this->destroyAccess = 'read-settings';
+		$this->destroyAccess = 'edit-settings';
 	}
 	
 	public function getQueryType($throughId = null)
@@ -72,7 +72,7 @@ class OutcomesController extends TempApiController
 	
 	public function getReport($throughId = null)
 	{
-		return new CustomerReport($this->getQueryType());
+		throw  new \Exception('not implemented');
 	}   
 	
 }
