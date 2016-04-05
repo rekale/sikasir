@@ -59,27 +59,15 @@ return [
         ],
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', '127.0.0.1'),
-            'database'  => env('DB_DATABASE', 'sikasirc_sikasir'),//sikasirc_tagtoyota
-            'username'  => env('DB_USERNAME', 'sikasirc_tag'),//sikasirc_tag
-            'password'  => env('DB_PASSWORD', '^S6(9_WO-QH~'),//^S6(9_WO-QH~
+            'host'      => 'localhost',
+            'database'  => 'sikasirc_sikasir',
+            'username'  => 'sikasirc_tag',
+            'password'  => '^S6(9_WO-QH~',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
         ],/*
-    	'mysql' => [
-    			'driver'    => 'mysql',
-   				'host'      => 'localhost',
-   				'database'  => 'sikasir',
-   				'username'  => 'root',
-   				'password'  => '',
-    			'charset'   => 'utf8',
-    			'collation' => 'utf8_unicode_ci',
-    			'prefix'    => '',
-    			'strict'    => false,
-   		],*/
-        /*
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'      => env('DB_HOST', $host),
