@@ -35,10 +35,6 @@ abstract class Report
 		return $this;
 	}
 	
-	/**
-	 * 
-	 * @param integer $id
-	 */
 	abstract function getResultFor($id);
 	
 	abstract public function getResult();

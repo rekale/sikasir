@@ -125,17 +125,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             
             /* PRODUCTS */
-            get('outlets/all/products', 'ProductsController@all');
-            get('outlets/all/products/reports/{dateRange}', 'ProductsController@allReports');
-            get('outlets/all/products/reports/{dateRange}/best-seller', 'ProductsController@allBestSeller');
-            get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reports');
-            get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
+            get('outlets/all/products', 'ProductsController@index');
+            get('outlets/all/products/reports/{dateRange}', 'ProductsController@report');
+            get('outlets/all/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
+            get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reportThrough');
+            get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSellerThrough');
             
             /* INVENTORY */
-            get('outlets/{outletId}/products', 'ProductsController@index');
-            get('outlets/{outletId}/products/{productId}', 'ProductsController@show');
-            put('outlets/{outletId}/products/{productId}', 'ProductsController@update');
-            delete('outlets/{outletId}/products/{productId}', 'ProductsController@destroy');
+            get('outlets/{outletId}/products', 'ProductsController@indexThrough');
+            get('outlets/{outletId}/products/{productId}', 'ProductsController@showThrough');
             
             /* PRINTERS */
             get('outlets/{id}/printers/search/{field}/{word}', 'PrintersController@searchThrough');

@@ -8,233 +8,101 @@ use Sikasir\V1\Traits\ApiRespond;
 use Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Requests\ProductRequest;
 use Sikasir\V1\Transformer\ProductTransformer;
+use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\V1\Repositories\EloquentThroughCompany;
+use Sikasir\V1\Products\Product;
+use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Factories\EloquentFactory;
+use Sikasir\V1\Reports\ProductReport;
+use Sikasir\V1\Util\Obfuscater;
+use Illuminate\Http\Request;
 
-class ProductsController extends ApiController
+class ProductsController extends TempApiController
 {
-   protected $repo;
-    
-    public function __construct(ApiRespond $respond, ProductRepository $repo, JWTAuth $auth) {
-
-        parent::__construct($respond, $auth, $repo);
-
-    }
-    
-    public function all()
-    {
-        $currentUser =  $this->currentUser();
-
-        $this->authorizing($currentUser, 'read-product');
-
-        $ownerId = $currentUser->getCompanyId();
-
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        $products = $this->repo()
-                        ->getPaginatedForOwnerThrough(
-                            'outlets', $ownerId, null, $with
-                        );
-        
-       return $this->response()
-               ->resource()
-               ->including($include)
-               ->withPaginated($products, new ProductTransformer);
-    }
-    
-    /**
-     * 
-     * @param string $outletId
-     */
-   public function index($outletId)
-   {    
-        $currentUser =  $this->currentUser();
-
-        $this->authorizing($currentUser, 'read-product');
-
-        $ownerId = $currentUser->getCompanyId();
-
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        $decodedId = $this->decode($outletId);
-
-        $products = $this->repo()
-                        ->getPaginatedForOwnerThrough(
-                            'outlets', $ownerId, $decodedId, $with
-                        );
-        
-       return $this->response()
-               ->resource()
-               ->including($include)
-               ->withPaginated($products, new ProductTransformer);
-       
-   }
-   
-   public function show($outletId, $productId)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $decodedOutletId = $this->decode($outletId);
-        $decodedProductId = $this->decode($productId);
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        $collection = $this->repo()->findForOwnerThrough(
-            $decodedProductId, $companyId, $decodedOutletId, 'outlets', $with
-        );
-        
-        return $this->response()
-               ->resource()
-               ->including($with)
-               ->withItem($collection, new ProductTransformer);
-        
-   }
-   
-   public function update($outletId, $productId, ProductRequest $request)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'edit-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $decodedOutletId = $this->decode($outletId);
-        $decodedProductId = $this->decode($productId);
-        
-        $dataInput = $request->all();
-        
-        $dataInput['category_id'] = $this->decode($dataInput['category_id']);
-        
-        foreach ($dataInput['variants'] as &$variant) {
-            
-            if ( isset($variant['id']) ) {
-                $variant['id'] = $this->decode($variant['id']);
-            }
-            
-        }
-        
-        $this->repo()->updateWithVariantsThroughOutlet(
-            $dataInput, $companyId, $decodedProductId, $decodedOutletId
-        );
-
-        return $this->response()->updated();
-    }
-    
-    
-    public function destroy($outletId, $productId)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'edit-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->repo()->destroyForOwnerThrough(
-            $this->decode($productId), $companyId, $this->decode($outletId), 'outlets'
-        );
-        
-        return $this->response()->deleted();
-    }
-    
-    
-    public function reports($outletId, $dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-report');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getReportsForCompany(
-            $companyId, $dateRange, $this->decode($outletId)
-        );
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        return $this->response()
-               ->resource()
-               ->including($with)
-               ->withPaginated($collection, new ProductTransformer);
-    }
-    
-    public function allReports($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-report');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getReportsForCompany($companyId, $dateRange);
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        return $this->response()
-               ->resource()
-               ->including($with)
-               ->withPaginated($collection, new ProductTransformer);
-    }
-    
-    public function allBestSeller($dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-report');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getBestSellerForCompany($companyId, $dateRange);
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        return $this->response()
-               ->resource()
-               ->including($with)
-               ->withPaginated($collection, new ProductTransformer);
-    }
-    
-    public function bestSeller($outletId, $dateRange)
-    {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-product');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getBestSellerForCompany(
-            $companyId,  $dateRange, $this->decode($outletId)
-        );
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        return $this->response()
-               ->resource()
-               ->including($with)
-               ->withPaginated($collection, new ProductTransformer);
-    }
-     
+	public function initializeAccess()
+	{
+		$this->indexAccess = 'read-product';
+		$this->reportAccess = 'read-report';
+	}
+	
+	public function getQueryType($throughId = null)
+	{
+		return  new EloquentThroughCompany(
+			new Product, $this->auth->getCompanyId(), 'outlets', $throughId
+		);
+	}
+	
+	public function getRepository($throughId = null)
+	{
+		return new TempEloquentRepository($this->getQueryType($throughId));
+	}
+	
+	public function getFactory($throughId = null)
+	{
+		throw new \Exception('not implemented');
+	}
+	
+	public function createCommand($throughId = null)
+	{
+		throw new \Exception('not implemented');
+	}
+	
+	public function updateCommand($throughId = null)
+	{
+		throw new \Exception('not implemented');
+	}
+	public function getSpecificRequest()
+	{
+		return app(ProductRequest::class);
+	}
+	
+	
+	public function getTransformer()
+	{
+		return new ProductTransformer;
+	}
+	
+	public function getReportTransformer()
+	{
+		return new ProductTransformer;
+	}
+	
+	
+	public function getReport($throughId = null)
+	{
+		return new ProductReport($this->getQueryType($throughId));
+	}
+	
+	public function bestSeller($dateRange, Request $request)
+	{
+		$report = new ProductReport($this->getQueryType());
+		
+		return $this->mediator->checkPermission($this->reportAccess)
+							->setRequest($request)
+							->setWith()
+							->setPerPage()
+							->orderBy()
+							->report(
+								$dateRange,
+								$report->bestSeller(),
+								$this->getReportTransformer()
+							);
+	}
+	
+	public function bestSellerThrough($throughId, $dateRange, Request $request)
+	{
+		$throughId = Obfuscater::decode($throughId);
+		$report = new ProductReport($this->getQueryType($throughId));
+	
+		return $this->mediator->checkPermission($this->reportAccess)
+								->setRequest($request)
+								->setWith()
+								->setPerPage()
+								->orderBy()
+								->report(
+									$dateRange,
+									$report->bestSeller(),
+									$this->getReportTransformer()
+								);
+	}
 }

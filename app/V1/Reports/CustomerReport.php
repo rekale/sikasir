@@ -25,4 +25,5 @@ class CustomerReport extends Report
 	{
 		throw new \Exception('not implemented');
 	}
+	
 }

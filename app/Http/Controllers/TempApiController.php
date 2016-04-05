@@ -201,6 +201,22 @@ abstract class TempApiController extends Controller
     							);
     }
     
+    public function reportThrough($throughId, $dateRange, Request $request)
+    {
+    	$throughId = Obfuscater::decode($throughId);
+    	 
+    	return $this->mediator->checkPermission($this->reportAccess)
+		    	->setRequest($request)
+		    	->setWith()
+		    	->setPerPage()
+		    	->orderBy()
+		    	->report(
+	    			$dateRange,
+	    			$this->getReport($throughId),
+	    			$this->getReportTransformer()
+    			);
+    }
+    
     public function reportFor($id, $dateRange, Request $request)
     {
     	return $this->mediator->checkPermission($this->reportAccess)

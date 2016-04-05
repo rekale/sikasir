@@ -203,19 +203,9 @@ class APIMediator
 		
 	}
 	
-	/**
-	 * 
-	 * @param integer $id
-	 * @param string $dateRange yyy-mm-dd
-	 * @param Report $report
-	 * @param Request $request
-	 * @param TransformerAbstract $transformer
-	 * 
-	 * @return  JsonResponse
-	 */
 	public function reportFor($id, $dateRange, Report $report, TransformerAbstract $transformer)
 	{
-		
+	
 		$result = $report->whenDate($dateRange)
 						->getResultFor( Obfuscater::decode($id) )
 						->paginate($this->perPage);
@@ -225,6 +215,7 @@ class APIMediator
 					->including($this->with)
 					->withPaginated($result, $transformer);
 	}
+	
 
 	/**
 	 * search resource in $field where like $param
