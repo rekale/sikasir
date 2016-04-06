@@ -108,5 +108,10 @@ class OrderRepository extends EloquentRepository implements OwnerThroughableRepo
         return $queryBuilder->paginate($perPage);
     }
     
+    public function search($field, $word, $with =[], $perPage = 15)
+    {
+    	
+    }
+    
 
 }

@@ -38,7 +38,7 @@ class OrderTransformer extends TransformerAbstract
             'note' => $order->note,
             'gross_sales' => $order->gross_sales,
             'sales' => $order->sales,
-            'created_at' => $order->created_at,
+            'created_at' => (string) $order->created_at,
         ];
         
         if(isset($order->pivot)) {

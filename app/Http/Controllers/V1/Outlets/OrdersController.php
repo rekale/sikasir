@@ -23,7 +23,7 @@ class OrdersController extends ApiController
    {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-specific-outlet');
+        $this->authorizing($currentUser, 'read-order');
         
         $companyId = $currentUser->getCompanyId();
        
@@ -47,7 +47,7 @@ class OrdersController extends ApiController
    {
         $currentUser =  $this->currentUser();
         
-        $this->authorizing($currentUser, 'read-specific-outlet');
+        $this->authorizing($currentUser, 'read-order');
         
         $companyId = $currentUser->getCompanyId();
        
