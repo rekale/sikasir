@@ -9,7 +9,6 @@ use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Commands\CreateOutletCommand;
 
@@ -73,6 +72,6 @@ class OutletsController extends TempApiController
 	
 	public function getReport($throughId = null)
 	{
-		return new CustomerReport($this->getQueryType());
+		throw new \Exception('not implemented');
 	}
 }

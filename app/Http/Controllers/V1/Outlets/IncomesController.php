@@ -70,6 +70,6 @@ class IncomesController extends TempApiController
 	
 	public function getReport($throughId = null)
 	{
-		return new CustomerReport($this->getQueryType());
+		throw new \Exception('not implemented');
 	}   
 }

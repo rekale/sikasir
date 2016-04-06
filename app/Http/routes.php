@@ -116,8 +116,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroyThrough');
             
             /* CATEGORIES */
-            get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@allReports');
-            get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reports');
             
             /* TAXES */
             get('outlets/all/taxes/reports/{dateRange}', 'TaxesController@allReports');
@@ -181,6 +179,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Products'], function()
         {
             post('categories/{id}/products', 'ProductsController@storeThrough');
+            
+            get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@report');
+            get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reportThrough');
             
             get('categories/search/{field}/{word}', 'CategoriesController@search');
             get('categories/{id}', 'CategoriesController@show');

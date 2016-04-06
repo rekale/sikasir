@@ -2,17 +2,12 @@
 
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
-use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\Repositories\ProductRepository;
-use Sikasir\V1\Traits\ApiRespond;
-use Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Requests\ProductRequest;
 use Sikasir\V1\Transformer\ProductTransformer;
 use Sikasir\Http\Controllers\TempApiController;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Repositories\TempEloquentRepository;
-use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Reports\ProductReport;
 use Sikasir\V1\Util\Obfuscater;
 use Illuminate\Http\Request;

@@ -11,6 +11,7 @@ use Sikasir\V1\Products\Category;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
+use Sikasir\V1\Reports\CategoryReport;
 
 class CategoriesController extends TempApiController
 {
@@ -22,7 +23,7 @@ class CategoriesController extends TempApiController
 	
 		$this->storeAccess = 'edit-product';
 		$this->updateAccess = 'edit-product';
-		$this->reportAccess = 'edit-product';
+		$this->reportAccess = 'read-report';
 	}
 	
 	public function getQueryType($throughId = null)
@@ -70,6 +71,8 @@ class CategoriesController extends TempApiController
 	
 	public function getReport($throughId = null)
 	{
-		return new CustomerReport($this->getQueryType());
+		$report = new CategoryReport($this->getQueryType());
+		
+		return $report->forOutlet($throughId);
 	}
 }
