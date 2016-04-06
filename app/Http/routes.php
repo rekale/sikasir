@@ -136,6 +136,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             /* PRINTERS */
             get('outlets/{id}/printers/search/{field}/{word}', 'PrintersController@searchThrough');
+			get('outlets/{throughId}/printers', 'PrintersController@indexThrough');
             get('outlets/{throughId}/printers/{id}', 'PrintersController@showThrough');
             post('outlets/{id}/printers', 'PrintersController@storeThrough');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@updateThrough');

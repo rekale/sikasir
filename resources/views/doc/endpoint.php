@@ -37,7 +37,8 @@
         <br>
         <li> GET employees?include=abilities </li>
         <li> GET employees/search/{field}/{word} </li>
-        <li> GET employees/reports/{dateRange}</li>
+        <li> GET employees/{id}/reports/{dateRange}</li>
+       	<li> GET employees/reports/{dateRange}</li>
         <li> GET employees/{id}?include=abilities </li>
         <li> POST employees </li>
         <li> PUT employees/{id} </li>
@@ -106,6 +107,7 @@
         <li> DELETE outlets/{id}/outcomes </li>
         <br>
         <br>
+        <li> GET outlets/{id}/printers</li>
         <li> GET outlets/{id}/printers/{printerId} </li>
         <li> GET outlets/{id}/printers/search/{field}/{word} </li>
         <li> POST outlets/{id}/printers </li>
