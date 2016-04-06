@@ -13,6 +13,8 @@ use Sikasir\V1\User\Authorizer;
 use Sikasir\V1\Commands\CreateUserCommand;
 use Sikasir\V1\Commands\UpdateUserCommand;
 use Sikasir\V1\Reports\EmployeeReport;
+use Illuminate\Http\Request;
+use Sikasir\V1\Transformer\EmployeeSellReportTransformer;
 
 class EmployeesController extends TempApiController
 {
@@ -78,6 +80,20 @@ class EmployeesController extends TempApiController
 	public function getReport($throughId = null)
 	{
 		return new EmployeeReport($this->getQueryType());
+	}
+	
+	public function reportFor($id, $dateRange, Request $request)
+	{
+		return $this->mediator->checkPermission($this->reportAccess)
+		->setRequest($request)
+		->setWith()
+		->setPerPage()
+		->reportFor(
+			$id,
+			$dateRange,
+			$this->getReport(),
+			new EmployeeSellReportTransformer
+		);
 	}
 
 }

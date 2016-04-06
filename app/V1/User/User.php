@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Sikasir\V1\Outlets\Outlet;
+use Sikasir\V1\Orders\Order;
 
 
 class User extends Model implements AuthenticatableContract,
@@ -73,6 +74,11 @@ class User extends Model implements AuthenticatableContract,
     public function outlets()
     {
         return $this->belongsToMany(Outlet::class);
+    }
+    
+    public function orders()
+    {
+    	return $this->hasMany(Order::class);
     }
     
     /**
