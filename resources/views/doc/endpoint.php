@@ -61,9 +61,16 @@
         <br>
         <li> GET outlets/all/orders/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax, payment </li>
         <li> GET outlets/{id}/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax, payment </li>
+         
+        <li> GET outlets/all/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
         <li> GET outlets/{id}/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
+        
+        <li> GET outlets/all/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
         <li> GET outlets/{id}/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
+        
+        <li> GET outlets/all/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
         <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
+        
         <li> POST outlets/{id}/orders</li>
         <br>
         <li> GET outlets/all/products/reports/{dateRange}?include=outlet,category,variants </li>
