@@ -173,9 +173,9 @@
         POST|PUT v1/outlets/{id}/orders
         {
             "customer_id": "Z",
-            "operator_id": "T", //required
+            "user_id": "T", //required
             "payment_id": "D", //required
-            "discount_id": "D",
+            "discount_id": "L",
             "tax_id" : "Z", //required
             "note": "lalala yeyeye",
             "variants": [

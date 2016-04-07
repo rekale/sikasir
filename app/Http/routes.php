@@ -143,12 +143,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroyThrough');
             
             /* ORDERS */
-            get('outlets/all/orders/{dateRange}', 'OrdersController@all');
-            get('outlets/{id}/orders/{dateRange}', 'OrdersController@index');
-            get('outlets/{id}/orders/{dateRange}/void', 'OrdersController@void');
-            get('outlets/{id}/orders/{dateRange}/debt', 'OrdersController@debtNotSettled');
-            get('outlets/{id}/orders/{dateRange}/debt-settled', 'OrdersController@debtSettled');
-            post('outlets/{id}/orders', 'OrdersController@store');
+            get('outlets/all/orders/{dateRange}', 'OrdersController@report');
+            get('outlets/{id}/orders/{dateRange}', 'OrdersController@reportThrough');
+            get('outlets/all/orders/{dateRange}/void', 'OrdersController@void');
+            get('outlets/{id}/orders/{dateRange}/void', 'OrdersController@voidThrough');
+            get('outlets/all/orders/{dateRange}/debt', 'OrdersController@debt');
+            get('outlets/{id}/orders/{dateRange}/debt', 'OrdersController@debtThrough');
+            get('outlets/all/orders/{dateRange}/debt-settled', 'OrdersController@settled');
+            get('outlets/{id}/orders/{dateRange}/debt-settled', 'OrdersController@settledThrough');
+            post('outlets/{id}/orders', 'OrdersController@storeThrough');
             
             
             

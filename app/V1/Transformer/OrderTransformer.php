@@ -96,14 +96,20 @@ class OrderTransformer extends TransformerAbstract
     {
         $item = $order->void;
         
-        return $this->item($item, new VoidTransformer); 
+        if(isset($item)) {
+        	return $this->item($item, new VoidTransformer);
+        }
+         
     }
     
     public function includeDebt(Order $order)
     {
         $item = $order->debt;
         
-        return $this->item($item, new DebtTransformer); 
+        if(isset($item)) {
+        	return $this->item($item, new DebtTransformer);
+        }
+   
     }
     
     public function includePayment(Order $order)
