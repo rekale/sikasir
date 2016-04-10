@@ -8,10 +8,10 @@ use Sikasir\Http\Requests\CategoryRequest;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\TempEloquentRepository;
 use Sikasir\V1\Products\Category;
-use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Reports\CategoryReport;
+use Sikasir\V1\Factories\EloquentFactory;
 
 class CategoriesController extends TempApiController
 {
@@ -43,9 +43,7 @@ class CategoriesController extends TempApiController
 	
 	public function createCommand($throughId = null)
 	{
-		$factory =  EloquentFactory($this->getQueryType());
-	
-		return new GeneralCreateCommand($factory);
+		return new GeneralCreateCommand($this->getFactory($throughId));
 	}
 	
 	public function updateCommand($throughId = null)
