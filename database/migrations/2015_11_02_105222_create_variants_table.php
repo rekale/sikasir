@@ -26,6 +26,11 @@ class CreateVariantsTable extends Migration
             $table->integer('alert_at')->unsigned()->default(0);
             $table->text('icon')->nullable();
             
+            $table->foreign('product_id')
+		            ->references('id')
+		            ->on('products')
+		            ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
