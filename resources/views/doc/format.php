@@ -12,7 +12,7 @@
 
         {
             "name":"Dr. Willa Goldner",
-            "title": "manager",
+            "title": 1, //1. manager/staff 2.kasir
             "gender": "wanita",
             "email": "email@aku.com",
             "password": "12345",
@@ -20,7 +20,7 @@
             "outlet_id": [ "D", "L"],
             "address":"45277 Haley Summit Apt. 223 South Elisa, MI 55720-5644",
             "void_access" : true,
-            "privileges": [0, 1, 2, 3, 4]
+            "privileges": [1, 2, 3, 4, 5]
         }
 
         --CUSTOMER-- 

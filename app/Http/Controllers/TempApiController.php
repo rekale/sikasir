@@ -15,6 +15,7 @@ use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
 use Sikasir\V1\Reports\Report;
 use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\User\Authorizer;
 
 /**
  * 
@@ -44,9 +45,12 @@ abstract class TempApiController extends Controller
      * @param ReportInterface $auth
      * @param ApiRespond $response
      */
-    public function __construct(APIMediator $mediator, AuthInterface $auth) 
+    public function __construct(AuthInterface $auth, ApiRespond $respond) 
     {   
-    	$this->mediator = $mediator;
+    	
+    	$currentUser = $auth->currentUser();
+    	
+    	$this->mediator = new APIMediator(new Authorizer($currentUser), $respond);
     	
     	$this->auth = $auth;
     	

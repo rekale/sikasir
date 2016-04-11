@@ -3,8 +3,6 @@
 namespace Sikasir\V1\User;
 
 
-use Sikasir\V1\Interfaces\AuthInterface;
-
 class Authorizer 
 {
 	/**
@@ -13,14 +11,25 @@ class Authorizer
 	 */
 	private $user;
 	
+	private $abilities;
+	
 	/**
 	 * 
 	 * @param User $user
 	 */
-	public function __construct(AuthInterface $auth)
+	public function __construct(User $user = null)
 	{
-		$this->user = $auth->currentUser();
+		$this->user = $user;
+		$this->abilities = [];
 	}
+	
+	public function setUser(User $user)
+	{
+		$this->user = $user;
+		
+		return $this;
+	}
+	
 	
 	public function checkAccess($access)
 	{
@@ -36,24 +45,32 @@ class Authorizer
 	 * 4. do billing abilities
 	 * 
 	 * @param array $privileges
+	 * @return array
 	 */
 	public function giveAccess(array $privileges)
 	{
 		if (in_array( 1, $privileges)) {
-			$this->user->allow($this->doProductAbilities());
+			$this->abilities[] = 'edit-product';
+			$this->user->allow($this->abilities);
 		}
 		if (in_array( 2, $privileges)) {
-			$this->user->allow($this->doOrderAbilties());
+			$this->abilities[] = 'report-order';
+			$this->user->allow($this->abilities);
 		}
 		if (in_array( 3, $privileges)) {
-			$this->user->allow($this->doReportAbilties());
+			$this->abilities[] = 'read-report';
+			$this->user->allow($this->abilities);
 		}
 		if (in_array( 4, $privileges)) {
-			$this->user->allow($this->doBillingAbilties());
+			$this->abilities[] = 'billing';
+			$this->user->allow($this->abilities);
 		}
 		if (in_array( 5, $privileges)) {
-			$this->user->allow($this->doVoidOrder());
+			$this->abilities[] = 'void-order';
+			$this->user->allow($this->abilities);
 		}
+		
+		return $this->abilities;
 	}
 	
 	/**
@@ -66,20 +83,26 @@ class Authorizer
 		$this->giveAccess($privileges);
 		
 		if (! in_array( 1, $privileges)) {
-			$this->user->disallow($this->doProductAbilities());
+			$this->abilities[] = 'edit-product';
+			$this->user->allow($this->abilities);
 		}
 		if (! in_array( 2, $privileges)) {
-			$this->user->disallow($this->doOrderAbilties());
+			$this->abilities[] = 'report-order';
+			$this->user->allow($this->abilities);
 		}
 		if (! in_array( 3, $privileges)) {
-			$this->user->disallow($this->doReportAbilties());
+			$this->abilities[] = 'read-report';
+			$this->user->allow($this->abilities);
 		}
 		if (! in_array( 4, $privileges)) {
-			$this->user->disallow($this->doBillingAbilties());
+			$this->abilities[] = 'billing';
+			$this->user->allow($this->abilities);
 		}
 		if (! in_array( 5, $privileges)) {
-			$this->user->disallow($this->doVoidOrder());
+			$this->abilities[] = 'void-order';
+			$this->user->allow($this->abilities);
 		}
+		
 	}
 	
 	
@@ -87,23 +110,28 @@ class Authorizer
 	{
 		$default = [];
 		
-		$default[] = [
+		$default = [
 			'edit-supplier',
         	'edit-settings', //tax, discount, payment, printer
             'edit-cashier',
         	'edit-employee',
 		];
 		
-		$default[] = $this->cashierDefault();
+		$this->cashierDefault();
+
+		$this->abilities = array_merge($this->abilities, $default);
 		
-		return $default;
-		
+		return $this;
 		
 	}
 	
+	/**
+	 * 
+	 * @return $this
+	 */
 	public function cashierDefault()
 	{
-		return [
+		$default =  [
 			'read-outlet',
 			'read-customer',
         	'edit-customer',
@@ -118,6 +146,10 @@ class Authorizer
         	'read-order',
         	'edit-order',
 		];
+		
+		$this->abilities = array_merge($this->abilities, $default);
+		
+		return $this;
 	}
 	
 	

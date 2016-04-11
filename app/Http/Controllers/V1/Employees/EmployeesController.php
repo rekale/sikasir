@@ -50,14 +50,14 @@ class EmployeesController extends TempApiController
 	{		
 		$command = new CreateUserCommand($this->getFactory($throughId));
 		
-		return $command->setAuthorizer(new Authorizer($this->auth));
+		return $command;
 	}
 	
 	public function updateCommand($throughId = null)
 	{
 		$command = new UpdateUserCommand($this->getRepository($throughId));
 		
-		return $command->setAuthorizer(new Authorizer($this->auth));
+		return $command;
 	}
 	
 	public function getSpecificRequest()

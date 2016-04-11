@@ -9,28 +9,26 @@ use Sikasir\V1\Util\Obfuscater;
 class CreateUserCommand extends CreateCommand 
 {
 	
-	private $authorizer;
-	
-	/**
-	 * 
-	 * @param Authorizer $authorizer
-	 * 
-	 * @return $this
-	 */
-	public function setAuthorizer(Authorizer $authorizer)
-	{
-		$this->authorizer = $authorizer;
-		
-		return $this;
-	}
-	
 	public function execute() 
 	{
 		\DB::transaction(function () {
-				
+			
+			$authorizer = new Authorizer();
+			
+			if ($this->data['title'] === 1) {
+				$this->data['title'] = 'staff';
+				$authorizer->managerDefault();
+			}
+			if ($this->data['title'] === 2) {
+				$this->data['title'] = 'kasir';
+				$authorizer->cashierDefault();
+			}
+			
+			$this->data['password'] = bcrypt($this->data['password']);
+			
 			$user = $this->factory->create($this->data);
 				
-			$this->authorizer->giveAccess($this->data['privileges']);
+			$authorizer->setUser($user)->giveAccess($this->data['privileges']);
 			
 			$outletIds = Obfuscater::decode($this->data['outlet_id']);
 			

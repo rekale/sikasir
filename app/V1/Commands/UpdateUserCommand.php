@@ -9,21 +9,6 @@ use Sikasir\V1\Util\Obfuscater;
 class UpdateUserCommand extends UpdateCommand 
 {
 	
-	private $authorizer;
-	
-	/**
-	 * 
-	 * @param Authorizer $authorizer
-	 * 
-	 * @return $this
-	 */
-	public function setAuthorizer(Authorizer $authorizer)
-	{
-		$this->authorizer = $authorizer;
-		
-		return $this;
-	}
-	
 	public function execute() 
 	{
 		\DB::transaction(function () {
@@ -32,7 +17,9 @@ class UpdateUserCommand extends UpdateCommand
 				
 			$user->update($this->data);
 			
-			$this->authorizer->syncAccess($this->data['privileges']);
+			$authorizer = new Authorizer($user);
+			
+			$authorizer->syncAccess($this->data['privileges']);
 			
 			$outletIds = Obfuscater::decode($this->data['outlet_id']);
 			
