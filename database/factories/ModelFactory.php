@@ -54,7 +54,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
-        'title' => $faker->randomElement(['kasir', 'manager', 'owner']), 
+        'title' => $faker->randomElement(['kasir', 'manager']), 
         'gender' => $faker->randomElement(['male', 'female']),
         'address' => $faker->address, 
         'phone' => $faker->phoneNumber, 
