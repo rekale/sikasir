@@ -22,6 +22,7 @@ use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Orders\Void;
 use Sikasir\V1\Commands\UpdateOrderToVoidCommand;
 use Sikasir\V1\Commands\UpdateOrderDebtCommand;
+use Sikasir\Http\Requests\DebtRequest;
 
 class OrdersController extends TempApiController
 {
@@ -201,7 +202,7 @@ class OrdersController extends TempApiController
 							);
 	}
 	
-	public function debtOrder($id, Request $request)
+	public function debtOrder($id, DebtRequest $request)
 	{
 		$query = $this->getRepository();
 		
@@ -215,7 +216,7 @@ class OrdersController extends TempApiController
 							);
 	}
 	
-	public function debtSettledOrder($id, Request $request)
+	public function debtSettledOrder($id, DebtRequest $request)
 	{
 		$query = $this->getRepository();
 	

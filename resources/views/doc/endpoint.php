@@ -72,6 +72,11 @@
         <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
         
         <li> POST outlets/{id}/orders</li>
+        <li> PUT orders/{id}/void</li>
+        <li> PUT orders/{id}/debt</li>
+        <li> PUT orders/{id}/debt-settled</li>
+        
+        
         <br>
         <li> GET outlets/all/products/reports/{dateRange}?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products/reports/{dateRange}?include=outlet,category,variants </li>
@@ -146,6 +151,7 @@
         <li> DELETE taxes/{id} </li>
         <br>
         <br>
+        <li> GET payments </li>
         <li> GET payments/{id} </li>
         <li> GET payments/search/{field}/{word} </li>
         <li> POST payments </li>
