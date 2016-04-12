@@ -221,6 +221,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             /* PAYMENTS */
             get('payments/search/{field}/{word}', 'PaymentsController@search');
+            get('payments', 'PaymentsController@index');
             get('payments/{id}', 'PaymentsController@show');
             post('payments', 'PaymentsController@store');
             put('payments/{id}', 'PaymentsController@update');
