@@ -129,7 +129,7 @@ class OrdersController extends TempApiController
 					    	->orderBy()
 					    	->report(
 					   			$dateRange,
-					   			$report->isNotVoid()->haveDebt(),
+					   			$report->isNotVoid()->haveDebtAndNotSettled(),
 					    		$this->getReportTransformer()
 					    	);
     }

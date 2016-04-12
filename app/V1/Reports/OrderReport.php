@@ -92,9 +92,9 @@ class OrderReport extends Report
 			function ($closureQuery)
 			{
 				$closureQuery->selectRaw(1)
-				->from('debts')
-				->whereRaw('debts.order_id = orders.id')
-				->whereNotNull('paid_at');
+							->from('debts')
+							->whereRaw('debts.order_id = orders.id')
+							->whereNotNull('paid_at');
 			}
 		);
 		
