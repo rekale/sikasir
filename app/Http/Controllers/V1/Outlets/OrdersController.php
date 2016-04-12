@@ -18,6 +18,10 @@ use Sikasir\V1\Util\Obfuscater;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\CreateOrderCommand;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Orders\Void;
+use Sikasir\V1\Commands\UpdateOrderToVoidCommand;
+use Sikasir\V1\Commands\UpdateOrderDebtCommand;
 
 class OrdersController extends TempApiController
 {
@@ -181,170 +185,48 @@ class OrdersController extends TempApiController
     			);
     }
 	
-	/*
-   protected $repo;
-    
-    public function __construct(ApiRespond $respond, OrderRepository $repo, JWTAuth $auth) {
-
-        parent::__construct($respond, $auth, $repo);
-
-    }
-   
-   public function all($dateRange)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-order');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $arrayDateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $collection = $this->repo()->getNovoidAndDebtPaginated(
-            null, $companyId, $arrayDateRange, $with
-        );
-        
-        return $this->response()
-                ->resource()
-                ->including($include)
-                ->withPaginated($collection, new OrderTransformer);
-   }
-    
-   public function index($outletId, $dateRange)
-   {
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-order');
-        
-        $companyId = $currentUser->getCompanyId();
-       
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $collection = $this->repo()->getNovoidAndDebtPaginated(
-            $this->decode($outletId), $companyId, $dateRange, $with
-        );
-        
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($collection, new OrderTransformer);
-   }
-   
-   public function void($outletId, $dateRange)
-   {
-        
-        $currentUser =  $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-order');
-       
-        $companyId = $currentUser->getCompanyId();
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-        
-        $with = $this->filterIncludeParams($include);
-        
-        $collection = $this->repo()->getVoidPaginated(
-            $this->decode($outletId), $companyId, $dateRange, $with
-        );
-
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($collection, new OrderTransformer);
-        
-   }
-   
-    public function debtNotSettled($outletId, $dateRange)
-    {
-        $currentUser = $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->authorizing($currentUser, 'read-order');
-
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getDebtPaginated(
-            $this->decode($outletId), $companyId, $dateRange, false, $with
-        );
-
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($collection, new OrderTransformer);
-
-    }
-    
-    public function debtSettled($outletId, $dateRange)
-    {
-        $currentUser = $this->currentUser();
-        
-        $companyId = $currentUser->getCompanyId();
-        
-        $this->authorizing($currentUser, 'read-order');
-
-        $include = filter_input(INPUT_GET, 'include', FILTER_SANITIZE_STRING);
-
-        $with = $this->filterIncludeParams($include);
-        
-        $dateRange = explode(',' , str_replace(' ', '', $dateRange));
-        
-        $collection = $this->repo()->getDebtPaginated(
-            $this->decode($outletId), $companyId, $dateRange, true, $with
-        );
-
-        return $this->response()
-                ->resource()
-                ->including($with)
-                ->withPaginated($collection, new OrderTransformer);
-
-    }
-    
-    public function store($outletId, OrderRequest $request)
-    {
-        $currentUser = $this->currentUser();
-        
-        $this->authorizing($currentUser, 'read-order');        
-        
-        $dataInput = $request->all();
-        
-        if ( isset($dataInput['customer_id']) ) {
-            $dataInput['customer_id'] = $this->decode($dataInput['customer_id']);
-        }
-        
-        if ( isset($dataInput['discount_id']) ) {
-            $dataInput['discount_id'] = $this->decode($dataInput['discount_id']);
-        }
-        
-        $dataInput['outlet_id'] = $this->decode($outletId);
-        
-        $dataInput['operator_id'] = $this->decode($dataInput['operator_id']);
-        
-        $dataInput['tax_id'] = $this->decode($dataInput['tax_id']);
-        
-        $dataInput['payment_id'] = $this->decode($dataInput['payment_id']);
-        
-        foreach ($dataInput['variants'] as &$variant) {
-            $variant['id'] = $this->decode($variant['id']);
-        }
-        
-        $this->repo()->save($dataInput);
-
-        return $this->response()->created();
-    }
-	*/
+	public function voidOrder($id, Request $request)
+	{
+		$query = $this->getRepository();
+		
+		$command = new UpdateOrderToVoidCommand($query);
+		
+		$command->setOperator($this->auth->currentUser()->id);
+		
+		return $this->mediator->checkPermission('void-order')
+							->setRequest($request)
+							->update(
+								$id,
+								$command
+							);
+	}
+	
+	public function debtOrder($id, Request $request)
+	{
+		$query = $this->getRepository();
+		
+		$command = new UpdateOrderDebtCommand($query);
+		
+		return $this->mediator->checkPermission('void-order')
+							->setRequest($request)
+							->update(
+								$id,
+								$command->makeDebt()
+							);
+	}
+	
+	public function debtSettledOrder($id, Request $request)
+	{
+		$query = $this->getRepository();
+	
+		$command = new UpdateOrderDebtCommand($query);
+	
+		return $this->mediator->checkPermission('void-order')
+							->setRequest($request)
+							->update(
+								$id,
+								$command->makeDebtSettled()
+							);
+	}
+	
 }

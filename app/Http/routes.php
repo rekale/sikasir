@@ -153,6 +153,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/orders/{dateRange}/debt-settled', 'OrdersController@settledThrough');
             post('outlets/{id}/orders', 'OrdersController@storeThrough');
             
+            put('orders/{id}/void', 'OrdersController@voidOrder');
+            put('orders/{id}/debt', 'OrdersController@debtOrder');
+            put('orders/{id}/debt-settled', 'OrdersController@debtSettledOrder');
+            
             
             
             /* PAYMENTS */

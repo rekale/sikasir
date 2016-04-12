@@ -19,6 +19,13 @@ class CreateDebtsTable extends Migration
             $table->date('due_date');
             $table->date('paid_at')->nullable();
             $table->timestamps();
+            
+            $table->foreign('order_id')
+            ->references('id')
+            ->on('orders')
+            ->onDelete('cascade');
+            
+            $table->unique('order_id');
         });
     }
 

@@ -24,6 +24,8 @@ class CreateVoidsTable extends Migration
                 ->on('orders')
                 ->onDelete('cascade');
             
+            $table->unique('order_id');
+            
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

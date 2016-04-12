@@ -52,8 +52,8 @@ class DatabaseSeeder extends Seeder
         'SupplierSeeder',
         'ProductSeeder',
         'StockSeeder',
+    	'PrinterSeeder',
         'OrderSeeder',
-        'PrinterSeeder',
     ];
 
     /**

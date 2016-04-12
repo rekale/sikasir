@@ -57,17 +57,17 @@ class OrderSeeder extends Seeder
             
             
             //select random order to void by random employee
-            foreach (range(0, 20) as $i) {
+            foreach (range(1, 5) as $i) {
             	factory(Void::class)->create([
             			'user_id' => $employees->random()->id,
-            			'order_id' => $orders[mt_rand(0, 99)]->id
+            			'order_id' => $orders[mt_rand(1, 99)]->id
             	]);
             }
             
             //select random order to void by random employee
-            foreach (range(0, 20) as $i) {
+            foreach (range(1, 5) as $i) {
             	factory(Debt::class)->create([
-            			'order_id' => $orders[mt_rand(0, 99)]->id
+            			'order_id' => $orders[mt_rand(1, 99)]->id
             	]);
             }
            

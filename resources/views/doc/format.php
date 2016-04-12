@@ -191,7 +191,18 @@
                 }
             ]
         }
-
+		
+		--VOID ORDER--
+		{
+			"note": "asdfsafasd"
+		}
+		
+		--DEBT ORDER--
+		{
+			"due_date": "asdfsafasd",
+			"total": 1234124,
+		}
+		
         --SUPPLIER--
         {
             "name": "sukajaya",
