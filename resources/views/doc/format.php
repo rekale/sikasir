@@ -284,7 +284,7 @@
     "address": "dimana mana",
     "info": "yeyeye",
     "footer_note": "asdfsa",
-    "size": "A4"
+    "size": 1 //1.A4 2.	Receipt Paper Roll
 }
 
 --INCOME/OUTCOME--
