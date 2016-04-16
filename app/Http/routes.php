@@ -167,10 +167,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             {
 
             	get('outlets/{id}/entries/search/{field}/{word}', 'EntriesController@searchThrough');
+            	get('outlets/{outletId}/entries/{id}', 'EntriesController@showThrough');
                 get('outlets/{id}/entries', 'EntriesController@indexThrough');
                 post('outlets/{id}/entries', 'EntriesController@storeThrough');
 
                 get('outlets/{id}/entries/search/{field}/{word}', 'OutsController@searchThrough');
+                get('outlets/{outletId}/outs/{id}', 'OutsController@showThrough');
                 get('outlets/{id}/outs', 'OutsController@indexThrough');
                 post('outlets/{id}/outs', 'OutsController@storeThrough');
                 
@@ -178,6 +180,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 post('outlets/{id}/opnames', 'OpnamesController@storeThrough');
                 
                 get('outlets/{id}/purchases', 'PurchasesController@indexThrough');
+                get('outlets/{outletId}/purchases/{id}', 'PurchasesController@showThrough');
                 post('outlets/{id}/purchases', 'PurchasesController@storeThrough');
                 
             });

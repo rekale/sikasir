@@ -17,6 +17,7 @@ class EntriesController extends TempApiController
 	{
 		$this->indexAccess = 'read-inventory';
 		$this->storeAccess = 'edit-inventory';
+		$this->showAccess = 'read-inventory';
 	}
 	
 	public function getQueryType($throughId = null)

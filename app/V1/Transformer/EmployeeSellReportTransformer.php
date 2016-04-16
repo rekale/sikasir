@@ -19,7 +19,7 @@ class EmployeeSellReportTransformer extends TransformerAbstract
         return [
         	'id' => Obfuscater::encode($variant->id),
         	'name' => $variant->name,
-            'variant_total' => (int) $variant->total,
+            'order_total' => (int) $variant->total,
             'price_total' => (int) $variant->amounts,
 			'created_at' => $variant->date,
         ];

@@ -95,10 +95,12 @@
         <li> DELETE outlets/{outletId}/products/{productId} </li>
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants.product.category</li>
+        <li>GET outlets/{id}/entries/{id}</li>
         <li>GET outlets/{id}/entries/search/{field}/{word}</li>
         <li>POST outlets/{id}/entries</li>
         <br>
         <li>GET outlets/{id}/outs?include=operator, variants.product.category</li>
+       	<li>GET outlets/{id}/outs/{id}</li>
         <li>GET outlets/{id}/entries/search/{field}/{word}</li>
         <li>POST outlets/{id}/outs</li>
         <br>
@@ -106,6 +108,7 @@
         <li>POST outlets/{id}/opnames</li>
         <br>
         <li>GET outlets/{id}/purchases?include=supplier, variants.product.category</li>
+        <li>GET outlets/{id}/purchases/{id}</li>
         <li>POST outlets/{id}/purchases</li>
         <br>
         <li> GET outlets/{id}/incomes </li>
