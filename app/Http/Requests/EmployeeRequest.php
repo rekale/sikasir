@@ -27,18 +27,17 @@ class EmployeeRequest extends Request
             'name' => 'required|max:255',
             'title' => 'required',
             'gender' => 'required|max:255',
-            'email' => 'email|unique:users',
+            'email' => 'max:255|email|unique:users',
             'address' => 'max:255',
             'phone'=> 'max:255',
             'password' => 'required|max:255',
             'outlet_id.0' => 'required',
         ];
         
-        $rules['email'] = $this->method() === 'POST'
-		        		? $rules['email'] . '|required'
-		        		: $rules['email']
-		        		;
-    
+        if ($this->getMethod() === 'POST') {
+        	$rules['email'] = $rules['email'] . '|required';
+        }
+        
         return $rules;
 
     }

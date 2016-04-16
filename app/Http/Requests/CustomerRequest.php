@@ -23,14 +23,20 @@ class CustomerRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:255', 
-            'email' => 'required|max:255|unique:customers', 
+            'email' => 'max:255|unique:customers', 
             'sex' => 'required', 
             'phone' => 'required|max:255', 
             'address' => 'required|max:2000', 
             'city' => 'required|max:255', 
             'pos_code' => 'required|max:255',
         ];
+        
+        if ($this->getMethod() === 'POST') {
+        	$rules['email'] = $rules['email'] . '|required';
+        }
+        
+        return $rules;
     }
 }
