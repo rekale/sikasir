@@ -72,6 +72,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         	get('employees/search/{field}/{word}', 'EmployeesController@search');
         	get('employees/reports/{dateRange}', 'EmployeesController@report');
         	get('employees/{id}/reports/{dateRange}', 'EmployeesController@reportFor');
+        	get('employees/salesreport/{dateRange}', 'EmployeesController@salesReport');
         	get('employees/{id}', 'EmployeesController@show');
         	post('employees', 'EmployeesController@store');
         	put('employees/{id}', 'EmployeesController@update');

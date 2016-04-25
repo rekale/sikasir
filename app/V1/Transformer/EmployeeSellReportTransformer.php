@@ -14,14 +14,13 @@ class EmployeeSellReportTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
     
-    public function transform($variant)
+    public function transform($data)
     {
         return [
-        	'id' => Obfuscater::encode($variant->id),
-        	'name' => $variant->name,
-            'order_total' => (int) $variant->total,
-            'price_total' => (int) $variant->amounts,
-			'created_at' => $variant->date,
+        	'user_name' => $data->user_name,
+        	'variant_name' => $data->variant_name,
+            'sold' => (int) $data->total,
+			'created_at' => $data->created_at->toDateString(),
         ];
     }
     

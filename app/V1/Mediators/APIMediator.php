@@ -217,6 +217,16 @@ class APIMediator
 					->withPaginated($result, $transformer);
 	}
 	
+	public function paginatedResult($result, $transformer)
+	{
+		$result = $result->paginate($this->perPage);
+		
+		return $this->response
+				->resource()
+				->including($this->with)
+				->withPaginated($result, $transformer);
+	}
+	
 
 	/**
 	 * search resource in $field where like $param

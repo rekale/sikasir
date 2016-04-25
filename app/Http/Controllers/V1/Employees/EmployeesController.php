@@ -95,5 +95,16 @@ class EmployeesController extends TempApiController
 			new EmployeeSellReportTransformer
 		);
 	}
+	
+	public function salesReport($dateRange, Request $request)
+	{
+		$result = $this->getReport()->whenDate($dateRange)->getSales();
+		
+		return $this->mediator->checkPermission($this->reportAccess)
+		->setRequest($request)
+		->setWith()
+		->setPerPage()
+		->paginatedResult($result, new EmployeeSellReportTransformer);
+	}
 
 }

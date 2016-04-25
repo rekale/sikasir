@@ -36,22 +36,4 @@ class EmployeeReport extends Report
 				->whereBetween('orders.created_at', $this->dateRange)
 				->groupBy('variants.id');
 	}
-	
-	public function getSales()
-	{
-		return $this->query
-				->selectRaw(
-					'users.name as user_name, ' .
-					'variants.name as variant_name, ' .
-					'sum(order_variant.total) as total, ' .
-					'orders.created_at'
-				)
-				->join('orders', 'users.id', '=', 'orders.user_id')
-				->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-				->join('variants', 'order_variant.variant_id', '=', 'variants.id')
-				->whereBetween('orders.created_at', $this->dateRange)
-				->groupBy('variants.name')
-				->groupBy('users.id')
-				->groupBy('orders.created_at');
-	}
 }
