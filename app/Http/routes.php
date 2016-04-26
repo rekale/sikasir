@@ -212,6 +212,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             /* DISCOUNT */
             get('discounts/search/{field}/{word}', 'DiscountsController@search');
+            get('discounts', 'DiscountsController@index');
             get('discounts/{id}', 'DiscountsController@show');
             post('discounts', 'DiscountsController@store');
             put('discounts/{id}', 'DiscountsController@update');
@@ -220,6 +221,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             
             /* TAXES */
             get('taxes/search/{field}/{word}', 'TaxesController@search');
+            get('taxes', 'TaxesController@index');
             get('taxes/{id}', 'TaxesController@show');
             post('taxes', 'TaxesController@store');
             put('taxes/{id}', 'TaxesController@update');
