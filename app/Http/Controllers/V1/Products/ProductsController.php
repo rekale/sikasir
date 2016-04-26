@@ -14,6 +14,7 @@ use Sikasir\V1\Transformer\ProductTransformer;
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Repositories\NoCompany;
+use Sikasir\V1\Commands\UpdateProductCommand;
 
 class ProductsController extends ApiController
 {
@@ -54,7 +55,9 @@ class ProductsController extends ApiController
     
     public function updateCommand($throughId = null)
     {
-    	throw new \Exception('not implemented');
+    	$command = new UpdateProductCommand($this->getRepository($throughId));
+    	
+    	return $command;
     }
     public function getSpecificRequest()
     {

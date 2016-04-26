@@ -192,6 +192,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         Route::group(['namespace' => 'Products'], function()
         {
             post('categories/{id}/products', 'ProductsController@storeThrough');
+            put('categories/{categoryId}/products/{id}', 'ProductsController@updateThrough');
             delete('categories/{categoryId}/products/{id}', 'ProductsController@destroyThrough');
             delete('variants/{id}', 'ProductsController@destroyVariants');
             
