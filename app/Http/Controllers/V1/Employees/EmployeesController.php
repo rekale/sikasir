@@ -4,9 +4,9 @@ namespace Sikasir\Http\Controllers\V1\Employees;
 
 use Sikasir\V1\Transformer\UserTransformer;
 use Sikasir\Http\Requests\EmployeeRequest;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\EloquentCompany;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\User;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\User\Authorizer;
@@ -16,7 +16,7 @@ use Sikasir\V1\Reports\EmployeeReport;
 use Illuminate\Http\Request;
 use Sikasir\V1\Transformer\EmployeeSellReportTransformer;
 
-class EmployeesController extends TempApiController
+class EmployeesController extends ApiController
 {
 	
 	public function initializeAccess()
@@ -37,7 +37,7 @@ class EmployeesController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($throughId = null)

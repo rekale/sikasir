@@ -3,17 +3,17 @@
 namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\V1\Repositories\EloquentThroughCompany;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Finances\Outcome;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\Http\Requests\KasRequest;
 use Sikasir\V1\Transformer\KasTransformer;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 
 
-class OutcomesController extends TempApiController
+class OutcomesController extends ApiController
 {
     
 	public function initializeAccess()
@@ -34,7 +34,7 @@ class OutcomesController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType($throughId));
+		return new EloquentRepository($this->getQueryType($throughId));
 	}
 	
 	public function getFactory($throughId = null)

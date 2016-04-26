@@ -3,9 +3,9 @@
 namespace Sikasir\Http\Controllers\V1\Settings;
 
 
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\EloquentCompany;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Requests\TaxDiscountRequest;
 use Sikasir\V1\Transformer\TaxTransformer;
@@ -13,7 +13,7 @@ use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Outlets\Discount;
 
-class DiscountsController extends TempApiController
+class DiscountsController extends ApiController
 {
 	public function initializeAccess()
 	{
@@ -33,7 +33,7 @@ class DiscountsController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($throughId = null)

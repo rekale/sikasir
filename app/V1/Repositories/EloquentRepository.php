@@ -2,33 +2,40 @@
 
 namespace Sikasir\V1\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
+use Sikasir\V1\Repositories\Interfaces\QueryCompanyInterface;
 use Sikasir\V1\Repositories\Interfaces\RepositoryInterface;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
-abstract class EloquentRepository implements RepositoryInterface
+class EloquentRepository implements RepositoryInterface
 {
     /**
      *
-     * @var Model
+     * @var Builder
      */
-    protected $model;
+    protected $query;
    
-    public function __construct(Model $model) {
-        $this->model = $model;
+    
+    public function __construct(QueryCompanyInterface $query = null) 
+    {
+        $this->query = $query->forCompany();
     }
     
+    public function setQuery(QueryCompanyInterface $query) 
+    {
+        $this->query = $query->forCompany();
+    }
     
     /**
      * find specific resource by id
      * 
      * @param integer $id
      * 
-     * @return \Illuminate\Support\Collection|static;
+     * @return Model;
      */
     public function find($id) 
     {   
-        return $this->model->findOrFail($id);
+        return $this->query->findOrFail($id);
     }
     
     /**
@@ -36,12 +43,12 @@ abstract class EloquentRepository implements RepositoryInterface
      * 
      * @param integer $id
      * 
-     * @return @return Model
+     * @return @return \Illuminate\Support\Collection
      */
     public function findWith($id, array $relations)
     {
         
-        return $this->model->with($relations)->findOrFail($id);
+        return $this->query->with($relations)->findOrFail($id);
     }
 
     /**
@@ -52,7 +59,7 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function getPaginated($with = [], $perPage = 15) {
         
-        return $this->model->with($with)->paginate($perPage);
+        return $this->query->with($with)->paginate($perPage);
     }
 
     /**
@@ -77,7 +84,7 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function update(array $data, $id) 
     {
-        return $this->model->findOrFail($id)
+        return $this->findOrFail($id)
                 ->update($data);    
     }
     
@@ -91,18 +98,43 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function destroy($id) 
     {
-        return $this->model->destroy($id);
+   		return $this->query->whereIn('id', $id)->delete();     
     }
     
     public function getAll(array $coloumns = array('*')) 
     {
-        return $this->model->all($coloumns);
+        return $this->query->all($coloumns);
     }
     
     public function getSome($take, $skip = 0)
     {
-       return $this->model->take($take)->skip($skip)->get();
+       return $this->query->take($take)->skip($skip)->get();
     }
     
-   
+	public function search($field, $word, $with =[], $perPage = 15)
+	{
+		$word = strtolower($word);
+		
+		$constraint = config('database.default') === 'mysql' ? 'LIKE':'ILIKE';
+		
+		return $this->query->with($with)
+						   ->where($field, $constraint, '%'.$word.'%')
+						   ->paginate($perPage);
+	}
+	
+	/**
+	 * 
+	 * @param string $value
+	 */
+	public function orderBy($value = [])
+	{
+		//if array is not empty
+		if(count($value) > 0 ) {
+			
+			$this->query = $this->query->orderBy($value[0], $value[1]);
+		}
+		
+		return $this;
+	}
+
 }

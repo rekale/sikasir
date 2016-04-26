@@ -4,27 +4,21 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\OrderTransformer;
-use Sikasir\V1\Repositories\OrderRepository;
-use Sikasir\V1\Traits\ApiRespond;
-use Tymon\JWTAuth\JWTAuth;
 use Sikasir\Http\Requests\OrderRequest;
 use Sikasir\V1\Orders\Order;
-use Sikasir\Http\Controllers\TempApiController;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Reports\OrderReport;
 use Illuminate\Http\Request;
 use Sikasir\V1\Util\Obfuscater;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\CreateOrderCommand;
-use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Orders\Void;
 use Sikasir\V1\Commands\UpdateOrderToVoidCommand;
 use Sikasir\V1\Commands\UpdateOrderDebtCommand;
 use Sikasir\Http\Requests\DebtRequest;
 
-class OrdersController extends TempApiController
+class OrdersController extends ApiController
 {
 	
 	public function initializeAccess()
@@ -43,7 +37,7 @@ class OrdersController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType($throughId));
+		return new EloquentRepository($this->getQueryType($throughId));
 	}
 	
 	public function getFactory($throughId = null)

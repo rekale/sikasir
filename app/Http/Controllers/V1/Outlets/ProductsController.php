@@ -4,15 +4,15 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\Http\Requests\ProductRequest;
 use Sikasir\V1\Transformer\ProductTransformer;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Products\Product;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Reports\ProductReport;
 use Sikasir\V1\Util\Obfuscater;
 use Illuminate\Http\Request;
 
-class ProductsController extends TempApiController
+class ProductsController extends ApiController
 {
 	public function initializeAccess()
 	{
@@ -29,7 +29,7 @@ class ProductsController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType($throughId));
+		return new EloquentRepository($this->getQueryType($throughId));
 	}
 	
 	public function getFactory($throughId = null)

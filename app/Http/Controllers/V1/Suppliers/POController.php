@@ -4,16 +4,16 @@ namespace Sikasir\Http\Controllers\V1\Suppliers;
 
 
 use Sikasir\V1\Transformer\PurchaseOrderTransformer;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Suppliers\Supplier;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Stocks\PurchaseOrder;
 
-class POController extends TempApiController
+class POController extends ApiController
 {
 
 	public function initializeAccess()
@@ -29,7 +29,7 @@ class POController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType($throughId));
+		return new EloquentRepository($this->getQueryType($throughId));
 	}
 	
 	public function getFactory($throughId = null)

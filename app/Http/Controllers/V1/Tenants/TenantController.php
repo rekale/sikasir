@@ -3,25 +3,21 @@
 namespace Sikasir\Http\Controllers\V1\Tenants;
 
 use Sikasir\Http\Controllers\ApiController;
-use Sikasir\V1\User\OwnerRepository;
 use Sikasir\V1\Traits\ApiRespond;
-use Tymon\JWTAuth\JWTAuth;
 use Sikasir\V1\Transformer\CompanyTransformer;
-use Sikasir\Http\Controllers\TempApiController;
 use Illuminate\Http\Request;
 use Sikasir\V1\Commands\CreateUserCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\V1\Repositories\TempEloquentRepository;
-use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\User\Company;
 use Sikasir\V1\Repositories\NoCompany;
 use Sikasir\V1\Util\Obfuscater;
 use Sikasir\V1\Outlets\BusinessField;
 use Sikasir\V1\Transformer\BusinessFieldTransformer;
-use Illuminate\Auth\Access\Response;
+use Sikasir\V1\Reports\CustomerReport;
 
-class TenantController extends TempApiController
+class TenantController extends ApiController
 {
     
 	public function initializeAccess()
@@ -55,7 +51,7 @@ class TenantController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($throughId = null)

@@ -4,15 +4,15 @@ namespace Sikasir\Http\Controllers\V1\Outlets;
 
 use Sikasir\V1\Transformer\OutletTransformer;
 use Sikasir\Http\Requests\OutletRequest;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Factories\EloquentFactory;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Commands\CreateOutletCommand;
 
-class OutletsController extends TempApiController
+class OutletsController extends ApiController
 {
 	public function initializeAccess()
 	{
@@ -32,7 +32,7 @@ class OutletsController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($throughId = null)

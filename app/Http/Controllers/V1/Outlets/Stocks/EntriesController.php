@@ -4,14 +4,14 @@ namespace Sikasir\Http\Controllers\V1\Outlets\Stocks;
 
 use Sikasir\V1\Transformer\InventoryTransformer;
 use Sikasir\Http\Requests\InventoryRequest;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Stocks\Entry;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Commands\CreateInventoryCommand;
 
-class EntriesController extends TempApiController
+class EntriesController extends ApiController
 {
 	public function initializeAccess()
 	{
@@ -29,7 +29,7 @@ class EntriesController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType($throughId));
+		return new EloquentRepository($this->getQueryType($throughId));
 	}
 	
 	public function getFactory($throughId = null)

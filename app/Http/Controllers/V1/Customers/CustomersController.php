@@ -4,10 +4,10 @@ namespace Sikasir\Http\Controllers\V1\Customers;
 
 use Sikasir\Http\Requests\CustomerRequest;
 use Sikasir\V1\Transformer\CustomerTransformer;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\EloquentCompany;
 use Sikasir\V1\Outlets\Customer;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Reports\CustomerReport;
 use Sikasir\V1\Reports\Report;
@@ -15,7 +15,7 @@ use Sikasir\V1\Transformer\CustomerHistoryTransformer;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 
-class CustomersController extends TempApiController
+class CustomersController extends ApiController
 {
     
 	
@@ -26,7 +26,7 @@ class CustomersController extends TempApiController
 	
 	public function getRepository($troughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($troughId = null)

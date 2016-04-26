@@ -2,18 +2,18 @@
 
 namespace Sikasir\Http\Controllers\V1\Products;
 
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Transformer\CategoryTransformer;
 use Sikasir\Http\Requests\CategoryRequest;
 use Sikasir\V1\Repositories\EloquentCompany;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Products\Category;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Reports\CategoryReport;
 use Sikasir\V1\Factories\EloquentFactory;
 
-class CategoriesController extends TempApiController
+class CategoriesController extends ApiController
 {
 	public function initializeAccess()
 	{
@@ -33,7 +33,7 @@ class CategoriesController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($throughId = null)

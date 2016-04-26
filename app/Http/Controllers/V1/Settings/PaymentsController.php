@@ -2,18 +2,18 @@
 
 namespace Sikasir\Http\Controllers\V1\Settings;
 
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\Http\Requests\PaymentRequest;
 use Sikasir\V1\Transformer\PaymentTransformer;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Transactions\Payment;
 use Sikasir\V1\Repositories\EloquentCompany;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Commands\GeneralCreateCommand;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Reports\PaymentReport;
 
-class PaymentsController extends TempApiController
+class PaymentsController extends ApiController
 {
 	public function initializeAccess()
 	{
@@ -33,7 +33,7 @@ class PaymentsController extends TempApiController
 	
 	public function getRepository($throughId = null)
 	{
-		return new TempEloquentRepository($this->getQueryType());
+		return new EloquentRepository($this->getQueryType());
 	}
 	
 	public function getFactory($throughId = null)

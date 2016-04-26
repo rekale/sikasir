@@ -3,7 +3,7 @@
 namespace Sikasir\Http\Controllers\V1\Products;
 
 use Sikasir\Http\Requests\ProductRequest;
-use Sikasir\Http\Controllers\TempApiController;
+use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 use Sikasir\V1\Products\Product;
 use Sikasir\V1\Factories\EloquentFactory;
@@ -11,9 +11,11 @@ use Sikasir\V1\Util\Obfuscater;
 use Sikasir\V1\Products\Variant;
 use Sikasir\V1\Commands\CreateProductCommand;
 use Sikasir\V1\Transformer\ProductTransformer;
-use Sikasir\V1\Repositories\TempEloquentRepository;
+use Sikasir\V1\Repositories\EloquentRepository;
+use Sikasir\V1\Repositories\EloquentCompany;
+use Sikasir\V1\Repositories\NoCompany;
 
-class ProductsController extends TempApiController
+class ProductsController extends ApiController
 {
 	
 	public function initializeAccess()
@@ -35,7 +37,7 @@ class ProductsController extends TempApiController
     }
     public function getRepository($throughId = null)
     {
-    	return new TempEloquentRepository($this->getQueryType($throughId));
+    	return new EloquentRepository($this->getQueryType($throughId));
     }
     
     public function getFactory($throughId = null)
@@ -74,6 +76,19 @@ class ProductsController extends TempApiController
     public function getReport($throughId = null)
     {
     	throw new \Exception('not implemented');
+    }
+    
+    public function destroyVariants($ids)
+    {
+    	$repo = new EloquentRepository(
+    		new NoCompany(new Variant)
+    	);
+    	
+    	    return $this->mediator->checkPermission($this->destroyAccess)
+    						->destroy(
+    							$ids, 
+   								$repo
+   							);
     }
     
 
