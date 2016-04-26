@@ -24,6 +24,7 @@ class OrdersController extends ApiController
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-order';
+		$this->showAccess = 'read-order';
 		$this->storeAccess = 'edit-order';
 		$this->reportAccess = 'report-order';
 	}

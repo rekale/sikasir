@@ -116,9 +116,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/outcomes', 'OutcomesController@indexThrough');
             post('outlets/{id}/outcomes', 'OutcomesController@storeThrough');
             delete('outlets/{id}/outcomes/{outcomeId}', 'OutcomesController@destroyThrough');
-            
-            /* CATEGORIES */
-            
+
             /* TAXES */
             get('outlets/all/taxes/reports/{dateRange}', 'TaxesController@allReports');
             get('outlets/{outletId}/taxes/reports/{dateRange}', 'TaxesController@reports');
@@ -144,20 +142,22 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroyThrough');
             
             /* ORDERS */
-            get('outlets/all/orders/{dateRange}', 'OrdersController@report');
-            get('outlets/{id}/orders/{dateRange}', 'OrdersController@reportThrough');
-            get('outlets/all/orders/{dateRange}/void', 'OrdersController@void');
-            get('outlets/{id}/orders/{dateRange}/void', 'OrdersController@voidThrough');
-            get('outlets/all/orders/{dateRange}/debt', 'OrdersController@debt');
-            get('outlets/{id}/orders/{dateRange}/debt', 'OrdersController@debtThrough');
-            get('outlets/all/orders/{dateRange}/debt-settled', 'OrdersController@settled');
-            get('outlets/{id}/orders/{dateRange}/debt-settled', 'OrdersController@settledThrough');
+            get('outlets/{outletId}/orders', 'OrdersController@indexThrough');
+            get('outlets/{outletId}/orders/{id}', 'OrdersController@showThrough');
             post('outlets/{id}/orders', 'OrdersController@storeThrough');
             
             put('orders/{id}/void', 'OrdersController@voidOrder');
             put('orders/{id}/debt', 'OrdersController@debtOrder');
             put('orders/{id}/debt-settled', 'OrdersController@debtSettledOrder');
             
+            get('outlets/all/orders/reports/{dateRange}', 'OrdersController@report');
+            get('outlets/{id}/orders/reports/{dateRange}', 'OrdersController@reportThrough');
+            get('outlets/all/orders/reports/{dateRange}/void', 'OrdersController@void');
+            get('outlets/{id}/orders/reports/{dateRange}/void', 'OrdersController@voidThrough');
+            get('outlets/all/orders/reports/{dateRange}/debt', 'OrdersController@debt');
+            get('outlets/{id}/orders/reports/{dateRange}/debt', 'OrdersController@debtThrough');
+            get('outlets/all/orders/reports/{dateRange}/debt-settled', 'OrdersController@settled');
+            get('outlets/{id}/orders/reports/{dateRange}/debt-settled', 'OrdersController@settledThrough');
             
             
             /* PAYMENTS */
