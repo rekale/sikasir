@@ -78,6 +78,10 @@ class APIMediator
 		return $this;
 	}
 	
+	/**
+	 * 
+	 * @return $this
+	 */
 	public function orderBy()
 	{
 		$order = $this->request->input('order_by');

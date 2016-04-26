@@ -105,6 +105,21 @@ class Authorizer
 		
 	}
 	
+	public function ownerDefault()
+	{
+		$default = [];
+	
+		$default = [
+			'edit-outlet',
+		];
+	
+		$this->managerDefault();
+	
+		$this->abilities = array_merge($this->abilities, $default);
+	
+		return $this;
+	
+	}
 	
 	public function managerDefault()
 	{

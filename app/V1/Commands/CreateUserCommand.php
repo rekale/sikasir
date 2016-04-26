@@ -23,6 +23,10 @@ class CreateUserCommand extends CreateCommand
 				$this->data['title'] = 'kasir';
 				$authorizer->cashierDefault();
 			}
+			if ($this->data['title'] === 3) {
+				$this->data['title'] = 'owner';
+				$authorizer->ownerDefault();
+			}
 			
 			$this->data['password'] = bcrypt($this->data['password']);
 			

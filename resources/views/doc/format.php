@@ -199,8 +199,8 @@
 		
 		--DEBT ORDER--
 		{
-			"due_date": "asdfsafasd",
-			"total": 1234124,
+			"due_date": "2016-05-01",
+			"total": 123453,
 		}
 		
         --SUPPLIER--

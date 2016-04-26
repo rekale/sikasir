@@ -132,7 +132,10 @@
         <li> POST outlets </li>
         <li> DELETE outlets/{id} </li>
         <br>
-        <li> POST products </li>
+        <li> POST categories/{id}/products </li>
+        <li> PUT categories/{categoryId}/products/{id} </li>
+        <li> DELETE categories/{categoryId}/products/{id} </li>
+        <li> DELETE variants/{id} </li>
         <br>
         <li> GET categories/{id}?include=products, products.variants </li>
         <li> GET categories/search/{field}/{word} </li>

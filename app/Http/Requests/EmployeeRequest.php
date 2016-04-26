@@ -25,7 +25,7 @@ class EmployeeRequest extends Request
     {
         $rules = [
             'name' => 'required|max:255',
-            'title' => 'required|in:1,2',
+            'title' => 'required|in:1,2,3',
             'gender' => 'required|max:255',
             'email' => 'max:255|email|unique:users',
             'address' => 'max:255',
