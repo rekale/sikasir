@@ -94,6 +94,8 @@
         <li> PUT outlets/{outletId}/products/{productId} </li>
         <li> DELETE outlets/{outletId}/products/{productId} </li>
         <br>
+        <li> GET outlets/{outletId}/variants/search/{field}/{word}</li>
+        <br>
         <li>GET outlets/{id}/entries?include=operator, variants.product.category</li>
         <li>GET outlets/{id}/entries/{id}</li>
         <li>GET outlets/{id}/entries/search/{field}/{word}</li>

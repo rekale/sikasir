@@ -11,6 +11,10 @@ use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\Http\Controllers\ApiController;
 use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\V1\Commands\CreateOutletCommand;
+use Sikasir\V1\Util\Obfuscater;
+use Sikasir\V1\Repositories\NoCompany;
+use Illuminate\Http\Request;
+use Sikasir\V1\Transformer\VariantTransformer;
 
 class OutletsController extends ApiController
 {
@@ -73,5 +77,28 @@ class OutletsController extends ApiController
 	public function getReport($throughId = null)
 	{
 		throw new \Exception('not implemented');
+	}
+	
+	public function searchVariants($throughId, $field, $param, Request $request)
+	{
+		$throughId = Obfuscater::decode($throughId);
+		
+		$outlet = $this->getRepository()->find($throughId);
+		
+		$com = new NoCompany($outlet->variants());
+		
+		$variantRepo = new EloquentRepository($com);
+		
+		return $this->mediator->checkPermission($this->indexAccess)
+					    		->setRequest($request)
+					    		->setWith()
+					    		->setPerPage()
+					    		->orderBy()
+    						  	->search(
+    						  		$variantRepo,
+    						  		$field,
+    						  		$param,
+    						  		new VariantTransformer
+    						  	);
 	}
 }

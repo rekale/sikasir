@@ -1,5 +1,7 @@
 <?php
 
+use Sikasir\V1\Outlets\Outlet;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,6 +12,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+get('/tes/{id}', function($id) {
+	return Outlet::where('company_id', '=', 1)
+	->find($id)
+	->variants()->where('variants.name', 'like', 'nihil')->get();
+});
     
 Route::group(['prefix' => 'doc'], function()
 {
@@ -121,10 +129,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/all/taxes/reports/{dateRange}', 'TaxesController@allReports');
             get('outlets/{outletId}/taxes/reports/{dateRange}', 'TaxesController@reports');
             
+            /*VARIANTS*/
+            get('outlets/{outletId}/variants/search/{field}/{word}', 'OutletsController@searchVariants');
             
             /* PRODUCTS */
-            get('outlets/all/products', 'ProductsController@index');
-            get('outlets/all/products/reports/{dateRange}', 'ProductsController@report');
+           	get('outlets/all/products', 'ProductsController@index');
+           	get('outlets/{id}/products/search/{field}/{word}', 'ProductsController@searchThrough');
+           	get('outlets/all/products/reports/{dateRange}', 'ProductsController@report');
             get('outlets/all/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
             get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reportThrough');
             get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSellerThrough');

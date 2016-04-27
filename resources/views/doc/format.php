@@ -189,7 +189,7 @@
                     "quantity": 1,
                     "nego": 2000
                 }
-            ]
+            ],
         }
 		
 		--VOID ORDER--
