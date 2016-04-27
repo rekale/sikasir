@@ -17,6 +17,7 @@ class ProductsController extends ApiController
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-product';
+		$this->showAccess = 'read-product';
 		$this->reportAccess = 'read-report';
 	}
 	
