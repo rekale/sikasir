@@ -13,12 +13,13 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
-        Company::all()->each(function ($company) {
+    	$company = Company::findOrFail(1);
+    	
         
             $suppliers = factory(Supplier::class, 50)->make();
             
             $company->suppliers()->saveMany($suppliers);
             
-        });
+        
     }
 }

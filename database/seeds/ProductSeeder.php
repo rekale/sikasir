@@ -15,12 +15,10 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $fake = Faker\Factory::create();
         //create product category
-        $companies = Company::all();
+        $company = Company::findOrFail(1);
         
-        $companies->each(function ($company)
-        {
+       
             $categories = $company->categories()->saveMany(
                 factory(Category::class, 3)->make()
             );
@@ -43,7 +41,7 @@ class ProductSeeder extends Seeder
             }
             
             
-        });
+       
         
     }
 }

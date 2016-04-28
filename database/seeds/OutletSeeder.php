@@ -53,26 +53,28 @@ class OutletSeeder extends Seeder
                 factory(Payment::class)->create([
                     'company_id' => $company->id,
                     'name' => 'Kredit',
-                ]);
-                
-                //create outlet for each company and add tax
-                $outlets = factory(Outlet::class, 3)->create([
-                    'company_id' => $company->id,
-                    'tax_id' => $taxes->random()->id,
-                    'business_field_id' => $businessField[mt_rand(0, 2)],
-                ]);
-                
-                //lists created employees id
-               
-                $owner = $company->users()->where('title', '=', 'owner')->lists('id');
-               
-                //add employees to every outlets
-                foreach ($outlets as $outlet) {
-                	$employees = $company->users()->where('title', '<>', 'owner')->get()->random(100)->lists('id');
-                	
-                	$outlet->users()->attach($employees->toArray());
-                	$outlet->users()->attach($owner->toArray());
-                }
+                ]);                
         });
+        
+        $company = Company::findOrFail(1);
+        
+        //create outlet for each company and add tax
+        $outlets = factory(Outlet::class, 3)->create([
+        		'company_id' => $company->id,
+        		'tax_id' => $company->taxes->random()->id,
+        		'business_field_id' => $businessField[mt_rand(0, 2)],
+        ]);
+        
+        //lists created employees id
+         
+        $owner = $company->users()->where('title', '=', 'owner')->lists('id');
+         
+        //add employees to every outlets
+        foreach ($outlets as $outlet) {
+        	$employees = $company->users()->where('title', '<>', 'owner')->get()->random(100)->lists('id');
+        	 
+        	$outlet->users()->attach($employees->toArray());
+        	$outlet->users()->attach($owner->toArray());
+        }
     }
 }

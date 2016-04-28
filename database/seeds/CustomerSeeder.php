@@ -13,16 +13,14 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        $fake = Faker\Factory::create();
         
-        Company::all()->each(function ($company) use ($fake)
-        {
+        $company = Company::findOrFail(1);
+        
             $customer = factory(Customer::class, 300)->make();
             
             $company->customers()->saveMany($customer);
 
                 
-        });
         
     }
 }

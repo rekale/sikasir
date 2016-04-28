@@ -28,12 +28,27 @@ class UserSeeder extends Seeder
             'password' => bcrypt('owner'),
         ]);
         
+        $companySaung = factory(Company::class)->create([
+        		'name' => 'Saung Ayam',
+        		'username' => 'saung_ayam',
+        		'active' => true,
+        		'password' => bcrypt('saungayam'),
+        ]);
+        
         $owner = factory(User::class)->create([
             'name' => 'owner',
             'company_id' => $company->id, 
             'title' => 'owner',
             'email' => 'owner@sikasir.com',
             'password' => bcrypt('owner'),
+        ]);
+        
+        $ownerSaung = factory(User::class)->create([
+        		'name' => 'owner saung ayam',
+        		'company_id' => $companySaung->id,
+        		'title' => 'owner',
+        		'email' => 'owner@saungayam.com',
+        		'password' => bcrypt('saungayam'),
         ]);
         
         $employees = factory(User::class, 300)->create([

@@ -16,7 +16,7 @@ class FinanceSeeder extends Seeder
     {
         $fake = Faker\Factory::create();
         
-        Outlet::all()->each(function ($outlet) use ($fake)
+        Outlet::whereCompanyId(1)->get()->each(function ($outlet) use ($fake)
         {
             foreach(range(1, 100) as $i) {
                 
@@ -29,7 +29,7 @@ class FinanceSeeder extends Seeder
                 
         });
         
-        Outlet::all()->each(function ($outlet) use ($fake)
+        Outlet::whereCompanyId(1)->get()->each(function ($outlet) use ($fake)
         {
             foreach(range(1, 100) as $i) {
                 

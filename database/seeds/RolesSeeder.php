@@ -22,10 +22,12 @@ class RolesSeeder extends Seeder
             \Bouncer::allow('admin')->to($doThis);
         }
 
-        $owner = User::whereName('owner')->first();
+        $owners = User::whereTitle('owner')->get();
 
-        $owner->assign('owner');
-
+        foreach ($owners as $owner) {
+        	$owner->assign('owner');
+        }
+        
         User::all()->each(function ($employee) {
             $employee->assign('employee');
         });
