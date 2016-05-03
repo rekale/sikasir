@@ -80,29 +80,12 @@ class Authorizer
 	 */
 	public function syncAccess(array $privileges)
 	{
+		$this->user->disallow('edit-product');
+		$this->user->disallow('report-order');
+		$this->user->disallow('read-report');
+		$this->user->disallow('billing');
+		$this->user->disallow('void-order');
 		$this->giveAccess($privileges);
-		
-		if (! in_array( 1, $privileges)) {
-			$this->abilities[] = 'edit-product';
-			$this->user->allow($this->abilities);
-		}
-		if (! in_array( 2, $privileges)) {
-			$this->abilities[] = 'report-order';
-			$this->user->allow($this->abilities);
-		}
-		if (! in_array( 3, $privileges)) {
-			$this->abilities[] = 'read-report';
-			$this->user->allow($this->abilities);
-		}
-		if (! in_array( 4, $privileges)) {
-			$this->abilities[] = 'billing';
-			$this->user->allow($this->abilities);
-		}
-		if (! in_array( 5, $privileges)) {
-			$this->abilities[] = 'void-order';
-			$this->user->allow($this->abilities);
-		}
-		
 	}
 	
 	public function ownerDefault()

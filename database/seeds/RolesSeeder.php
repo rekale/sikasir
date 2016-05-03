@@ -44,13 +44,6 @@ class RolesSeeder extends Seeder
             'edit-cashier',
         	'edit-employee',
 
-        	//manager optional, buat bikin kategori produk dan variant
-            'edit-product', //1
-        	'report-order',//2
-        	'void-order',//5
-        	'read-report',//3
-        	'billing',//4
-
             //kasir default
             'read-outlet',
         	'read-customer',
