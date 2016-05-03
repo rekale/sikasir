@@ -14,10 +14,25 @@ class UpdateUserCommand extends UpdateCommand
 		\DB::transaction(function () {
 				
 			$user = $this->repo->find($this->id);
-				
-			$user->update($this->data);
 			
 			$authorizer = new Authorizer($user);
+			
+			if ($this->data['title'] === 1) {
+				$this->data['title'] = 'staff';
+				$authorizer->managerDefault();
+			}
+			if ($this->data['title'] === 2) {
+				$this->data['title'] = 'kasir';
+				$authorizer->cashierDefault();
+			}
+			if ($this->data['title'] === 3) {
+				$this->data['title'] = 'owner';
+				$authorizer->ownerDefault();
+			}
+				
+			$this->data['password'] = bcrypt($this->data['password']);
+			
+			$user->update($this->data);
 			
 			$authorizer->syncAccess($this->data['privileges']);
 			
