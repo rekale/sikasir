@@ -29,25 +29,26 @@ class CreateProductCommand extends CreateCommand
 	{
 		\DB::transaction(function () {
 			
-			$variantModels = [];
-			
-			//create variant Models
-			foreach($this->data['variants'] as $variant){
-			
-				$variantModels[] = new Variant($variant);
-			}
 			
 			$this->data['outlet_ids'] = Obfuscater::decode($this->data['outlet_ids']);
+
+			$this->data['company_id'] = $this->auth->getCompanyId();
 			
-			//attach product to each outlets and save variants
 			foreach ($this->data['outlet_ids'] as $outletId) {
-			
-				$this->data['outlet_id'] = $outletId;
-				$this->data['company_id'] = $this->auth->getCompanyId();
 				
+				//attach product to each outlets and save variants
+				
+				
+				$this->data['outlet_id'] = $outletId;
+					
 				$product = Product::create($this->data);
 				
-				$product->variants()->saveMany($variantModels);
+				//create variant Models
+				foreach($this->data['variants'] as $variant){
+				
+					$product->variants()->create($variant);
+				}
+				
 			}
 			
 		});
