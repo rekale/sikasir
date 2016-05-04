@@ -24,6 +24,7 @@ class ProductRequest extends Request
     public function rules()
     {
         $rulePost =  [
+        	'category_id' => 'required',
             'name' => 'required|max:255', 
             'description' => 'required|max:1000', 
             'barcode' => 'max:255', 

@@ -65,6 +65,12 @@ class RolesSeeder extends Seeder
     {
         return [
             'edit-outlet',
+        	//optional for manager, default for owner
+        	'edit-product',
+       		'report-order',
+       		'read-report',
+       		'billing',
+       		'void-order',
         ];
     }
 
@@ -76,12 +82,7 @@ class RolesSeeder extends Seeder
             'update-owner',
             'delete-owner',
         		
-        	//optional for manager, default for owner
-        	'edit-product',
-        	'report-order',
-        	'read-report',
-        	'billing',
-        	'void-order',
+        	
         ];
     }
 

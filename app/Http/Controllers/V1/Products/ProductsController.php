@@ -32,8 +32,8 @@ class ProductsController extends ApiController
     
     public function getQueryType($throughId = null)
     {
-    	return new EloquentThroughCompany(
-    		new Product, $this->auth->getCompanyId(), 'categories', $throughId
+    	return new EloquentCompany(
+    		new Product, $this->auth->getCompanyId()
     	);
     }
     public function getRepository($throughId = null)

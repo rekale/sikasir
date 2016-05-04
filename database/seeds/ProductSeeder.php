@@ -28,6 +28,7 @@ class ProductSeeder extends Seeder
             foreach (range(0, 2) as $i) {
                 
                 $products = factory(Product::class, 20)->create([
+                	'company_id' => $company->id,
                     'category_id' => $categories[$i]->id,
                     'outlet_id' => $outlets[$i]->id,
                 ]);

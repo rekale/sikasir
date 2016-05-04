@@ -138,9 +138,9 @@
         <li> POST outlets </li>
         <li> DELETE outlets/{id} </li>
         <br>
-        <li> POST categories/{id}/products </li>
-        <li> PUT categories/{categoryId}/products/{id} </li>
-        <li> DELETE categories/{categoryId}/products/{id} </li>
+        <li> POST products </li>
+        <li> PUT products/{id} </li>
+        <li> DELETE products/{id} </li>
         <li> DELETE variants/{id} </li>
         <br>
         <li> GET categories/{id}?include=products, products.variants </li>

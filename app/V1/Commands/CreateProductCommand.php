@@ -43,8 +43,9 @@ class CreateProductCommand extends CreateCommand
 			foreach ($this->data['outlet_ids'] as $outletId) {
 			
 				$this->data['outlet_id'] = $outletId;
+				$this->data['company_id'] = $this->auth->getCompanyId();
 				
-				$product = $this->factory->create($this->data);
+				$product = Product::create($this->data);
 				
 				$product->variants()->saveMany($variantModels);
 			}
