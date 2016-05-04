@@ -75,6 +75,13 @@ class RolesSeeder extends Seeder
             'read-owner',
             'update-owner',
             'delete-owner',
+        		
+        	//optional for manager, default for owner
+        	'edit-product',
+        	'report-order',
+        	'read-report',
+        	'billing',
+        	'void-order',
         ];
     }
 

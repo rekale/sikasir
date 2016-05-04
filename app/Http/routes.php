@@ -153,6 +153,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroyThrough');
             
             /* ORDERS */
+            get('outlets/all/orders/search/{field}/{word}', 'OrdersController@search');
+            get('outlets/{id}/orders/search/{field}/{word}', 'OrdersController@searchThrough');
+            get('outlets/all/orders', 'OrdersController@index');
             get('outlets/{outletId}/orders', 'OrdersController@indexThrough');
             get('outlets/{outletId}/orders/{id}', 'OrdersController@showThrough');
             post('outlets/{id}/orders', 'OrdersController@storeThrough');

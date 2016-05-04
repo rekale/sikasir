@@ -59,18 +59,22 @@
         <li> GET outlets/search/{field}/{word} </li>
         <li> GET outlets/{id}?include=users, printers</li>
         <br>
-        <li> GET outlets/all/orders/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax, payment </li>
-        <li> GET outlets/{id}/orders/{dateRange}?include= operator, variants.product.category  customer, discount, tax, payment </li>
-         
-        <li> GET outlets/all/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
-        <li> GET outlets/{id}/orders/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
+        <li> GET outlets/all/orders/reports/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax, payment </li>
+        <li> GET outlets/{id}/orders/reports/{dateRange}?include= operator, variants.product.category  customer, discount, tax, payment </li>
+        <li> GET outlets/all/orders/reports/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
+        <li> GET outlets/{id}/orders/reports/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>      
+        <li> GET outlets/all/orders/reports/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
+        <li> GET outlets/{id}/orders/reports/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
+        <li> GET outlets/all/orders/reports/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
+        <li> GET outlets/{id}/orders/reports/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
         
-        <li> GET outlets/all/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
-        <li> GET outlets/{id}/orders/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
-        
-        <li> GET outlets/all/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
-        <li> GET outlets/{id}/orders/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
-        
+        <li>outlets/all/orders/search/{field}/{word}</li>
+        <li>outlets/{id}/orders/search/{field}/{word}</li>
+        <li>outlets/all/orders</li>
+        <li>outlets/{outletId}/orders</li>
+        <li>outlets/{outletId}/orders/{id}</li>
+        <li>outlets/{id}/orders</li>
+            
         <li> POST outlets/{id}/orders</li>
         <li> PUT orders/{id}/void</li>
         <li> PUT orders/{id}/debt</li>
