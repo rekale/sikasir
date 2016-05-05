@@ -48,7 +48,8 @@ class OrdersController extends ApiController
 	
 	public function createCommand($throughId = null)
 	{
-		return new CreateOrderCommand($this->getFactory($throughId));
+		$command = new CreateOrderCommand($this->getFactory($throughId));
+		return $command->setAuth($this->auth);
 	}
 	
 	public function updateCommand($throughId = null)

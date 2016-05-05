@@ -25,7 +25,6 @@ class OrderRequest extends Request
     {
         $rules = [
             'customer_id' => 'max:255',
-            'user_id' => 'required|max:255',
             'note' => 'max:255',
         ];
         
