@@ -177,6 +177,7 @@
                     "nego": 2000
                 }
             ],
+            //kalo mau ngutang
             "isDebt": true,
             "due_date": "2016-05-01",
 			"total": 123453
@@ -187,10 +188,9 @@
 			"note": "asdfsafasd"
 		}
 		
-		--DEBT ORDER--
+		--DEBT-SETTLED ORDER--
 		{
-			"due_date": "2016-05-01",
-			"total": 123453,
+			"paid_at": "2016-05-01",
 		}
 		
         --SUPPLIER--
