@@ -162,7 +162,7 @@
             "user_id": "T", //required
             "payment_id": "D", //required
             "discount_id": "L",
-            "no_order": 001,
+            "no_order": "001",
             "tax_id" : "Z", //required
             "note": "lalala yeyeye",
             "variants": [
@@ -177,6 +177,9 @@
                     "nego": 2000
                 }
             ],
+            "isDebt": true,
+            "due_date": "2016-05-01",
+			"total": 123453
         }
 		
 		--VOID ORDER--

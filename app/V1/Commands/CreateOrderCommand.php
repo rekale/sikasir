@@ -4,8 +4,7 @@ namespace Sikasir\V1\Commands;
 
 use Sikasir\V1\Commands\CreateCommand;
 use Sikasir\V1\Interfaces\AuthInterface;
-use Sikasir\V1\Util\Obfuscater;
-use Sikasir\V1\Products\Product;
+use Sikasir\V1\Orders\Debt;
 use Sikasir\V1\Products\Variant;
 
 class CreateOrderCommand extends CreateCommand 
@@ -46,8 +45,15 @@ class CreateOrderCommand extends CreateCommand
 			}
 			
 			//jika transaksi di hutangin
-			if( $this->orderIsDebt() ) {
+			if( isset($this->data['isDebt']) && $this->data['isDebt'] ) {
+			
+				$debt = new Debt([
+						'total' => $this->data['total'],
+						'due_date' => $this->data['due_date']
+				]);
 				
+				
+				$order->debt()->save($debt);
 			}
 			
 		});
