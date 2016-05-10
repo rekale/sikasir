@@ -50,7 +50,7 @@ class ProductRequest extends Request
             foreach(range(0, $tot) as $key) {
                 
               $rules['variants.' .$key . '.name'] = 'required|max:255';
-              $rules['variants.' .$key . '.barcode'] = 'required|max:255';
+              $rules['variants.' .$key . '.barcode'] = 'max:255';
               $rules['variants.' .$key . '.price_init'] = 'required|integer';
               $rules['variants.' .$key . '.price'] = 'required|integer';
               $rules['variants.' .$key . '.track_stock'] = 'required|boolean';
