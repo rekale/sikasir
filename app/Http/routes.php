@@ -161,7 +161,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('outlets/{id}/orders', 'OrdersController@storeThrough');
             
             put('orders/{id}/void', 'OrdersController@voidOrder');
-            put('orders/{id}/debt', 'OrdersController@debtOrder');
             put('orders/{id}/debt-settled', 'OrdersController@debtSettledOrder');
             
             get('outlets/all/orders/reports/{dateRange}', 'OrdersController@report');

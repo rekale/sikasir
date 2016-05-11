@@ -198,20 +198,6 @@ class OrdersController extends ApiController
 							);
 	}
 	
-	public function debtOrder($id, DebtRequest $request)
-	{
-		$query = $this->getRepository();
-		
-		$command = new UpdateOrderDebtCommand($query);
-		
-		return $this->mediator->checkPermission('void-order')
-							->setRequest($request)
-							->update(
-								$id,
-								$command->makeDebt()
-							);
-	}
-	
 	public function debtSettledOrder($id, DebtRequest $request)
 	{
 		$query = $this->getRepository();
