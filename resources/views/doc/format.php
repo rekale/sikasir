@@ -159,7 +159,6 @@
         POST|PUT v1/outlets/{id}/orders
         {
             "customer_id": "Z",
-            "user_id": "T", //required
             "payment_id": "D", //required
             "discount_id": "L",
             "no_order": "001",
