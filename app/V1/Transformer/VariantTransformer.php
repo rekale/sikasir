@@ -32,6 +32,7 @@ class VariantTransformer extends TransformerAbstract
             'countable' => (boolean) $variant->countable,
             'track_stock' => (boolean) $variant->track_stock,
             'stock' => (int) $variant->stock,
+        	'current_stock' => (int) $variant->current_stock,
             'alert' => (boolean) $variant->alert,
             'alert_at' => (int) $variant->alert_at,
         ];

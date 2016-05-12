@@ -24,6 +24,7 @@ class Variant extends Model
         'countable',
         'track_stock',
         'stock',
+    	'current_stock',
         'alert',
         'alert_at',
         'icon',

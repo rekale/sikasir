@@ -154,6 +154,7 @@ $factory->define(Variant::class, function(Faker\Generator $fake) {
         'countable' => $fake->boolean(), 
         'track_stock' => $fake->boolean(),
         'stock' => $fake->numberBetween(1, 100),
+    	'current_stock' => $fake->numberBetween(1, 100),
         'alert' => $fake->boolean(),
         'alert_at' => $fake->numberBetween(1, 30),
         'icon' => $fake->imageUrl(300, 200),
