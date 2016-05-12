@@ -61,7 +61,8 @@ class OrderTransformer extends TransformerAbstract
     {
         $item = $order->customer;
         
-        return $this->item($item, new CustomerTransformer);
+        
+        return is_null($item) ? null  : $this->item($item, new CustomerTransformer);
     }
     
     public function includeOutlet(Order $order)
@@ -82,7 +83,7 @@ class OrderTransformer extends TransformerAbstract
     {
         $item = $order->discount;
         
-        return $this->item($item, new TaxTransformer);
+        return is_null($item) ? null  : $this->item($item, new TaxTransformer);
     }
     
     public function includeOperator(Order $order)
@@ -96,9 +97,9 @@ class OrderTransformer extends TransformerAbstract
     {
         $item = $order->void;
         
-        if(isset($item)) {
-        	return $this->item($item, new VoidTransformer);
-        }
+       
+        return is_null($item) ? null  :  $this->item($item, new VoidTransformer);
+        
          
     }
     
