@@ -13,7 +13,7 @@ class OrderReport extends Report
 	                   "sum( (variants.price_init * order_variant.total) ) as sales"
 	               )
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')	
 	               ->whereBetween('orders.created_at', $this->dateRange)
 	               ->groupBy('orders.id')
 	               ->orderBy('gross_sales', 'desc')

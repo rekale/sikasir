@@ -48,7 +48,7 @@ class OrderSeeder extends Seeder
             	$order->variants()->attach(
                     $variantIds, 
                     [
-                        'total' => $fake->numberBetween(1, 10), 
+                        'total' => $fake->numberBetween(10, 100), 
                         'nego' => 0,
                     ]
                     );

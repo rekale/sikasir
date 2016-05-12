@@ -30,7 +30,7 @@ abstract class Report
 	 */
 	public function whenDate($dateRange)
 	{
-		$this->dateRange = explode(',' , str_replace(' ', '', $dateRange));
+		$this->dateRange = explode(',' , $dateRange);
 		
 		return $this;
 	}
