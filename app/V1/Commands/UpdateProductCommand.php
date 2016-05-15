@@ -18,16 +18,20 @@ class UpdateProductCommand extends UpdateCommand
 				
 			$product->update($this->data);
 			
-			foreach ( $this->data['variants'] as $variant) {
+			if ( isset($this->data['variants']) ) {
 				
-				if (isset($variant['id'])) {
-					$product->variants()->findOrFail($variant['id'])->update($variant);
-				}
-				else {
-					$product->variants()->create($variant);
-				}
+				foreach ( $this->data['variants'] as $variant) {
+					
+					if (isset($variant['id'])) {
+						$product->variants()->findOrFail($variant['id'])->update($variant);
+					}
+					else {
+						$product->variants()->create($variant);
+					}
 				
+				}	
 			}
+			
 		});
 	}
 }
