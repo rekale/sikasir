@@ -42,7 +42,14 @@ class CreateOrderCommand extends CreateCommand
 					]
 				);
 				
+				//kurangin current stock variantnya
+				$currVariant = Variant::findOrFail($variant['id']);
+				$currVariant->current_stock = $currVariant->current_stock - $variant['quantity'];
+				$currVariant->save();
+				
+				
 			}
+			
 			
 			//jika transaksi di hutangin
 			if( isset($this->data['isDebt']) && $this->data['isDebt'] ) {
