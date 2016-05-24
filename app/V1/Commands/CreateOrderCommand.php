@@ -38,6 +38,7 @@ class CreateOrderCommand extends CreateCommand
 					$variant['id'],
 					[
 						'total' => $variant['quantity'],
+						'bobot' => $variant['bobot'],
 						'nego' => $variant['nego'],
 					]
 				);

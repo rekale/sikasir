@@ -36,6 +36,7 @@ class OrderRequest extends Request
 
         $rules['variants.' .$key . '.id'] = 'required';
         $rules['variants.' .$key . '.quantity'] = 'required|integer';
+        $rules['variants.' .$key . '.bobot'] = 'required|numeric';
         $rules['variants.' .$key . '.nego'] = 'required|integer';
         
         }

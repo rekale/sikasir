@@ -168,11 +168,13 @@
                 {
                     "id" : "Z",
                     "quantity": 3,
+                    "bobot": 10,
                     "nego":2000
                 },
                 {
                     "id" : "L",
                     "quantity": 1,
+                    "bobot": 10,
                     "nego": 2000
                 }
             ],
