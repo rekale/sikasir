@@ -9,12 +9,14 @@ class OrderReport extends Report
 		return $this->query
 					->selectRaw(
 	                   "orders.*, " .
+					   "products.calculation_type, " . 
 	                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
 					   "sum( (variants.price - order_variant.nego) * order_variant.bobot ) as gross_sales_bobot, " .
 	                   "sum( (variants.price_init * order_variant.total) ) as sales"
 	               )
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
-	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')	
+	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
+				   ->join('products', 'products.id', '=', 'variants.product_id')
 	               ->whereBetween('orders.created_at', $this->dateRange)
 	               ->groupBy('orders.id')
 	               ->orderBy('gross_sales', 'desc')

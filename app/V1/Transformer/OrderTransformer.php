@@ -36,11 +36,18 @@ class OrderTransformer extends TransformerAbstract
             'id' => $this->encode($order->id),
             'no_order' => $order->no_order,
             'note' => $order->note,
-            'gross_sales' => $order->gross_sales,
-            'gross_sales_bobot' => $order->gross_sales_bobot,
-            'sales' => $order->sales,
             'created_at' => (string) $order->created_at,
         ];
+
+        if( $this->isReport($order) )
+        {
+            $data = $data + [
+                'calculation_type' => $order->calculation_type,
+                'gross_sales' => $order->gross_sales,
+                'gross_sales_bobot' => $order->gross_sales_bobot,
+                'sales' => $order->sales,
+            ];
+        }
 
         if(isset($order->pivot)) {
             $data['total'] = $order->pivot->total;
@@ -119,5 +126,10 @@ class OrderTransformer extends TransformerAbstract
         $item = $order->payment;
 
         return $this->item($item, new PaymentTransformer);
+    }
+
+    public function isReport($order)
+    {
+        return isset($order->calculation_type);
     }
 }

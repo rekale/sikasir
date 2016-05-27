@@ -42,8 +42,8 @@ $factory->define(Company::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'username' => $faker->word,
-        'address' => $faker->address, 
-        'phone' => $faker->phoneNumber, 
+        'address' => $faker->address,
+        'phone' => $faker->phoneNumber,
         'icon' => $faker->imageUrl(300, 200, 'people'),
         'active' => $faker->boolean(),
         'password' => bcrypt(str_random(10)),
@@ -54,10 +54,10 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
-        'title' => $faker->randomElement(['kasir', 'manager']), 
+        'title' => $faker->randomElement(['kasir', 'manager']),
         'gender' => $faker->randomElement(['male', 'female']),
-        'address' => $faker->address, 
-        'phone' => $faker->phoneNumber, 
+        'address' => $faker->address,
+        'phone' => $faker->phoneNumber,
         'icon' => $faker->imageUrl(300, 200, 'people'),
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
@@ -109,11 +109,11 @@ $factory->define(Tax::class, function (Faker\Generator $fake) {
 $factory->define(Customer::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->name,
-        'email' => $fake->email, 
-        'sex' => $fake->randomElement(['male', 'female']), 
-        'phone' => $fake->phoneNumber, 
-        'address' => $fake->address, 
-        'city' => $fake->city, 
+        'email' => $fake->email,
+        'sex' => $fake->randomElement(['male', 'female']),
+        'phone' => $fake->phoneNumber,
+        'address' => $fake->address,
+        'city' => $fake->city,
         'pos_code' => $fake->postcode,
     ];
 });
@@ -121,9 +121,9 @@ $factory->define(Customer::class, function (Faker\Generator $fake) {
 $factory->define(Supplier::class, function (Faker\Generator $fake) {
     return [
         'name' => $fake->name,
-        'email' => $fake->email, 
-        'phone' => $fake->phoneNumber, 
-        'address' => $fake->address, 
+        'email' => $fake->email,
+        'phone' => $fake->phoneNumber,
+        'address' => $fake->address,
      ];
 });
 
@@ -132,26 +132,27 @@ $factory->define(Category::class, function(Faker\Generator $fake) {
         'name' => $fake->word,
         'description' => $fake->words(3, true),
     ];
-    
+
 });
 
 $factory->define(Product::class, function(Faker\Generator $fake) {
     return [
-        'name' => $fake->word, 
+        'name' => $fake->word,
         'description' => $fake->paragraph(),
         'unit' => $fake->word,
         'icon' => $fake->imageUrl(300, 200),
+        'calculation_type' => $fake->numberBetween(1, 3),
     ];
-    
+
 });
 
 $factory->define(Variant::class, function(Faker\Generator $fake) {
     return [
         'name' => $fake->word,
         'barcode' => $fake->numerify(),
-        'price_init' => $fake->numberBetween(100, 10000),  
-        'price' => $fake->numberBetween(10000, 100000), 
-        'countable' => $fake->boolean(), 
+        'price_init' => $fake->numberBetween(100, 10000),
+        'price' => $fake->numberBetween(10000, 100000),
+        'countable' => $fake->boolean(),
         'track_stock' => $fake->boolean(),
         'stock' => $fake->numberBetween(1, 100),
     	'current_stock' => $fake->numberBetween(1, 100),
@@ -159,7 +160,7 @@ $factory->define(Variant::class, function(Faker\Generator $fake) {
         'alert_at' => $fake->numberBetween(1, 30),
         'icon' => $fake->imageUrl(300, 200),
     ];
-    
+
 });
 
 $factory->define(Entry::class, function(Faker\Generator $fake) {
