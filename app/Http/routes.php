@@ -13,12 +13,7 @@ use Sikasir\V1\Outlets\Outlet;
 |
 */
 
-get('/tes/{id}', function($id) {
-	return Outlet::where('company_id', '=', 1)
-	->find($id)
-	->variants()->where('variants.name', 'like', 'nihil')->get();
-});
-    
+
 Route::group(['prefix' => 'doc'], function()
 {
     get('/endpoint', function () {
@@ -38,19 +33,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         post('login', 'AuthController@login');
         post('/register', 'AuthController@signup');
         get('/refresh', 'AuthController@refresh');
-        
+
 
     });
 
     Route::group(['middleware' => 'jwt.auth'], function ()
     {
-        
+
         Route::group(['namespace' => 'Tenants'], function ()
         {
             get('/', 'TenantController@myCompany');
             get('/business_field', 'TenantController@businessField');
         });
-        
+
         Route::group(['namespace' => 'Owners'], function ()
         {
             get('owners', 'OwnersController@index');
@@ -59,7 +54,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             put('owners/{id}', 'OwnersController@update');
             delete('owners/{id}', 'OwnersController@destroy');
         });
-        
+
         /* CUSTOMERS */
         Route::group(['namespace' => 'Customers'], function ()
         {
@@ -72,7 +67,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
 
             get('customers/{id}/histories/{dateRange}', 'CustomersController@reportFor');
         });
-        
+
         /* 	EMPLOYEES */
         Route::group(['namespace' => 'Employees'], function()
         {
@@ -85,10 +80,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
         	post('employees', 'EmployeesController@store');
         	put('employees/{id}', 'EmployeesController@update');
         	delete('employees/{id}', 'EmployeesController@destroy');
-        
+
         });
-  
-       
+
+
         /* SUPPLIER */
         Route::group(['namespace' => 'Suppliers'], function ()
         {
@@ -112,7 +107,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}', 'OutletsController@show');
             put('outlets/{id}', 'OutletsController@update');
             delete('outlets/{id}', 'OutletsController@destroy');
-            
+
             /* INCOMES */
             get('outlets/{id}/incomes/search/{field}/{word}', 'IncomesController@searchThrough');
             get('outlets/{id}/incomes', 'IncomesController@indexThrough');
@@ -128,10 +123,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             /* TAXES */
             get('outlets/all/taxes/reports/{dateRange}', 'TaxesController@allReports');
             get('outlets/{outletId}/taxes/reports/{dateRange}', 'TaxesController@reports');
-            
+
             /*VARIANTS*/
             get('outlets/{outletId}/variants/search/{field}/{word}', 'OutletsController@searchVariants');
-            
+
             /* PRODUCTS */
            	get('outlets/all/products', 'ProductsController@index');
            	get('outlets/{id}/products/search/{field}/{word}', 'ProductsController@searchThrough');
@@ -139,11 +134,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/all/products/reports/{dateRange}/best-seller', 'ProductsController@bestSeller');
             get('outlets/{outletId}/products/reports/{dateRange}', 'ProductsController@reportThrough');
             get('outlets/{outletId}/products/reports/{dateRange}/best-seller', 'ProductsController@bestSellerThrough');
-            
+
             /* INVENTORY */
             get('outlets/{outletId}/products', 'ProductsController@indexThrough');
             get('outlets/{outletId}/products/{productId}', 'ProductsController@showThrough');
-            
+
             /* PRINTERS */
             get('outlets/{id}/printers/search/{field}/{word}', 'PrintersController@searchThrough');
 			get('outlets/{throughId}/printers', 'PrintersController@indexThrough');
@@ -151,7 +146,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('outlets/{id}/printers', 'PrintersController@storeThrough');
             put('outlets/{outletId}/printers/{printerId}', 'PrintersController@updateThrough');
             delete('outlets/{outletId}/printers/{printerId}', 'PrintersController@destroyThrough');
-            
+
             /* ORDERS */
             get('outlets/all/orders/search/{field}/{word}', 'OrdersController@search');
             get('outlets/{id}/orders/search/{field}/{word}', 'OrdersController@searchThrough');
@@ -159,10 +154,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{outletId}/orders', 'OrdersController@indexThrough');
             get('outlets/{outletId}/orders/{id}', 'OrdersController@showThrough');
             post('outlets/{id}/orders', 'OrdersController@storeThrough');
-            
+
             put('orders/{id}/void', 'OrdersController@voidOrder');
             put('orders/{id}/debt-settled', 'OrdersController@debtSettledOrder');
-            
+
             get('outlets/all/orders/reports/{dateRange}', 'OrdersController@report');
             get('outlets/{id}/orders/reports/{dateRange}', 'OrdersController@reportThrough');
             get('outlets/all/orders/reports/{dateRange}/void', 'OrdersController@void');
@@ -171,12 +166,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/orders/reports/{dateRange}/debt', 'OrdersController@debtThrough');
             get('outlets/all/orders/reports/{dateRange}/debt-settled', 'OrdersController@settled');
             get('outlets/{id}/orders/reports/{dateRange}/debt-settled', 'OrdersController@settledThrough');
-            
-            
+
+
             /* PAYMENTS */
             get('outlets/all/payments/reports/{dateRange}', 'PaymentsController@allReports');
             get('outlets/{outletId}/payments/reports/{dateRange}', 'PaymentsController@reports');
-            
+
             Route::group(['namespace' => 'Stocks'], function()
             {
 
@@ -189,40 +184,40 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 get('outlets/{outletId}/outs/{id}', 'OutsController@showThrough');
                 get('outlets/{id}/outs', 'OutsController@indexThrough');
                 post('outlets/{id}/outs', 'OutsController@storeThrough');
-                
+
                 get('outlets/{id}/opnames', 'OpnamesController@indexThrough');
                 post('outlets/{id}/opnames', 'OpnamesController@storeThrough');
-                
+
                 get('outlets/{id}/purchases', 'PurchasesController@indexThrough');
                 get('outlets/{outletId}/purchases/{id}', 'PurchasesController@showThrough');
                 post('outlets/{id}/purchases', 'PurchasesController@storeThrough');
-                
+
             });
-            
+
         });
-        
-        /* PRODUCTS AND CATEGORIES */ 
+
+        /* PRODUCTS AND CATEGORIES */
         Route::group(['namespace' => 'Products'], function()
         {
             post('products', 'ProductsController@store');
             put('products/{id}', 'ProductsController@update');
             delete('products/{id}', 'ProductsController@destroy');
             delete('variants/{id}', 'ProductsController@destroyVariants');
-            
+
             get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@report');
             get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reportThrough');
-            
+
             get('categories/search/{field}/{word}', 'CategoriesController@search');
             get('categories/{id}', 'CategoriesController@show');
             post('categories', 'CategoriesController@store');
             put('categories/{id}', 'CategoriesController@update');
             delete('categories/{id}', 'CategoriesController@destroy');
-            
+
         });
-        
+
         Route::group(['namespace' => 'Settings'], function()
         {
-            
+
             /* DISCOUNT */
             get('discounts/search/{field}/{word}', 'DiscountsController@search');
             get('discounts', 'DiscountsController@index');
@@ -230,8 +225,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('discounts', 'DiscountsController@store');
             put('discounts/{id}', 'DiscountsController@update');
             delete('discounts/{id}', 'DiscountsController@destroy');
-            
-            
+
+
             /* TAXES */
             get('taxes/search/{field}/{word}', 'TaxesController@search');
             get('taxes', 'TaxesController@index');
@@ -239,8 +234,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('taxes', 'TaxesController@store');
             put('taxes/{id}', 'TaxesController@update');
             delete('taxes/{id}', 'TaxesController@destroy');
-            
-            
+
+
             /* PAYMENTS */
             get('payments/search/{field}/{word}', 'PaymentsController@search');
             get('payments', 'PaymentsController@index');

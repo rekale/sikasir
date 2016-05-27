@@ -10,6 +10,7 @@ class OrderReport extends Report
 					->selectRaw(
 	                   "orders.*, " .
 	                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
+					   "sum( (variants.price - order_variant.nego) * order_variant.bobot ) as gross_sales_bobot, " .
 	                   "sum( (variants.price_init * order_variant.total) ) as sales"
 	               )
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
@@ -19,13 +20,13 @@ class OrderReport extends Report
 	               ->orderBy('gross_sales', 'desc')
 	               ->orderBy('sales', 'desc');
 	}
-	
-	
+
+
 	public function getResultFor($id)
 	{
 		throw new \Exception('not implemented');
 	}
-	
+
 	public function isVoid()
 	{
 		$this->query = $this->query
@@ -39,9 +40,9 @@ class OrderReport extends Report
 					        );
 		return $this;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return $this
 	 */
 	public function isNotVoid()
@@ -57,7 +58,7 @@ class OrderReport extends Report
 							);
 		return $this;
 	}
-	
+
 	/**
 	 * get the order that have debt
 	 * $settled is false if want to get debts that still not paid
@@ -77,10 +78,10 @@ class OrderReport extends Report
 												->whereRaw('debts.order_id = orders.id');
 								}
 							);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * get the order that its debt has been settled
 	 *
@@ -97,10 +98,10 @@ class OrderReport extends Report
 							->whereNotNull('paid_at');
 			}
 		);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * get the order that its debt has not been settled
 	 *
@@ -117,10 +118,10 @@ class OrderReport extends Report
 					->whereNull('paid_at');
 				}
 		);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * get the order that have debt
 	 *
@@ -136,8 +137,8 @@ class OrderReport extends Report
 				->whereRaw('debts.order_id = orders.id');
 			}
 		);
-		
+
 		return $this;
 	}
-	
+
 }
