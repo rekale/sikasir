@@ -17,18 +17,18 @@ class OrderSeeder extends Seeder
     public function run()
     {
         $fake = Faker\Factory::create();
-        
+
         foreach (Outlet::all() as $outlet) {
-            
+
             $customers= $outlet->company->customers;
             $employees = $outlet->users;
             $tax = $outlet->tax;
             $discounts = $outlet->company->discounts;
             $payments = $outlet->company->payments;
-            
+
             //create order
             $orders = [];
-            
+
             foreach (range(1, 100) as $i) {
             	$orders[] = factory(Order::class)->create([
 		            			'outlet_id' => $outlet->id,
@@ -39,24 +39,24 @@ class OrderSeeder extends Seeder
 		            			'discount_id' => $discounts->random()->id,
             				]);
             }
-             
-            
+
+
             foreach ($orders as $order) {
-            	
+
             	$variantIds = $outlet->variants->random(10)->lists('id')->toArray();
-            	
+
             	$order->variants()->attach(
-                    $variantIds, 
+                    $variantIds,
                     [
                         'total' => $fake->numberBetween(10, 100),
-                    	'bobot' => $fake->numberBetween(1, 10),
+                    	'weight' => $fake->numberBetween(1, 10),
                         'nego' => 0,
                     ]
                     );
             }
-            
-            
-            
+
+
+
             //select random order to void by random employee
             foreach (range(1, 5) as $i) {
             	factory(Void::class)->create([
@@ -64,15 +64,15 @@ class OrderSeeder extends Seeder
             			'order_id' => $orders[mt_rand(1, 99)]->id
             	]);
             }
-            
+
             //select random order to void by random employee
             foreach (range(1, 5) as $i) {
             	factory(Debt::class)->create([
             			'order_id' => $orders[mt_rand(1, 99)]->id
             	]);
             }
-           
+
         };
-        
+
     }
 }

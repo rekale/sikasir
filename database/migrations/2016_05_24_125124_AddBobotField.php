@@ -13,7 +13,7 @@ class AddBobotField extends Migration
     public function up()
     {
     	\Schema::table('order_variant', function (Blueprint $table) {
-    		$table->float('bobot');
+    		$table->float('weight');
     	});
     }
 
@@ -25,7 +25,7 @@ class AddBobotField extends Migration
     public function down()
     {
     	\Schema::table('order_variant', function (Blueprint $table) {
-    		$table->dropColumn('bobot');
+    		$table->dropColumn('weight');
     	});
     }
 }
