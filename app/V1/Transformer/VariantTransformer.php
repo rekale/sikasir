@@ -13,19 +13,19 @@ use Sikasir\V1\Products\Variant;
 class VariantTransformer extends TransformerAbstract
 {
    use \Sikasir\V1\Traits\IdObfuscater;
-   
+
     protected $availableIncludes = [
         'product',
         'orders',
     ];
-   
+
     public function transform(Variant $variant)
     {
-        
+
         $rules = [
             'id' => $this->encode($variant->id),
-            'name' => $variant->name, 
-            'barcode' => $variant->barcode, 
+            'name' => $variant->name,
+            'barcode' => $variant->barcode,
             'icon' => $variant->icon,
             'price_init'  => (int) $variant->price_init,
             'price' => (int) $variant->price,
@@ -33,31 +33,32 @@ class VariantTransformer extends TransformerAbstract
             'track_stock' => (boolean) $variant->track_stock,
             'stock' => (int) $variant->stock,
         	'current_stock' => (int) $variant->current_stock,
+            'current_weight' => $variant->current_weight,
             'alert' => (boolean) $variant->alert,
             'alert_at' => (int) $variant->alert_at,
         ];
-        
+
         if (isset($variant->pivot)) {
             $foreign = explode('_', $variant->pivot->getForeignKey());
             $key = $foreign[0] . '_total';
             $rules['order_total'] = $variant->pivot->total;
         }
-        
+
         return $rules;
     }
-   
+
     public function includeProduct(Variant $variant)
     {
         return $this->item($variant->product, new ProductTransformer);
     }
-    
+
     public function includeOrders(Variant $variant)
     {
         return $this->collection($variant->orders, new OrderTransformer);
     }
-    
-    
-    
-   
-    
+
+
+
+
+
 }

@@ -19,29 +19,30 @@ class EntriesController extends ApiController
 		$this->storeAccess = 'edit-inventory';
 		$this->showAccess = 'read-inventory';
 	}
-	
+
 	public function getQueryType($throughId = null)
 	{
 		return  new EloquentThroughCompany(
 			new Entry, $this->auth->getCompanyId(), 'outlets', $throughId
 		);
 	}
-	
+
 	public function getRepository($throughId = null)
 	{
 		return new EloquentRepository($this->getQueryType($throughId));
 	}
-	
+
 	public function getFactory($throughId = null)
 	{
 		return new EloquentFactory($this->getQueryType($throughId));
 	}
-	
+
 	public function createCommand($throughId = null)
 	{
-		return new CreateInventoryCommand($this->getFactory($throughId));
+		$command = new CreateInventoryCommand($this->getFactory($throughId));
+		return $command->isStockIn();
 	}
-	
+
 	public function updateCommand($throughId = null)
 	{
 		throw new \Exception('not implemented');
@@ -50,19 +51,19 @@ class EntriesController extends ApiController
 	{
 		return app(InventoryRequest::class);
 	}
-	
-	
+
+
 	public function getTransformer()
 	{
 		return new InventoryTransformer;
 	}
-	
+
 	public function getReportTransformer()
 	{
 		throw new \Exception('not implemented');
 	}
-	
-	
+
+
 	public function getReport($throughId = null)
 	{
 		throw new \Exception('not implemented');

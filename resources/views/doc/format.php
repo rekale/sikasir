@@ -7,7 +7,7 @@
     <body>
         <h1>FORMAT POST / UPDATE</h1>
         <pre>
-        
+
         --EMPLOYEE-- //staff atau manager
 
         {
@@ -23,7 +23,7 @@
             "privileges": [1, 2, 3, 4, 5]
         }
 
-        --CUSTOMER-- 
+        --CUSTOMER--
 
         {
             "name":"Dr. Willa Goldner",
@@ -53,16 +53,16 @@
         --PRODUCT-- //POST
         {
             "category_id": "D",
-            "name": "rekale", 
-            "description": "asu banget", 
+            "name": "rekale",
+            "description": "asu banget",
             "unit": "kg",
             "icon" : "http://lorempixel.com/200/100/food",
-            "outlet_ids": ["L", "Z"], 
+            "outlet_ids": ["L", "Z"],
             "variants": [
                 {
-                    "name": "kampret", 
+                    "name": "kampret",
                     "barcode": "34234",
-                    "price_init" : 10000,  
+                    "price_init" : 10000,
                     "price" : 234234,
                     "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true,
@@ -72,12 +72,12 @@
                     "alert_at": "10"
                 },
                 {
-                    "name": "kampret", 
-                    "barcode": "34234", 
+                    "name": "kampret",
+                    "barcode": "34234",
                     "price_init" : 10000,
                     "price" : 234234,
                     "icon" : "http://lorempixel.com/200/100/food",
-                    "countable": true, 
+                    "countable": true,
                     "track_stock": true,
                     "stock": 22,
                     "alert": true,
@@ -85,12 +85,12 @@
                 },
 
                 {
-                    "name": "kampret", 
-                    "barcode": "34234", 
+                    "name": "kampret",
+                    "barcode": "34234",
                     "price_init" : 10000,
                     "price" : 234234,
                     "icon" : "http://lorempixel.com/200/100/food",
-                    "countable": false, 
+                    "countable": false,
                     "track_stock": false,
                     "stock": 0,
                     "alert": false,
@@ -102,16 +102,16 @@
         --PRODUCT-- //PUT
         {
             "category_id": "D",
-            "name": "rekale", 
-            "description": "asu banget", 
+            "name": "rekale",
+            "description": "asu banget",
             "unit": "kg",
             "icon" : "http://lorempixel.com/200/100/food",
             "variants": [
                 {
                     "id": "D",
-                    "name": "kampret", 
+                    "name": "kampret",
                     "barcode": "34234",
-                    "price_init" : 10000,  
+                    "price_init" : 10000,
                     "price" : 234234,
                     "icon" : "http://lorempixel.com/200/100/food",
                     "countable": true,
@@ -122,24 +122,24 @@
                 },
                 {
                     "id": "Z"
-                    "name": "kampret", 
-                    "barcode": "34234", 
+                    "name": "kampret",
+                    "barcode": "34234",
                     "price_init" : 10000,
                     "price" : 234234,
                     "icon" : "http://lorempixel.com/200/100/food",
-                    "countable": true, 
+                    "countable": true,
                     "track_stock": true,
                     "stock": 22,
                     "alert": true,
                     "alert_at": "10"
                 },
                 {//bikin baru, gak pake id
-                    "name": "kampret", 
-                    "barcode": "34234", 
+                    "name": "kampret",
+                    "barcode": "34234",
                     "price_init" : 10000,
                     "price" : 234234,
                     "icon" : "http://lorempixel.com/200/100/food",
-                    "countable": true, 
+                    "countable": true,
                     "track_stock": true,
                     "stock": 22,
                     "alert": true,
@@ -183,17 +183,17 @@
             "due_date": "2016-05-01",
 			"total": 123453
         }
-		
+
 		--VOID ORDER--
 		{
 			"note": "asdfsafasd"
 		}
-		
+
 		--DEBT-SETTLED ORDER--
 		{
 			"paid_at": "2016-05-01",
 		}
-		
+
         --SUPPLIER--
         {
             "name": "sukajaya",
@@ -210,11 +210,13 @@
     "variants": [
         {
             "id" : "Z",
-            "total": 3
+            "total": 3,
+            "weight": 3,
         },
         {
             "id" : "L",
-            "total": 4
+            "total": 4,
+            "weight": 3,
         }
     ]
 }
@@ -228,11 +230,13 @@
     "variants": [
         {
             "id" : "Z",
-            "total": 3
+            "total": 3,
+            "weight": 3,
         },
         {
             "id" : "L",
-            "total": 4
+            "total": 4,
+            "weight": 3,
         }
     ]
 }
@@ -246,11 +250,13 @@
         "variants": [
             {
                 "id" : "Z",
-                "total": 3
+                "total": 3,
+                "weight": 3
             },
             {
                 "id" : "L",
-                "total": 4
+                "total": 4,
+                "weight": 3
             }
         ]
     }

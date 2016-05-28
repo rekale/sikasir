@@ -29,19 +29,20 @@ class InventoryRequest extends Request
             'input_at' => 'required|date',
             'status' => 'boolean',
         ];
-        
+
         $variants = $this->input('variants');
-        
+
         if(isset($variants)) {
-            
+
             $tot = count($variants) - 1;
             foreach(range(0, $tot) as $key) {
               $rules['variants.' .$key . '.id'] = 'required|max:255';
-              $rules['variants.' .$key . '.total'] = 'required|integer';              
+              $rules['variants.' .$key . '.total'] = 'required|integer';
+              $rules['variants.' .$key . '.weight'] = 'required|numeric';              
             }
-        
+
         }
-        
+
         return $rules;
     }
 }

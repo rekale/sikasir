@@ -19,18 +19,18 @@ class CreateStockEntriesTable extends Migration
             $table->string('note');
             $table->date('input_at');
             $table->timestamps();
-            
+
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            
+
             $table->foreign('outlet_id')
                 ->references('id')
                 ->on('outlets')
                 ->onDelete('cascade');
         });
-        
+
         Schema::create('entry_variant', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('entry_id')->unsigned()->index();
@@ -41,12 +41,12 @@ class CreateStockEntriesTable extends Migration
                 ->references('id')
                 ->on('entries')
                 ->onDelete('cascade');
-            
+
             $table->foreign('variant_id')
                 ->references('id')
                 ->on('variants')
                 ->onDelete('cascade');
-            
+
         });
     }
 
