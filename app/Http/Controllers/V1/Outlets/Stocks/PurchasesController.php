@@ -8,6 +8,7 @@ use Sikasir\V1\Stocks\PurchaseOrder;
 use Sikasir\V1\Repositories\EloquentRepository;
 use Sikasir\V1\Factories\EloquentFactory;
 use Sikasir\V1\Commands\CreateInventoryCommand;
+use Sikasir\V1\Commands\UpdateInventoryCommand;
 use Sikasir\V1\Transformer\PurchaseOrderTransformer;
 use Sikasir\Http\Requests\PurchaseOrderRequest;
 
@@ -17,53 +18,55 @@ class PurchasesController extends ApiController
 	{
 		$this->indexAccess = 'read-inventory';
 		$this->storeAccess = 'edit-inventory';
+		$this->updateAccess = 'edit-inventory';
 		$this->showAccess = 'read-inventory';
 	}
-	
+
 	public function getQueryType($throughId = null)
 	{
 		return  new EloquentThroughCompany(
 			new PurchaseOrder, $this->auth->getCompanyId(), 'outlets', $throughId
 		);
 	}
-	
+
 	public function getRepository($throughId = null)
 	{
 		return new EloquentRepository($this->getQueryType($throughId));
 	}
-	
+
 	public function getFactory($throughId = null)
 	{
 		return new EloquentFactory($this->getQueryType($throughId));
 	}
-	
+
 	public function createCommand($throughId = null)
 	{
-		return new CreateInventoryCommand($this->getFactory($throughId));
+		$command =  new CreateInventoryCommand($this->getFactory($throughId));
+
+		return $command->isPO();
 	}
-	
+
 	public function updateCommand($throughId = null)
 	{
-
-		throw new \Exception('not implemented');
+		return new UpdateInventoryCommand($this->getRepository($throughId));
 	}
 	public function getSpecificRequest()
 	{
 		return app(PurchaseOrderRequest::class);
 	}
-	
-	
+
+
 	public function getTransformer()
 	{
 		return new PurchaseOrderTransformer;
 	}
-	
+
 	public function getReportTransformer()
 	{
 		throw new \Exception('not implemented');
 	}
-	
-	
+
+
 	public function getReport($throughId = null)
 	{
 		throw new \Exception('not implemented');

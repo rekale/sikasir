@@ -38,7 +38,7 @@ class InventoryRequest extends Request
             foreach(range(0, $tot) as $key) {
               $rules['variants.' .$key . '.id'] = 'required|max:255';
               $rules['variants.' .$key . '.total'] = 'required|integer';
-              $rules['variants.' .$key . '.weight'] = 'required|numeric';              
+              $rules['variants.' .$key . '.weight'] = 'required|numeric';
             }
 
         }

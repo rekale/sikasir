@@ -23,25 +23,36 @@ class PurchaseOrderRequest extends Request
      */
     public function rules()
     {
-        $rules = [
-            'supplier_id' => 'required',
-            'po_number' => 'required',
-            'note' => 'max:255',
-            'input_at' => 'required|date',
-        ];
+        $rules = [];
         
+        if ($this->getMethod() === 'POST') {
+
+            $rules = [
+                'supplier_id' => 'required',
+                'po_number' => 'required',
+                'note' => 'max:255',
+                'input_at' => 'required|date',
+            ];
+
+        } else if ($this->getMethod() === 'PUT') {
+            $rules = [
+                'note' => 'max:255',
+            ];
+        }
+
+
         $variants = $this->input('variants');
-        
+
         if(isset($variants)) {
-            
+
             $tot = count($variants) - 1;
             foreach(range(0, $tot) as $key) {
               $rules['variants.' .$key . '.id'] = 'required|max:255';
-              $rules['variants.' .$key . '.total'] = 'required|integer';              
+              $rules['variants.' .$key . '.total'] = 'required|integer';
             }
-        
+
         }
-        
+
         return $rules;
     }
 }

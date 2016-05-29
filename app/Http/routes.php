@@ -191,6 +191,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
                 get('outlets/{id}/purchases', 'PurchasesController@indexThrough');
                 get('outlets/{outletId}/purchases/{id}', 'PurchasesController@showThrough');
                 post('outlets/{id}/purchases', 'PurchasesController@storeThrough');
+                put('outlets/{outletId}/purchases/{id}', 'PurchasesController@updateThrough');
 
             });
 
