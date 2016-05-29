@@ -15,8 +15,8 @@ use Sikasir\V1\Transactions\Payment;
 
 class Order extends Model
 {
-   
-    
+
+
     protected $fillable = [
         'customer_id',
     	'no_order',
@@ -29,78 +29,78 @@ class Order extends Model
         'nego',
         'paid',
     ];
-    
+
     /**
-     * 
-     * 
+     *
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function variants()
     {
         return $this->belongsToMany(Variant::class)
-                    ->withPivot(['total', 'nego'])
+                    ->withPivot(['total', 'nego', 'weight'])
                     ->withTimestamps();
     }
-    
-    
+
+
     public function void()
     {
         return $this->hasOne(Void::class);
     }
-    
+
     public function debt()
     {
         return $this->hasOne(Debt::class);
     }
-    
+
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function operator()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
      /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outlet()
     {
         return $this->belongsTo(Outlet::class);
     }
-    
+
      /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
-     
+
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function tax()
     {
         return $this->belongsTo(Tax::class);
     }
-    
+
      /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function discount()
     {
         return $this->belongsTo(Discount::class);
     }
-    
+
     public function payment()
     {
         return $this->belongsTo(Payment::class);
     }
-    
+
 }

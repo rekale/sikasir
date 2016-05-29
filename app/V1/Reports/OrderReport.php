@@ -9,9 +9,9 @@ class OrderReport extends Report
 		return $this->query
 					->selectRaw(
 	                   "orders.*, " .
-					   "products.calculation_type, " . 
+					   "products.calculation_type, " .
 	                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
-					   "sum( (variants.price - order_variant.nego) * order_variant.bobot ) as gross_sales_bobot, " .
+					   "sum( (variants.price - order_variant.nego) * order_variant.weight ) as gross_sales_bobot, " .
 	                   "sum( (variants.price_init * order_variant.total) ) as sales"
 	               )
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')

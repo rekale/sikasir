@@ -43,8 +43,8 @@ class OrderTransformer extends TransformerAbstract
         {
             $data = $data + [
                 'calculation_type' => $order->calculation_type,
-                'gross_sales' => $order->gross_sales,
-                'gross_sales_bobot' => $order->gross_sales_bobot,
+                'gross_sales' => (int) $order->gross_sales,
+                'gross_sales_weight' =>(int)  $order->gross_sales_bobot,
                 'sales' => $order->sales,
             ];
         }
