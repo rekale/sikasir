@@ -47,7 +47,7 @@ class OrderTransformer extends TransformerAbstract
                 'customer_name' => $order->customer_name,
                 'variant_name' => $order->variant_name,
                 'unit' => $order->unit,
-                'order_total' => $order->order_total,
+                'order_total' => (int) $order->order_total,
                 'gross_sales' => (int) $order->gross_sales,
                 'gross_sales_weight' =>(int) $order->gross_sales_weight,
                 'sales' => (int) $order->sales,
