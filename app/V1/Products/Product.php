@@ -27,6 +27,7 @@ class Product extends Model
         'unit',
         'icon',
         'calculation_type',
+        'for_all_outlets',
     ];
 
 

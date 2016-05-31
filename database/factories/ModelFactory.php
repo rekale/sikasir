@@ -116,6 +116,7 @@ $factory->define(Customer::class, function (Faker\Generator $fake) {
         'city' => $fake->city,
         'pos_code' => $fake->postcode,
     ];
+
 });
 
 $factory->define(Supplier::class, function (Faker\Generator $fake) {
@@ -142,6 +143,7 @@ $factory->define(Product::class, function(Faker\Generator $fake) {
         'unit' => $fake->word,
         'icon' => $fake->imageUrl(300, 200),
         'calculation_type' => $fake->numberBetween(1, 3),
+        'for_all_outlets' => $fake->boolean(),
     ];
 
 });

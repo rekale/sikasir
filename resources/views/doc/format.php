@@ -59,6 +59,7 @@
             "icon" : "http://lorempixel.com/200/100/food",
             "outlet_ids": ["L", "Z"],
             "calculation_type": 1,
+            "for_all_outlets": false,
             "variants": [
                 {
                     "name": "kampret",
@@ -107,6 +108,8 @@
             "description": "asu banget",
             "unit": "kg",
             "icon" : "http://lorempixel.com/200/100/food",
+            "calculation_type": 1,
+            "for_all_outlets": false,
             "variants": [
                 {
                     "id": "D",

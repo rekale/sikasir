@@ -14,6 +14,7 @@ class AddCalculationTypeToProducts extends Migration
     {
         \Schema::table('products', function (Blueprint $table) {
     		$table->integer('calculation_type');
+            $table->boolean('for_all_outlets');
     	});
     }
 
@@ -26,6 +27,7 @@ class AddCalculationTypeToProducts extends Migration
     {
         \Schema::table('products', function (Blueprint $table) {
     		$table->dropColumn('calculation_type');
+            //$table->dropColumn('for_all_outlets');
     	});
     }
 }
