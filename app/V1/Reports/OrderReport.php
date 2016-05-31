@@ -15,10 +15,12 @@ class OrderReport extends Report
 					   "variants.name as variant_name, " .
 					   "products.unit, " .
 					   "order_variant.total as order_total, " .
-					   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
-					   "sum( (variants.price - order_variant.nego) * order_variant.weight ) as gross_sales_weight, " .
-	                   "sum( (variants.price_init * order_variant.total) ) as sales, " .
-					   "sum( (variants.price_init * order_variant.weight) ) as sales_weight"
+					   " order_variant.price * order_variant.total  as gross_sales, " .
+					   " variants.price  - order_variant.nego * order_variant.weight as gross_sales_weight, " .
+					   " variants.price_init * order_variant.total as sales, " .
+					   " variants.price_init * order_variant.weight as sales_weight, " .
+					   "order_variant.nego * order_variant.total as sales_nego, " .
+					   "order_variant.nego * order_variant.weight as sales_nego_weight "
 	               )
 				   ->join('customers', 'orders.customer_id', '=', 'customers.id')
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')

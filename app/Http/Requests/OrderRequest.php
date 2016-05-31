@@ -27,20 +27,21 @@ class OrderRequest extends Request
             'customer_id' => 'max:255',
             'note' => 'max:255',
         ];
-        
+
         $variants = $this->input('variants');
-        
+
         $tot = count($variants) - 1;
-        
+
         foreach(range(0, $tot) as $key) {
 
         $rules['variants.' .$key . '.id'] = 'required';
         $rules['variants.' .$key . '.quantity'] = 'required|integer';
-        $rules['variants.' .$key . '.bobot'] = 'required|numeric';
+        $rules['variants.' .$key . '.weight'] = 'required|numeric';
+        $rules['variants.' .$key . '.price'] = 'required|integer';
         $rules['variants.' .$key . '.nego'] = 'required|integer';
-        
+
         }
-        
+
         return $rules;
     }
 }

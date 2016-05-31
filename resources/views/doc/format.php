@@ -169,13 +169,15 @@
                 {
                     "id" : "Z",
                     "quantity": 3,
-                    "bobot": 10,
+                    "weight": 10,
+                    "price": 1000,
                     "nego":2000
                 },
                 {
                     "id" : "L",
                     "quantity": 1,
-                    "bobot": 10,
+                    "weight": 10,
+                    "price":1000,
                     "nego": 2000
                 }
             ],
