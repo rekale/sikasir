@@ -27,7 +27,6 @@ class Order extends Model
         'tax_id',
         'note',
         'nego',
-        'paid',
     ];
 
     /**

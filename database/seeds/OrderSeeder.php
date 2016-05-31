@@ -5,6 +5,7 @@ use Sikasir\V1\Outlets\Outlet;
 use Sikasir\V1\Orders\Order;
 use Sikasir\V1\Orders\Void;
 use Sikasir\V1\Orders\Debt;
+use Sikasir\V1\Products\Variant;
 
 class OrderSeeder extends Seeder
 {
@@ -43,16 +44,20 @@ class OrderSeeder extends Seeder
 
             foreach ($orders as $order) {
 
-            	$variantIds = $outlet->variants->random(10)->lists('id')->toArray();
+            	$variants = $outlet->variants->random(10);
 
-            	$order->variants()->attach(
-                    $variantIds,
-                    [
-                        'total' => $fake->numberBetween(10, 100),
-                    	'weight' => $fake->numberBetween(1, 10),
-                        'nego' => 0,
-                    ]
-                    );
+                foreach ($variants as $variant) {
+                    $order->variants()->attach(
+                        $variant->id,
+                        [
+                            'total' => $fake->numberBetween(10, 100),
+                        	'weight' => $fake->numberBetween(1, 10),
+                            'price' =>  $variant->price,
+                            'nego' => $fake->numberBetween(1000, 5000),
+                        ]
+                        );
+                }
+
             }
 
 

@@ -14,6 +14,7 @@ class AddBobotField extends Migration
     {
     	\Schema::table('order_variant', function (Blueprint $table) {
     		$table->float('weight');
+            $table->unsignedInteger('price');
     	});
     }
 
@@ -26,6 +27,7 @@ class AddBobotField extends Migration
     {
     	\Schema::table('order_variant', function (Blueprint $table) {
     		$table->dropColumn('weight');
+            $table->dropColumn('price');
     	});
     }
 }

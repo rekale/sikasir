@@ -58,6 +58,7 @@
             "unit": "kg",
             "icon" : "http://lorempixel.com/200/100/food",
             "outlet_ids": ["L", "Z"],
+            "calculation_type": 1,
             "variants": [
                 {
                     "name": "kampret",

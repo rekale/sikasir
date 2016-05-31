@@ -18,12 +18,12 @@ class OrderVariantTable extends Migration
             $table->unsignedInteger('total')->default(0);
             $table->unsignedInteger('nego')->default(0);
             $table->timestamps();
-            
+
             $table->foreign('order_id')
                 ->references('id')
                 ->on('orders')
                 ->onDelete('cascade');
-            
+
             $table->foreign('variant_id')
                 ->references('id')
                 ->on('variants')
