@@ -42,10 +42,16 @@ class OrderTransformer extends TransformerAbstract
         if( $this->isReport($order) )
         {
             $data = $data + [
-                'calculation_type' => $order->calculation_type,
+                'calculation_type' => (int) $order->calculation_type,
+                'customer_id' => $this->encode($order->customer_id),
+                'customer_name' => $order->customer_name,
+                'variant_name' => $order->variant_name,
+                'unit' => $order->unit,
+                'order_total' => $order->order_total,
                 'gross_sales' => (int) $order->gross_sales,
                 'gross_sales_weight' =>(int)  $order->gross_sales_bobot,
-                'sales' => $order->sales,
+                'sales' => (int) $order->sales,
+                'sales_weight' => (int) $order->sales_weight,
             ];
         }
 

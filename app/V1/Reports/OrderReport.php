@@ -10,17 +10,22 @@ class OrderReport extends Report
 					->selectRaw(
 	                   "orders.*, " .
 					   "products.calculation_type, " .
-	                   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
-					   "sum( (variants.price - order_variant.nego) * order_variant.weight ) as gross_sales_bobot, " .
-	                   "sum( (variants.price_init * order_variant.total) ) as sales"
+					   "customers.id as customer_id, " .
+					   "customers.name as customer_name, " .
+					   "variants.name as variant_name, " .
+					   "products.unit, " .
+					   "order_variant.total as order_total, " .
+					   "sum( (variants.price - order_variant.nego) * order_variant.total ) as gross_sales, " .
+					   "sum( (variants.price - order_variant.nego) * order_variant.weight ) as gross_sales_weight, " .
+	                   "sum( (variants.price_init * order_variant.total) ) as sales, " .
+					   "sum( (variants.price_init * order_variant.weight) ) as sales_weight"
 	               )
+				   ->join('customers', 'orders.customer_id', '=', 'customers.id')
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
 	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
 				   ->join('products', 'products.id', '=', 'variants.product_id')
 	               ->whereBetween('orders.created_at', $this->dateRange)
-	               ->groupBy('orders.id')
-	               ->orderBy('gross_sales', 'desc')
-	               ->orderBy('sales', 'desc');
+	               ->groupBy('variants.id');
 	}
 
 
