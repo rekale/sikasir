@@ -52,8 +52,8 @@ class OrderTransformer extends TransformerAbstract
                 'gross_sales_weight' =>(int) $order->gross_sales_weight,
                 'sales' => (int) $order->sales,
                 'sales_weight' => (int) $order->sales_weight,
-                'nego_sales' => $order->sales_nego,
-                'nego_sales_weight' => $order->sales_nego_weight,
+                'nego_sales' => (int) $order->sales_nego,
+                'nego_sales_weight' => (int) $order->sales_nego_weight,
             ];
         }
 
