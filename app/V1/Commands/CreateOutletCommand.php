@@ -41,6 +41,7 @@ class CreateOutletCommand extends CreateCommand
 			//insert products (for all outlets) to new outlet
 			$products = Product::with('variants')->distinct()
 								->whereForAllOutlets(true)
+								->whereCompanyId($this->auth->getCompanyId())
 								->get();
 
 			foreach ($products as $product) {
