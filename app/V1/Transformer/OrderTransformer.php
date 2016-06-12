@@ -49,9 +49,9 @@ class OrderTransformer extends TransformerAbstract
                 'unit' => $order->unit,
                 'order_total' => (int) $order->order_total,
                 'gross_sales' => (int) $order->gross_sales,
-                'gross_sales_weight' =>(int) $order->gross_sales_weight,
+                'gross_sales_weight' =>(float) $order->gross_sales_weight,
                 'sales' => (int) $order->sales,
-                'sales_weight' => (int) $order->sales_weight,
+                'sales_weight' => (float) $order->sales_weight,
                 'nego_sales' => (int) $order->sales_nego,
                 'nego_sales_weight' => (int) $order->sales_nego_weight,
             ];
