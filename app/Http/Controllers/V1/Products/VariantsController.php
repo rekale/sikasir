@@ -28,7 +28,9 @@ class VariantsController extends ApiController
 
     public function getQueryType($throughId = null)
     {
-    	return new NoCompany(new Variant);
+    	return new ELoquentThroughCompany(
+			new Variant, $this->auth->getCompanyId(), 'products', $throughId 
+		);
     }
     public function getRepository($throughId = null)
     {
