@@ -20,7 +20,7 @@ use Sikasir\Http\Requests\DebtRequest;
 
 class OrdersController extends ApiController
 {
-	
+
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-order';
@@ -28,30 +28,30 @@ class OrdersController extends ApiController
 		$this->storeAccess = 'edit-order';
 		$this->reportAccess = 'report-order';
 	}
-	
+
 	public function getQueryType($throughId = null)
 	{
 		return  new EloquentThroughCompany(
 			new Order, $this->auth->getCompanyId(), 'outlets', $throughId
 		);
 	}
-	
+
 	public function getRepository($throughId = null)
 	{
 		return new EloquentRepository($this->getQueryType($throughId));
 	}
-	
+
 	public function getFactory($throughId = null)
 	{
 		return new EloquentFactory($this->getQueryType($throughId));
 	}
-	
+
 	public function createCommand($throughId = null)
 	{
 		$command = new CreateOrderCommand($this->getFactory($throughId));
 		return $command->setAuth($this->auth);
 	}
-	
+
 	public function updateCommand($throughId = null)
 	{
 		throw new \Exception('not implemented');
@@ -60,8 +60,8 @@ class OrdersController extends ApiController
 	{
 		return app(OrderRequest::class);
 	}
-	
-	
+
+
 	public function getTransformer()
 	{
 		return new OrderTransformer;
@@ -71,37 +71,37 @@ class OrdersController extends ApiController
 	{
 		return new OrderTransformer;
 	}
-	
-	
+
+
 	public function getReport($throughId = null)
 	{
 		$report = new OrderReport($this->getQueryType($throughId));
-		
+
 		return $report->isNotVoid()->dontHaveDebt();
 	}
-	
+
 	public function void($dateRange, Request $request)
     {
     	$report = new OrderReport($this->getQueryType());
-    	
+
     	return $this->mediator->checkPermission($this->reportAccess)
 						    	->setRequest($request)
 						    	->setWith()
 						    	->setPerPage()
 						    	->orderBy()
     							->report(
-    								$dateRange, 
+    								$dateRange,
     								$report->isVoid(),
     								$this->getReportTransformer()
     							);
     }
-    
+
     public function voidThrough($throughId, $dateRange, Request $request)
     {
     	$throughId = Obfuscater::decode($throughId);
-    	
+
     	$report = new OrderReport($this->getQueryType($throughId));
-    	
+
     	return $this->mediator->checkPermission($this->reportAccess)
 						    	->setRequest($request)
 						    	->setWith()
@@ -113,11 +113,11 @@ class OrdersController extends ApiController
 						   			$this->getReportTransformer()
 						    	);
     }
-    
+
     public function debt($dateRange, Request $request)
     {
     	$report = new OrderReport($this->getQueryType());
-    	 
+
     	return $this->mediator->checkPermission($this->reportAccess)
 					    	->setRequest($request)
 					    	->setWith()
@@ -129,13 +129,13 @@ class OrdersController extends ApiController
 					    		$this->getReportTransformer()
 					    	);
     }
-    
+
     public function debtThrough($throughId, $dateRange, Request $request)
     {
     	$throughId = Obfuscater::decode($throughId);
-    	 
+
     	$report = new OrderReport($this->getQueryType($throughId));
-    
+
     	return $this->mediator->checkPermission($this->reportAccess)
 						    	->setRequest($request)
 						    	->setWith()
@@ -147,11 +147,11 @@ class OrdersController extends ApiController
 						    			$this->getReportTransformer()
 						    	);
     }
-    
+
     public function settled($dateRange, Request $request)
     {
     	$report = new OrderReport($this->getQueryType());
-    
+
     	return $this->mediator->checkPermission($this->reportAccess)
 					    	->setRequest($request)
 					    	->setWith()
@@ -163,13 +163,13 @@ class OrdersController extends ApiController
 					   			$this->getReportTransformer()
 					   		);
     }
-    
+
     public function settledThrough($throughId, $dateRange, Request $request)
     {
     	$throughId = Obfuscater::decode($throughId);
-    
+
     	$report = new OrderReport($this->getQueryType($throughId));
-    
+
     	return $this->mediator->checkPermission($this->reportAccess)
     	->setRequest($request)
     	->setWith()
@@ -181,15 +181,15 @@ class OrdersController extends ApiController
     			$this->getReportTransformer()
     			);
     }
-	
+
 	public function voidOrder($id, Request $request)
 	{
 		$query = $this->getRepository();
-		
+
 		$command = new UpdateOrderToVoidCommand($query);
-		
+
 		$command->setOperator($this->auth->currentUser()->id);
-		
+
 		return $this->mediator->checkPermission('void-order')
 							->setRequest($request)
 							->update(
@@ -197,13 +197,13 @@ class OrdersController extends ApiController
 								$command
 							);
 	}
-	
+
 	public function debtSettledOrder($id, DebtRequest $request)
 	{
 		$query = $this->getRepository();
-	
+
 		$command = new UpdateOrderDebtCommand($query);
-	
+
 		return $this->mediator->checkPermission('void-order')
 							->setRequest($request)
 							->update(
@@ -211,5 +211,5 @@ class OrdersController extends ApiController
 								$command->makeDebtSettled()
 							);
 	}
-	
+
 }

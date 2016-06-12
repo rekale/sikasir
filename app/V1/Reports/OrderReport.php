@@ -27,7 +27,8 @@ class OrderReport extends Report
 	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
 				   ->join('products', 'products.id', '=', 'variants.product_id')
 	               ->whereBetween('orders.created_at', $this->dateRange)
-	               ->groupBy('variants.id');
+	               ->groupBy('variants.id')
+				   ->groupBy('orders.id');
 	}
 
 
