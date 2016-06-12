@@ -22,13 +22,14 @@ class OrderReport extends Report
 					   "order_variant.nego * order_variant.total as sales_nego, " .
 					   "order_variant.nego * order_variant.weight as sales_nego_weight "
 	               )
-				   ->join('customers', 'orders.customer_id', '=', 'customers.id')
+				   ->leftJoin('customers', 'orders.customer_id', '=', 'customers.id')
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
 	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
 				   ->join('products', 'products.id', '=', 'variants.product_id')
 	               ->whereBetween('orders.created_at', $this->dateRange)
 	               ->groupBy('variants.id')
-				   ->groupBy('orders.id');
+				   ->groupBy('orders.id')
+				   ->orderBy('orders.id', 'asc');
 	}
 
 
