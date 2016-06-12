@@ -203,7 +203,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             post('products', 'ProductsController@store');
             put('products/{id}', 'ProductsController@update');
             delete('products/{id}', 'ProductsController@destroy');
-            delete('variants/{id}', 'ProductsController@destroyVariants');
+
+            get('variants/search/{field}/{word}', 'VariantsController@search');
+            delete('variants/{id}', 'VariantsController@destroy');
 
             get('outlets/all/categories/reports/{dateRange}', 'CategoriesController@report');
             get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reportThrough');

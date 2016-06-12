@@ -8,13 +8,13 @@
         <h1>List EndPoint yang udah di bikin</h1>
         link yg di bold adalah endpoint terbaru
         link yg di <i>italic</i> adalah endpint yg di edit
-        
+
        	parameter di GET yg bisa dipakai: include, order_by:{field}|asc/desc
-        
+
         <ul>
         <li> POST auth/login </li>
         <li> POST auth/refresh </li>
-        <li> POST auth/mobile/login </li>	
+        <li> POST auth/mobile/login </li>
         <li> POST auth/register </li>
         <br>
         <li> GET /?include= users, outlets, taxes, categories, discounts, payments </li>
@@ -24,7 +24,7 @@
         <li> PUT owners/{id} </li>
         <li> DELETE owners/{id} </li>
         <br>
-        
+
         <li> GET customers </li>
         <li> GET customers/search/{field}/{word} </li>//contoh jika ingin mencari nama customer: customers/search/name/agus
         <li> GET customers/{id} </li>
@@ -32,7 +32,7 @@
         <li> PUT customers/{id} </li>
         <li> DELETE customers/{id} </li>
         <li>GET customers/{id}/histories/{dateRange}</li> //contoh: sikasir.herokuapp.com/v1/customers/D/histories/2016-02-01,2017-12-01
-        
+
         <br>
         <br>
         <li> GET employees?include=abilities </li>
@@ -44,7 +44,7 @@
         <li> PUT employees/{id} </li>
         <li> DELETE employees/{id} </li>
         <br>
-        
+
         <li> GET suppliers </li>
         <li> GET suppliers/search/{field}/{word} </li>
         <li> GET suppliers/{id} </li>
@@ -53,7 +53,7 @@
         <li> DELETE suppliers/{id} </li>
         <li>GET suppliers/{id}/purchases?include=variants</li>
         <li>GET suppliers/{id}/purchases/search/{field}/{word}?include=variants</li>
-        
+
         <br>
         <li> GET outlets?include=users,printers</li>
         <li> GET outlets/search/{field}/{word} </li>
@@ -62,25 +62,25 @@
         <li> GET outlets/all/orders/reports/{dateRange}?include= outlet, operator, variants.product.category, customer, discount, tax, payment </li>
         <li> GET outlets/{id}/orders/reports/{dateRange}?include= operator, variants.product.category  customer, discount, tax, payment </li>
         <li> GET outlets/all/orders/reports/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
-        <li> GET outlets/{id}/orders/reports/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>      
+        <li> GET outlets/{id}/orders/reports/{dateRange}/void?include= operator,variants.product.category, customer, discount, tax, payment  </li>
         <li> GET outlets/all/orders/reports/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
         <li> GET outlets/{id}/orders/reports/{dateRange}/debt?include= debt, operator, variants.product.category  customer, discount, tax, payment  </li>
         <li> GET outlets/all/orders/reports/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
         <li> GET outlets/{id}/orders/reports/{dateRange}/debt-settled?include= debt, operator, variants.product.category  customer, discount, tax, payment </li>
-        
+
         <li>outlets/all/orders/search/{field}/{word}</li>
         <li>outlets/{id}/orders/search/{field}/{word}</li>
         <li>outlets/all/orders</li>
         <li>outlets/{outletId}/orders</li>
         <li>outlets/{outletId}/orders/{id}</li>
         <li>outlets/{id}/orders</li>
-            
+
         <li> POST outlets/{id}/orders</li>
         <li> PUT orders/{id}/void</li>
         <li> PUT orders/{id}/debt</li>
         <li> PUT orders/{id}/debt-settled</li>
-        
-        
+
+
         <br>
         <li> GET outlets/all/products/reports/{dateRange}?include=outlet,category,variants </li>
         <li> GET outlets/{id}/products/reports/{dateRange}?include=outlet,category,variants </li>
@@ -98,7 +98,8 @@
         <li> PUT outlets/{outletId}/products/{productId} </li>
         <li> DELETE outlets/{outletId}/products/{productId} </li>
         <br>
-        <li> GET outlets/{outletId}/variants/search/{field}/{word}</li>
+        <li> GET variants/search/{field}/{word}</li>
+        <li> DELETE variants/{id}</li>
         <br>
         <li>GET outlets/{id}/entries?include=operator, variants.product.category</li>
         <li>GET outlets/{id}/entries/{id}</li>
