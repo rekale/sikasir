@@ -197,7 +197,7 @@
 
 		--DEBT-SETTLED ORDER--
 		{
-			"paid_at": "2016-05-01",
+			"pait_at": "2016-05-01",
 		}
 
         --SUPPLIER--
