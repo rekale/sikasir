@@ -66,7 +66,7 @@ class OrdersController extends ApiController
 	{
 		return new OrderTransformer;
 	}
-	
+
 	public function getReportTransformer()
 	{
 		return new OrderTransformer;
@@ -203,7 +203,7 @@ class OrdersController extends ApiController
 		$query = $this->getRepository();
 
 		$command = new UpdateOrderDebtCommand($query);
-
+	
 		return $this->mediator->checkPermission('void-order')
 							->setRequest($request)
 							->update(

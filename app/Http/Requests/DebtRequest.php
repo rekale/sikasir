@@ -26,7 +26,7 @@ class DebtRequest extends Request
 		return [
 			'total' => 'numeric',
 			'due_date' => 'date',
-			'paid_at' => 'date'
+			'pait_at' => 'date'
 		];
     }
 }
