@@ -43,10 +43,13 @@ class OrderTransformer extends TransformerAbstract
         {
             $data = $data + [
                 'calculation_type' => (int) $order->calculation_type,
-                'customer_id' => $this->encode($order->customer_id),
                 'customer_name' => $order->customer_name,
+                'employee_name' => $order->employee_name,
+                'product_name' => $order->product_name,
                 'variant_name' => $order->variant_name,
                 'unit' => $order->unit,
+                'tax' => $order->tax,
+                'discount' => $order->discount,
                 'order_total' => (int) $order->order_total,
                 'gross_sales' => (int) $order->gross_sales,
                 'gross_sales_weight' =>(float) $order->gross_sales_weight,

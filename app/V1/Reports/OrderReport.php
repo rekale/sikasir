@@ -10,10 +10,13 @@ class OrderReport extends Report
 					->selectRaw(
 	                   "orders.*, " .
 					   "products.calculation_type, " .
-					   "customers.id as customer_id, " .
 					   "customers.name as customer_name, " .
+					   "users.name as employee_name, " .
+					   "products.name as product_name," .
 					   "variants.name as variant_name, " .
 					   "products.unit, " .
+					   "taxes.amount as tax, " .
+					   "discounts.amount as discount, " .
 					   "order_variant.total as order_total, " .
 					   " order_variant.price * order_variant.total  as gross_sales, " .
 					   " order_variant.price  * order_variant.weight as gross_sales_weight, " .
@@ -23,6 +26,9 @@ class OrderReport extends Report
 					   "order_variant.nego * order_variant.weight as sales_nego_weight "
 	               )
 				   ->leftJoin('customers', 'orders.customer_id', '=', 'customers.id')
+				   ->join('users',  'orders.user_id', '=', 'users.id')
+				   ->join('taxes', 'orders.tax_id', '=', 'taxes.id')
+				   ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
 	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
 				   ->join('products', 'products.id', '=', 'variants.product_id')
