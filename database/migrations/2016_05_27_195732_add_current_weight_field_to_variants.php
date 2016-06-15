@@ -13,7 +13,7 @@ class AddCurrentWeightFieldToVariants extends Migration
     public function up()
     {
         \Schema::table('variants', function (Blueprint $table) {
-    		$table->integer('current_weight');
+    		$table->float('current_weight');
     	});
     }
 
