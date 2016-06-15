@@ -27,7 +27,7 @@ class AddCalculationTypeToProducts extends Migration
     {
         \Schema::table('products', function (Blueprint $table) {
     		$table->dropColumn('calculation_type');
-            //$table->dropColumn('for_all_outlets');
+            $table->dropColumn('for_all_outlets');
     	});
     }
 }
