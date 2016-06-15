@@ -33,14 +33,14 @@ class VariantTransformer extends TransformerAbstract
             'track_stock' => (boolean) $variant->track_stock,
             'stock' => (int) $variant->stock,
         	'current_stock' => (int) $variant->current_stock,
-            'current_weight' => $variant->current_weight,
+            'current_weight' => (float) $variant->current_weight,
             'alert' => (boolean) $variant->alert,
             'alert_at' => (int) $variant->alert_at,
         ];
 
         if (isset($variant->pivot)) {
             $foreign = explode('_', $variant->pivot->getForeignKey());
-        
+
             $total = $foreign[0] . '_total';
             $rules[$total] = $variant->pivot->total;
             $weight = $foreign[0] . '_weight';
