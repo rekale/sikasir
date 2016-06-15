@@ -101,12 +101,7 @@ class CreateInventoryCommand extends CreateCommand
 
 				if($currentVariant->countable) {
 
-					if ($this->stockIn) {
-						$currentVariant->current_stock = $currentVariant->current_stock + $variant['total'];
-						$currentVariant->current_weight = $currentVariant->current_weight + $variant['weight'];
-						$currentVariant->save();
-					}
-					if ($this->po) {
+					if ($this->stockIn || $this->po || $this->opname) {
 						$currentVariant->current_stock = $currentVariant->current_stock + $variant['total'];
 						$currentVariant->current_weight = $currentVariant->current_weight + $variant['weight'];
 						$currentVariant->save();

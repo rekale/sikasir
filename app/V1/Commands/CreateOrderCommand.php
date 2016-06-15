@@ -47,6 +47,7 @@ class CreateOrderCommand extends CreateCommand
 				//kurangin current stock variantnya
 				$currVariant = Variant::findOrFail($variant['id']);
 				$currVariant->current_stock = $currVariant->current_stock - $variant['quantity'];
+				$currVariant->current_weight = $currVariant->current_weight - $variant['weight'];
 				$currVariant->save();
 
 

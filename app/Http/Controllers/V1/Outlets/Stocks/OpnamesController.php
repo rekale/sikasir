@@ -15,33 +15,35 @@ class OpnamesController extends ApiController
 {
 	public function initializeAccess()
 	{
-		
+
 		$this->indexAccess = 'read-inventory';
 		$this->storeAccess = 'edit-inventory';
 	}
-	
+
 	public function getQueryType($throughId = null)
 	{
 		return  new EloquentThroughCompany(
 			new Opname, $this->auth->getCompanyId(), 'outlets', $throughId
 		);
 	}
-	
+
 	public function getRepository($throughId = null)
 	{
 		return new EloquentRepository($this->getQueryType($throughId));
 	}
-	
+
 	public function getFactory($throughId = null)
 	{
 		return new EloquentFactory($this->getQueryType($throughId));
 	}
-	
+
 	public function createCommand($throughId = null)
 	{
-		return new CreateInventoryCommand($this->getFactory($throughId));
+		$command = new CreateInventoryCommand($this->getFactory($throughId));
+
+		return $command->isOpname();
 	}
-	
+
 	public function updateCommand($throughId = null)
 	{
 
@@ -51,19 +53,19 @@ class OpnamesController extends ApiController
 	{
 		return app(InventoryRequest::class);
 	}
-	
-	
+
+
 	public function getTransformer()
 	{
 		return new InventoryTransformer;
 	}
-	
+
 	public function getReportTransformer()
 	{
 		throw new \Exception('not implemented');
 	}
-	
-	
+
+
 	public function getReport($throughId = null)
 	{
 		throw new \Exception('not implemented');
