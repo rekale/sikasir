@@ -99,21 +99,25 @@ class CreateInventoryCommand extends CreateCommand
 
 				$currentVariant = Variant::findOrFail($variant['id']);
 
-				if ($this->stockIn) {
-					$currentVariant->current_stock = $currentVariant->current_stock + $variant['total'];
-					$currentVariant->current_weight = $currentVariant->weight + $variant['weight'];
-					$currentVariant->save();
+				if($currentVariant->countable) {
+
+					if ($this->stockIn) {
+						$currentVariant->current_stock = $currentVariant->current_stock + $variant['total'];
+						$currentVariant->current_weight = $currentVariant->weight + $variant['weight'];
+						$currentVariant->save();
+					}
+					if ($this->po) {
+						$currentVariant->current_stock = $currentVariant->current_stock + $variant['total'];
+						$currentVariant->current_weight = $currentVariant->current_weight + $variant['weight'];
+						$currentVariant->save();
+					}
+					if ($this->stockOut) {
+						$currentVariant->current_stock = $currentVariant->current_stock - $variant['total'];
+						$currentVariant->current_weight = $currentVariant->current_weight - $variant['weight'];
+						$currentVariant->save();
+					}
 				}
-				if ($this->po) {
-					$currentVariant->current_stock = $currentVariant->current_stock + $variant['total'];
-					$currentVariant->current_weight = $currentVariant->current_weight + $variant['weight'];
-					$currentVariant->save();
-				}
-				if ($this->stockOut) {
-					$currentVariant->current_stock = $currentVariant->current_stock - $variant['total'];
-					$currentVariant->current_weight = $currentVariant->current_weight - $variant['weight'];
-					$currentVariant->save();
-				}
+
 
 			}
 
