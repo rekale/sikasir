@@ -42,9 +42,9 @@ class VariantTransformer extends TransformerAbstract
             $foreign = explode('_', $variant->pivot->getForeignKey());
 
             $total = $foreign[0] . '_total';
-            $rules[$total] = $variant->pivot->total;
+            $rules[$total] = (int) $variant->pivot->total;
             $weight = $foreign[0] . '_weight';
-            $rules[$weight] = $variant->pivot->weight;
+            $rules[$weight] = (float) $variant->pivot->weight;
         }
 
         return $rules;

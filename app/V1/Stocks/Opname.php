@@ -15,15 +15,15 @@ class Opname extends Model
         'input_at',
         'status',
     ];
-    
+
     public function operator()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
-    
+
+
     public function variants()
     {
-        return $this->belongsToMany(Variant::class)->withPivot(['total']);
+        return $this->belongsToMany(Variant::class)->withPivot(['total', 'weight']);
     }
 }

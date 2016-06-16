@@ -88,7 +88,7 @@ class CreateInventoryCommand extends CreateCommand
 			$inventory = $this->factory->create($this->data);
 
 			foreach ($this->data['variants'] as $variant) {
-
+				
 				$inventory->variants()->attach(
 						$variant['id'],
 						[

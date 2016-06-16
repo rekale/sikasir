@@ -15,13 +15,13 @@ class PurchaseOrder extends Model
         'note',
         'input_at',
     ];
-    
-   
+
+
     public function variants()
     {
-        return $this->belongsToMany(Variant::class)->withPivot(['total']);
+        return $this->belongsToMany(Variant::class)->withPivot(['total', 'weight']);
     }
-    
+
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
