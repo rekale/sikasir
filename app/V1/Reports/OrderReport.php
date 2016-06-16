@@ -15,6 +15,7 @@ class OrderReport extends Report
 					   "products.name as product_name," .
 					   "variants.name as variant_name, " .
 					   "products.unit, " .
+					   "payments.name as payment, " .
 					   "taxes.amount as tax, " .
 					   "discounts.amount as discount, " .
 					   "order_variant.total as order_total, " .
@@ -28,6 +29,7 @@ class OrderReport extends Report
 				   ->leftJoin('customers', 'orders.customer_id', '=', 'customers.id')
 				   ->join('users',  'orders.user_id', '=', 'users.id')
 				   ->join('taxes', 'orders.tax_id', '=', 'taxes.id')
+				    ->join('payments', 'orders.payment_id', '=', 'payments.id')
 				   ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
 	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')

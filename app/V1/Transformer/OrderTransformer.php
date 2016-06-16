@@ -48,6 +48,7 @@ class OrderTransformer extends TransformerAbstract
                 'product_name' => $order->product_name,
                 'variant_name' => $order->variant_name,
                 'unit' => $order->unit,
+                'payment' => $order->payment,
                 'tax' => (int) $order->tax,
                 'discount' => (int) $order->discount,
                 'order_total' => (int) $order->order_total,
