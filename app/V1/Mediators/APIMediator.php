@@ -144,9 +144,11 @@ class APIMediator
 
 		$command->setData($data);
 
-		$command->execute();
+		$createdId = $command->execute();
 
-		return $this->response->created();
+		return $this->response->created(
+			Obfuscater::encode($createdId)
+		);
 	}
 
 	/**
@@ -164,9 +166,11 @@ class APIMediator
 
 		$command->setId(Obfuscater::decode($id));
 
-		$command->execute();
+		$updatedId = $command->execute();
 
-		return $this->response->updated();
+		return $this->response->created(
+			Obfuscater::encode($updatedId)
+		);
 	}
 
 	/**

@@ -15,28 +15,28 @@ use \League\Fractal\TransformerAbstract;
 use League\Fractal\Resource\Item;
 use Illuminate\Http\JsonResponse;
 
-class ApiRespond 
+class ApiRespond
 {
-    
+
      private $statusCode = 200;
      private $fractal;
-     
-     
+
+
      /**
       * response resource or data
-      * 
+      *
       * @return $this
       */
      public function resource()
      {
          $this->fractal = new Manager;
-         
+
          return $this;
      }
-     
+
      /**
       * include for fractal
-      * 
+      *
       * @param string|array $include
       * @return $this
       */
@@ -45,12 +45,12 @@ class ApiRespond
         if (!is_null($include)) {
             $this->fractal->parseIncludes($include);
         }
-         
+
          return $this;
      }
-     
+
     /**
-     * 
+     *
      * @return integer
      */
      public function getStatusCode()
@@ -60,29 +60,29 @@ class ApiRespond
 
      /**
     * set status code
-    * 
+    *
     * @return $this
     */
     public function setStatusCode($code)
     {
         $this->statusCode = $code;
-        
+
         return $this;
     }
-    
+
     /**
      * resource not found
-     * 
+     *
      * @param string $msg
      */
     public function notFound($msg = 'Not Found')
     {
         return $this->setStatusCode(404)->withError($msg);
     }
-    
+
     /**
      * user not authorized
-     * 
+     *
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
@@ -90,10 +90,10 @@ class ApiRespond
     {
         return $this->setStatusCode(403)->withError($msg);
     }
-    
+
     /**
      * response input is not proccesable
-     * 
+     *
      * @param type $msg
      * @return \Illuminate\Http\JsonResponse
      */
@@ -101,32 +101,34 @@ class ApiRespond
     {
         return $this->setStatusCode(422)->withError($msg);
     }
-    
+
     /**
      * resource successfuly created
-     * 
+     *
+     * @param integer $id
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
-    public function created($msg = 'created')
+    public function created( $id, $msg = 'created')
     {
-        return $this->setStatusCode(201)->success($msg);
+        return $this->setStatusCode(201)->success($msg, $id);
     }
-    
+
     /**
      * resource successfuly updated
-     * 
+     *
+     * @param integer $id
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updated($msg = 'updated')
+    public function updated( $id, $msg = 'updated')
     {
-        return $this->setStatusCode(200)->success($msg);
+        return $this->setStatusCode(200)->success($msg, $id);
     }
-    
+
     /**
      * resource successfuly deleted
-     * 
+     *
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
@@ -134,10 +136,10 @@ class ApiRespond
     {
         return $this->setStatusCode(200)->success($msg);
     }
-    
+
     /**
      * resource failed to create
-     * 
+     *
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
@@ -145,26 +147,27 @@ class ApiRespond
     {
         return $this->setStatusCode(409)->withError($msg);
     }
-    
+
     /**
      * return success message
-     * 
+     *
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
-    public function success($msg)
+    public function success($msg, $id = null)
     {
         return $this->respond([
             'success' => [
                 'message' => $msg,
                 'code' => $this->getStatusCode(),
+                'id' => $id,
             ]
         ]);
     }
-    
+
     /**
      * return error message
-     * 
+     *
      * @param string $msg
      * @return \Illuminate\Http\JsonResponse
      */
@@ -177,10 +180,10 @@ class ApiRespond
             ]
         ]);
     }
-    
+
     /**
      * make respond
-     * 
+     *
      * @param string $data
      * @param array $headers
      * @return \Illuminate\Http\JsonResponse
@@ -189,62 +192,62 @@ class ApiRespond
     {
         return new JsonResponse($data, $this->getStatusCode(), $headers);
     }
-    
+
     /**
-     * 
+     *
      * return data from collection to json
-     * 
+     *
      * @param \Illuminate\Support\Collection $collection
      * @param Closure $callback
      */
     public function withCollection($collection, $callback)
     {
         $resource = new Collection($collection, $callback);
-     
+
         $rootScope = $this->fractal->createData($resource);
-        
-        return $this->respond($rootScope->toArray()); 
+
+        return $this->respond($rootScope->toArray());
     }
-    
+
     /**
-     * 
+     *
      * return data from paginator to json
-     * 
+     *
      * @param Paginator $paginator
      * @param \League\Fractal\TransformerAbstract $callback
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function withPaginated($paginator, TransformerAbstract $callback)
     {
         $collection = $paginator->getCollection();
-        
+
         $resource = new Collection($collection, $callback);
-        
+
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-        
+
         $rootScope = $this->fractal->createData($resource);
-        
-        return $this->respond($rootScope->toArray()); 
-    
+
+        return $this->respond($rootScope->toArray());
+
     }
-    
+
     /**
-     * 
+     *
      * return data from one collection to json
-     * 
+     *
      * @param Static $item
      * @param \League\Fractal\TransformerAbstract $callback
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function withItem($item, $callback)
     {
         $resource = new Item($item, $callback);
-        
+
         $rootScope = $this->fractal->createData($resource);
-        
-        return $this->respond($rootScope->toArray()); 
+
+        return $this->respond($rootScope->toArray());
     }
-    
+
 }

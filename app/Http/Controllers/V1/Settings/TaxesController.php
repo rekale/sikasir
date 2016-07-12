@@ -22,35 +22,35 @@ class TaxesController extends ApiController
 {
 	public function initializeAccess()
 	{
-			$this->indexAccess = 'read-settings';
+		$this->indexAccess = 'read-settings';
 		$this->showAccess = 'read-settings';
 		$this->destroyAccess = 'edit-settings';
-	
+
 		$this->storeAccess = 'edit-settings';
 		$this->updateAccess = 'edit-settings';
 		$this->reportAccess = 'edit-settings';
 	}
-	
+
 	public function getQueryType($throughId = null)
 	{
 		return  new EloquentCompany(new Tax, $this->auth->getCompanyId());
 	}
-	
+
 	public function getRepository($throughId = null)
 	{
 		return new EloquentRepository($this->getQueryType());
 	}
-	
+
 	public function getFactory($throughId = null)
 	{
 		return new EloquentFactory($this->getQueryType());
 	}
-	
+
 	public function createCommand($throughId = null)
-	{	
+	{
 		return new GeneralCreateCommand($this->getFactory());
 	}
-	
+
 	public function updateCommand($throughId = null)
 	{
 		return new GeneralUpdateCommand($this->getRepository());
@@ -59,19 +59,19 @@ class TaxesController extends ApiController
 	{
 		return app(TaxDiscountRequest::class);
 	}
-	
-	
+
+
 	public function getTransformer()
 	{
 		return new TaxTransformer;
 	}
-	
+
 	public function getReportTransformer()
 	{
 		return new TaxTransformer;
 	}
-	
-	
+
+
 	public function getReport($throughId = null)
 	{
 		return new CustomerReport($this->getQueryType());

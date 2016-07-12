@@ -26,7 +26,13 @@ class CreateOrderCommand extends CreateCommand
 
 	public function execute()
 	{
-		\DB::transaction(function () {
+		\DB::beginTransaction();
+
+		try {
+
+			$this->data['user_id'] = $this->auth->currentUser()->id;
+
+			$order = $this->factory->create($this->data);
 
 			$this->data['user_id'] = $this->auth->currentUser()->id;
 
@@ -50,9 +56,7 @@ class CreateOrderCommand extends CreateCommand
 				$currVariant->current_weight = $currVariant->current_weight - $variant['weight'];
 				$currVariant->save();
 
-
 			}
-
 
 			//jika transaksi di hutangin
 			if( isset($this->data['isDebt']) && $this->data['isDebt'] ) {
@@ -66,7 +70,21 @@ class CreateOrderCommand extends CreateCommand
 				$order->debt()->save($debt);
 			}
 
-		});
+			\DB::commit();
+		}
+		catch (\Exception $e) {
+            \DB::rollBack();
+
+            throw $e;
+        }
+		catch (\Throwable $e) {
+            \DB::rollBack();
+
+            throw $e;
+        }
+
+		return $order->id;
+
 	}
 
 	/**

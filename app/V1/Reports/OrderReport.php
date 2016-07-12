@@ -11,13 +11,21 @@ class OrderReport extends Report
 	                   "orders.*, " .
 					   "products.calculation_type, " .
 					   "customers.name as customer_name, " .
+					   "users.id as employee_id, " . 
 					   "users.name as employee_name, " .
+					   "users.title as employee_title, " .
+					   "categories.id as category_id, " .
+					   "categories.name as category_name, " .
+					   "products.id as product_id, " .
 					   "products.name as product_name," .
-					   "variants.name as variant_name, " .
 					   "products.unit, " .
+					   "variants.id as variant_id, " .
+					   "variants.name as variant_name, " .
 					   "payments.name as payment, " .
-					   "taxes.amount as tax, " .
-					   "discounts.amount as discount, " .
+					   "taxes.name as tax_name, " .
+					   "taxes.amount as tax_amount, " .
+					   "discounts.name as discount_name, " .
+					   "discounts.amount as discount_amount, " .
 					   "order_variant.total as order_total, " .
 					   " order_variant.price * order_variant.total  as gross_sales, " .
 					   " order_variant.price  * order_variant.weight as gross_sales_weight, " .
@@ -34,6 +42,7 @@ class OrderReport extends Report
 	               ->join('order_variant', 'orders.id', '=', 'order_variant.order_id')
 	               ->join('variants', 'order_variant.variant_id', '=', 'variants.id')
 				   ->join('products', 'products.id', '=', 'variants.product_id')
+				   ->join('categories', 'categories.id', '=', 'products.category_id')
 	               ->whereBetween('orders.created_at', $this->dateRange)
 	               ->groupBy('variants.id')
 				   ->groupBy('orders.id')

@@ -27,8 +27,9 @@ class CreateProductCommand extends CreateCommand
 
 	public function execute()
 	{
-		\DB::transaction(function () {
+		\DB::beginTransaction();
 
+		try {
 
 			$this->data['outlet_ids'] = Obfuscater::decode($this->data['outlet_ids']);
 
@@ -49,6 +50,21 @@ class CreateProductCommand extends CreateCommand
 
 			}
 
-		});
+			\DB::commit();
+		}
+		catch (\Exception $e) {
+            \DB::rollBack();
+
+            throw $e;
+        }
+		catch (\Throwable $e) {
+            \DB::rollBack();
+
+            throw $e;
+        }
+
+		return null;
+
 	}
+
 }

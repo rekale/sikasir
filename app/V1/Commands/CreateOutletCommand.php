@@ -27,9 +27,9 @@ class CreateOutletCommand extends CreateCommand
 
 	public function execute()
 	{
-		\DB::transaction(function () {
+		\DB::beginTransaction();
 
-
+		try {
 			$outlet = $this->factory->create($this->data);
 
 			//when new outlet is created, assign owner to every new outlet
@@ -39,12 +39,14 @@ class CreateOutletCommand extends CreateCommand
 			$owner->outlets()->attach($outlet->id);
 
 			//insert products (for all outlets) to new outlet
-			$products = Product::with('variants')->distinct()
+			$products = Product::with('variants')
+								->distinct()
 								->whereForAllOutlets(true)
 								->whereCompanyId($this->auth->getCompanyId())
 								->get();
 
 			foreach ($products as $product) {
+
 				$product->outlet_id = $outlet->id;
 				$newProduct = Product::create($product->toArray());
 
@@ -55,14 +57,24 @@ class CreateOutletCommand extends CreateCommand
 					$variant->current_weight = 0;
 
 					$newProduct->variants()->create($variant->toArray());
-				}
 
+				}
+				\DB::commit();
 			}
 
+		}
+		catch (\Exception $e) {
+            \DB::rollBack();
 
+            throw $e;
+        }
+		catch (\Throwable $e) {
+            \DB::rollBack();
 
+            throw $e;
+        }
 
-
-		});
+		return $outlet->id;
 	}
+
 }

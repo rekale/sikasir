@@ -4,9 +4,11 @@ namespace Sikasir\V1\Commands;
 
 class GeneralCreateCommand extends CreateCommand
 {
-	
+
 	public function execute()
 	{
-		$this->factory->create($this->data);
+		$data = $this->factory->create($this->data);
+
+		return $data->id;
 	}
 }

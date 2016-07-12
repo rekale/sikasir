@@ -83,12 +83,13 @@ class CreateInventoryCommand extends CreateCommand
 
 	public function execute()
 	{
-		\DB::transaction(function () {
+		\DB::beginTransaction();
 
+		try {
 			$inventory = $this->factory->create($this->data);
 
 			foreach ($this->data['variants'] as $variant) {
-				
+
 				$inventory->variants()->attach(
 						$variant['id'],
 						[
@@ -110,12 +111,24 @@ class CreateInventoryCommand extends CreateCommand
 						$currentVariant->current_stock = $currentVariant->current_stock - $variant['total'];
 						$currentVariant->current_weight = $currentVariant->current_weight - $variant['weight'];
 						$currentVariant->save();
-					}
 				}
-
-
 			}
 
-		});
+            $this->commit();
+        }
+        catch (\Exception $e) {
+            \DB::rollBack();
+
+            throw $e;
+        }
+		catch (\Throwable $e) {
+            \DB::rollBack();
+
+            throw $e;
+        }
+
+		return $inventory->id;
+
 	}
+
 }
