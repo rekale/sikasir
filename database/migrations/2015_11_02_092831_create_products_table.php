@@ -21,18 +21,20 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->string('unit')->nullable();
             $table->text('icon')->nullable();
+            $table->integer('calculation_type');
+            $table->boolean('for_all_outlets');
             $table->timestamps();
-            
+
             $table->foreign('category_id')
                   ->references('id')
                   ->on('categories')
                   ->onDelete('cascade');
-            
+
             $table->foreign('company_id')
                   ->references('id')
                   ->on('companies')
                   ->onDelete('cascade');
-            
+
             $table->foreign('outlet_id')
                   ->references('id')
                   ->on('outlets')

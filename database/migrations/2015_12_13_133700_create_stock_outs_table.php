@@ -19,35 +19,36 @@ class CreateStockOutsTable extends Migration
             $table->string('note');
             $table->date('input_at');
             $table->timestamps();
-            
+
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            
+
             $table->foreign('outlet_id')
                 ->references('id')
                 ->on('outlets')
                 ->onDelete('cascade');
-            
+
         });
-        
+
         Schema::create('out_variant', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('out_id')->unsigned()->index();
             $table->integer('variant_id')->unsigned()->index();
             $table->integer('total');
-            
+            $table->float('weight');
+
             $table->foreign('out_id')
                 ->references('id')
                 ->on('outs')
                 ->onDelete('cascade');
-            
+
             $table->foreign('variant_id')
                 ->references('id')
                 ->on('variants')
                 ->onDelete('cascade');
-            
+
         });
     }
 

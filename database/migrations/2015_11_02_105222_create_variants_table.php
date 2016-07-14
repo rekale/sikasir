@@ -21,17 +21,18 @@ class CreateVariantsTable extends Migration
             $table->integer('price')->unsigned()->default(0);
             $table->integer('stock')->unsigned()->default(0);
             $table->integer('current_stock')->unsigned()->default(0);
+            $table->float('current_weight')->unsigned()->default(0);
             $table->boolean('countable')->default(true);
             $table->boolean('track_stock')->default(false);
             $table->boolean('alert')->default(false);
             $table->integer('alert_at')->unsigned()->default(0);
             $table->text('icon')->nullable();
-            
+
             $table->foreign('product_id')
 		            ->references('id')
 		            ->on('products')
 		            ->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }

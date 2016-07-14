@@ -15,6 +15,8 @@ class OrderVariantTable extends Migration
         Schema::create('order_variant', function (Blueprint $table) {
             $table->integer('order_id')->unsigned()->index();
             $table->integer('variant_id')->unsigned()->index();
+            $table->float('weight');
+            $table->unsignedInteger('price');
             $table->unsignedInteger('total')->default(0);
             $table->unsignedInteger('nego')->default(0);
             $table->timestamps();

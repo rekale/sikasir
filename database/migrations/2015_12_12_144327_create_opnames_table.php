@@ -37,6 +37,7 @@ class CreateOpnamesTable extends Migration
             $table->integer('opname_id')->unsigned()->index();
             $table->integer('variant_id')->unsigned()->index();
             $table->integer('total');
+            $table->float('weight');
 
             $table->foreign('opname_id')
                 ->references('id')

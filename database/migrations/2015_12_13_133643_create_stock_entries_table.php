@@ -36,7 +36,8 @@ class CreateStockEntriesTable extends Migration
             $table->integer('entry_id')->unsigned()->index();
             $table->integer('variant_id')->unsigned()->index();
             $table->integer('total');
-
+            $table->float('weight');
+            
             $table->foreign('entry_id')
                 ->references('id')
                 ->on('entries')
