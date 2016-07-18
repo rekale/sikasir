@@ -11,7 +11,7 @@ class OrderReport extends Report
 	                   "orders.*, " .
 					   "products.calculation_type, " .
 					   "customers.name as customer_name, " .
-					   "users.id as employee_id, " . 
+					   "users.id as employee_id, " .
 					   "users.name as employee_name, " .
 					   "users.title as employee_title, " .
 					   "categories.id as category_id, " .
@@ -26,6 +26,7 @@ class OrderReport extends Report
 					   "taxes.amount as tax_amount, " .
 					   "discounts.name as discount_name, " .
 					   "discounts.amount as discount_amount, " .
+					   "order_variant.discount_by_product, " .
 					   "order_variant.total as order_total, " .
 					   " order_variant.price * order_variant.total  as gross_sales, " .
 					   " order_variant.price  * order_variant.weight as gross_sales_weight, " .

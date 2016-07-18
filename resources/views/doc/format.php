@@ -60,6 +60,7 @@
             "outlet_ids": ["L", "Z"],
             "calculation_type": 1,
             "for_all_outlets": false,
+            "discount_by_product": 0,
             "variants": [
                 {
                     "name": "kampret",

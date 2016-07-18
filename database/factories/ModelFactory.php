@@ -144,6 +144,7 @@ $factory->define(Product::class, function(Faker\Generator $fake) {
         'icon' => $fake->imageUrl(300, 200),
         'calculation_type' => $fake->numberBetween(1, 3),
         'for_all_outlets' => $fake->boolean(),
+        'discount_by_product' => $fake->numberBetween(10, 50),
     ];
 
 });

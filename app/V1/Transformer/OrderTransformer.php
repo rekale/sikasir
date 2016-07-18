@@ -60,6 +60,7 @@ class OrderTransformer extends TransformerAbstract
                 'tax_amount' => (int) $order->tax_amount,
                 'discount_name' => $order->discount_name,
                 'discount_amount' => (int) $order->discount_amount,
+                'discount_by_product' => (int) $order->discount_by_product,
                 'order_total' => (int) $order->order_total,
                 'gross_sales' => (int) $order->gross_sales,
                 'gross_sales_weight' =>(float) $order->gross_sales_weight,

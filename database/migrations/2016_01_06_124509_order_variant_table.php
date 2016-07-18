@@ -19,6 +19,7 @@ class OrderVariantTable extends Migration
             $table->unsignedInteger('price');
             $table->unsignedInteger('total')->default(0);
             $table->unsignedInteger('nego')->default(0);
+            $table->unsignedInteger('discount_by_product')->default(0);
             $table->timestamps();
 
             $table->foreign('order_id')

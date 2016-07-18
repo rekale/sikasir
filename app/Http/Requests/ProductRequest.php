@@ -25,30 +25,32 @@ class ProductRequest extends Request
     {
         $rulePost =  [
         	'category_id' => 'required',
-            'name' => 'required|max:255', 
-            'description' => 'required|max:1000', 
-            'barcode' => 'max:255', 
+            'name' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'barcode' => 'max:255',
             'unit' => 'required|max:10',
+            'discount_by_product' => 'required|integer',
             'outlet_ids' => 'required|array',
         ];
-        
+
         $rulePut =  [
             'category_id' => 'required',
-            'name' => 'required|max:255', 
-            'description' => 'required|max:1000', 
-            'barcode' => 'max:255', 
+            'name' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'barcode' => 'max:255',
             'unit' => 'required|max:10',
+            'discount_by_product' => 'required|integer',
         ];
-        
+
         $rules = $this->method() === 'POST' ? $rulePost : $rulePut;
-        
+
         $variants = $this->input('variants');
-        
+
         if(isset($variants)) {
-            
+
             $tot = count($variants) - 1;
             foreach(range(0, $tot) as $key) {
-                
+
               $rules['variants.' .$key . '.name'] = 'required|max:255';
               $rules['variants.' .$key . '.barcode'] = 'max:255';
               $rules['variants.' .$key . '.price_init'] = 'required|integer';
@@ -57,13 +59,13 @@ class ProductRequest extends Request
               $rules['variants.' .$key . '.stock'] = 'required|integer';
               $rules['variants.' .$key . '.alert'] = 'required|boolean';
               $rules['variants.' .$key . '.alert_at'] = 'required|integer';
-              
+
             }
-        
+
         }
-        
+
         return $rules;
-        
+
     }
 
 }

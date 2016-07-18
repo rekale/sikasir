@@ -44,7 +44,7 @@ class OrderSeeder extends Seeder
 
             foreach ($orders as $order) {
 
-            	$variants = $outlet->variants->random(10);
+            	$variants = $outlet->variants->load('product')->random(10);
 
                 foreach ($variants as $variant) {
                     $order->variants()->attach(
@@ -54,8 +54,9 @@ class OrderSeeder extends Seeder
                         	'weight' => $fake->numberBetween(1, 10),
                             'price' =>  $variant->price,
                             'nego' => $fake->numberBetween(1000, 5000),
+                            'discount_by_product' => $variant->product->discount_by_product
                         ]
-                        );
+                    );
                 }
 
             }

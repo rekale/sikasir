@@ -39,6 +39,7 @@ class OrderRequest extends Request
         $rules['variants.' .$key . '.weight'] = 'required|numeric';
         $rules['variants.' .$key . '.price'] = 'required|integer';
         $rules['variants.' .$key . '.nego'] = 'required|integer';
+        $rules['variants.' .$key . '.discount_by_product'] = 'required|integer';
 
         }
 

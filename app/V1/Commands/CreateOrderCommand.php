@@ -47,6 +47,7 @@ class CreateOrderCommand extends CreateCommand
 						'weight' => $variant['weight'],
 						'price' => $variant['price'],
 						'nego' => $variant['nego'],
+						'discount_by_product' => $variant['discount_by_product'],
 					]
 				);
 

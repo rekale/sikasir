@@ -42,6 +42,7 @@ class ProductTransformer extends TransformerAbstract
             'unit' => $product->unit,
             'calculation_type' => $product->calculation_type,
             'for_all_outlets' => (boolean) $product->for_all_outlets,
+            'discount_by_product' => $product->discount_by_product,
         ];
         //if it's the report
         if (isset($product->total))
