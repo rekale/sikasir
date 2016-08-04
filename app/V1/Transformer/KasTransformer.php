@@ -12,16 +12,24 @@ use Sikasir\V1\Finances\Income;
 class KasTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
-    
+
+    protected $availableIncludes = [
+        'outlet',
+    ];
+
     public function transform($income)
     {
         return [
             'id' => $this->encode($income->id),
             'total' =>(int) $income->total,
             'note' => $income->note,
-            'date' => (string) $income->created_at,
-            
+            'created_at' => (string) $income->created_at,
+
         ];
     }
-  
+
+    public function includeOutlet($kas)
+    {
+        return $this->item($kas->outlet, new OutletTransformer);
+    }
 }
