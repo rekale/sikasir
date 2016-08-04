@@ -175,14 +175,16 @@
                     "quantity": 3,
                     "weight": 10,
                     "price": 1000,
-                    "nego":2000
+                    "nego":2000,
+                    "discount_by_product": 5
                 },
                 {
                     "id" : "L",
                     "quantity": 1,
                     "weight": 10,
                     "price":1000,
-                    "nego": 2000
+                    "nego": 2000,
+                    "discount_by_product": 5
                 }
             ],
             //kalo mau ngutang

@@ -109,12 +109,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             delete('outlets/{id}', 'OutletsController@destroy');
 
             /* INCOMES */
+            get('outlets/all/incomes/reports/{dateRange}', 'IncomesController@report');
+            get('outlets/{id}/incomes/reports/{dateRange}', 'IncomesController@reportThrough');
+            get('outlets/all/incomes/search/{field}/{word}', 'IncomesController@search');
             get('outlets/{id}/incomes/search/{field}/{word}', 'IncomesController@searchThrough');
             get('outlets/{id}/incomes', 'IncomesController@indexThrough');
             post('outlets/{id}/incomes', 'IncomesController@storeThrough');
             delete('outlets/{id}/incomes/{incomeId}', 'IncomesController@destroyThrough');
 
             /* OUTCOMES */
+            get('outlets/all/outcomes/reports/{dateRange}', 'OutcomesController@report');
+            get('outlets/{id}/outcomes/reports/{dateRange}', 'OutcomesController@reportThrough');
             get('outlets/{id}/outcomes/search/{field}/{word}', 'OutcomesController@searchThrough');
             get('outlets/{id}/outcomes', 'OutcomesController@indexThrough');
             post('outlets/{id}/outcomes', 'OutcomesController@storeThrough');

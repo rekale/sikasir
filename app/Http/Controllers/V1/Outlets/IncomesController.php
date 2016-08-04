@@ -12,41 +12,44 @@ use Sikasir\V1\Commands\GeneralUpdateCommand;
 use Sikasir\Http\Requests\KasRequest;
 use Sikasir\V1\Repositories\EloquentThroughCompany;
 
+use Sikasir\V1\Reports\KasReport;
+
 class IncomesController extends ApiController
 {
 	public function initializeAccess()
 	{
 		$this->indexAccess = 'read-settings';
 		$this->storeAccess = 'read-settings';
-	
+		$this->reportAccess = 'read-report';
+
 		$this->destroyAccess = 'read-settings';
 	}
-	
+
 	public function getQueryType($throughId = null)
 	{
 		return  new EloquentThroughCompany(
 			new Income, $this->auth->getCompanyId(), 'outlets', $throughId
 		);
-		
+
 	}
-	
+
 	public function getRepository($throughId = null)
 	{
 		return new EloquentRepository($this->getQueryType($throughId));
 	}
-	
+
 	public function getFactory($throughId = null)
 	{
 		return new EloquentFactory($this->getQueryType($throughId));
 	}
-	
+
 	public function createCommand($throughId = null)
 	{
 		$factory =  new EloquentFactory($this->getQueryType($throughId));
-	
+
 		return new GeneralCreateCommand($factory);
 	}
-	
+
 	public function updateCommand($throughId = null)
 	{
 		return new GeneralUpdateCommand($this->getRepository($throughId));
@@ -55,21 +58,21 @@ class IncomesController extends ApiController
 	{
 		return app(KasRequest::class);
 	}
-	
-	
+
+
 	public function getTransformer()
 	{
 		return new KasTransformer;
 	}
-	
+
 	public function getReportTransformer()
 	{
 		return new KasTransformer;
 	}
-	
-	
+
+
 	public function getReport($throughId = null)
 	{
-		throw new \Exception('not implemented');
-	}   
+		return new KasReport($this->getQueryType($throughId));
+	}
 }

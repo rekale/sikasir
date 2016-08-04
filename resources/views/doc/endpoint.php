@@ -118,13 +118,19 @@
         <li>GET outlets/{id}/purchases/{id}</li>
         <li>POST outlets/{id}/purchases</li>
         <br>
+        <li> GET outlets/all/incomes/reports/{dateRange} </li>
+        <li> GET outlets/{id}/incomes/reports/{dateRange} </li>
+        <li> GET outlets/all/incomes/search/{field}/{word} </li>
+        <li> GET outlets/{id}/incomes/search/{field}/{word} </li>
         <li> GET outlets/{id}/incomes </li>
-         <li> GET outlets/{id}/incomes/search/{field}/{word} </li>
         <li> POST outlets/{id}/incomes </li>
         <li> DELETE outlets/{id}/incomes </li>
         <br>
-        <li> GET outlets/{id}/outcomes </li>
+        <li> GET outlets/all/outcomes/reports/{dateRange} </li>
+        <li> GET outlets/{id}/outcomes/reports/{dateRange} </li>
+        <li> GET outlets/all/outcomes/search/{field}/{word} </li>
         <li> GET outlets/{id}/outcomes/search/{field}/{word} </li>
+        <li> GET outlets/{id}/outcomes </li>
         <li> POST outlets/{id}/outcomes </li>
         <li> DELETE outlets/{id}/outcomes </li>
         <br>

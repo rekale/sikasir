@@ -46,11 +46,11 @@ abstract class ApiController extends Controller
     public function __construct(AuthInterface $auth, ApiRespond $respond)
     {
 
-    	$currentUser = $auth->currentUser();
+        $currentUser = $auth->currentUser();
 
-    	$this->mediator = new APIMediator(new Authorizer($currentUser), $respond);
+        $this->mediator = new APIMediator(new Authorizer($currentUser), $respond);
 
-    	$this->auth = $auth;
+        $this->auth = $auth;
 
         $this->initializeAccess();
         /*
@@ -66,14 +66,14 @@ abstract class ApiController extends Controller
     public function index(Request $request)
     {
     	return $this->mediator->checkPermission($this->indexAccess)
-    							->setRequest($request)
-    							->setWith()
-    							->setPerPage()
-    							->orderBy()
-						    	->index(
-					    			$this->getRepository(),
-					    			$this->getTransformer()
-				    			);
+                                                    ->setRequest($request)
+                                                    ->setWith()
+                                                    ->setPerPage()
+                                                    ->orderBy()
+                                                    ->index(
+                                                            $this->getRepository(),
+                                                            $this->getTransformer()
+                                                    );
 
     }
 
@@ -82,27 +82,27 @@ abstract class ApiController extends Controller
     	$throughId = Obfuscater::decode($id);
 
     	return $this->mediator->checkPermission($this->indexAccess)
-						    	->setRequest($request)
-    							->setWith()
-    							->setPerPage()
-    							->orderBy()
-						    	->index(
-						    		$this->getRepository($throughId),
-						   			$this->getTransformer()
-						    	);
+                                                    ->setRequest($request)
+                                                    ->setWith()
+                                                    ->setPerPage()
+                                                    ->orderBy()
+                                                    ->index(
+                                                            $this->getRepository($throughId),
+                                                                    $this->getTransformer()
+                                                    );
 
     }
 
     public function show($id,Request $request)
     {
     	return $this->mediator->checkPermission($this->showAccess)
-					    		->setRequest($request)
-    							->setWith()
-    							->show(
-					    			$id,
-					    			$this->getRepository(),
-					    			$this->getTransformer()
-				    			);
+                                                    ->setRequest($request)
+                                                    ->setWith()
+                                                    ->show(
+                                                            $id,
+                                                            $this->getRepository(),
+                                                            $this->getTransformer()
+                                                    );
     }
 
     public function showThrough($throughId, $id, Request $request)
