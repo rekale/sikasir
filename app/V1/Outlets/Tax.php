@@ -13,7 +13,7 @@ class Tax extends Model
         'name',
         'amount',
     ];
-    
+
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -21,20 +21,20 @@ class Tax extends Model
 
 
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function company()
     {
         $this->belongsTo(Company::class);
     }
-    
+
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function outlet()
+    public function outlets()
     {
-        $this->hasMany(Outlet::class);
+        return $this->hasMany(Outlet::class);
     }
 }

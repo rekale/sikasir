@@ -12,7 +12,9 @@ use Sikasir\V1\Outlets\Tax;
 class TaxTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
-    
+
+    protected $availableIncludes = ['outlets'];
+
     public function transform($tax)
     {
         return [
@@ -21,5 +23,10 @@ class TaxTransformer extends TransformerAbstract
             'amount' => $tax->amount,
         ];
     }
-  
+
+    public function includeOutlets(Tax $tax)
+    {
+        return $this->collection($tax->outlets, new OutletTransformer);
+    }
+
 }
