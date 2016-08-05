@@ -12,10 +12,10 @@ use Sikasir\V1\User\User;
 class UserTransformer extends TransformerAbstract
 {
     use \Sikasir\V1\Traits\IdObfuscater;
-    
+
     protected $availableIncludes = [
-        'outlets',
     	'abilities',
+        'outlets',
     ];
 
     public function transform(User $user)
@@ -30,27 +30,27 @@ class UserTransformer extends TransformerAbstract
             'phone'=> $user->phone,
             'icon' => $user->icon,
         ];
-        
+
         //if it reports
         if (isset($user->total)) {
             $data['transaction_total'] = $user->total;
             $data['amounts'] = $user->amounts;
         }
-        
+
         return $data;
     }
-    
+
     public function includeOutlets(User $user)
     {
         return $this->collection($user->outlets, new OutletTransformer);
     }
-    
+
     public function includeAbilities(User $user)
     {
     	$abilities = $user->getAbilities();
-    	
+
     	$tes = $abilities->filter(function ($ability) {
-  
+
     		return $ability->name === 'edit-product' ||
     			   $ability->name === 'report-order'  ||
     			   $ability->name === 'read-report' ||
@@ -58,11 +58,11 @@ class UserTransformer extends TransformerAbstract
     			   $ability->name === 'void-order'
     		;
     	});
-    	
+
     	$result = [];
-    	
+
     	foreach ($tes as $abl) {
-    		
+
     		switch ($abl->name) {
     			case 'edit-product':
     				$result[] = 1;
@@ -80,9 +80,9 @@ class UserTransformer extends TransformerAbstract
     				$result[] = 5;
     				break;
     		}
-    		
+
     	}
-    	
+
     	return $this->collection($result, new AbilityTransformer);
     }
 
