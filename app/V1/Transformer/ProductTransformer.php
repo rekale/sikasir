@@ -26,10 +26,6 @@ class ProductTransformer extends TransformerAbstract
         'category',
         'variants',
         'outlet',
-        'entries',
-        'outs',
-        'opnames',
-        'purchases',
     ];
 
     public function transform(Product $product)

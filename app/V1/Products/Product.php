@@ -49,34 +49,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
     public function variants()
     {
         return $this->hasMany(Variant::class);
-    }
-
-    public function entries()
-    {
-        return $this->belongsToMany(Entry::class)->withPivot('total');
-    }
-
-    public function outs()
-    {
-        return $this->belongsToMany(Out::class)->withPivot('total');
-    }
-
-    public function opnames()
-    {
-        return $this->belongsToMany(Opname::class)->withPivot('total');
-    }
-
-    public function purchases()
-    {
-        return $this->belongsToMany(PurchaseOrder::class)->withPivot('total');
     }
 
 }
