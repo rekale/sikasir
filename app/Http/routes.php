@@ -215,6 +215,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{outletId}/categories/reports/{dateRange}', 'CategoriesController@reportThrough');
 
             get('categories/search/{field}/{word}', 'CategoriesController@search');
+            get('categories', 'CategoriesController@index');
             get('categories/{id}', 'CategoriesController@show');
             post('categories', 'CategoriesController@store');
             put('categories/{id}', 'CategoriesController@update');
