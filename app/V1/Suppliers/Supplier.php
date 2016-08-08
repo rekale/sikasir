@@ -15,16 +15,16 @@ class Supplier extends Model
         'phone',
         'address',
     ];
-    
+
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
-    
+
     public function purchaseOrders()
     {
         return $this->hasMany(PurchaseOrder::class);

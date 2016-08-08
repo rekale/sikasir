@@ -22,7 +22,7 @@ class EmployeeSellReportTransformer extends TransformerAbstract
         	'variant_name' => $data->variant_name,
             'sold' => (int) $data->total,
             'amounts' => (int) $data->amounts,
-			'created_at' => $data->created_at->toDateString(),
+			'created_at' => (string) $data->created_at,
         ];
     }
 

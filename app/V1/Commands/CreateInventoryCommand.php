@@ -111,10 +111,11 @@ class CreateInventoryCommand extends CreateCommand
 						$currentVariant->current_stock = $currentVariant->current_stock - $variant['total'];
 						$currentVariant->current_weight = $currentVariant->current_weight - $variant['weight'];
 						$currentVariant->save();
+					}
 				}
 			}
 
-            $this->commit();
+            \DB::commit();
         }
         catch (\Exception $e) {
             \DB::rollBack();
