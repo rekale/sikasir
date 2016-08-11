@@ -59,8 +59,10 @@ class CreateOutletCommand extends CreateCommand
 					$newProduct->variants()->create($variant->toArray());
 
 				}
-				\DB::commit();
+
 			}
+			
+			\DB::commit();
 
 		}
 		catch (\Exception $e) {

@@ -172,10 +172,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function()
             get('outlets/{id}/orders/reports/{dateRange}/debt-settled', 'OrdersController@settledThrough');
 
 
-            /* PAYMENTS */
-            get('outlets/all/payments/reports/{dateRange}', 'PaymentsController@allReports');
-            get('outlets/{outletId}/payments/reports/{dateRange}', 'PaymentsController@reports');
-
             Route::group(['namespace' => 'Stocks'], function()
             {
 
