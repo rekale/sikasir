@@ -39,7 +39,7 @@ class ProductRequest extends Request
             'description' => 'required|max:1000',
             'barcode' => 'max:255',
             'unit' => 'required|max:10',
-            'discount_by_product' => 'required|integer',
+            'discount_by_product' => 'integer',
         ];
 
         $rules = $this->method() === 'POST' ? $rulePost : $rulePut;

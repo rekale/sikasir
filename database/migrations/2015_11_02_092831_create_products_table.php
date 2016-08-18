@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->text('icon')->nullable();
             $table->integer('calculation_type');
             $table->boolean('for_all_outlets');
-            $table->integer('discount_by_product');
+            $table->integer('discount_by_product')->default(0);
             $table->timestamps();
 
             $table->foreign('category_id')
