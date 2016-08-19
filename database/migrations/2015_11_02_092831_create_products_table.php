@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('unit')->nullable();
-            $table->text('icon')->nullable();
+            $table->mediumText('icon')->nullable();
             $table->integer('calculation_type');
             $table->boolean('for_all_outlets');
             $table->integer('discount_by_product')->default(0);
