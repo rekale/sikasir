@@ -15,7 +15,7 @@ class UpdateUserCommand extends UpdateCommand
 
 			$user = $this->repo->find($this->id);
 
-			$authorizer = new Authorizer($user);
+			$authorizer = new Authorizer();
 
 			if ($this->data['title'] === 1) {
 				$authorizer->managerDefault();
@@ -31,7 +31,9 @@ class UpdateUserCommand extends UpdateCommand
 
 			$user->update($this->data);
 
-			$authorizer->syncAccess($this->data['privileges']);
+			$authorizer->syncAccess($this->data['privileges'])
+						->to($user)
+						->execute();
 
 			$outletIds = Obfuscater::decode($this->data['outlet_id']);
 

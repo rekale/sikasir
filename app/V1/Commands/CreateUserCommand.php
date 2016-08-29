@@ -35,7 +35,9 @@ class CreateUserCommand extends CreateCommand
 				$authorizer->ownerDefault();
 			}
 
-			$authorizer->setUser($user)->giveAccess($this->data['privileges']);
+			$authorizer->giveAccess($this->data['privileges'])
+					   ->to($user)
+					   ->execute();
 
 			$outletIds = Obfuscater::decode($this->data['outlet_id']);
 
