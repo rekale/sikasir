@@ -20,18 +20,18 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->string('title') ;
             $table->string('gender');
-            $table->string('address'); 
+            $table->string('address');
             $table->string('phone');
-            $table->string('icon')->nullable();
+            $table->longText('icon')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            
+
             $table->foreign('company_id')
                   ->references('id')
                   ->on('companies')
                   ->onDelete('cascade');
         });
-        
+
     }
 
     /**

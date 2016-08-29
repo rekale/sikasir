@@ -60,9 +60,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'sikasirc_dev_saungayam',//sikasirc_sikasir
-            'username'  => 'sikasirc_rekale',//sikasirc_rekale
-            'password'  => 'rekale 1123',//rekale 1123
+            'database'  => 'sikasirc_sikasir',//sikasirc_dev_saungayam
+            'username'  => 'root',//sikasirc_rekale
+            'password'  => '',//rekale 1123
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
