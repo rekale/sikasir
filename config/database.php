@@ -59,10 +59,10 @@ return [
         ],
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'sikasirc_sikasir',//sikasirc_dev_saungayam
-            'username'  => 'root',//sikasirc_rekale
-            'password'  => '',//rekale 1123
+            'host'      => env('DB_HOST', 'localhost'),
+            'database'  =>  env('DB_DATABASE', 'sikasirc_dev_saungayam'),
+            'username'  => env('DB_USERNAME', 'sikasirc_rekale'),
+            'password'  => env('DB_PASSWORD', 'rekale 1123'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
