@@ -28,6 +28,7 @@ class Product extends Model
         'icon',
         'calculation_type',
         'for_all_outlets',
+        'discount_by_product',
     ];
 
 
