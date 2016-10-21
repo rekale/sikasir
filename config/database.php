@@ -1,11 +1,5 @@
 <?php
-/*
-$url = parse_url(getenv("DATABASE_URL"));
-$host = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
-*/
+
 return [
 
     /*
@@ -60,9 +54,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', 'secret'),
+            'database' => env('DB_DATABASE', 'sikasirc_dev_saungayam'),
+            'username' => env('DB_USERNAME', 'sikasirc_rekale'),
+            'password' => env('DB_PASSWORD', 'srekale 1123'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
