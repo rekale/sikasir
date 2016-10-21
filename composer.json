@@ -18,7 +18,8 @@
         "silber/bouncer": "^0.0.25"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "~2.1",
+        "laravel/homestead": "^3.0"
     },
     "autoload": {
         "classmap": [
